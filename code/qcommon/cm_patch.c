@@ -155,7 +155,7 @@ static qboolean CM_NeedsSubdivision(vec3_t a, vec3_t b, vec3_t c) {
 
 	// calculate the linear midpoint
 	for (i = 0; i < 3; i++) {
-		lmid[i] = 0.5*(a[i] + c[i]);
+		lmid[i] = 0.5 * (a[i] + c[i]);
 	}
 	// calculate the exact curve midpoint
 	for (i = 0; i < 3; i++) {
@@ -480,7 +480,7 @@ int CM_FindPlane2(float plane[4], int *flipped) {
 	numPlanes++;
 
 	*flipped = qfalse;
-	return numPlanes-1;
+	return numPlanes - 1;
 }
 
 /*
@@ -531,7 +531,7 @@ static int CM_FindPlane(float *p1, float *p2, float *p3) {
 	planes[numPlanes].signbits = CM_SignbitsForNormal(plane);
 
 	numPlanes++;
-	return numPlanes-1;
+	return numPlanes - 1;
 }
 
 /*
@@ -717,7 +717,9 @@ static void CM_SetBorderInward(facet_t *facet, cGrid_t *grid, int gridPlanes[MAX
 
 			if (side == SIDE_FRONT) {
 				front++;
-			} if (side == SIDE_BACK) {
+			}
+
+			if (side == SIDE_BACK) {
 				back++;
 			}
 		}
@@ -1229,9 +1231,7 @@ struct patchCollide_s *CM_GeneratePatchCollide(int width, int height, vec3_t *po
 	CM_SetGridWrapWidth(&grid);
 	CM_SubdivideGridColumns(&grid);
 	CM_RemoveDegenerateColumns(&grid);
-
 	CM_TransposeGrid(&grid);
-
 	CM_SetGridWrapWidth(&grid);
 	CM_SubdivideGridColumns(&grid);
 	CM_RemoveDegenerateColumns(&grid);
@@ -1776,6 +1776,7 @@ void CM_DrawDebugSurface(void (*drawPoly)(int color, int numPoints, float *point
 				}
 
 				VectorNegate(plane, v2);
+
 				plane[3] -= fabs(DotProduct(v1, v2));
 
 				ChopWindingInPlace(&w, plane, plane[3], 0.1f);

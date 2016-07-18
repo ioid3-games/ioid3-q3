@@ -18,7 +18,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include "server.h"
 
 /*
-=============================================================================
+=======================================================================================================================================
 
 	Delta encode a client frame onto the network channel
 
@@ -36,7 +36,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 	<playerstate>
 	<packetentities>
 
-=============================================================================
+=======================================================================================================================================
 */
 
 /*
@@ -68,20 +68,19 @@ static void SV_EmitPacketEntities(clientSnapshot_t *from, clientSnapshot_t *to, 
 		if (newindex >= to->num_entities) {
 			newnum = 9999;
 		} else {
-			newent = &svs.snapshotEntities[(to->first_entity+newindex) % svs.numSnapshotEntities];
+			newent = &svs.snapshotEntities[(to->first_entity + newindex) % svs.numSnapshotEntities];
 			newnum = newent->number;
 		}
 
 		if (oldindex >= from_num_entities) {
 			oldnum = 9999;
 		} else {
-			oldent = &svs.snapshotEntities[(from->first_entity+oldindex) % svs.numSnapshotEntities];
+			oldent = &svs.snapshotEntities[(from->first_entity + oldindex) % svs.numSnapshotEntities];
 			oldnum = oldent->number;
 		}
 
 		if (newnum == oldnum) {
-			// delta update from old position
-			// because the force parm is qfalse, this will not result in any bytes being emited if the entity has not changed at all
+			// delta update from old position because the force parm is qfalse, this will not result in any bytes being emited if the entity has not changed at all
 			MSG_WriteDeltaEntity(msg, oldent, newent, qfalse);
 			oldindex++;
 			newindex++;
@@ -440,8 +439,7 @@ static void SV_BuildClientSnapshot(client_t *client) {
 	// grab the current playerState_t
 	ps = SV_GameClientNum(client - svs.clients);
 	frame->ps = *ps;
-	// never send client's own entity, because it can
-	// be regenerated from the playerstate
+	// never send client's own entity, because it can be regenerated from the playerstate
 	clientNum = frame->ps.clientNum;
 
 	if (clientNum < 0 || clientNum >= MAX_GENTITIES) {
@@ -470,6 +468,7 @@ static void SV_BuildClientSnapshot(client_t *client) {
 		ent = SV_GentityNum(entityNumbers.snapshotEntities[i]);
 		state = &svs.snapshotEntities[svs.nextSnapshotEntities % svs.numSnapshotEntities];
 		*state = ent->s;
+
 		svs.nextSnapshotEntities++;
 		// this should never hit, map should always be restarted first in SV_Frame
 		if (svs.nextSnapshotEntities >= 0x7FFFFFFE) {
@@ -559,6 +558,7 @@ void SV_SendClientSnapshot(client_t *client) {
 	}
 
 	MSG_Init(&msg, msg_buf, sizeof(msg_buf));
+
 	msg.allowoverflow = qtrue;
 	// NOTE, MRE: all server->client messages now acknowledge
 	// let the client know which reliable clientCommands we have received

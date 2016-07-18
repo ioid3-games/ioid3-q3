@@ -396,7 +396,7 @@ static qboolean CL_CheckFileSize(int bytesToAdd) {
 	// newFileSize = Current file size | What we want to add | The index | The index size
 	newFileSize = afd.fileSize + bytesToAdd + (afd.numIndices * 16) + 4;
 	// I assume all the operating systems
-	// we target can handle a 2Gb file
+	// we target can handle a 2GB file
 	if (newFileSize > INT_MAX) {
 		// Close the current file...
 		CL_CloseAVI();
@@ -435,8 +435,8 @@ void CL_WriteAVIVideoFrame(const byte *imageBuffer, int size) {
 	SafeFS_Write(buffer, 8, afd.f);
 	SafeFS_Write(imageBuffer, size, afd.f);
 	SafeFS_Write(padding, paddingSize, afd.f);
-	afd.fileSize += (chunkSize + paddingSize);
 
+	afd.fileSize += (chunkSize + paddingSize);
 	afd.numVideoFrames++;
 	afd.moviSize += (chunkSize + paddingSize);
 
@@ -479,8 +479,7 @@ void CL_WriteAVIAudioFrame(const byte *pcmBuffer, int size) {
 	}
 
 	if (bytesInBuffer + size > PCM_BUFFER_SIZE) {
-		Com_Printf(S_COLOR_YELLOW
-			"WARNING: Audio capture buffer overflow -- truncating\n");
+		Com_Printf(S_COLOR_YELLOW "WARNING: Audio capture buffer overflow -- truncating\n");
 		size = PCM_BUFFER_SIZE - bytesInBuffer;
 	}
 

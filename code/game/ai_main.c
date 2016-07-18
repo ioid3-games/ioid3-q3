@@ -254,7 +254,7 @@ void BotTestAAS(vec3_t origin) {
 		areanum = BotPointAreaNum(origin);
 
 		if (areanum) {
-			BotAI_Print(PRT_MESSAGE, "\remtpy area");
+			BotAI_Print(PRT_MESSAGE, "\rEmpty area");
 		} else {
 			BotAI_Print(PRT_MESSAGE, "\r^1SOLID area");
 		}
@@ -266,10 +266,10 @@ void BotTestAAS(vec3_t origin) {
 		areanum = BotPointAreaNum(origin);
 
 		if (!areanum) {
-			BotAI_Print(PRT_MESSAGE, "\r^1Solid!                              ");
+			BotAI_Print(PRT_MESSAGE, "\r^1Solid!");
 		} else {
 			trap_AAS_AreaInfo(areanum, &info);
-			BotAI_Print(PRT_MESSAGE, "\rarea %d, cluster %d       ", areanum, info.cluster);
+			BotAI_Print(PRT_MESSAGE, "\rArea %d, Cluster %d", areanum, info.cluster);
 		}
 	}
 }
@@ -289,17 +289,17 @@ void BotReportStatus(bot_state_t *bs) {
 	if (Q_stricmp(netname, bs->teamleader) == 0) {
 		leader = "L";
 	} else {
-		leader = " ";
+		leader = "";
 	}
 
-	strcpy(flagstatus, "  ");
+	strcpy(flagstatus, "");
 
 	if (gametype == GT_CTF) {
 		if (BotCTFCarryingFlag(bs)) {
 			if (BotTeam(bs) == TEAM_RED) {
-				strcpy(flagstatus, S_COLOR_RED "F ");
+				strcpy(flagstatus, S_COLOR_RED "F");
 			} else {
-				strcpy(flagstatus, S_COLOR_BLUE "F ");
+				strcpy(flagstatus, S_COLOR_BLUE "F");
 			}
 		}
 	}
@@ -307,9 +307,9 @@ void BotReportStatus(bot_state_t *bs) {
 	else if (gametype == GT_1FCTF) {
 		if (Bot1FCTFCarryingFlag(bs)) {
 			if (BotTeam(bs) == TEAM_RED) {
-				strcpy(flagstatus, S_COLOR_RED "F ");
+				strcpy(flagstatus, S_COLOR_RED "F");
 			} else {
-				strcpy(flagstatus, S_COLOR_BLUE "F ");
+				strcpy(flagstatus, S_COLOR_BLUE "F");
 			}
 		}
 	} else if (gametype == GT_HARVESTER) {
@@ -460,20 +460,20 @@ void BotSetInfoConfigString(bot_state_t *bs) {
 	if (Q_stricmp(netname, bs->teamleader) == 0) {
 		leader = "L";
 	} else {
-		leader = " ";
+		leader = "";
 	}
 
-	strcpy(carrying, "  ");
+	strcpy(carrying, "");
 
 	if (gametype == GT_CTF) {
 		if (BotCTFCarryingFlag(bs)) {
-			strcpy(carrying, "F ");
+			strcpy(carrying, "F");
 		}
 	}
 #ifdef MISSIONPACK
 	else if (gametype == GT_1FCTF) {
 		if (Bot1FCTFCarryingFlag(bs)) {
-			strcpy(carrying, "F ");
+			strcpy(carrying, "F");
 		}
 	} else if (gametype == GT_HARVESTER) {
 		if (BotHarvesterCarryingCubes(bs)) {

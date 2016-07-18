@@ -91,9 +91,11 @@ Coordinates are 640 * 480 virtual values.
 =======================================================================================================================================
 */
 void SCR_FillRect(float x, float y, float width, float height, const float *color) {
+
 	re.SetColor(color);
 
 	SCR_AdjustFrom640(&x, &y, &width, &height);
+
 	re.DrawStretchPic(x, y, width, height, 0, 0, 0, 0, cls.whiteShader);
 	re.SetColor(NULL);
 }
@@ -106,6 +108,7 @@ Coordinates are 640 * 480 virtual values.
 =======================================================================================================================================
 */
 void SCR_DrawPic(float x, float y, float width, float height, qhandle_t hShader) {
+
 	SCR_AdjustFrom640(&x, &y, &width, &height);
 	re.DrawStretchPic(x, y, width, height, 0, 0, 1, 1, hShader);
 }

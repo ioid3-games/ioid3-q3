@@ -1297,6 +1297,7 @@ void BG_PlayerStateToEntityState(playerState_t *ps, entityState_t *s, qboolean s
 
 	s->number = ps->clientNum;
 	s->pos.trType = TR_INTERPOLATE;
+
 	VectorCopy(ps->origin, s->pos.trBase);
 
 	if (snap) {
@@ -1304,7 +1305,9 @@ void BG_PlayerStateToEntityState(playerState_t *ps, entityState_t *s, qboolean s
 	}
 	// set the trDelta for flag direction
 	VectorCopy(ps->velocity, s->pos.trDelta);
+
 	s->apos.trType = TR_INTERPOLATE;
+
 	VectorCopy(ps->viewangles, s->apos.trBase);
 
 	if (snap) {
@@ -1373,6 +1376,7 @@ void BG_PlayerStateToEntityStateExtraPolate(playerState_t *ps, entityState_t *s,
 
 	s->number = ps->clientNum;
 	s->pos.trType = TR_LINEAR_STOP;
+
 	VectorCopy(ps->origin, s->pos.trBase);
 
 	if (snap) {
@@ -1385,6 +1389,7 @@ void BG_PlayerStateToEntityStateExtraPolate(playerState_t *ps, entityState_t *s,
 	// set maximum extra polation time
 	s->pos.trDuration = 50; // 1000 / sv_fps (default = 20)
 	s->apos.trType = TR_INTERPOLATE;
+
 	VectorCopy(ps->viewangles, s->apos.trBase);
 
 	if (snap) {

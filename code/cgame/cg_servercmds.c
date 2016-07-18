@@ -112,6 +112,10 @@ static void CG_ParseScores(void) {
 /*
 =======================================================================================================================================
 CG_ParseTeamInfo
+
+Format: "tinfo" team numstrings string(there are numstrings strings).
+
+Each string is "clientNum location health armor weapon powerups".
 =======================================================================================================================================
 */
 static void CG_ParseTeamInfo(void) {
@@ -689,6 +693,7 @@ int CG_HeadModelVoiceChats(char *filename) {
 	trap_FS_Read(buf, len, f);
 	buf[len] = 0;
 	trap_FS_FCloseFile(f);
+
 	ptr = buf;
 	p = &ptr;
 	token = COM_ParseExt(p, qtrue);
@@ -970,9 +975,7 @@ void CG_VoiceChat(int mode) {
 	cmd = CG_Argv(4);
 
 	if (cg_noTaunt.integer != 0) {
-		if (!strcmp(cmd, VOICECHAT_KILLINSULT) || !strcmp(cmd, VOICECHAT_TAUNT) || \
-			!strcmp(cmd, VOICECHAT_DEATHINSULT) || !strcmp(cmd, VOICECHAT_KILLGAUNTLET) || \
-			!strcmp(cmd, VOICECHAT_PRAISE)) {
+		if (!strcmp(cmd, VOICECHAT_KILLINSULT) || !strcmp(cmd, VOICECHAT_TAUNT) || !strcmp(cmd, VOICECHAT_DEATHINSULT) || !strcmp(cmd, VOICECHAT_KILLGAUNTLET) || !strcmp(cmd, VOICECHAT_PRAISE)) {
 			return;
 		}
 	}
@@ -1033,6 +1036,7 @@ static void CG_ServerCommand(void) {
 		CG_Printf("%s", CG_Argv(1));
 #ifdef MISSIONPACK
 		cmd = CG_Argv(1); // yes, this is obviously a hack, but so is the way we hear about votes passing or failing
+
 		if (!Q_stricmpn(cmd, "vote failed", 11) || !Q_stricmpn(cmd, "team vote failed", 16)) {
 			trap_S_StartLocalSound(cgs.media.voteFailed, CHAN_ANNOUNCER);
 		} else if (!Q_stricmpn(cmd, "vote passed", 11) || !Q_stricmpn(cmd, "team vote passed", 16)) {

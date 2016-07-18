@@ -87,7 +87,6 @@ typedef struct directive_s {
 } directive_t;
 
 #define DEFINEHASHSIZE 1024
-
 #define TOKEN_HEAP_SIZE 4096
 
 int numtokens;
@@ -245,6 +244,7 @@ token_t *PC_CopyToken(token_t *token) {
 //	t = (token_t *)malloc(sizeof(token_t));
 	t = (token_t *)GetMemory(sizeof(token_t));
 //	t = freetokens;
+
 	if (!t) {
 #ifdef BSPC
 		Error("out of token space");
@@ -270,6 +270,7 @@ PC_FreeToken
 void PC_FreeToken(token_t *token) {
 
 	//free(token);
+
 	FreeMemory(token);
 //	token->next = freetokens;
 //	freetokens = token;
@@ -1333,7 +1334,7 @@ define_t *PC_DefineFromString(char *string) {
 	if (res > 0) {
 		return def;
 	}
-	// free the define is created
+	// free the define if created
 	if (src.defines) {
 		PC_FreeDefine(def);
 	}
@@ -1742,6 +1743,7 @@ int PC_EvaluateTokens(source_t *source, token_t *tokens, signed long int *intval
 				}
 
 				//v = (value_t *)GetClearedMemory(sizeof(value_t));
+
 				AllocValue(v);
 #if DEFINEHASHING
 				if (PC_FindHashedDefine(source->definehash, t->string))
@@ -1790,12 +1792,14 @@ int PC_EvaluateTokens(source_t *source, token_t *tokens, signed long int *intval
 					error = 1;
 					break;
 				}
+
 				//v = (value_t *)GetClearedMemory(sizeof(value_t));
+
 				AllocValue(v);
 
 				if (negativevalue) {
-					v->intvalue = - (signed int)t->intvalue;
-					v->floatvalue = - t->floatvalue;
+					v->intvalue = -(signed int)t->intvalue;
+					v->floatvalue = -t->floatvalue;
 				} else {
 					v->intvalue = t->intvalue;
 					v->floatvalue = t->floatvalue;
@@ -2153,6 +2157,7 @@ int PC_EvaluateTokens(source_t *source, token_t *tokens, signed long int *intval
 					v->next->prev = v->prev;
 				}
 			}
+
 			//FreeMemory(v);
 			FreeValue(v);
 		}
@@ -2522,6 +2527,7 @@ int PC_Directive_pragma(source_t *source) {
 	token_t token;
 
 	SourceWarning(source, "#pragma directive not supported");
+
 	while (PC_ReadLine(source, &token));
 	return qtrue;
 }
@@ -2981,19 +2987,19 @@ int PC_ExpectTokenType(source_t *source, int type, int subtype, token_t *token) 
 			}
 
 			if (subtype & TT_LONG) {
-				strcat(str, " long");
+				strcat(str, "long");
 			}
 
 			if (subtype & TT_UNSIGNED) {
-				strcat(str, " unsigned");
+				strcat(str, "unsigned");
 			}
 
 			if (subtype & TT_FLOAT) {
-				strcat(str, " float");
+				strcat(str, "float");
 			}
 
 			if (subtype & TT_INTEGER) {
-				strcat(str, " integer");
+				strcat(str, "integer");
 			}
 
 			SourceError(source, "expected %s, found %s", str, token->string);
@@ -3150,6 +3156,7 @@ source_t *LoadSourceFile(const char *filename) {
 	Com_Memset(source, 0, sizeof(source_t));
 
 	strncpy(source->filename, filename, MAX_PATH);
+
 	source->scriptstack = script;
 	source->tokens = NULL;
 	source->defines = NULL;
@@ -3186,6 +3193,7 @@ source_t *LoadSourceMemory(char *ptr, int length, char *name) {
 	Com_Memset(source, 0, sizeof(source_t));
 
 	strncpy(source->filename, name, MAX_PATH);
+
 	source->scriptstack = script;
 	source->tokens = NULL;
 	source->defines = NULL;

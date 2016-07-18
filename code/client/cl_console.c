@@ -85,6 +85,7 @@ void Con_MessageMode_f(void) {
 	chat_team = qfalse;
 	Field_Clear(&chatField);
 	chatField.widthInChars = 30;
+
 	Key_SetCatcher(Key_GetCatcher() ^ KEYCATCH_MESSAGE);
 }
 
@@ -417,8 +418,7 @@ void CL_ConsolePrint(char *txt) {
 	qboolean skipnotify = qfalse;
 	int prev;
 
-	// TTimo - prefix for text that shows up in console but not in notify
-	// backported from RTCW
+	// work around for text that shows up in console but not in notify
 	if (!Q_strncmp(txt, "[skipnotify]", 12)) {
 		skipnotify = qtrue;
 		txt += 12;
@@ -657,7 +657,7 @@ void Con_DrawSolidConsole(float frac) {
 	y = lines - (SMALLCHAR_HEIGHT * 3);
 	// draw from the bottom up
 	if (con.display != con.current) {
-	// draw arrows to show the buffer is backscrolled
+		// draw arrows to show the buffer is backscrolled
 		re.SetColor(g_color_table[ColorIndex(COLOR_RED)]);
 
 		for (x = 0; x < con.linewidth; x += 4) {

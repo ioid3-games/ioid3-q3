@@ -215,7 +215,7 @@ int Export_BotLibShutdown(void) {
 	BotShutdownWeaponAI();		// be_ai_weap.c
 	BotShutdownWeights();		// be_ai_weight.c
 	BotShutdownCharacters();	// be_ai_char.c
-	// shud down aas
+	// shut down AAS
 	AAS_Shutdown();
 	// shut down bot elementary actions
 	EA_Shutdown();
@@ -357,11 +357,9 @@ int BotExportTest(int parm0, char *parm1, vec3_t parm2, vec3_t parm3) {
 //	bsp_trace_t bsptrace;
 //	aas_reachability_t reach;
 //	bot_goal_t goal;
-
 //	clock_t start_time, end_time;
 	vec3_t mins = {-16, -16, -24};
 	vec3_t maxs = {16, 16, 32};
-
 //	int areas[10], numareas;
 
 //	return 0;
@@ -405,6 +403,7 @@ int BotExportTest(int parm0, char *parm1, vec3_t parm2, vec3_t parm3) {
 
 	botimport.Print(PRT_MESSAGE, "\rtravel time to goal (%d) = %d  ", botlibglobals.goalareanum, AAS_AreaTravelTimeToGoalArea(newarea, origin, botlibglobals.goalareanum, TFL_DEFAULT));
 	//newarea = BotReachabilityArea(origin, qtrue);
+
 	if (newarea != area) {
 		botimport.Print(PRT_MESSAGE, "origin = %f, %f, %f\n", origin[0], origin[1], origin[2]);
 		area = newarea;
@@ -852,7 +851,6 @@ GetBotLibAPI
 =======================================================================================================================================
 */
 botlib_export_t *GetBotLibAPI(int apiVersion, botlib_import_t *import) {
-
 	assert(import);
 	botimport = *import;
 	assert(botimport.Print);

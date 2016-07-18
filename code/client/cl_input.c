@@ -1232,6 +1232,7 @@ void CL_WritePacket(void) {
 				MSG_WriteBits(&fakemsg, clc.voipFlags, VOIP_FLAGCNT);
 				MSG_WriteData(&fakemsg, clc.voipOutgoingData, voipSize);
 				MSG_WriteByte(&fakemsg, svc_EOF);
+
 				CL_WriteDemoMessage(&fakemsg, 0);
 			}
 

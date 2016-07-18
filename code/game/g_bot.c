@@ -664,6 +664,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 
 	Info_SetValueForKey(userinfo, key, model);
+
 	key = "team_model";
 	Info_SetValueForKey(userinfo, key, model);
 
@@ -675,6 +676,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 
 	Info_SetValueForKey(userinfo, key, headmodel);
+
 	key = "team_headmodel";
 	Info_SetValueForKey(userinfo, key, headmodel);
 
@@ -686,6 +688,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 
 	Info_SetValueForKey(userinfo, "sex", s);
+
 	key = "color1";
 	s = Info_ValueForKey(botinfo, key);
 
@@ -694,6 +697,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 
 	Info_SetValueForKey(userinfo, key, s);
+
 	key = "color2";
 	s = Info_ValueForKey(botinfo, key);
 
@@ -702,6 +706,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 
 	Info_SetValueForKey(userinfo, key, s);
+
 	s = Info_ValueForKey(botinfo, "aifile");
 
 	if (!*s) {

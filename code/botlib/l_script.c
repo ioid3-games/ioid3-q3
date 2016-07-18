@@ -139,7 +139,7 @@ punctuation_t default_punctuations[] = {
 #ifdef DOLLAR
 	{"$", P_DOLLAR, NULL},
 #endif // DOLLAR
-	{NULL, 0}
+	{NULL, 0, NULL}
 };
 #ifdef BSPC
 char basefolder[MAX_PATH];
@@ -1061,19 +1061,19 @@ int PS_ExpectTokenType(script_t *script, int type, int subtype, token_t *token) 
 			}
 
 			if (subtype & TT_LONG) {
-				strcat(str, " long");
+				strcat(str, "long");
 			}
 
 			if (subtype & TT_UNSIGNED) {
-				strcat(str, " unsigned");
+				strcat(str, "unsigned");
 			}
 
 			if (subtype & TT_FLOAT) {
-				strcat(str, " float");
+				strcat(str, "float");
 			}
 
 			if (subtype & TT_INTEGER) {
-				strcat(str, " integer");
+				strcat(str, "integer");
 			}
 
 			ScriptError(script, "expected %s, found %s", str, token->string);
