@@ -967,6 +967,10 @@ static void IN_ProcessEvents(void) {
 				}
 
 				break;
+			case SDL_CONTROLLERDEVICEADDED:
+			case SDL_CONTROLLERDEVICEREMOVED:
+				IN_InitJoystick();
+				break;
 			case SDL_QUIT:
 				Cbuf_ExecuteText(EXEC_NOW, "quit Closed window\n");
 				break;
