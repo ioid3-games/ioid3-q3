@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/ioid3_games/ioid3-q3/master/misc/quake3_flat.iconset/icon_512x512.png" width="128">
+<img src="https://raw.githubusercontent.com/ioid3_games/ioid3-q3/master/misc/quake3_flat.iconset/icon_128x128.png" width="128">
 
 [http://ioquake3.org](http://ioquake3.org)                     
                                
