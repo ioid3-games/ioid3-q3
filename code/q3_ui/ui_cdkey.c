@@ -56,7 +56,7 @@ static void UI_CDKeyMenu_Event(void *ptr, int event) {
 		return;
 	}
 
-	switch (((menucommon_s*)ptr)->id) {
+	switch (((menucommon_s *)ptr)->id) {
 		case ID_ACCEPT:
 			if (cdkeyMenuInfo.cdkey.field.buffer[0]) {
 				trap_SetCDKey(cdkeyMenuInfo.cdkey.field.buffer);

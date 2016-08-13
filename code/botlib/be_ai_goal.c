@@ -1363,7 +1363,7 @@ int BotChooseLTGItem(int goalstate, vec3_t origin, int *inventory, int travelfla
 		if (li->flags & IFL_NOTBOT) {
 			continue;
 		}
-		// if the item is not in a possible goal area
+		// if the item is NOT in a possible goal area
 		if (!li->goalareanum) {
 			continue;
 		}
@@ -1551,7 +1551,7 @@ int BotChooseNBGItem(int goalstate, vec3_t origin, int *inventory, int travelfla
 		if (li->flags & IFL_NOTBOT) {
 			continue;
 		}
-		// if the item is in a possible goal area
+		// if the item is NOT in a possible goal area
 		if (!li->goalareanum) {
 			continue;
 		}

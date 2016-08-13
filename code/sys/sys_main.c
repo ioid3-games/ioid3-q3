@@ -403,7 +403,7 @@ Returns -1 if not present.
 int Sys_FileTime(char *path) {
 	struct stat buf;
 
-	if (stat(path,&buf) == -1) {
+	if (stat(path, &buf) == -1) {
 		return -1;
 	}
 

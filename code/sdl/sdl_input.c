@@ -567,7 +567,7 @@ static void IN_InitJoystick(void) {
 	stick = NULL;
 	gamepad = NULL;
 
-	memset(&stick_state, '\0', sizeof (stick_state));
+	memset(&stick_state, '\0', sizeof(stick_state));
 
 	if (!SDL_WasInit(SDL_INIT_GAMECONTROLLER)) {
 		Com_DPrintf("Calling SDL_Init(SDL_INIT_GAMECONTROLLER)...\n");
@@ -1154,7 +1154,10 @@ static void IN_ProcessEvents(void) {
 				break;
 			case SDL_CONTROLLERDEVICEADDED:
 			case SDL_CONTROLLERDEVICEREMOVED:
-				IN_InitJoystick();
+				if (in_joystick->integer) {
+					IN_InitJoystick();
+				}
+
 				break;
 			case SDL_QUIT:
 				Cbuf_ExecuteText(EXEC_NOW, "quit Closed window\n");

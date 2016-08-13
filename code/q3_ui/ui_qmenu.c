@@ -1245,7 +1245,7 @@ void Menu_CursorMoved(menuframework_s *m) {
 		callback = ((menucommon_s *)(m->items[m->cursor_prev]))->callback;
 
 		if (callback) {
-			callback(m->items[m->cursor_prev],QM_LOSTFOCUS);
+			callback(m->items[m->cursor_prev], QM_LOSTFOCUS);
 		}
 	}
 
@@ -1253,7 +1253,7 @@ void Menu_CursorMoved(menuframework_s *m) {
 		callback = ((menucommon_s *)(m->items[m->cursor]))->callback;
 
 		if (callback) {
-			callback(m->items[m->cursor],QM_GOTFOCUS);
+			callback(m->items[m->cursor], QM_GOTFOCUS);
 		}
 	}
 }
