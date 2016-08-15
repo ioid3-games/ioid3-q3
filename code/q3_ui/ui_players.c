@@ -15,8 +15,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 =======================================================================================================================================
 */
 
-// ui_players.c
-
 #include "ui_local.h"
 
 #define UI_TIMER_GESTURE 2300

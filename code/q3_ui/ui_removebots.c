@@ -38,6 +38,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define ID_DOWN		11
 #define ID_DELETE	12
 #define ID_BACK		13
+
 #define ID_BOTNAME0	20
 #define ID_BOTNAME1	21
 #define ID_BOTNAME2	22

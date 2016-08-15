@@ -120,7 +120,7 @@ void UI_PushMenu(menuframework_s *menu) {
 	for (i = 0; i < menu->nitems; i++) {
 		item = (menucommon_s *)menu->items[i];
 
-		if (!(item->flags & (QMF_GRAYED|QMF_MOUSEONLY|QMF_INACTIVE))) {
+		if (!(item->flags &(QMF_GRAYED|QMF_MOUSEONLY|QMF_INACTIVE))) {
 			menu->cursor_prev = -1;
 			Menu_SetCursor(menu, i);
 			break;
@@ -746,6 +746,7 @@ void UI_DrawString(int x, int y, const char *str, int style, vec4_t color) {
 		lowlight[1] = 0.8 * color[1];
 		lowlight[2] = 0.8 * color[2];
 		lowlight[3] = 0.8 * color[3];
+
 		UI_LerpColor(color, lowlight, newcolor, 0.5 + 0.5 * sin(uis.realtime / PULSE_DIVISOR));
 		drawcolor = newcolor;
 	} else {
@@ -931,7 +932,7 @@ void UI_MouseEvent(int dx, int dy) {
 	for (i = 0; i < uis.activemenu->nitems; i++) {
 		m = (menucommon_s *)uis.activemenu->items[i];
 
-		if (m->flags & (QMF_GRAYED|QMF_INACTIVE)) {
+		if (m->flags &(QMF_GRAYED|QMF_INACTIVE)) {
 			continue;
 		}
 

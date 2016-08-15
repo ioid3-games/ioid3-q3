@@ -142,8 +142,8 @@ static char *gamenames[] = {
 };
 
 static char *netnames[] = {
-	"??? ",
-	"UDP ",
+	"???",
+	"UDP",
 	"UDP6",
 	NULL
 };
@@ -734,7 +734,6 @@ void ArenaServers_LoadFavorites(void) {
 		// this mimics local and global netadr's stored in client
 		// these can be fetched to fill ping list
 		strcpy(g_arenaservers.favoriteaddresses[g_numfavoriteservers], adrstr);
-
 		// find this server in the old list
 		for (j = 0; j < numtempitems; j++) {
 			if (!Q_stricmp(templist[j].adrstr, adrstr)) {

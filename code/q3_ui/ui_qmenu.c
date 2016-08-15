@@ -639,7 +639,6 @@ static void Slider_Draw(menuslider_s *s) {
 	x = s->generic.x;
 	y = s->generic.y;
 	focus = (s->generic.parent->cursor == s->generic.menuPosition);
-
 	style = UI_SMALLFONT;
 
 	if (s->generic.flags & QMF_GRAYED) {
@@ -775,7 +774,6 @@ static void SpinControl_Draw(menulist_s *s) {
 
 	x = s->generic.x;
 	y = s->generic.y;
-
 	style = UI_SMALLFONT;
 	focus = (s->generic.parent->cursor == s->generic.menuPosition);
 
@@ -1265,7 +1263,7 @@ Menu_SetCursor
 */
 void Menu_SetCursor(menuframework_s *m, int cursor) {
 
-	if (((menucommon_s *)(m->items[cursor]))->flags & (QMF_GRAYED|QMF_INACTIVE)) {
+	if (((menucommon_s *)(m->items[cursor]))->flags &(QMF_GRAYED|QMF_INACTIVE)) {
 		// cursor can't go there
 		return;
 	}
@@ -1307,7 +1305,7 @@ wrap:
 	while (m->cursor >= 0 && m->cursor < m->nitems) {
 		item = (menucommon_s *)m->items[m->cursor];
 
-		if ((item->flags & (QMF_GRAYED|QMF_MOUSEONLY|QMF_INACTIVE))) {
+		if ((item->flags &(QMF_GRAYED|QMF_MOUSEONLY|QMF_INACTIVE))) {
 			m->cursor += dir;
 		} else {
 			break;
@@ -1489,7 +1487,7 @@ sfxHandle_t Menu_DefaultKey(menuframework_s *m, int key) {
 	// route key stimulus to widget
 	item = Menu_ItemAtCursor(m);
 
-	if (item && !(item->flags & (QMF_GRAYED|QMF_INACTIVE))) {
+	if (item && !(item->flags &(QMF_GRAYED|QMF_INACTIVE))) {
 		switch (item->type) {
 			case MTYPE_SPINCONTROL:
 				sound = SpinControl_Key((menulist_s *)item, key);
@@ -1553,7 +1551,7 @@ sfxHandle_t Menu_DefaultKey(menuframework_s *m, int key) {
 		case K_MOUSE1:
 		case K_MOUSE3:
 			if (item) {
-				if ((item->flags & QMF_HASMOUSEFOCUS) && !(item->flags & (QMF_GRAYED|QMF_INACTIVE))) {
+				if ((item->flags & QMF_HASMOUSEFOCUS) && !(item->flags &(QMF_GRAYED|QMF_INACTIVE))) {
 					return (Menu_ActivateItem(m, item));
 				}
 			}
@@ -1582,7 +1580,7 @@ sfxHandle_t Menu_DefaultKey(menuframework_s *m, int key) {
 		case K_KP_ENTER:
 		case K_ENTER:
 			if (item) {
-				if (!(item->flags & (QMF_MOUSEONLY|QMF_GRAYED|QMF_INACTIVE))) {
+				if (!(item->flags &(QMF_MOUSEONLY|QMF_GRAYED|QMF_INACTIVE))) {
 					return (Menu_ActivateItem(m, item));
 				}
 			}
