@@ -245,7 +245,7 @@ static int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder) {
 		ri.Printf(PRINT_ALL, "Cannot determine display aspect, assuming 1.333\n");
 	}
 
-	ri.Printf (PRINT_ALL, "...setting mode %d:", mode);
+	ri.Printf(PRINT_ALL, "...setting mode %d:", mode);
 
 	if (mode == -2) {
 		// use desktop video resolution
@@ -621,11 +621,11 @@ static void GLimp_InitExtensions(void) {
 	if (GLimp_HaveExtension("GL_EXT_compiled_vertex_array")) {
 		if (r_ext_compiled_vertex_array->value) {
 			ri.Printf(PRINT_ALL, "...using GL_EXT_compiled_vertex_array\n");
-			qglLockArraysEXT = (void (APIENTRY *)(GLint, GLint)) SDL_GL_GetProcAddress("glLockArraysEXT");
-			qglUnlockArraysEXT = (void (APIENTRY *)(void)) SDL_GL_GetProcAddress("glUnlockArraysEXT");
+			qglLockArraysEXT = (void (APIENTRY *)(GLint, GLint))SDL_GL_GetProcAddress("glLockArraysEXT");
+			qglUnlockArraysEXT = (void (APIENTRY *)(void))SDL_GL_GetProcAddress("glUnlockArraysEXT");
 
 			if (!qglLockArraysEXT || !qglUnlockArraysEXT) {
-				ri.Error (ERR_FATAL, "bad getprocaddress");
+				ri.Error(ERR_FATAL, "bad getprocaddress");
 			}
 		} else {
 			ri.Printf(PRINT_ALL, "...ignoring GL_EXT_compiled_vertex_array\n");

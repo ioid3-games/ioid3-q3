@@ -38,7 +38,7 @@ static int dmasize = 0;
 
 /*
 =======================================================================================================================================
-IN_Restart
+SNDDMA_AudioCallback
 =======================================================================================================================================
 */
 static void SNDDMA_AudioCallback(void *userdata, Uint8 *stream, int len) {
@@ -94,7 +94,7 @@ static int formatToStringTableSize = ARRAY_LEN(formatToStringTable);
 
 /*
 =======================================================================================================================================
-IN_Restart
+SNDDMA_PrintAudiospec
 =======================================================================================================================================
 */
 static void SNDDMA_PrintAudiospec(const char *str, const SDL_AudioSpec *spec) {
@@ -103,7 +103,7 @@ static void SNDDMA_PrintAudiospec(const char *str, const SDL_AudioSpec *spec) {
 
 	Com_Printf("%s:\n", str);
 
-	for (i = 0;i < formatToStringTableSize;i++) {
+	for (i = 0; i < formatToStringTableSize; i++) {
 		if (spec->format == formatToStringTable[i].enumFormat) {
 			fmt = formatToStringTable[i].stringFormat;
 		}
@@ -122,7 +122,7 @@ static void SNDDMA_PrintAudiospec(const char *str, const SDL_AudioSpec *spec) {
 
 /*
 =======================================================================================================================================
-IN_Restart
+SNDDMA_Init
 =======================================================================================================================================
 */
 qboolean SNDDMA_Init(void) {
@@ -152,7 +152,6 @@ qboolean SNDDMA_Init(void) {
 	}
 
 	Com_Printf("OK\n");
-
 	Com_Printf("SDL audio driver is \"%s\".\n", SDL_GetCurrentAudioDriver());
 
 	memset(&desired, '\0', sizeof(desired));
@@ -198,12 +197,9 @@ qboolean SNDDMA_Init(void) {
 	}
 
 	SNDDMA_PrintAudiospec("SDL_AudioSpec", &obtained);
-	// dma.samples needs to be big, or id's mixer will just refuse to
-	// work at all;we need to keep it significantly bigger than the
-	// amount of SDL callback samples, and just copy a little each time
-	// the callback runs.
-	// 32768 is what the OSS driver filled in here on my system. I don't
-	// know if it's a good value overall, but at least we know it's
+	// dma.samples needs to be big, or id's mixer will just refuse to work at all; we need to keep it significantly bigger than the
+	// amount of SDL callback samples, and just copy a little each time the callback runs.
+	// 32768 is what the OSS driver filled in here on my system. I don't know if it's a good value overall, but at least we know it's
 	// reasonable...this is why I let the user override.
 	tmp = s_sdlMixSamps->value;
 
@@ -242,7 +238,7 @@ qboolean SNDDMA_Init(void) {
 
 /*
 =======================================================================================================================================
-IN_Restart
+SNDDMA_GetDMAPos
 =======================================================================================================================================
 */
 int SNDDMA_GetDMAPos(void) {
@@ -251,7 +247,7 @@ int SNDDMA_GetDMAPos(void) {
 
 /*
 =======================================================================================================================================
-IN_Restart
+SNDDMA_Shutdown
 =======================================================================================================================================
 */
 void SNDDMA_Shutdown(void) {
@@ -284,7 +280,7 @@ void SNDDMA_Submit(void) {
 
 /*
 =======================================================================================================================================
-IN_Restart
+SNDDMA_BeginPainting
 =======================================================================================================================================
 */
 void SNDDMA_BeginPainting(void) {

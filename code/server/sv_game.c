@@ -129,7 +129,7 @@ void SV_GameDropClient(int clientNum, const char *reason) {
 =======================================================================================================================================
 SV_SetBrushModel
 
-sets mins and maxs for inline bmodels.
+Sets mins and maxs for inline bmodels.
 =======================================================================================================================================
 */
 void SV_SetBrushModel(sharedEntity_t *ent, const char *name) {

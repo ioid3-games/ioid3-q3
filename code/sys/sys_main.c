@@ -574,7 +574,7 @@ int main(int argc, char **argv) {
 #ifndef DEDICATED
 	// SDL version check
 	// Compile time
-#if !SDL_VERSION_ATLEAST(MINSDL_MAJOR, MINSDL_MINOR, MINSDL_PATCH)
+#if !SDL_VERSION_ATLEAST (MINSDL_MAJOR, MINSDL_MINOR, MINSDL_PATCH)
 #error A more recent version of SDL is required
 #endif
 	// Run time
