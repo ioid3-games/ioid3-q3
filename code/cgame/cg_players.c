@@ -2496,7 +2496,6 @@ void CG_Player(centity_t *cent) {
 	}
 
 	if ((cent->currentState.powerups & (1 << PW_INVULNERABILITY)) || cg.time - ci->invulnerabilityStopTime < 250) {
-
 		memcpy(&powerup, &torso, sizeof(torso));
 		powerup.hModel = cgs.media.invulnerabilityPowerupModel;
 		powerup.customSkin = 0;
@@ -2582,6 +2581,7 @@ A player just came into view or teleported, so reset all animation info.
 =======================================================================================================================================
 */
 void CG_ResetPlayerEntity(centity_t *cent) {
+
 	cent->errorTime = -99999; // guarantee no error decay added
 
 	CG_ClearLerpFrame(&cgs.clientinfo[cent->currentState.clientNum], &cent->pe.legs, cent->currentState.legsAnim);

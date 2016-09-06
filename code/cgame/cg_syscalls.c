@@ -42,6 +42,7 @@ PASSFLOAT
 */
 int PASSFLOAT(float x) {
 	floatint_t fi;
+
 	fi.f = x;
 	return fi.i;
 }

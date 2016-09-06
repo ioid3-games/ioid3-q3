@@ -1299,6 +1299,7 @@ see the last frag.
 void CheckExitRules(void) {
 	int i;
 	gclient_t *cl;
+
 	// if at the intermission, wait for all non-bots to signal ready, then go to next level
 	if (level.intermissiontime) {
 		CheckIntermissionExit();

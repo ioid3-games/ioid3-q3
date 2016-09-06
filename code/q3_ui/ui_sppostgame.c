@@ -67,7 +67,14 @@ typedef struct {
 static postgameMenuInfo_t postgameMenuInfo;
 static char arenainfo[MAX_INFO_VALUE];
 
-char *ui_medalNames[] = {"Accuracy", "Impressive", "Excellent", "Gauntlet", "Frags", "Perfect"};
+char *ui_medalNames[] = {
+	"Accuracy",
+	"Impressive",
+	"Excellent",
+	"Gauntlet",
+	"Frags",
+	"Perfect"
+};
 
 char *ui_medalPicNames[] = {
 	"menu/medals/medal_accuracy",
@@ -337,7 +344,6 @@ static void UI_SPPostgameMenu_MenuDraw(void) {
 		timer = uis.realtime - postgameMenuInfo.starttime;
 
 		if (timer >= (postgameMenuInfo.numAwards * AWARD_PRESENTATION_TIME)) {
-
 			if (timer < 5000) {
 				return;
 			}

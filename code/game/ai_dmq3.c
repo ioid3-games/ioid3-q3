@@ -4270,7 +4270,6 @@ int BotFuncButtonActivateGoal(bot_state_t *bs, int bspent, bot_activategoal_t *a
 			}
 			// calculate the goal origin
 			VectorMA(origin, -dist, movedir, goalorigin);
-
 			VectorCopy(goalorigin, start);
 			start[2] += 24;
 			VectorCopy(start, end);

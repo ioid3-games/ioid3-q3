@@ -383,7 +383,7 @@ static void PlayerModel_BuildList(void) {
 	numdirs = trap_FS_GetFileList("models/players", "/", dirlist, 2048);
 	dirptr = dirlist;
 
-	for (i = 0; i<numdirs && s_playermodel.nummodels < MAX_PLAYERMODELS; i++, dirptr += dirlen + 1) {
+	for (i = 0; i < numdirs && s_playermodel.nummodels < MAX_PLAYERMODELS; i++, dirptr += dirlen + 1) {
 		dirlen = strlen(dirptr);
 
 		if (dirlen && dirptr[dirlen - 1] == '/') {

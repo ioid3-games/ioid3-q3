@@ -408,7 +408,6 @@ int BotVisibleEnemies(bot_state_t *bs) {
 	aas_entityinfo_t entinfo;
 
 	for (i = 0; i < MAX_CLIENTS; i++) {
-
 		if (i == bs->client) {
 			continue;
 		}
@@ -459,7 +458,9 @@ int BotValidChatPosition(bot_state_t *bs) {
 		return qfalse;
 	}
 	// must be on the ground
-	//if (bs->cur_ps.groundEntityNum != ENTITYNUM_NONE) return qfalse;
+	//if (bs->cur_ps.groundEntityNum != ENTITYNUM_NONE) {
+	//	return qfalse;
+	//}
 	// do not chat if in lava or slime
 	VectorCopy(bs->origin, point);
 	point[2] -= 24;
