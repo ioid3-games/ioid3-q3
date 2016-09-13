@@ -1636,6 +1636,7 @@ static void S_AL_StreamUpdate(int stream) {
 
 	while (numBuffers--) {
 		ALuint buffer;
+
 		qalSourceUnqueueBuffers(streamSources[stream], 1, &buffer);
 	}
 	// Start the streamSource playing if necessary
@@ -2085,6 +2086,7 @@ S_AL_SoundList
 =======================================================================================================================================
 */
 static void S_AL_SoundList(void) {
+
 }
 #ifdef USE_VOIP
 /*

@@ -26,15 +26,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define MINSIZE 4
 #define DEFAULT_CIN_WIDTH 512
 #define DEFAULT_CIN_HEIGHT 512
-#define ROQ_QUAD 0x1000
-#define ROQ_QUAD_INFO 0x1001
-#define ROQ_CODEBOOK 0x1002
-#define ROQ_QUAD_VQ 0x1011
-#define ROQ_QUAD_JPEG 0x1012
-#define ROQ_QUAD_HANG 0x1013
-#define ROQ_PACKET 0x1030
-#define ZA_SOUND_MONO 0x1020
-#define ZA_SOUND_STEREO 0x1021
+
+#define ROQ_QUAD		0x1000
+#define ROQ_QUAD_INFO	0x1001
+#define ROQ_CODEBOOK	0x1002
+#define ROQ_QUAD_VQ		0x1011
+#define ROQ_QUAD_JPEG	0x1012
+#define ROQ_QUAD_HANG	0x1013
+#define ROQ_PACKET		0x1030
+#define ZA_SOUND_MONO	0x1020
+#define ZA_SOUND_STEREO	0x1021
+
 #define MAX_VIDEO_HANDLES 16
 
 static void RoQ_init(void);
@@ -1699,6 +1701,7 @@ SCR_RunCinematic
 =======================================================================================================================================
 */
 void SCR_RunCinematic(void) {
+
 	if (CL_handle >= 0 && CL_handle < MAX_VIDEO_HANDLES) {
 		CIN_RunCinematic(CL_handle);
 	}
@@ -1710,6 +1713,7 @@ SCR_StopCinematic
 =======================================================================================================================================
 */
 void SCR_StopCinematic(void) {
+
 	if (CL_handle >= 0 && CL_handle < MAX_VIDEO_HANDLES) {
 		CIN_StopCinematic(CL_handle);
 		S_StopAllSounds();
