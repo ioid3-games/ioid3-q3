@@ -26,8 +26,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define PAINTBUFFER_SIZE 4096 // this is in samples
 #define SND_CHUNK_SIZE 1024 // samples
 
-#define SND_CHUNK_SIZE_FLOAT	(SND_CHUNK_SIZE / 2) // floats
-#define SND_CHUNK_SIZE_BYTE		(SND_CHUNK_SIZE * 2) // floats
+#define SND_CHUNK_SIZE_FLOAT (SND_CHUNK_SIZE / 2) // floats
+#define SND_CHUNK_SIZE_BYTE (SND_CHUNK_SIZE * 2) // floats
 
 typedef struct {
 	int left; // the final values will be clamped to +/- 0x00ffff00 and shifted down
