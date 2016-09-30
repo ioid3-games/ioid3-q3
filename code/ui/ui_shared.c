@@ -401,6 +401,7 @@ qboolean Color_Parse(char **p, vec4_t *c) {
 		if (!Float_Parse(p, &f)) {
 			return qfalse;
 		}
+
 		(*c)[i] = f;
 	}
 
@@ -420,6 +421,7 @@ qboolean PC_Color_Parse(int handle, vec4_t *c) {
 		if (!PC_Float_Parse(handle, &f)) {
 			return qfalse;
 		}
+
 		(*c)[i] = f;
 	}
 
@@ -749,7 +751,7 @@ void Window_Paint(Window *w, float fadeAmount, float fadeClamp, float fadeCycle)
 		// full
 		// HACK HACK HACK
 		if (w->style == WINDOW_STYLE_TEAMCOLOR) {
-			if (color[0] > 0) { 
+			if (color[0] > 0) {
 				// red
 				color[0] = 1;
 				color[1] = color[2] = .5;
@@ -920,7 +922,7 @@ IsVisible
 =======================================================================================================================================
 */
 qboolean IsVisible(int flags) {
-	return(flags & WINDOW_VISIBLE && !(flags & WINDOW_FADINGOUT));
+	return (flags & WINDOW_VISIBLE && !(flags & WINDOW_FADINGOUT));
 }
 
 /*
@@ -1657,7 +1659,7 @@ qboolean Item_EnableShowViaCvar(itemDef_t *item, int flag) {
 			const char *val;
 			// expect value then; or NULL, NULL ends list
 			if (!String_Parse(&p, &val)) {
-				return(item->cvarFlags & flag) ? qfalse : qtrue;
+				return (item->cvarFlags & flag) ? qfalse : qtrue;
 			}
 
 			if (val[0] == ';' && val[1] == '\0') {
@@ -1676,7 +1678,7 @@ qboolean Item_EnableShowViaCvar(itemDef_t *item, int flag) {
 			}
 		}
 
-		return(item->cvarFlags & flag) ? qfalse : qtrue;
+		return (item->cvarFlags & flag) ? qfalse : qtrue;
 
 	}
 
@@ -1802,7 +1804,7 @@ int Item_ListBox_ThumbPosition(itemDef_t *item) {
 		size = item->window.rect.w - (SCROLLBAR_SIZE * 2) - 2;
 
 		if (max > 0) {
-			pos = (size - SCROLLBAR_SIZE) / (float) max;
+			pos = (size - SCROLLBAR_SIZE) / (float)max;
 		} else {
 			pos = 0;
 		}
@@ -1813,7 +1815,7 @@ int Item_ListBox_ThumbPosition(itemDef_t *item) {
 		size = item->window.rect.h - (SCROLLBAR_SIZE * 2) - 2;
 
 		if (max > 0) {
-			pos = (size - SCROLLBAR_SIZE) / (float) max;
+			pos = (size - SCROLLBAR_SIZE) / (float)max;
 		} else {
 			pos = 0;
 		}
@@ -2567,8 +2569,8 @@ qboolean Item_Multi_HandleKey(itemDef_t *item, int key) {
 				} else {
 					float value = multiPtr->cvarValue[current];
 
-					if (((float)((int) value)) == value) {
-						DC->setCVar(item->cvar, va("%i", (int) value));
+					if (((float)((int)value)) == value) {
+						DC->setCVar(item->cvar, va("%i", (int)value));
 					} else {
 						DC->setCVar(item->cvar, va("%f", value));
 					}
@@ -2605,7 +2607,7 @@ qboolean Item_TextField_HandleKey(itemDef_t *item, int key) {
 		if (key & K_CHAR_FLAG) {
 			key &= ~K_CHAR_FLAG;
 
-			if (key == 'h' - 'a' + 1)	{ // ctrl-h is backspace
+			if (key == 'h' - 'a' + 1) { // ctrl-h is backspace
 				if (item->cursorPos > 0) {
 					memmove(&buff[item->cursorPos - 1], &buff[item->cursorPos], len + 1 - item->cursorPos);
 					item->cursorPos--;
@@ -2686,13 +2688,13 @@ qboolean Item_TextField_HandleKey(itemDef_t *item, int key) {
 				return qtrue;
 			}
 
-			if (key == K_HOME || key == K_KP_HOME) {// || (tolower(key) == 'a' && trap_Key_IsDown(K_CTRL))) {
+			if (key == K_HOME || key == K_KP_HOME) { // || (tolower(key) == 'a' && trap_Key_IsDown(K_CTRL))) {
 				item->cursorPos = 0;
 				editPtr->paintOffset = 0;
 				return qtrue;
 			}
 
-			if (key == K_END || key == K_KP_END) {// (tolower(key) == 'e' && trap_Key_IsDown(K_CTRL))) {
+			if (key == K_END || key == K_KP_END) { // (tolower(key) == 'e' && trap_Key_IsDown(K_CTRL))) {
 				item->cursorPos = len;
 
 				if (item->cursorPos > editPtr->maxPaintChars) {
@@ -2742,7 +2744,7 @@ Scroll_ListBox_AutoFunc
 static void Scroll_ListBox_AutoFunc(void *p) {
 	scrollInfo_t *si = (scrollInfo_t *)p;
 
-	if (DC->realTime > si->nextScrollTime) { 
+	if (DC->realTime > si->nextScrollTime) {
 		// need to scroll which is done by simulating a click to the item
 		// this is done a bit sideways as the autoscroll "knows" that the item is a listbox
 		// so it calls it directly
@@ -2809,7 +2811,7 @@ static void Scroll_ListBox_ThumbFunc(void *p) {
 		si->yStart = DC->cursory;
 	}
 
-	if (DC->realTime > si->nextScrollTime) { 
+	if (DC->realTime > si->nextScrollTime) {
 		// need to scroll which is done by simulating a click to the item
 		// this is done a bit sideways as the autoscroll "knows" that the item is a listbox
 		// so it calls it directly
@@ -3090,7 +3092,6 @@ itemDef_t *Menu_SetPrevCursorItem(menuDef_t *menu) {
 	}
 
 	while (menu->cursorItem > -1) {
-
 		menu->cursorItem--;
 
 		if (menu->cursorItem < 0 && !wrapped) {
@@ -3812,7 +3813,7 @@ void Item_TextField_Paint(itemDef_t *item) {
 
 	if (item->window.flags & WINDOW_HASFOCUS && g_editingField) {
 		char cursor = DC->getOverstrikeMode() ? '_' : '|';
-		DC->drawTextWithCursor(item->textRect.x + item->textRect.w + offset, item->textRect.y, item->textscale, newColor, buff + editPtr->paintOffset, item->cursorPos - editPtr->paintOffset , cursor, editPtr->maxPaintChars, item->textStyle);
+		DC->drawTextWithCursor(item->textRect.x + item->textRect.w + offset, item->textRect.y, item->textscale, newColor, buff + editPtr->paintOffset, item->cursorPos - editPtr->paintOffset, cursor, editPtr->maxPaintChars, item->textStyle);
 	} else {
 		DC->drawText(item->textRect.x + item->textRect.w + offset, item->textRect.y, item->textscale, newColor, buff + editPtr->paintOffset, 0, editPtr->maxPaintChars, item->textStyle);
 	}
@@ -4372,11 +4373,11 @@ void Item_Model_Paint(itemDef_t *item) {
 
 	DC->modelBounds(item->asset, mins, maxs);
 
-	origin[2] = -0.5 *(mins[2] + maxs[2]);
-	origin[1] = 0.5 *(mins[1] + maxs[1]);
+	origin[2] = -0.5 * (mins[2] + maxs[2]);
+	origin[1] = 0.5 * (mins[1] + maxs[1]);
 	// calculate distance so the model nearly fills the box
 	if (qtrue) {
-		float len = 0.5 *(maxs[2] - mins[2]);
+		float len = 0.5 * (maxs[2] - mins[2]);
 		origin[0] = len / 0.268; // len / tan(fov / 2)
 		//origin[0] = len / tan(w / 2);
 	} else {
@@ -4465,7 +4466,7 @@ void Item_ListBox_Paint(itemDef_t *item) {
 		x += size - 1;
 		DC->drawHandlePic(x, y, SCROLLBAR_SIZE, SCROLLBAR_SIZE, DC->Assets.scrollBarArrowRight);
 		// thumb
-		thumb = Item_ListBox_ThumbDrawPosition(item);//Item_ListBox_ThumbPosition(item);
+		thumb = Item_ListBox_ThumbDrawPosition(item); //Item_ListBox_ThumbPosition(item);
 
 		if (thumb > x - SCROLLBAR_SIZE - 1) {
 			thumb = x - SCROLLBAR_SIZE - 1;
@@ -4522,7 +4523,7 @@ void Item_ListBox_Paint(itemDef_t *item) {
 		y += size - 1;
 		DC->drawHandlePic(x, y, SCROLLBAR_SIZE, SCROLLBAR_SIZE, DC->Assets.scrollBarArrowDown);
 		// thumb
-		thumb = Item_ListBox_ThumbDrawPosition(item);//Item_ListBox_ThumbPosition(item);
+		thumb = Item_ListBox_ThumbDrawPosition(item); //Item_ListBox_ThumbPosition(item);
 
 		if (thumb > y - SCROLLBAR_SIZE - 1) {
 			thumb = y - SCROLLBAR_SIZE - 1;
@@ -4827,7 +4828,7 @@ void Item_Paint(itemDef_t *item) {
 		return;
 	}
 	// paint the rect first..
-	Window_Paint(&item->window, parent->fadeAmount , parent->fadeClamp, parent->fadeCycle);
+	Window_Paint(&item->window, parent->fadeAmount, parent->fadeClamp, parent->fadeCycle);
 
 	if (debugMode) {
 		vec4_t color;

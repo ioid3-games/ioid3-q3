@@ -1162,8 +1162,9 @@ static void PlayerName_Draw(void *item) {
 	} else if (s->generic.flags & QMF_BLINK) {
 		color = text_color_highlight;
 		style |= UI_BLINK;
-	} else
+	} else {
 		color = text_color_normal;
+	}
 
 	if (focus) {
 		// draw cursor
@@ -1189,7 +1190,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer) {
 	memset(&s_serveroptions, 0, sizeof(serveroptions_t));
 
 	s_serveroptions.multiplayer = multiplayer;
-	s_serveroptions.gametype = (int) Com_Clamp(0, ARRAY_LEN(gametype_remap2) - 1, trap_Cvar_VariableValue("g_gametype"));
+	s_serveroptions.gametype = (int)Com_Clamp(0, ARRAY_LEN(gametype_remap2) - 1, trap_Cvar_VariableValue("g_gametype"));
 	s_serveroptions.punkbuster.curvalue = Com_Clamp(0, 1, trap_Cvar_VariableValue("sv_punkbuster"));
 
 	ServerOptions_Cache();

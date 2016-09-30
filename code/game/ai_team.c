@@ -1130,7 +1130,7 @@ void Bot1FCTFOrders_FlagAtCenter(bot_state_t *bs) {
 				break;
 			}
 		}
-	} else { // agressive
+	} else { // aggressive
 		// different orders based on the number of team mates
 		switch (numteammates) {
 			case 1:
@@ -1342,7 +1342,7 @@ void Bot1FCTFOrders_TeamHasFlag(bot_state_t *bs) {
 				break;
 			}
 		}
-	} else { // agressive
+	} else { // aggressive
 		// different orders based on the number of team mates
 		switch (numteammates) {
 			case 1:
@@ -1535,7 +1535,7 @@ void Bot1FCTFOrders_EnemyHasFlag(bot_state_t *bs) {
 				break;
 			}
 		}
-	} else { // agressive
+	} else { // aggressive
 		// different orders based on the number of team mates
 		switch (numteammates) {
 			case 1:
@@ -1695,7 +1695,7 @@ void Bot1FCTFOrders_EnemyDroppedFlag(bot_state_t *bs) {
 				break;
 			}
 		}
-	} else { // agressive
+	} else { // aggressive
 		// different orders based on the number of team mates
 		switch (numteammates) {
 			case 1:

@@ -2993,7 +2993,7 @@ void AAS_Reachability_Teleport(void) {
 =======================================================================================================================================
 AAS_Reachability_Elevator
 
-Create possible elevator (func_plat) reachabilities, this is very game dependent.... :(.
+Create possible elevator (func_plat) reachabilities, this is very game dependent.... :(
 =======================================================================================================================================
 */
 void AAS_Reachability_Elevator(void) {

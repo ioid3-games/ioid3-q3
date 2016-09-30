@@ -22,7 +22,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include "../qcommon/q_shared.h"
 #include "../renderercommon/tr_types.h"
 #include "../client/keycodes.h"
-
 #include "../../ui/menudef.h"
 
 #define MAX_MENUNAME 32
@@ -378,7 +377,7 @@ const char *String_Alloc(const char *p);
 void String_Init(void);
 void String_Report(void);
 void Init_Display(displayContextDef_t *dc);
-void Display_ExpandMacros(char * buff);
+void Display_ExpandMacros(char *buff);
 void Menu_Init(menuDef_t *menu);
 void Item_Init(itemDef_t *item);
 void Menu_PostParse(menuDef_t *menu);

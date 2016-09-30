@@ -420,7 +420,6 @@ static void ArenaServers_UpdateMenu(void) {
 			} else {
 				g_arenaservers.statusbar.string = "";
 			}
-
 		}
 	} else {
 		// no servers found

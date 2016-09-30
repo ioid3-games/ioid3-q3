@@ -797,7 +797,7 @@ static void GraphicsOptions_SetMenuItems(void) {
 
 	s_graphicsoptions.lighting.curvalue = trap_Cvar_VariableValue("r_vertexLight") != 0;
 
-	switch ((int) trap_Cvar_VariableValue("r_texturebits")) {
+	switch ((int)trap_Cvar_VariableValue("r_texturebits")) {
 		default:
 		case 0:
 			s_graphicsoptions.texturebits.curvalue = 0;

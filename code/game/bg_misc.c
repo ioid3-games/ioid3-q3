@@ -894,7 +894,6 @@ qboolean BG_CanItemBeGrabbed(int gametype, const entityState_t *ent, const playe
 #ifdef MISSIONPACK
 	int upperBound;
 #endif
-
 	if (ent->modelindex < 1 || ent->modelindex >= bg_numItems) {
 		Com_Error(ERR_DROP, "BG_CanItemBeGrabbed: index out of range");
 	}

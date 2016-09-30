@@ -778,8 +778,8 @@ void CM_TraceThroughSphere(traceWork_t *tw, vec3_t origin, float radius, vec3_t 
 
 	if (d > 0) {
 		sqrtd = SquareRootFloat(d);
-		// = (- b + sqrtd) * 0.5f; // / (2.0f * a);
-		fraction = (- b - sqrtd) * 0.5f; // / (2.0f * a);
+		// = (-b + sqrtd) * 0.5f; // / (2.0f * a);
+		fraction = (-b - sqrtd) * 0.5f; // / (2.0f * a);
 
 		if (fraction < 0) {
 			fraction = 0;
@@ -807,7 +807,7 @@ void CM_TraceThroughSphere(traceWork_t *tw, vec3_t origin, float radius, vec3_t 
 			tw->trace.contents = CONTENTS_BODY;
 		}
 	} else if (d == 0) {
-		//t1 = (- b) / 2;
+		//t1 = (-b) / 2;
 		// slide along the sphere
 	}
 	// no intersection at all
@@ -879,8 +879,8 @@ void CM_TraceThroughVerticalCylinder(traceWork_t *tw, vec3_t origin, float radiu
 
 	if (d > 0) {
 		sqrtd = SquareRootFloat(d);
-		// = (- b + sqrtd) * 0.5f; // / (2.0f * a);
-		fraction = (- b - sqrtd) * 0.5f; // / (2.0f * a);
+		// = (-b + sqrtd) * 0.5f; // / (2.0f * a);
+		fraction = (-b - sqrtd) * 0.5f; // / (2.0f * a);
 
 		if (fraction < 0) {
 			fraction = 0;
@@ -912,7 +912,7 @@ void CM_TraceThroughVerticalCylinder(traceWork_t *tw, vec3_t origin, float radiu
 			}
 		}
 	} else if (d == 0) {
-		//t[0] = (- b) / 2 * a;
+		//t[0] = (-b) / 2 * a;
 		// slide along the cylinder
 	}
 	// no intersection at all

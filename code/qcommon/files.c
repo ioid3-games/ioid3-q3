@@ -3136,7 +3136,7 @@ void Com_ReadCDKey(const char *filename);
 FS_ReorderPurePaks
 
 NOTE: The reordering that happens here is not reflected in the cvars (\cvarlist *pak*). This can lead to misleading situations,
-see https:// zerowing.idsoftware.com/bugzilla/show_bug.cgi?id=540.
+see https://zerowing.idsoftware.com/bugzilla/show_bug.cgi?id=540.
 =======================================================================================================================================
 */
 static void FS_ReorderPurePaks(void) {

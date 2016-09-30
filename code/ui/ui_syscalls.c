@@ -299,7 +299,7 @@ void trap_R_AddRefEntityToScene(const refEntity_t *re) {
 trap_R_AddPolyToScene
 =======================================================================================================================================
 */
-void trap_R_AddPolyToScene(qhandle_t hShader , int numVerts, const polyVert_t *verts) {
+void trap_R_AddPolyToScene(qhandle_t hShader, int numVerts, const polyVert_t *verts) {
 	syscall(UI_R_ADDPOLYTOSCENE, hShader, numVerts, verts);
 }
 

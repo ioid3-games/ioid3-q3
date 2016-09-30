@@ -907,7 +907,7 @@ PC_ConvertPath
 void PC_ConvertPath(char *path) {
 	char *ptr;
 
-	// remove double path seperators
+	// remove double path separators
 	for (ptr = path; *ptr;) {
 		if ((*ptr == '\\' || *ptr == '/') && (*(ptr + 1) == '\\' || *(ptr + 1) == '/')) {
 			memmove(ptr, ptr + 1, strlen(ptr));
@@ -915,7 +915,7 @@ void PC_ConvertPath(char *path) {
 			ptr++;
 		}
 	}
-	// set OS dependent path seperators
+	// set OS dependent path separators
 	for (ptr = path; *ptr;) {
 		if (*ptr == '/' || *ptr == '\\') {
 			*ptr = PATHSEPERATOR_CHAR;
@@ -3117,7 +3117,7 @@ void PC_SetIncludePath(source_t *source, char *path) {
 	Q_strncpyz(source->includepath, path, MAX_PATH - 1);
 
 	len = strlen(source->includepath);
-	// add trailing path seperator
+	// add trailing path separator
 	if (len > 0 && source->includepath[len - 1] != '\\' && source->includepath[len - 1] != '/') {
 		strcat(source->includepath, PATHSEPERATOR_STR);
 	}
