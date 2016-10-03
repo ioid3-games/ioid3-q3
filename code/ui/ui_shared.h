@@ -18,7 +18,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #ifndef __UI_SHARED_H
 #define __UI_SHARED_H
 
-
 #include "../qcommon/q_shared.h"
 #include "../renderercommon/tr_types.h"
 #include "../client/keycodes.h"
@@ -56,7 +55,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define WINDOW_AUTOWRAPPED		0x00080000 // auto wrap text
 #define WINDOW_FORCED			0x00100000 // forced open
 #define WINDOW_POPUP			0x00200000 // popup
-#define WINDOW_BACKCOLORSET		0x00400000 // backcolor was explicitly set 
+#define WINDOW_BACKCOLORSET		0x00400000 // backcolor was explicitly set
 #define WINDOW_TIMEDVISIBLE		0x00800000 // visibility timing(NOT implemented)
 // CGAME cursor type bits
 #define CURSOR_NONE		0x00000001
@@ -69,7 +68,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define STRING_POOL_SIZE 384 * 1024
 #endif
 #define MAX_STRING_HANDLES 4096
-
 #define MAX_SCRIPT_ARGS 12
 #define MAX_EDITFIELD 256
 
@@ -129,8 +127,8 @@ typedef struct {
 	int ownerDrawFlags;			// show flags for ownerdraw items
 	float borderSize;
 	int flags;					// visible, focus, mouseover, cursor
-	Rectangle rectEffects;  	// for various effects
-	Rectangle rectEffects2; 	// for various effects
+	Rectangle rectEffects;		// for various effects
+	Rectangle rectEffects2;		// for various effects
 	int offsetTime;				// time based value for various effects
 	int nextTime;				// time next effect should cycle
 	vec4_t foreColor;			// text color
@@ -151,13 +149,13 @@ typedef struct {
 // FIXME: combine flags into bitfields to save space
 // FIXME: consolidate all of the common stuff in one structure for menus and items
 // THINKABOUTME: is there any compelling reason not to have items contain items
-// and do away with a menu per say.. major issue is not being able to dynamically allocate 
-// and destroy stuff.. Another point to consider is adding an alloc free call for vm's and have 
+// and do away with a menu per say.. major issue is not being able to dynamically allocate
+// and destroy stuff.. Another point to consider is adding an alloc free call for vm's and have
 // the engine just allocate the pool for it based on a cvar
 // many of the vars are re-used for different item types, as such they are not always named appropriately
 // the benefits of c++ in DOOM will greatly help crap like this
 // FIXME: need to put a type ptr that points to specific type info per type
-// 
+
 #define MAX_LB_COLUMNS 16
 
 typedef struct columnInfo_s {
@@ -261,7 +259,7 @@ typedef struct {
 	const char *soundName;				// background loop sound for menu
 	vec4_t focusColor;					// focus color for items
 	vec4_t disableColor;				// focus color for items
-	itemDef_t *items[MAX_MENUITEMS];	// items this menu contains 
+	itemDef_t *items[MAX_MENUITEMS];	// items this menu contains
 } menuDef_t;
 
 typedef struct {

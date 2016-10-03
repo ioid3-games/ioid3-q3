@@ -25,7 +25,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 =======================================================================================================================================
 
 	PACKET FILTERING
- 
+
 You can add or remove addresses from the filter list with:
 addip <ip>
 removeip <ip>

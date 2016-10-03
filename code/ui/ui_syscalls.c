@@ -72,7 +72,7 @@ trap_Milliseconds
 =======================================================================================================================================
 */
 int trap_Milliseconds(void) {
-	return syscall(UI_MILLISECONDS); 
+	return syscall(UI_MILLISECONDS);
 }
 
 /*
@@ -138,7 +138,7 @@ trap_Cvar_Reset
 =======================================================================================================================================
 */
 void trap_Cvar_Reset(const char *name) {
-	syscall(UI_CVAR_RESET, name); 
+	syscall(UI_CVAR_RESET, name);
 }
 
 /*

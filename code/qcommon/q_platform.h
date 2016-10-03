@@ -74,7 +74,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #endif
 #define ID_INLINE __inline
 #define PATH_SEP '\\'
-#if defined(__WIN64__) 
+#if defined(__WIN64__)
 #define ARCH_STRING "x86_64"
 #elif defined _M_ALPHA
 #define ARCH_STRING "AXP"

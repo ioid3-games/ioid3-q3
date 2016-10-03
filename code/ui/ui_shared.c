@@ -49,7 +49,7 @@ static qboolean g_editingField = qfalse;
 static itemDef_t *g_bindItem = NULL;
 static itemDef_t *g_editItem = NULL;
 
-menuDef_t Menus[MAX_MENUS];	// defined menus
+menuDef_t Menus[MAX_MENUS]; // defined menus
 int menuCount = 0; // how many
 
 menuDef_t *menuStack[MAX_OPEN_MENUS];
@@ -85,7 +85,7 @@ UI_Alloc
 =======================================================================================================================================
 */
 void *UI_Alloc(int size) {
-	char *p; 
+	char *p;
 
 	if (allocPoint + size > MEM_POOL_SIZE) {
 		outOfMemory = qtrue;
@@ -806,7 +806,6 @@ void Item_SetScreenCoords(itemDef_t *item, float x, float y) {
 	item->window.rect.y = y + item->window.rectClient.y;
 	item->window.rect.w = item->window.rectClient.w;
 	item->window.rect.h = item->window.rectClient.h;
-
 	// force the text rects to recompute
 	item->textRect.w = 0;
 	item->textRect.h = 0;
@@ -912,7 +911,7 @@ itemDef_t *Menu_ClearFocus(menuDef_t *menu) {
 			Item_RunScript(menu->items[i], menu->items[i]->leaveFocus);
 		}
 	}
- 
+
 	return ret;
 }
 
@@ -1028,7 +1027,7 @@ void Script_SetAsset(itemDef_t *item, char **args) {
 
 	// expecting name to set asset to
 	if (String_Parse(args, &name)) {
-		// check for a model 
+		// check for a model
 		if (item->type == ITEM_TYPE_MODEL) {
 		}
 	}
@@ -1568,27 +1567,27 @@ void Script_playLooped(itemDef_t *item, char **args) {
 }
 
 commandDef_t commandList[] = {
-	{"fadein", &Script_FadeIn},		// group/name
-	{"fadeout", &Script_FadeOut},		// group/name
-	{"show", &Script_Show},			// group/name
-	{"hide", &Script_Hide},			// group/name
-	{"setcolor", &Script_SetColor},		// works on this
-	{"open", &Script_Open},			// menu
-	{"conditionalopen", &Script_ConditionalOpen}, // menu
-	{"close", &Script_Close},			// menu
-	{"setasset", &Script_SetAsset},		// works on this
-	{"setbackground", &Script_SetBackground}, // works on this
-	{"setitemcolor", &Script_SetItemColor}, // group/name
-	{"setteamcolor", &Script_SetTeamColor}, // sets this background color to team color
-	{"setfocus", &Script_SetFocus},		// sets this background color to team color
-	{"setplayermodel", &Script_SetPlayerModel}, // sets this background color to team color
-	{"setplayerhead", &Script_SetPlayerHead}, // sets this background color to team color
-	{"transition", &Script_Transition},	// group/name
-	{"setcvar", &Script_SetCvar},	// group/name
-	{"exec", &Script_Exec},	// group/name
-	{"play", &Script_Play},	// group/name
-	{"playlooped", &Script_playLooped},	// group/name
-	{"orbit", &Script_Orbit}				// group/name
+	{"fadein", &Script_FadeIn},						// group/name
+	{"fadeout", &Script_FadeOut},					// group/name
+	{"show", &Script_Show},							// group/name
+	{"hide", &Script_Hide},							// group/name
+	{"setcolor", &Script_SetColor},					// works on this
+	{"open", &Script_Open},							// menu
+	{"conditionalopen", &Script_ConditionalOpen},	// menu
+	{"close", &Script_Close},						// menu
+	{"setasset", &Script_SetAsset},					// works on this
+	{"setbackground", &Script_SetBackground},		// works on this
+	{"setitemcolor", &Script_SetItemColor},			// group/name
+	{"setteamcolor", &Script_SetTeamColor},			// sets this background color to team color
+	{"setfocus", &Script_SetFocus},					// sets this background color to team color
+	{"setplayermodel", &Script_SetPlayerModel},		// sets this background color to team color
+	{"setplayerhead", &Script_SetPlayerHead},		// sets this background color to team color
+	{"transition", &Script_Transition},				// group/name
+	{"setcvar", &Script_SetCvar},					// group/name
+	{"exec", &Script_Exec},							// group/name
+	{"play", &Script_Play},							// group/name
+	{"playlooped", &Script_playLooped},				// group/name
+	{"orbit", &Script_Orbit}						// group/name
 };
 
 int scriptCommandCount = ARRAY_LEN(commandList);
@@ -1703,8 +1702,7 @@ qboolean Item_SetFocus(itemDef_t *item, float x, float y) {
 		return qfalse;
 	}
 	// this can be NULL
-	parent = (menuDef_t *)item->parent; 
-
+	parent = (menuDef_t *)item->parent;
 	// items can be enabled and disabled based on cvars
 	if (item->cvarFlags &(CVAR_ENABLE|CVAR_DISABLE) && !Item_EnableShowViaCvar(item, CVAR_ENABLE)) {
 		return qfalse;
@@ -2479,7 +2477,7 @@ int Item_Multi_FindCvarByValue(itemDef_t *item) {
 
 	if (multiPtr) {
 		if (multiPtr->strDef) {
-		DC->getCVarString(item->cvar, buff, sizeof(buff));
+			DC->getCVarString(item->cvar, buff, sizeof(buff));
 		} else {
 			value = DC->getCVarValue(item->cvar);
 		}
@@ -2513,7 +2511,7 @@ const char *Item_Multi_Setting(itemDef_t *item) {
 
 	if (multiPtr) {
 		if (multiPtr->strDef) {
-		DC->getCVarString(item->cvar, buff, sizeof(buff));
+			DC->getCVarString(item->cvar, buff, sizeof(buff));
 		} else {
 			value = DC->getCVarValue(item->cvar);
 		}
@@ -2525,7 +2523,7 @@ const char *Item_Multi_Setting(itemDef_t *item) {
 				}
 			} else {
 				if (multiPtr->cvarValue[i] == value) {
-						return multiPtr->cvarList[i];
+					return multiPtr->cvarList[i];
 				}
 			}
 		}
@@ -2616,6 +2614,7 @@ qboolean Item_TextField_HandleKey(itemDef_t *item, int key) {
 						editPtr->paintOffset--;
 					}
 				}
+
 				DC->setCVar(item->cvar, buff);
 				return qtrue;
 			}
@@ -2634,6 +2633,7 @@ qboolean Item_TextField_HandleKey(itemDef_t *item, int key) {
 				if ((len == MAX_EDITFIELD - 1) || (editPtr->maxChars && len >= editPtr->maxChars)) {
 					return qtrue;
 				}
+
 				memmove(&buff[item->cursorPos + 1], &buff[item->cursorPos], len + 1 - item->cursorPos);
 			} else {
 				if (editPtr->maxChars && item->cursorPos >= editPtr->maxChars) {
@@ -2868,9 +2868,8 @@ void Item_StartCapture(itemDef_t *item, int key) {
 	int flags;
 
 	switch (item->type) {
-	case ITEM_TYPE_EDITFIELD:
-	case ITEM_TYPE_NUMERICFIELD:
-
+		case ITEM_TYPE_EDITFIELD:
+		case ITEM_TYPE_NUMERICFIELD:
 		case ITEM_TYPE_LISTBOX:
 		{
 			flags = Item_ListBox_OverLB(item, DC->cursorx, DC->cursory);
@@ -3239,9 +3238,9 @@ void Menus_HandleOOBClick(menuDef_t *menu, int key, qboolean down) {
 
 	if (menu) {
 		int i;
-		// basically the behaviour we are looking for is if there are windows in the stack.. see if 
-		// the cursor is within any of them.. if not close them otherwise activate them and pass the 
-		// key on.. force a mouse move to activate focus and script stuff 
+		// basically the behaviour we are looking for is if there are windows in the stack.. see if
+		// the cursor is within any of them.. if not close them otherwise activate them and pass the
+		// key on.. force a mouse move to activate focus and script stuff
 		if (down && menu->window.flags & WINDOW_OOB_CLICK) {
 			Menu_RunCloseScript(menu);
 			menu->window.flags &= ~(WINDOW_HASFOCUS|WINDOW_VISIBLE);
@@ -3398,8 +3397,8 @@ void Menu_HandleKey(menuDef_t *menu, int key, qboolean down) {
 		case K_ESCAPE:
 			if (!g_waitingForKey && menu->onESC) {
 				itemDef_t it;
-			it.parent = menu;
-			Item_RunScript(&it, menu->onESC);
+				it.parent = menu;
+				Item_RunScript(&it, menu->onESC);
 			}
 
 			break;
@@ -3457,7 +3456,7 @@ void Menu_HandleKey(menuDef_t *menu, int key, qboolean down) {
 					g_editingField = qtrue;
 					g_editItem = item;
 				} else {
-						Item_Action(item);
+					Item_Action(item);
 				}
 			}
 
@@ -3518,6 +3517,7 @@ void Item_SetTextExtents(itemDef_t *item, int *width, int *height, const char *t
 
 		*width = DC->textWidth(textPtr, item->textscale, 0);
 		*height = DC->textHeight(textPtr, item->textscale, 0);
+
 		item->textRect.w = *width;
 		item->textRect.h = *height;
 		item->textRect.x = item->textalignx;
@@ -3638,7 +3638,7 @@ void Item_Text_AutoWrapped_Paint(itemDef_t *item) {
 			if (*p == '\0') {
 				break;
 			}
-			//
+
 			y += height + 5;
 			p = newLinePtr;
 			len = 0;
@@ -3755,8 +3755,6 @@ void Item_Text_Paint(itemDef_t *item) {
 		DC->drawText(item->textRect.x + DC->Assets.shadowX, item->textRect.y + DC->Assets.shadowY, item->textscale, DC->Assets.shadowColor, textPtr, adjust);
 	}
 */
-
-
 //	if (item->textStyle == ITEM_TEXTSTYLE_OUTLINED || item->textStyle == ITEM_TEXTSTYLE_OUTLINESHADOWED) {
 //		Fade(&item->window.flags, &item->window.outlineColor[3], DC->Assets.fadeClamp, &item->window.nextTime, DC->Assets.fadeCycle, qfalse);
 //		/*
@@ -3879,7 +3877,6 @@ void Item_Multi_Paint(itemDef_t *item) {
 	}
 }
 
-
 typedef struct {
 	char *command;
 	int defaultbind1;
@@ -3958,9 +3955,7 @@ static bind_t g_bindings[] = {
 	{"messagemode4", -1, -1, -1, -1}
 };
 
-
 static const int g_bindCount = ARRAY_LEN(g_bindings);
-
 #ifndef MISSIONPACK
 static configcvar_t g_configcvars[] = {
 	{"cl_run", 0, 0},
@@ -3974,7 +3969,6 @@ static configcvar_t g_configcvars[] = {
 	{NULL, 0, 0}
 };
 #endif
-
 /*
 =======================================================================================================================================
 Controls_GetKeyAssignment
@@ -7254,12 +7248,10 @@ Display_GetContext
 displayContextDef_t *Display_GetContext(void) {
 	return DC;
 }
- 
 #ifndef MISSIONPACK
 static float captureX;
 static float captureY;
 #endif
-
 /*
 =======================================================================================================================================
 Display_CaptureItem
@@ -7285,7 +7277,7 @@ void *Display_CaptureItem(int x, int y) {
 Display_MouseMove
 =======================================================================================================================================
 */
-// FIXME: 
+// FIXME:
 qboolean Display_MouseMove(void *p, int x, int y) {
 	int i;
 	menuDef_t *menu = p;

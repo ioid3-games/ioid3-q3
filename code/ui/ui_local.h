@@ -118,7 +118,7 @@ extern vmCvar_t ui_serverStatusTimeOut;
 #define LCOLUMN_OFFSET (-BIGCHAR_WIDTH)
 
 #define SLIDER_RANGE 10
-#define	MAX_EDIT_LINE 256
+#define MAX_EDIT_LINE 256
 
 #define MAX_MENUDEPTH 8
 #define MAX_MENUITEMS 96
@@ -288,7 +288,7 @@ extern vec4_t color_dim;
 extern vec4_t name_color;
 extern vec4_t list_color;
 extern vec4_t listbar_color;
-extern vec4_t text_color_disabled; 
+extern vec4_t text_color_disabled;
 extern vec4_t text_color_normal;
 extern vec4_t text_color_highlight;
 extern char *ui_medalNames[];
@@ -698,7 +698,7 @@ extern void UI_Refresh(int realtime);
 extern qboolean UI_ConsoleCommand(int realTime);
 extern float UI_ClampCvar(float min, float max, float value);
 extern void UI_DrawNamedPic(float x, float y, float width, float height, const char *picname);
-extern void UI_DrawHandlePic(float x, float y, float w, float h, qhandle_t hShader); 
+extern void UI_DrawHandlePic(float x, float y, float w, float h, qhandle_t hShader);
 extern void UI_FillRect(float x, float y, float width, float height, const float *color);
 extern void UI_DrawRect(float x, float y, float width, float height, const float *color);
 extern void UI_DrawTopBottom(float x, float y, float w, float h);
@@ -891,8 +891,7 @@ void UI_SignupMenu(void);
 // ui_rankstatus.c
 void RankStatus_Cache(void);
 void UI_RankStatusMenu(void);
-
-// new ui 
+// new ui
 #define ASSET_BACKGROUND "uiBackground"
 // for tracking sp game info in Team Arena
 typedef struct postGameInfo_s {

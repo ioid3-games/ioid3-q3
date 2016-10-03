@@ -687,7 +687,7 @@ void _UI_Refresh(int realtime) {
 		UI_BuildServerStatus(qfalse);
 		// refresh find player list
 		UI_BuildFindPlayerList(qfalse);
-	} 
+	}
 	// draw cursor
 	UI_SetColor(NULL);
 
@@ -2274,6 +2274,7 @@ static void UI_BuildPlayerList(void) {
 				if (uiInfo.playerNumber == n) {
 					playerTeamNumber = uiInfo.myTeamCount;
 				}
+
 				uiInfo.myTeamCount++;
 			}
 		}
@@ -3721,7 +3722,6 @@ UI_Update
 static void UI_Update(const char *name) {
 	int val = trap_Cvar_VariableValue(name);
 
-
 	if (Q_stricmp(name, "ui_SetName") == 0) {
 		trap_Cvar_Set("name", UI_Cvar_VariableString("ui_Name"));
 	} else if (Q_stricmp(name, "ui_setRate") == 0) {
@@ -5070,7 +5070,8 @@ static int UI_GetIndexFromSelection(int actual) {
 			if (i == actual) {
 				return c;
 			}
-				c++;
+
+			c++;
 		}
 	}
 
@@ -5463,7 +5464,6 @@ static qboolean Character_Parse(char **p) {
 			uiInfo.characterList[uiInfo.characterCount].headImage = -1;
 			uiInfo.characterList[uiInfo.characterCount].imageName = String_Alloc(va("models/players/heads/%s/icon_default.tga", uiInfo.characterList[uiInfo.characterCount].name));
 
-
 			if (tempStr && (!Q_stricmp(tempStr, "female"))) {
 				uiInfo.characterList[uiInfo.characterCount].base = String_Alloc("Janet");
 			} else if (tempStr && (!Q_stricmp(tempStr, "male"))) {
@@ -5493,7 +5493,6 @@ Alias_Parse
 */
 static qboolean Alias_Parse(char **p) {
 	char *token;
-
 
 	token = COM_ParseExt(p, qtrue);
 
@@ -5540,7 +5539,7 @@ static qboolean Alias_Parse(char **p) {
 =======================================================================================================================================
 UI_ParseTeamInfo
 
-mode 
+mode
 0 - high level parsing
 1 - team parsing
 2 - character parsing
@@ -5645,7 +5644,7 @@ static qboolean GameType_Parse(char **p, qboolean join) {
 					Com_Printf("Too many game types, last one replace!\n");
 				}
 			}
- 
+
 			token = COM_ParseExt(p, qtrue);
 
 			if (token[0] != '}') {
@@ -5685,8 +5684,7 @@ static qboolean MapList_Parse(char **p) {
 		}
 
 		if (token[0] == '{') {
-			if (!String_Parse(p, &uiInfo.mapList[uiInfo.mapCount].mapName) || !String_Parse(p, &uiInfo.mapList[uiInfo.mapCount].mapLoadName) 
-				||!Int_Parse(p, &uiInfo.mapList[uiInfo.mapCount].teamMembers)) {
+			if (!String_Parse(p, &uiInfo.mapList[uiInfo.mapCount].mapName) || !String_Parse(p, &uiInfo.mapList[uiInfo.mapCount].mapLoadName) || !Int_Parse(p, &uiInfo.mapList[uiInfo.mapCount].teamMembers)) {
 				return qfalse;
 			}
 
@@ -5953,7 +5951,6 @@ void _UI_Init(qboolean inGameLoad) {
 
 	UI_RegisterCvars();
 	UI_InitMemory();
-
 	// cache redundant calulations
 	trap_GetGlconfig(&uiInfo.uiDC.glconfig);
 	// for 640x480 virtualized screen
@@ -6051,7 +6048,7 @@ void _UI_Init(qboolean inGameLoad) {
 	} else {
 
 	}
-#else 
+#else
 	UI_LoadMenus(menuSet, qtrue);
 	UI_LoadMenus("ui/ingame.txt", qfalse);
 #endif
@@ -6651,10 +6648,10 @@ static cvarTable_t cvarTable[] = {
 	{&ui_tourney_timelimit, "ui_tourney_timelimit", "15", CVAR_ARCHIVE},
 	{&ui_team_fraglimit, "ui_team_fraglimit", "0", CVAR_ARCHIVE},
 	{&ui_team_timelimit, "ui_team_timelimit", "20", CVAR_ARCHIVE},
-	{&ui_team_friendly, "ui_team_friendly",  "1", CVAR_ARCHIVE},
+	{&ui_team_friendly, "ui_team_friendly", "1", CVAR_ARCHIVE},
 	{&ui_ctf_capturelimit, "ui_ctf_capturelimit", "8", CVAR_ARCHIVE},
 	{&ui_ctf_timelimit, "ui_ctf_timelimit", "30", CVAR_ARCHIVE},
-	{&ui_ctf_friendly, "ui_ctf_friendly",  "0", CVAR_ARCHIVE},
+	{&ui_ctf_friendly, "ui_ctf_friendly", "0", CVAR_ARCHIVE},
 	{&ui_arenasFile, "g_arenasFile", "", CVAR_INIT|CVAR_ROM},
 	{&ui_botsFile, "g_botsFile", "", CVAR_INIT|CVAR_ROM},
 	{&ui_spScores1, "g_spScores1", "", CVAR_ARCHIVE},
