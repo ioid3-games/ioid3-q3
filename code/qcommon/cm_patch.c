@@ -32,8 +32,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include "cm_patch.h"
 
 /*
-#define MAX_FACETS			1024
-#define MAX_PATCH_PLANES	2048
+#define MAX_FACETS 1024
+#define MAX_PATCH_PLANES 2048
 
 typedef struct {
 	float plane[4];

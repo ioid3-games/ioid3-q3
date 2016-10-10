@@ -19,8 +19,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
  Goal AI.
 **************************************************************************************************************************************/
 
-#define MAX_AVOIDGOALS	256
-#define MAX_GOALSTACK	8
+#define MAX_AVOIDGOALS 256
+#define MAX_GOALSTACK 8
 
 #define GFL_NONE	0
 #define GFL_ITEM	1

@@ -497,7 +497,7 @@ void trap_GetGlconfig(glconfig_t *glconfig) {
 trap_GetConfigString
 =======================================================================================================================================
 */
-int trap_GetConfigString(int index, char* buff, int buffsize) {
+int trap_GetConfigString(int index, char *buff, int buffsize) {
 	return syscall(UI_GETCONFIGSTRING, index, buff, buffsize);
 }
 

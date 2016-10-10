@@ -174,9 +174,9 @@ static const unsigned int missionpak_checksums[] = {
 // NOW defined in build files
 //#define PRE_RELEASE_TADEMO
 
-#define MAX_ZPATH			256
-#define MAX_SEARCH_PATHS	4096
-#define MAX_FILEHASH_SIZE	1024
+#define MAX_ZPATH 256
+#define MAX_SEARCH_PATHS 4096
+#define MAX_FILEHASH_SIZE 1024
 
 typedef struct fileInPack_s {
 	char *name; // name of the file
@@ -220,7 +220,6 @@ static cvar_t *fs_homepath;
 static cvar_t *fs_apppath;
 #endif
 static cvar_t *fs_steampath;
-
 static cvar_t *fs_basepath;
 static cvar_t *fs_basegame;
 static cvar_t *fs_gamedirvar;
@@ -2400,6 +2399,36 @@ static char **Sys_ConcatenateFileLists(char **list0, char **list1) {
 
 /*
 =======================================================================================================================================
+FS_GetModDescription
+=======================================================================================================================================
+*/
+void FS_GetModDescription(const char *modDir, char *description, int descriptionLen) {
+	fileHandle_t descHandle;
+	char descPath[MAX_QPATH];
+	int nDescLen;
+	FILE *file;
+
+	Com_sprintf(descPath, sizeof(descPath), "%s/description.txt", modDir);
+
+	nDescLen = FS_SV_FOpenFileRead(descPath, &descHandle);
+
+	if (nDescLen > 0 && descHandle) {
+		file = FS_FileForHandle(descHandle);
+		Com_Memset(description, 0, descriptionLen);
+		nDescLen = fread(description, 1, descriptionLen, file);
+
+		if (nDescLen >= 0) {
+			description[nDescLen] = '\0';
+		}
+
+		FS_FCloseFile(descHandle);
+	} else {
+		Q_strncpyz(description, modDir, descriptionLen);
+	}
+}
+
+/*
+=======================================================================================================================================
 FS_GetModList
 
 Returns a list of mod directory names.
@@ -2411,8 +2440,7 @@ int FS_GetModList(char *listbuf, int bufsize) {
 	char **pFiles = NULL;
 	char **pPaks = NULL;
 	char *name, *path;
-	char descPath[MAX_OSPATH];
-	fileHandle_t descHandle;
+	char description[MAX_OSPATH];
 	int dummy;
 	char **pFiles0 = NULL;
 	char **pFiles1 = NULL;
@@ -2482,32 +2510,13 @@ int FS_GetModList(char *listbuf, int bufsize) {
 				nLen = strlen(name) + 1;
 				// nLen is the length of the mod path
 				// we need to see if there is a description available
-				descPath[0] = '\0';
-				strcpy(descPath, name);
-				strcat(descPath, "/description.txt");
-				nDescLen = FS_SV_FOpenFileRead(descPath, &descHandle);
-
-				if (nDescLen > 0 && descHandle) {
-					FILE *file;
-					file = FS_FileForHandle(descHandle);
-					Com_Memset(descPath, 0, sizeof(descPath));
-					nDescLen = fread(descPath, 1, 48, file);
-
-					if (nDescLen >= 0) {
-						descPath[nDescLen] = '\0';
-					}
-
-					FS_FCloseFile(descHandle);
-				} else {
-					strcpy(descPath, name);
-				}
-
-				nDescLen = strlen(descPath) + 1;
+				FS_GetModDescription(name, description, sizeof(description));
+				nDescLen = strlen(description) + 1;
 
 				if (nTotal + nLen + 1 + nDescLen + 1 < bufsize) {
 					strcpy(listbuf, name);
 					listbuf += nLen;
-					strcpy(listbuf, descPath);
+					strcpy(listbuf, description);
 					listbuf += nDescLen;
 					nTotal += nLen + nDescLen;
 					nMods++;
@@ -3592,8 +3601,7 @@ const char *FS_ReferencedPakNames(void) {
 	searchpath_t *search;
 
 	info[0] = 0;
-	// we want to return ALL pk3's from the fs_game path
-	// and referenced one's from baseq3
+	// we want to return ALL pk3's from the fs_game path and referenced one's from baseq3
 	for (search = fs_searchpaths; search; search = search->next) {
 		// is the element a pak file?
 		if (search->pack) {
@@ -3754,9 +3762,8 @@ Called only at inital startup, not when the filesystem is resetting due to a gam
 void FS_InitFilesystem(void) {
 
 	// allow command line parms to override our defaults
-	// we have to specially handle this, because normal command
-	// line variable sets don't happen until after the filesystem
-	// has already been initialized
+	// we have to specially handle this, because normal command line variable sets don't happen until after the filesystem has already
+	// been initialized
 	Com_StartupVariable("fs_basepath");
 	Com_StartupVariable("fs_homepath");
 	Com_StartupVariable("fs_game");
@@ -3769,9 +3776,8 @@ void FS_InitFilesystem(void) {
 #ifndef STANDALONE
 	FS_CheckPak0();
 #endif
-	// if we can't find default.cfg, assume that the paths are
-	// busted and error out now, rather than getting an unreadable
-	// graphics screen when the font fails to load
+	// if we can't find default.cfg, assume that the paths are busted and error out now, rather than getting an unreadable graphics
+	// screen when the font fails to load
 	if (FS_ReadFile("default.cfg", NULL) <= 0) {
 		Com_Error(ERR_FATAL, "Couldn't load default.cfg");
 	}
@@ -3798,8 +3804,8 @@ void FS_Restart(int checksumFeed) {
 #ifndef STANDALONE
 	FS_CheckPak0();
 #endif
-	// if we can't find default.cfg, assume that the paths are busted and error out now, rather than getting an unreadable
-	// graphics screen when the font fails to load
+	// if we can't find default.cfg, assume that the paths are busted and error out now, rather than getting an unreadable graphics
+	// screen when the font fails to load
 	if (FS_ReadFile("default.cfg", NULL) <= 0) {
 		// this might happen when connecting to a pure server not using BASEGAME/pak0.pk3 (for instance a TA demo server)
 		if (lastValidBase[0]) {
@@ -3817,6 +3823,8 @@ void FS_Restart(int checksumFeed) {
 	}
 
 	if (Q_stricmp(fs_gamedirvar->string, lastValidGame)) {
+		Sys_RemovePIDFile(lastValidGame);
+		Sys_InitPIDFile(fs_gamedirvar->string);
 		// skip the q3config.cfg if "safe" is on the command line
 		if (!Com_SafeMode()) {
 			Cbuf_AddText("exec " Q3CONFIG_CFG "\n");
@@ -3831,8 +3839,7 @@ void FS_Restart(int checksumFeed) {
 =======================================================================================================================================
 FS_ConditionalRestart
 
-Restart if necessary.
-Return qtrue if restarting due to game directory changed, qfalse otherwise.
+Restart if necessary. Return qtrue if restarting due to game directory changed, qfalse otherwise.
 =======================================================================================================================================
 */
 qboolean FS_ConditionalRestart(int checksumFeed, qboolean disconnect) {
