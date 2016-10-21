@@ -223,17 +223,17 @@ void Signup_MenuInit(void) {
 		s_signup.signup.color = colorMdGrey;
 	}
 
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.frame);
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.name);
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.name_box);
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.password);
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.password_box);
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.again);
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.again_box);
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.email);
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.email_box);
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.signup);
-	Menu_AddItem(&s_signup.menu, (void*)&s_signup.cancel);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.frame);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.name);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.name_box);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.password);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.password_box);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.again);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.again_box);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.email);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.email_box);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.signup);
+	Menu_AddItem(&s_signup.menu, (void *)&s_signup.cancel);
 }
 
 /*

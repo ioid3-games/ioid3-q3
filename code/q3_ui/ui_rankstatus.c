@@ -127,9 +127,9 @@ void RankStatus_MenuInit(void) {
 	s_rankstatus.ok.style = UI_CENTER|UI_SMALLFONT;
 	s_rankstatus.ok.color = colorRed;
 
-	Menu_AddItem(&s_rankstatus.menu, (void*)&s_rankstatus.frame);
-	Menu_AddItem(&s_rankstatus.menu, (void*)&s_rankstatus.message);
-	Menu_AddItem(&s_rankstatus.menu, (void*)&s_rankstatus.ok);
+	Menu_AddItem(&s_rankstatus.menu, (void *)&s_rankstatus.frame);
+	Menu_AddItem(&s_rankstatus.menu, (void *)&s_rankstatus.message);
+	Menu_AddItem(&s_rankstatus.menu, (void *)&s_rankstatus.ok);
 }
 
 /*

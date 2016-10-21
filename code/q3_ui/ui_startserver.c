@@ -192,7 +192,7 @@ static void StartServer_Update(void) {
 		s_startserver.next.generic.flags &= ~QMF_INACTIVE;
 		i = s_startserver.currentmap - top;
 
-		if (i >=0 && i < MAX_MAPSPERPAGE) {
+		if (i >= 0 && i < MAX_MAPSPERPAGE) {
 			s_startserver.mappics[i].generic.flags |= QMF_HIGHLIGHT;
 			s_startserver.mapbuttons[i].generic.flags &= ~QMF_PULSEIFFOCUS;
 		}

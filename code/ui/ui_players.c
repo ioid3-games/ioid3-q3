@@ -15,8 +15,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 =======================================================================================================================================
 */
 
-// ui_players.c
-
 #include "ui_local.h"
 
 #define UI_TIMER_GESTURE 2300
@@ -90,6 +88,7 @@ tryagain:
 
 	COM_StripExtension(item->world_model[0], path, sizeof(path));
 	Q_strcat(path, sizeof(path), "_flash.md3");
+
 	pi->flashModel = trap_R_RegisterModel(path);
 
 	switch (weaponNum) {
@@ -345,8 +344,7 @@ static void UI_RunLerpFrame(playerInfo_t *ci, lerpFrame_t *lf, int newAnimation)
 	if (newAnimation != lf->animationNumber || !lf->animation) {
 		UI_SetLerpFrameAnimation(ci, lf, newAnimation);
 	}
-	// if we have passed the current frame, move it to
-	// oldFrame and calculate a new frame
+	// if we have passed the current frame, move it to oldFrame and calculate a new frame
 	if (dp_realtime >= lf->frameTime) {
 		lf->oldFrame = lf->frame;
 		lf->oldFrameTime = lf->frameTime;
@@ -621,6 +619,7 @@ static void UI_PlayerFloatSprite(playerInfo_t *pi, vec3_t origin, qhandle_t shad
 	ent.customShader = shader;
 	ent.radius = 10;
 	ent.renderfx = 0;
+
 	trap_R_AddRefEntityToScene(&ent);
 }
 
@@ -737,7 +736,7 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 	trap_R_ClearScene();
 	// get the rotation information
 	UI_PlayerAngles(pi, legs.axis, torso.axis, head.axis);
-	// get the animation state(after rotation, to allow feet shuffle)
+	// get the animation state (after rotation, to allow feet shuffle)
 	UI_PlayerAnimation(pi, &legs.oldframe, &legs.frame, &legs.backlerp, &torso.oldframe, &torso.frame, &torso.backlerp);
 
 	renderfx = RF_LIGHTING_ORIGIN|RF_NOSHADOW;
@@ -746,9 +745,10 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 	legs.customSkin = pi->legsSkin;
 
 	VectorCopy(origin, legs.origin);
-
 	VectorCopy(origin, legs.lightingOrigin);
+
 	legs.renderfx = renderfx;
+
 	VectorCopy(legs.origin, legs.oldorigin);
 
 	trap_R_AddRefEntityToScene(&legs);
@@ -791,9 +791,12 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 	// add the gun
 	if (pi->currentWeapon != WP_NONE) {
 		memset(&gun, 0, sizeof(gun));
+
 		gun.hModel = pi->weaponModel;
 		VectorCopy(origin, gun.lightingOrigin);
+
 		UI_PositionEntityOnTag(&gun, &torso, pi->torsoModel, "tag_weapon");
+
 		gun.renderfx = renderfx;
 		trap_R_AddRefEntityToScene(&gun);
 	}
@@ -802,13 +805,16 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 		vec3_t angles;
 
 		memset(&barrel, 0, sizeof(barrel));
-		VectorCopy(origin, barrel.lightingOrigin);
-		barrel.renderfx = renderfx;
 
+		VectorCopy(origin, barrel.lightingOrigin);
+
+		barrel.renderfx = renderfx;
 		barrel.hModel = pi->barrelModel;
+
 		angles[YAW] = 0;
 		angles[PITCH] = 0;
 		angles[ROLL] = UI_MachinegunSpinAngle(pi);
+
 		AnglesToAxis(angles, barrel.axis);
 
 		UI_PositionRotatedEntityOnTag(&barrel, &gun, pi->weaponModel, "tag_barrel");
@@ -819,9 +825,12 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 	if (dp_realtime <= pi->muzzleFlashTime) {
 		if (pi->flashModel) {
 			memset(&flash, 0, sizeof(flash));
+
 			flash.hModel = pi->flashModel;
 			VectorCopy(origin, flash.lightingOrigin);
+
 			UI_PositionEntityOnTag(&flash, &gun, pi->weaponModel, "tag_flash");
+
 			flash.renderfx = renderfx;
 			trap_R_AddRefEntityToScene(&flash);
 		}
@@ -1157,8 +1166,8 @@ qboolean UI_RegisterClientModelname(playerInfo_t *pi, const char *modelSkinName,
 		*slash = '\0';
 	}
 	// load cmodels before models so filecache works
-
 	Com_sprintf(filename, sizeof(filename), "models/players/%s/lower.md3", modelName);
+
 	pi->legsModel = trap_R_RegisterModel(filename);
 
 	if (!pi->legsModel) {
@@ -1262,15 +1271,17 @@ void UI_PlayerInfo_SetInfo(playerInfo_t *pi, int legsAnim, int torsoAnim, vec3_t
 
 	if (pi->newModel) {
 		pi->newModel = qfalse;
-
 		jumpHeight = 0;
 		pi->pendingLegsAnim = 0;
+
 		UI_ForceLegsAnim(pi, legsAnim);
+
 		pi->legs.yawAngle = viewAngles[YAW];
 		pi->legs.yawing = qfalse;
-
 		pi->pendingTorsoAnim = 0;
+
 		UI_ForceTorsoAnim(pi, torsoAnim);
+
 		pi->torso.yawAngle = viewAngles[YAW];
 		pi->torso.yawing = qfalse;
 
@@ -1280,6 +1291,7 @@ void UI_PlayerInfo_SetInfo(playerInfo_t *pi, int legsAnim, int torsoAnim, vec3_t
 			pi->lastWeapon = weaponNumber;
 			pi->pendingWeapon = WP_NUM_WEAPONS;
 			pi->weaponTimer = 0;
+
 			UI_PlayerInfo_SetWeapon(pi, pi->weapon);
 		}
 
@@ -1300,15 +1312,17 @@ void UI_PlayerInfo_SetInfo(playerInfo_t *pi, int legsAnim, int torsoAnim, vec3_t
 	if (torsoAnim == BOTH_DEATH1 || legsAnim == BOTH_DEATH1) {
 		torsoAnim = legsAnim = BOTH_DEATH1;
 		pi->weapon = pi->currentWeapon = WP_NONE;
+
 		UI_PlayerInfo_SetWeapon(pi, pi->weapon);
 
 		jumpHeight = 0;
 		pi->pendingLegsAnim = 0;
+
 		UI_ForceLegsAnim(pi, legsAnim);
 
 		pi->pendingTorsoAnim = 0;
-		UI_ForceTorsoAnim(pi, torsoAnim);
 
+		UI_ForceTorsoAnim(pi, torsoAnim);
 		return;
 	}
 	// leg animation
@@ -1319,6 +1333,7 @@ void UI_PlayerInfo_SetInfo(playerInfo_t *pi, int legsAnim, int torsoAnim, vec3_t
 	} else if (legsAnim != currentAnim) {
 		jumpHeight = 0;
 		pi->pendingLegsAnim = 0;
+
 		UI_ForceLegsAnim(pi, legsAnim);
 	}
 	// torso animation
@@ -1349,6 +1364,7 @@ void UI_PlayerInfo_SetInfo(playerInfo_t *pi, int legsAnim, int torsoAnim, vec3_t
 		pi->pendingTorsoAnim = torsoAnim;
 	} else if (torsoAnim != currentAnim) {
 		pi->pendingTorsoAnim = 0;
+
 		UI_ForceTorsoAnim(pi, torsoAnim);
 	}
 }

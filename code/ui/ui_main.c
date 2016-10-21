@@ -18,7 +18,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 /*
 =======================================================================================================================================
 
-USER INTERFACE MAIN
+	USER INTERFACE MAIN
 
 =======================================================================================================================================
 */
@@ -31,10 +31,18 @@ USER INTERFACE MAIN
 uiInfo_t uiInfo;
 
 static const char *MonthAbbrev[] = {
-	"Jan", "Feb", "Mar",
-	"Apr", "May", "Jun",
-	"Jul", "Aug", "Sep",
-	"Oct", "Nov", "Dec"
+	"Jan",
+	"Feb",
+	"Mar",
+	"Apr",
+	"May",
+	"Jun",
+	"Jul",
+	"Aug",
+	"Sep",
+	"Oct",
+	"Nov",
+	"Dec"
 };
 
 static const char *skillLevels[] = {
@@ -1137,7 +1145,29 @@ int UI_SourceForLAN(void) {
 	}
 }
 
-static const char *handicapValues[] = {"None", "95", "90", "85", "80", "75", "70", "65", "60", "55", "50", "45", "40", "35", "30", "25", "20", "15", "10", "5",NULL};
+static const char *handicapValues[] = {
+	"None",
+	"95",
+	"90",
+	"85",
+	"80",
+	"75",
+	"70",
+	"65",
+	"60",
+	"55",
+	"50",
+	"45",
+	"40",
+	"35",
+	"30",
+	"25",
+	"20",
+	"15",
+	"10",
+	"5",
+	NULL
+};
 #ifndef MISSIONPACK
 static int numHandicaps = ARRAY_LEN(handicapValues);
 #endif
@@ -1339,7 +1369,7 @@ static void UI_DrawSkill(rectDef_t *rect, float scale, vec4_t color, int textSty
 		i = 1;
 	}
 
-	Text_Paint(rect->x, rect->y, scale, color, skillLevels[i-1], 0, 0, textStyle);
+	Text_Paint(rect->x, rect->y, scale, color, skillLevels[i - 1], 0, 0, textStyle);
 }
 
 /*

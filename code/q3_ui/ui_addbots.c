@@ -34,20 +34,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define ART_ARROWUP "menu/art/arrows_vert_top"
 #define ART_ARROWDOWN "menu/art/arrows_vert_bot"
 
-#define ID_BACK			10
-#define ID_GO			11
-#define ID_LIST			12
-#define ID_UP			13
-#define ID_DOWN			14
-#define ID_SKILL		15
-#define ID_TEAM			16
-#define ID_BOTNAME0		20
-#define ID_BOTNAME1		21
-#define ID_BOTNAME2		22
-#define ID_BOTNAME3		23
-#define ID_BOTNAME4		24
-#define ID_BOTNAME5		25
-#define ID_BOTNAME6		26
+#define ID_BACK		10
+#define ID_GO		11
+#define ID_LIST		12
+#define ID_UP		13
+#define ID_DOWN		14
+#define ID_SKILL	15
+#define ID_TEAM		16
+#define ID_BOTNAME0	20
+#define ID_BOTNAME1	21
+#define ID_BOTNAME2	22
+#define ID_BOTNAME3	23
+#define ID_BOTNAME4	24
+#define ID_BOTNAME5	25
+#define ID_BOTNAME6	26
 
 typedef struct {
 	menuframework_s menu;

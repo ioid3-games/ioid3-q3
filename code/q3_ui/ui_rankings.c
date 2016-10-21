@@ -338,13 +338,13 @@ void Rankings_MenuInit(void) {
 	// GRank FIXME -- don't need setup option any more
 	s_rankings.setup.generic.flags |= QMF_HIDDEN|QMF_INACTIVE;
 
-	Menu_AddItem(&s_rankings.menu, (void*)&s_rankings.frame);
-	Menu_AddItem(&s_rankings.menu, (void*)&s_rankings.login);
-	Menu_AddItem(&s_rankings.menu, (void*)&s_rankings.logout);
-	Menu_AddItem(&s_rankings.menu, (void*)&s_rankings.create);
-	Menu_AddItem(&s_rankings.menu, (void*)&s_rankings.spectate);
-	Menu_AddItem(&s_rankings.menu, (void*)&s_rankings.setup);
-	Menu_AddItem(&s_rankings.menu, (void*)&s_rankings.leave);
+	Menu_AddItem(&s_rankings.menu, (void *)&s_rankings.frame);
+	Menu_AddItem(&s_rankings.menu, (void *)&s_rankings.login);
+	Menu_AddItem(&s_rankings.menu, (void *)&s_rankings.logout);
+	Menu_AddItem(&s_rankings.menu, (void *)&s_rankings.create);
+	Menu_AddItem(&s_rankings.menu, (void *)&s_rankings.spectate);
+	Menu_AddItem(&s_rankings.menu, (void *)&s_rankings.setup);
+	Menu_AddItem(&s_rankings.menu, (void *)&s_rankings.leave);
 }
 
 /*

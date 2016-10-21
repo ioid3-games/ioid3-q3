@@ -156,13 +156,13 @@ void Login_MenuInit(void) {
 	s_login.cancel.color = colorRed;
 	y += 20;
 
-	Menu_AddItem(&s_login.menu, (void*)&s_login.frame);
-	Menu_AddItem(&s_login.menu, (void*)&s_login.name);
-	Menu_AddItem(&s_login.menu, (void*)&s_login.name_box);
-	Menu_AddItem(&s_login.menu, (void*)&s_login.password);
-	Menu_AddItem(&s_login.menu, (void*)&s_login.password_box);
-	Menu_AddItem(&s_login.menu, (void*)&s_login.login);
-	Menu_AddItem(&s_login.menu, (void*)&s_login.cancel);
+	Menu_AddItem(&s_login.menu, (void *)&s_login.frame);
+	Menu_AddItem(&s_login.menu, (void *)&s_login.name);
+	Menu_AddItem(&s_login.menu, (void *)&s_login.name_box);
+	Menu_AddItem(&s_login.menu, (void *)&s_login.password);
+	Menu_AddItem(&s_login.menu, (void *)&s_login.password_box);
+	Menu_AddItem(&s_login.menu, (void *)&s_login.login);
+	Menu_AddItem(&s_login.menu, (void *)&s_login.cancel);
 }
 
 /*

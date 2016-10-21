@@ -60,6 +60,7 @@ typedef struct {
 } playersettings_t;
 
 static playersettings_t s_playersettings;
+
 static int gamecodetoui[] = {4, 2, 3, 0, 5, 1, 6};
 static int uitogamecode[] = {4, 6, 2, 3, 1, 5, 7};
 

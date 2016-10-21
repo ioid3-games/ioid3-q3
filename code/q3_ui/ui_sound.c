@@ -47,14 +47,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define DEFAULT_SDL_SND_SPEED 22050
 
 static const char *quality_items[] = {
-	"Low", "Medium", "High", NULL
+	"Low",
+	"Medium",
+	"High",
+	NULL
 };
 
 #define UISND_SDL		0
 #define UISND_OPENAL	1
 
 static const char *soundSystem_items[] = {
-	"SDL", "OpenAL", NULL
+	"SDL",
+	"OpenAL",
+	NULL
 };
 
 typedef struct {

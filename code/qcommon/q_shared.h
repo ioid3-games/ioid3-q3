@@ -112,7 +112,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #else
 #define Q_EXPORT
 #endif
-
 /**************************************************************************************************************************************
  VM Considerations
 
@@ -775,7 +774,7 @@ void Swap_Init(void);
 char *QDECL va(char *format, ...) __attribute__((format(printf, 1, 2)));
 #define TRUNCATE_LENGTH 64
 void Com_TruncateLongString(char *buffer, const char *s);
-// key / value info strings
+// key/value info strings
 char *Info_ValueForKey(const char *s, const char *key);
 void Info_RemoveKey(char *s, const char *key);
 void Info_RemoveKey_Big(char *s, const char *key);

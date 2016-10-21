@@ -54,6 +54,7 @@ time before firing.
 =======================================================================================================================================
 */
 void Use_Trigger_Multiple(gentity_t *ent, gentity_t *activator) {
+
 	ent->activator = activator;
 
 	if (ent->nextthink) {

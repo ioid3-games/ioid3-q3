@@ -96,6 +96,7 @@ BotVoiceChat_Offense
 =======================================================================================================================================
 */
 void BotVoiceChat_Offense(bot_state_t *bs, int client, int mode) {
+
 	if (gametype == GT_CTF
 #ifdef MISSIONPACK
 		|| gametype == GT_1FCTF

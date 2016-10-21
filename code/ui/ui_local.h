@@ -167,7 +167,7 @@ typedef struct _tag_menuframework {
 	int nitems;
 	void *items[MAX_MENUITEMS];
 	void (*draw)(void);
-	sfxHandle_t(*key)(int key);
+	sfxHandle_t (*key)(int key);
 	qboolean wrapAround;
 	qboolean fullscreen;
 	qboolean showlogo;
@@ -492,11 +492,11 @@ typedef struct {
 #define MAX_FOUNDPLAYER_SERVERS 16
 #define TEAM_MEMBERS 5
 
-#define GAMES_ALL			0
-#define GAMES_FFA			1
-#define GAMES_TEAMPLAY		2
-#define GAMES_TOURNEY		3
-#define GAMES_CTF			4
+#define GAMES_ALL		0
+#define GAMES_FFA		1
+#define GAMES_TEAMPLAY	2
+#define GAMES_TOURNEY	3
+#define GAMES_CTF		4
 
 #define MAPS_PER_TIER 3
 #define MAX_TIERS 16

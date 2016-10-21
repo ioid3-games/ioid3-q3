@@ -38,7 +38,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define ID_SCREENSIZE	15
 #define ID_BACK			16
 
-
 typedef struct {
 	menuframework_s menu;
 	menutext_s banner;
