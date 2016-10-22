@@ -49,11 +49,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define AVOID_DROPPED_TIME 10
 #define TRAVELTIME_SCALE 0.01
 // item flags
-#define IFL_NOTFREE 1 // not in free for all
-#define IFL_NOTTEAM 2 // not in team play
-#define IFL_NOTSINGLE 4 // not in single player
-#define IFL_NOTBOT 8 // bot should never go for this
-#define IFL_ROAM 16 // bot roam goal
+#define IFL_NOTFREE		 1 // not in free for all
+#define IFL_NOTTEAM		 2 // not in team play
+#define IFL_NOTSINGLE	 4 // not in single player
+#define IFL_NOTBOT		 8 // bot should never go for this
+#define IFL_ROAM		16 // bot roam goal
 // location in the map "target_location"
 typedef struct maplocation_s {
 	vec3_t origin;
@@ -74,12 +74,12 @@ typedef struct campspot_s {
 } campspot_t;
 // FIXME: these are game specific
 typedef enum {
-	GT_FFA, // free for all
-	GT_TOURNAMENT, // one on one tournament
-	GT_SINGLE_PLAYER, // single player tournament
+	GT_FFA,				// free for all
+	GT_TOURNAMENT,		// one on one tournament
+	GT_SINGLE_PLAYER,	// single player tournament
 	//-- team games go after this --
-	GT_TEAM, // team deathmatch
-	GT_CTF, // capture the flag
+	GT_TEAM,			// team deathmatch
+	GT_CTF,				// capture the flag
 #ifdef MISSIONPACK
 	GT_1FCTF,
 	GT_OBELISK,
@@ -477,6 +477,7 @@ void BotInitInfoEntities(void) {
 		// camp spots
 		} else if (!strcmp(classname, "info_camp")) {
 			cs = (campspot_t *)GetClearedMemory(sizeof(campspot_t));
+
 			AAS_VectorForBSPEpairKey(ent, "origin", cs->origin);
 			//cs->origin[2] += 16;
 			AAS_ValueForBSPEpairKey(ent, "message", cs->name, sizeof(cs->name));
@@ -484,6 +485,7 @@ void BotInitInfoEntities(void) {
 			AAS_FloatForBSPEpairKey(ent, "weight", &cs->weight);
 			AAS_FloatForBSPEpairKey(ent, "wait", &cs->wait);
 			AAS_FloatForBSPEpairKey(ent, "random", &cs->random);
+
 			cs->areanum = AAS_PointAreaNum(cs->origin);
 
 			if (!cs->areanum) {

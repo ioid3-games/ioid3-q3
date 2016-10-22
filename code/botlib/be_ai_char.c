@@ -35,9 +35,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include "be_ai_char.h"
 
 #define MAX_CHARACTERISTICS 80
-#define CT_INTEGER 1
-#define CT_FLOAT 2
-#define CT_STRING 3
+
+#define CT_INTEGER	1
+#define CT_FLOAT	2
+#define CT_STRING	3
+
 #define DEFAULT_CHARACTER "bots/default_c.c"
 // characteristic value
 union cvalue {
@@ -47,8 +49,8 @@ union cvalue {
 };
 // a characteristic
 typedef struct bot_characteristic_s {
-	char type; // characteristic type
-	union cvalue value; // characteristic value
+	char type;			// characteristic type
+	union cvalue value;	// characteristic value
 } bot_characteristic_t;
 // a bot character
 typedef struct bot_character_s {

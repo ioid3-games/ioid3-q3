@@ -384,11 +384,10 @@ extern void UI_GraphicsOptionsMenu(void);
 extern void GraphicsOptions_Cache(void);
 extern void DriverInfo_Cache(void);
 // ui_players.c
-
 //FIXME ripped from cg_local.h
 typedef struct {
 	int oldFrame;
-	int oldFrameTime; // time when->oldFrame was exactly on
+	int oldFrameTime;		// time when->oldFrame was exactly on
 	int frame;
 	int frameTime;			// time when->frame will be exactly on
 	float backlerp;
@@ -396,9 +395,9 @@ typedef struct {
 	qboolean yawing;
 	float pitchAngle;
 	qboolean pitching;
-	int animationNumber; // may include ANIM_TOGGLEBIT
+	int animationNumber;	// may include ANIM_TOGGLEBIT
 	animation_t *animation;
-	int animationTime; // time when the first frame of the animation will be exact
+	int animationTime;		// time when the first frame of the animation will be exact
 } lerpFrame_t;
 
 typedef struct {
@@ -688,6 +687,7 @@ typedef struct {
 	int effectsColor;
 	qboolean inGameLoad;
 } uiInfo_t;
+
 extern uiInfo_t uiInfo;
 
 extern void UI_Init(void);

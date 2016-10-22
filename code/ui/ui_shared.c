@@ -36,7 +36,6 @@ typedef struct scrollInfo_s {
 } scrollInfo_t;
 
 static scrollInfo_t scrollInfo;
-
 static void (*captureFunc)(void *p) = 0;
 static void *captureData = NULL;
 static itemDef_t *itemCapture = NULL; // item that has the mouse captured(if any)
@@ -68,16 +67,13 @@ qboolean Item_Bind_HandleKey(itemDef_t *item, int key, qboolean down);
 itemDef_t *Menu_SetPrevCursorItem(menuDef_t *menu);
 itemDef_t *Menu_SetNextCursorItem(menuDef_t *menu);
 static qboolean Menu_OverActiveItem(menuDef_t *menu, float x, float y);
-
 #ifdef CGAME
 #define MEM_POOL_SIZE 128 * 1024
 #else
 #define MEM_POOL_SIZE 1024 * 1024
 #endif
-
 static char memoryPool[MEM_POOL_SIZE];
 static int allocPoint, outOfMemory;
-
 
 /*
 =======================================================================================================================================
@@ -160,6 +156,7 @@ static char strPool[STRING_POOL_SIZE];
 
 static int strHandleCount = 0;
 static stringDef_t *strHandle[HASH_TABLE_SIZE];
+
 /*
 =======================================================================================================================================
 String_Alloc
@@ -631,7 +628,7 @@ void GradientBar_Paint(rectDef_t *rect, vec4_t color) {
 =======================================================================================================================================
 Window_Init
 
-Initializes a window structure(windowDef_t) with defaults.
+Initializes a window structure (windowDef_t) with defaults.
 =======================================================================================================================================
 */
 void Window_Init(Window *w) {
@@ -828,6 +825,7 @@ void Item_UpdatePosition(itemDef_t *item) {
 	}
 
 	menu = item->parent;
+
 	x = menu->window.rect.x;
 	y = menu->window.rect.y;
 
@@ -1076,13 +1074,13 @@ Script_SetTeamColor
 void Script_SetTeamColor(itemDef_t *item, char **args) {
 
 	if (DC->getTeamColor) {
-	int i;
-	vec4_t color;
+		int i;
+		vec4_t color;
 
-	DC->getTeamColor(&color);
+		DC->getTeamColor(&color);
 
-	for (i = 0; i < 4; i++) {
-		item->window.backColor[i] = color[i];
+		for (i = 0; i < 4; i++) {
+			item->window.backColor[i] = color[i];
 		}
 	}
 }
@@ -2962,7 +2960,7 @@ qboolean Item_Slider_HandleKey(itemDef_t *item, int key, qboolean down) {
 					value = work / width;
 					value *= (editDef->maxVal - editDef->minVal);
 					// vm fuckage
-					// value = (((float)(DC->cursorx - x)/ SLIDER_WIDTH) *(editDef->maxVal - editDef->minVal));
+					// value = (((float)(DC->cursorx - x) / SLIDER_WIDTH) * (editDef->maxVal - editDef->minVal));
 					value += editDef->minVal;
 					DC->setCVar(item->cvar, va("%f", value));
 					return qtrue;
@@ -2976,7 +2974,7 @@ qboolean Item_Slider_HandleKey(itemDef_t *item, int key, qboolean down) {
 
 				if (editDef) {
 					// 20 is number of steps
-					value = DC->getCVarValue(item->cvar) + (((editDef->maxVal - editDef->minVal)/20) * select);
+					value = DC->getCVarValue(item->cvar) + (((editDef->maxVal - editDef->minVal) / 20) * select);
 
 					if (value < editDef->minVal) {
 						value = editDef->minVal;
@@ -3054,8 +3052,8 @@ qboolean Item_HandleKey(itemDef_t *item, int key, qboolean down) {
 			return Item_Slider_HandleKey(item, key, down);
 			break;
 		//case ITEM_TYPE_IMAGE:
-			//	Item_Image_Paint(item);
-			//	break;
+		//	Item_Image_Paint(item);
+		//	break;
 		default:
 			return qfalse;
 			break;
@@ -3397,6 +3395,7 @@ void Menu_HandleKey(menuDef_t *menu, int key, qboolean down) {
 		case K_ESCAPE:
 			if (!g_waitingForKey && menu->onESC) {
 				itemDef_t it;
+
 				it.parent = menu;
 				Item_RunScript(&it, menu->onESC);
 			}
@@ -3550,7 +3549,7 @@ void Item_TextColor(itemDef_t *item, vec4_t *newColor) {
 		lowLight[2] = 0.8 * parent->focusColor[2];
 		lowLight[3] = 0.8 * parent->focusColor[3];
 		LerpColor(parent->focusColor, lowLight, *newColor, 0.5 + 0.5 * sin(DC->realTime / PULSE_DIVISOR));
-	} else if (item->textStyle == ITEM_TEXTSTYLE_BLINK && !((DC->realTime/BLINK_DIVISOR) & 1)) {
+	} else if (item->textStyle == ITEM_TEXTSTYLE_BLINK && !((DC->realTime / BLINK_DIVISOR) & 1)) {
 		lowLight[0] = 0.8 * item->window.foreColor[0];
 		lowLight[1] = 0.8 * item->window.foreColor[1];
 		lowLight[2] = 0.8 * item->window.foreColor[2];
@@ -3742,7 +3741,7 @@ void Item_Text_Paint(itemDef_t *item) {
 
 	Item_TextColor(item, &color);
 
-	//FIXME: this is a fucking mess
+	// FIXME: this is a fucking mess
 /*
 	adjust = 0;
 
@@ -3778,10 +3777,8 @@ void Item_Text_Paint(itemDef_t *item) {
 Item_TextField_Paint
 =======================================================================================================================================
 */
-
 //float trap_Cvar_VariableValue(const char *var_name);
 //void trap_Cvar_VariableStringBuffer(const char *var_name, char *buffer, int bufsize);
-
 void Item_TextField_Paint(itemDef_t *item) {
 	char buff[1024];
 	vec4_t newColor, lowLight;
@@ -3890,7 +3887,6 @@ typedef struct {
 	float defaultvalue;
 	float value;
 } configcvar_t;
-
 
 static bind_t g_bindings[] = {
 	{"+scores", K_TAB, -1, -1, -1},
@@ -4045,10 +4041,11 @@ void Controls_SetConfig(qboolean restart) {
 		}
 	}
 
-	//if (s_controls.invertmouse.curvalue)
+	//if (s_controls.invertmouse.curvalue) {
 	//	DC->setCVar("m_pitch", va("%f), -fabs(DC->getCVarValue("m_pitch")));
-	//else
+	//} else {
 	//	trap_Cvar_SetValue("m_pitch", fabs(trap_Cvar_VariableValue("m_pitch")));
+	//}
 
 	//trap_Cvar_SetValue("m_filter", s_controls.smoothmouse.curvalue);
 	//trap_Cvar_SetValue("cl_run", s_controls.alwaysrun.curvalue);
@@ -4353,6 +4350,7 @@ void Item_Model_Paint(itemDef_t *item) {
 
 	refdef.rdflags = RDF_NOWORLDMODEL;
 	AxisClear(refdef.viewaxis);
+
 	x = item->window.rect.x + 1;
 	y = item->window.rect.y + 1;
 	w = item->window.rect.w - 2;
@@ -4642,7 +4640,7 @@ void Item_OwnerDraw_Paint(itemDef_t *item) {
 			lowLight[2] = 0.8 * parent->focusColor[2];
 			lowLight[3] = 0.8 * parent->focusColor[3];
 			LerpColor(parent->focusColor, lowLight, color, 0.5 + 0.5 * sin(DC->realTime / PULSE_DIVISOR));
-		} else if (item->textStyle == ITEM_TEXTSTYLE_BLINK && !((DC->realTime/BLINK_DIVISOR) & 1)) {
+		} else if (item->textStyle == ITEM_TEXTSTYLE_BLINK && !((DC->realTime / BLINK_DIVISOR) & 1)) {
 			lowLight[0] = 0.8 * item->window.foreColor[0];
 			lowLight[1] = 0.8 * item->window.foreColor[1];
 			lowLight[2] = 0.8 * item->window.foreColor[2];
@@ -4857,8 +4855,8 @@ void Item_Paint(itemDef_t *item) {
 			Item_ListBox_Paint(item);
 			break;
 		//case ITEM_TYPE_IMAGE:
-			//	Item_Image_Paint(item);
-			//	break;
+		//	Item_Image_Paint(item);
+		//	break;
 		case ITEM_TYPE_MODEL:
 			Item_Model_Paint(item);
 			break;
@@ -5220,7 +5218,7 @@ int KeywordHash_Key(char *keyword) {
 		if (keyword[i] >= 'A' && keyword[i] <= 'Z') {
 			hash += (keyword[i] + ('a' - 'A')) * (119 + i);
 		} else {
-			hash += keyword[i] *(119 + i);
+			hash += keyword[i] * (119 + i);
 		}
 	}
 
@@ -5265,6 +5263,14 @@ keywordHash_t *KeywordHash_Find(keywordHash_t *table[], char *keyword) {
 
 	return NULL;
 }
+
+/*
+=======================================================================================================================================
+
+	ITEM KEYWORD PARSE FUNCTIONS
+
+=======================================================================================================================================
+*/
 
 /*
 =======================================================================================================================================
@@ -6418,7 +6424,6 @@ qboolean ItemParse_hideCvar(itemDef_t *item, int handle) {
 	return qfalse;
 }
 
-
 keywordHash_t itemParseKeywords[] = {
 	{"name", ItemParse_name, NULL},
 	{"text", ItemParse_text, NULL},
@@ -6506,7 +6511,7 @@ void Item_SetupKeywordHash(void) {
 =======================================================================================================================================
 Item_ApplyHacks
 
-Hacks to fix issues with Team Arena menu scripts
+Hacks to fix issues with Team Arena menu scripts.
 =======================================================================================================================================
 */
 static void Item_ApplyHacks(itemDef_t *item) {
@@ -6604,6 +6609,14 @@ void Item_InitControls(itemDef_t *item) {
 		}
 	}
 }
+
+/*
+=======================================================================================================================================
+
+	MENU KEYWORD PARSE FUNCTIONS
+
+=======================================================================================================================================
+*/
 
 /*
 =======================================================================================================================================
@@ -7274,10 +7287,11 @@ void *Display_CaptureItem(int x, int y) {
 
 /*
 =======================================================================================================================================
-Display_MouseMove
+Display_CursorType
+
+FIXME!
 =======================================================================================================================================
 */
-// FIXME:
 qboolean Display_MouseMove(void *p, int x, int y) {
 	int i;
 	menuDef_t *menu = p;

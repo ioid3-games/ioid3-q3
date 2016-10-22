@@ -26,10 +26,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define UI_TIMER_WEAPON_DELAY 250
 
 #define JUMP_HEIGHT 56
-
 #define SWINGSPEED 0.3f
 #define SPIN_SPEED 0.9f
-
 #define COAST_TIME 1000
 
 static int dp_realtime;
@@ -246,7 +244,7 @@ static void UI_LegsSequencing(playerInfo_t *pi) {
 
 	if (pi->legsAnimationTimer > 0) {
 		if (currentAnim == LEGS_JUMP) {
-			jumpHeight = JUMP_HEIGHT * sin(M_PI *(UI_TIMER_JUMP - pi->legsAnimationTimer) / UI_TIMER_JUMP);
+			jumpHeight = JUMP_HEIGHT * sin(M_PI * (UI_TIMER_JUMP - pi->legsAnimationTimer) / UI_TIMER_JUMP);
 		}
 
 		return;
@@ -614,6 +612,7 @@ static void UI_PlayerFloatSprite(playerInfo_t *pi, vec3_t origin, qhandle_t shad
 	memset(&ent, 0, sizeof(ent));
 
 	VectorCopy(origin, ent.origin);
+
 	ent.origin[2] += 48;
 	ent.reType = RT_SPRITE;
 	ent.customShader = shader;
@@ -726,7 +725,7 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 	refdef.fov_y = atan2(refdef.height / uiInfo.uiDC.yscale, xx);
 	refdef.fov_y *= (360 / (float)M_PI);
 	// calculate distance so the player nearly fills the box
-	len = 0.7 *(maxs[2] - mins[2]);
+	len = 0.7 * (maxs[2] - mins[2]);
 	origin[0] = len / tan(DEG2RAD(refdef.fov_x) * 0.5);
 	origin[1] = 0.5 * (mins[1] + maxs[1]);
 	origin[2] = -0.5 * (mins[2] + maxs[2]);
@@ -1353,7 +1352,7 @@ void UI_PlayerInfo_SetInfo(playerInfo_t *pi, int legsAnim, int torsoAnim, vec3_t
 		}
 
 		pi->muzzleFlashTime = dp_realtime + UI_TIMER_MUZZLE_FLASH;
-		//FIXME play firing sound here
+		// FIXME play firing sound here
 	}
 
 	currentAnim = pi->torsoAnim & ~ANIM_TOGGLEBIT;

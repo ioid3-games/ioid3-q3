@@ -61,7 +61,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define CURSOR_NONE		0x00000001
 #define CURSOR_ARROW	0x00000002
 #define CURSOR_SIZER	0x00000004
-
 #ifdef CGAME
 #define STRING_POOL_SIZE 128 * 1024
 #else
@@ -112,7 +111,6 @@ typedef struct {
 } rectDef_t;
 
 typedef rectDef_t Rectangle;
-
 // FIXME: do something to separate text vs window stuff
 typedef struct {
 	Rectangle rect;				// client coord rectangle
@@ -179,7 +177,7 @@ typedef struct listBoxDef_s {
 } listBoxDef_t;
 
 typedef struct editFieldDef_s {
-	float minVal;		//	edit field limits
+	float minVal;		// edit field limits
 	float maxVal;
 	float defVal;
 	float range;
@@ -213,7 +211,7 @@ typedef struct modelDef_s {
 
 typedef struct itemDef_s {
 	Window window;				// common positional, border, style, layout info
-	Rectangle textRect;			// rectangle the text(if any) consumes
+	Rectangle textRect;			// rectangle the text (if any) consumes
 	int type;					// text, button, radiobutton, checkbox, textfield, listbox, combo
 	int alignment;				// left center right
 	int textalignment;			// (optional) alignment for text within rect based on text width
@@ -311,8 +309,8 @@ typedef struct {
 	void (*drawHandlePic)(float x, float y, float w, float h, qhandle_t asset);
 	void (*drawStretchPic)(float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader);
 	void (*drawText)(float x, float y, float scale, vec4_t color, const char *text, float adjust, int limit, int style);
-	int(*textWidth)(const char *text, float scale, int limit);
-	int(*textHeight)(const char *text, float scale, int limit);
+	int (*textWidth)(const char *text, float scale, int limit);
+	int (*textHeight)(const char *text, float scale, int limit);
 	qhandle_t(*registerModel)(const char *p);
 	void (*modelBounds)(qhandle_t model, vec3_t min, vec3_t max);
 	void (*fillRect)(float x, float y, float w, float h, const vec4_t color);
@@ -324,19 +322,19 @@ typedef struct {
 	void (*renderScene)(const refdef_t *fd);
 	void (*registerFont)(const char *pFontname, int pointSize, fontInfo_t *font);
 	void (*ownerDrawItem)(float x, float y, float w, float h, float text_x, float text_y, int ownerDraw, int ownerDrawFlags, int align, float special, float scale, vec4_t color, qhandle_t shader, int textStyle);
-	float(*getValue)(int ownerDraw);
+	float (*getValue)(int ownerDraw);
 	qboolean (*ownerDrawVisible)(int flags);
 	void (*runScript)(char **p);
 	void (*getTeamColor)(vec4_t *color);
 	void (*getCVarString)(const char *cvar, char *buffer, int bufsize);
-	float(*getCVarValue)(const char *cvar);
+	float (*getCVarValue)(const char *cvar);
 	void (*setCVar)(const char *cvar, const char *value);
 	void (*drawTextWithCursor)(float x, float y, float scale, vec4_t color, const char *text, int cursorPos, char cursor, int limit, int style);
 	void (*setOverstrikeMode)(qboolean b);
 	qboolean (*getOverstrikeMode)(void);
 	void (*startLocalSound)(sfxHandle_t sfx, int channelNum);
 	qboolean (*ownerDrawHandleKey)(int ownerDraw, int flags, float *special, int key);
-	int(*feederCount)(float feederID);
+	int (*feederCount)(float feederID);
 	const char *(*feederItemText)(float feederID, int index, int column, qhandle_t *handle);
 	qhandle_t (*feederItemImage)(float feederID, int index);
 	void (*feederSelection)(float feederID, int index);
@@ -347,11 +345,11 @@ typedef struct {
 	void (*Error)(int level, const char *error, ...) __attribute__((noreturn, format(printf, 2, 3)));
 	void (*Print)(const char *msg, ...) __attribute__((format(printf, 1, 2)));
 	void (*Pause)(qboolean b);
-	int(*ownerDrawWidth)(int ownerDraw, float scale);
+	int (*ownerDrawWidth)(int ownerDraw, float scale);
 	sfxHandle_t (*registerSound)(const char *name, qboolean compressed);
 	void (*startBackgroundTrack)(const char *intro, const char *loop);
 	void (*stopBackgroundTrack)(void);
-	int(*playCinematic)(const char *name, float x, float y, float w, float h);
+	int (*playCinematic)(const char *name, float x, float y, float w, float h);
 	void (*stopCinematic)(int handle);
 	void (*drawCinematic)(int handle, float x, float y, float w, float h);
 	void (*runCinematicFrame)(int handle);
