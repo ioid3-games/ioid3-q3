@@ -89,7 +89,11 @@ typedef enum {
 	GT_MAX_GAME_TYPE
 } gametype_t;
 
-typedef enum {GENDER_MALE, GENDER_FEMALE, GENDER_NEUTER} gender_t;
+typedef enum {
+	GENDER_MALE,
+	GENDER_FEMALE,
+	GENDER_NEUTER
+} gender_t;
 
 /**************************************************************************************************************************************
 
