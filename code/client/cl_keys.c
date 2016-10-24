@@ -600,7 +600,7 @@ void Console_Key(int key) {
 			if (!g_consoleField.buffer[0]) {
 				return; // empty lines just scroll the console without adding to history
 			} else {
-				Cbuf_AddText("cmd say ");
+				Cbuf_AddText("cmd say");
 				Cbuf_AddText(g_consoleField.buffer);
 				Cbuf_AddText("\n");
 			}

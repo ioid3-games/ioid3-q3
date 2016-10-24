@@ -387,6 +387,7 @@ static void SV_AddEntitiesVisibleFromPoint(vec3_t origin, clientSnapshot_t *fram
 		if (ent->r.svFlags & SVF_PORTAL) {
 			if (ent->s.generic1) {
 				vec3_t dir;
+
 				VectorSubtract(ent->s.origin, origin, dir);
 
 				if (VectorLengthSquared(dir) > (float)ent->s.generic1 * ent->s.generic1) {

@@ -1,5 +1,5 @@
 /*
-===========================================================================
+=======================================================================================================================================
 Copyright (C) 1999-2005 Id Software, Inc.
 
 This file is part of Quake III Arena source code.
@@ -12,7 +12,7 @@ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Gen
 
 You should have received a copy of the GNU General Public License along with Quake III Arena source code; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
-===========================================================================
+=======================================================================================================================================
 */
 
 /**************************************************************************************************************************************
@@ -29,7 +29,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include <sys/mman.h> // for PROT_ stuff
 // need this on NX enabled systems (i386 with PAE kernel or noexec32=on x86_64)
 #define VM_X86_MMAP
-
 // workaround for systems that use the old MAP_ANON macro
 #ifndef MAP_ANONYMOUS
 #define MAP_ANONYMOUS MAP_ANON

@@ -29,7 +29,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 // weapon weight file
 #define CHARACTERISTIC_WEAPONWEIGHTS				 3 // string
 // view angle difference to angle change factor
-#define CHARACTERISTIC_VIEW_FACTOR					 4 // float <0, 1]
+#define CHARACTERISTIC_VIEW_FACTOR					 4 // float [0, 1]
 // maximum view angle change
 #define CHARACTERISTIC_VIEW_MAXCHANGE				 5 // float [1, 360]
 // reaction time in seconds
