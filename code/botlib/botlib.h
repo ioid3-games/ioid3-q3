@@ -119,7 +119,7 @@ typedef struct bsp_trace_s {
 	int ent;				// number of entity hit
 } bsp_trace_t;
 #endif // BSPTRACE
-//entity state
+// entity state
 typedef struct bot_entitystate_s {
 	int type;			// entity type
 	int flags;			// entity flags
