@@ -480,6 +480,7 @@ int BotValidChatPosition(bot_state_t *bs) {
 	VectorCopy(bs->origin, end);
 	start[2] += 1;
 	end[2] -= 10;
+
 	trap_AAS_PresenceTypeBoundingBox(PRESENCE_CROUCH, mins, maxs);
 	BotAI_Trace(&trace, start, mins, maxs, end, bs->client, MASK_SOLID);
 
@@ -532,6 +533,7 @@ int BotChat_EnterGame(bot_state_t *bs) {
 	}
 
 	BotAI_BotInitialChat(bs, "game_enter", EasyClientName(bs->client, name, 32), BotRandomOpponentName(bs), "[invalid var]", "[invalid var]", BotMapTitle(), NULL);
+
 	bs->lastchat_time = FloatTime();
 	bs->chatto = CHAT_ALL;
 	return qtrue;
@@ -575,6 +577,7 @@ int BotChat_ExitGame(bot_state_t *bs) {
 	}
 
 	BotAI_BotInitialChat(bs, "game_exit", EasyClientName(bs->client, name, 32), BotRandomOpponentName(bs), "[invalid var]", "[invalid var]", BotMapTitle(), NULL);
+
 	bs->lastchat_time = FloatTime();
 	bs->chatto = CHAT_ALL;
 	return qtrue;
@@ -625,6 +628,7 @@ int BotChat_StartLevel(bot_state_t *bs) {
 	}
 
 	BotAI_BotInitialChat(bs, "level_start", EasyClientName(bs->client, name, 32), NULL);
+
 	bs->lastchat_time = FloatTime();
 	bs->chatto = CHAT_ALL;
 	return qtrue;
@@ -920,6 +924,7 @@ int BotChat_EnemySuicide(bot_state_t *bs) {
 	}
 
 	BotAI_BotInitialChat(bs, "enemy_suicide", name, NULL);
+
 	bs->lastchat_time = FloatTime();
 	bs->chatto = CHAT_ALL;
 	return qtrue;
@@ -985,6 +990,7 @@ int BotChat_HitTalking(bot_state_t *bs) {
 	weap = BotWeaponNameForMeansOfDeath(g_entities[bs->client].client->lasthurt_mod);
 
 	BotAI_BotInitialChat(bs, "hit_talking", name, weap, NULL);
+
 	bs->lastchat_time = FloatTime();
 	bs->chatto = CHAT_ALL;
 	return qtrue;
@@ -1061,6 +1067,7 @@ int BotChat_HitNoDeath(bot_state_t *bs) {
 	weap = BotWeaponNameForMeansOfDeath(g_entities[bs->client].client->lasthurt_mod);
 
 	BotAI_BotInitialChat(bs, "hit_nodeath", name, weap, NULL);
+
 	bs->lastchat_time = FloatTime();
 	bs->chatto = CHAT_ALL;
 	return qtrue;
@@ -1122,6 +1129,7 @@ int BotChat_HitNoKill(bot_state_t *bs) {
 	weap = BotWeaponNameForMeansOfDeath(g_entities[bs->enemy].client->lasthurt_mod);
 
 	BotAI_BotInitialChat(bs, "hit_nokill", name, weap, NULL);
+
 	bs->lastchat_time = FloatTime();
 	bs->chatto = CHAT_ALL;
 	return qtrue;
