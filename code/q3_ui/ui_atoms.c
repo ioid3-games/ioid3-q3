@@ -624,7 +624,7 @@ void UI_DrawProportionalString_AutoWrapped(int x, int y, int xmax, int ystep, co
 
 			if (c_bcp == '\0') {
 				// that was the last word
-				// we could start a new loop, but that wouldn't be much use´even if the word is too long, we would overflow it (see above)
+				// we could start a new loop, but that wouldn't be much use even if the word is too long, we would overflow it (see above)
 				// so just print it now if needed
 				s2++;
 
@@ -989,6 +989,7 @@ UI_Cache_f
 =======================================================================================================================================
 */
 void UI_Cache_f(void) {
+
 	MainMenu_Cache();
 	InGame_Cache();
 	ConfirmMenu_Cache();
@@ -1143,6 +1144,7 @@ void UI_DrawNamedPic(float x, float y, float width, float height, const char *pi
 	qhandle_t hShader;
 
 	hShader = trap_R_RegisterShaderNoMip(picname);
+
 	UI_AdjustFrom640(&x, &y, &width, &height);
 	trap_R_DrawStretchPic(x, y, width, height, 0, 0, 1, 1, hShader);
 }

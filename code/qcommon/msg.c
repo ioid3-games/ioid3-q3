@@ -1283,6 +1283,7 @@ void MSG_ReadDeltaEntity(msg_t *msg, entityState_t *from, entityState_t *to, int
 					}
 				}
 			}
+
 //			pcount[i]++;
 		}
 	}
@@ -1952,8 +1953,8 @@ void MSG_initHuffman(void) {
 
 	for (i = 0; i < 256; i++) {
 		for (j = 0; j < msg_hData[i]; j++) {
-			Huff_addRef(&msgHuff.compressor, (byte)i); // Do update
-			Huff_addRef(&msgHuff.decompressor, (byte)i); // Do update
+			Huff_addRef(&msgHuff.compressor, (byte)i); // do update
+			Huff_addRef(&msgHuff.decompressor, (byte)i); // do update
 		}
 	}
 }

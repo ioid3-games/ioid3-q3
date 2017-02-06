@@ -1262,8 +1262,7 @@ void SV_UserinfoChanged(client_t *cl) {
 	Q_strncpyz(cl->name, Info_ValueForKey(cl->userinfo, "name"), sizeof(cl->name));
 	// rate command
 
-	// if the client is on the same subnet as the server and we aren't running an
-	// internet public server, assume they don't need a rate choke
+	// if the client is on the same subnet as the server and we aren't running an internet public server, assume they don't need a rate choke
 	if (Sys_IsLANAddress(cl->netchan.remoteAddress) && com_dedicated->integer != 2 && sv_lanForceRate->integer == 1) {
 		cl->rate = 99999; // lans should not rate limit
 	} else {
@@ -1325,7 +1324,6 @@ void SV_UserinfoChanged(client_t *cl) {
 		cl->hasVoip = !Q_stricmp(val, "opus");
 	}
 #endif
-	// TTimo
 	// maintain the IP information
 	// the banning code relies on this being consistently present
 	if (NET_IsLocalAddress(cl->netchan.remoteAddress)) {

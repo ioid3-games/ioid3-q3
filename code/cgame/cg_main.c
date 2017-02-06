@@ -1234,7 +1234,7 @@ qboolean CG_Asset_Parse(int handle) {
 			cgDC.registerFont(tempStr, pointSize, &cgDC.Assets.smallFont);
 			continue;
 		}
-		// font
+		// bigFont
 		if (Q_stricmp(token.string, "bigfont") == 0) {
 			int pointSize;
 
@@ -1752,8 +1752,7 @@ static void CG_FeederSelection(float feederID, int index) {
 		cg.selectedScore = index;
 	}
 }
-#endif
-#ifdef MISSIONPACK
+
 /*
 =======================================================================================================================================
 CG_Cvar_Get
@@ -1767,8 +1766,7 @@ static float CG_Cvar_Get(const char *cvar) {
 	trap_Cvar_VariableStringBuffer(cvar, buff, sizeof(buff));
 	return atof(buff);
 }
-#endif
-#ifdef MISSIONPACK
+
 /*
 =======================================================================================================================================
 CG_Text_PaintWithCursor

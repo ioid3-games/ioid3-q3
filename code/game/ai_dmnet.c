@@ -1479,8 +1479,7 @@ void BotClearPath(bot_state_t *bs, bot_moveresult_t *moveresult) {
 		if (bestmine != -1) {
 			// state->generic1 == TEAM_RED || state->generic1 == TEAM_BLUE
 
-			// deactivate prox mines in the bot's path by shooting
-			// rockets or plasma cells etc. at them
+			// deactivate prox mines in the bot's path by shooting rockets or plasma cells etc. at them
 			BotAI_GetEntityState(bs->proxmines[bestmine], &state);
 			VectorCopy(state.pos.trBase, target);
 			target[2] += 2;

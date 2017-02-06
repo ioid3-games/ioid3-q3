@@ -271,6 +271,7 @@ extern sfxHandle_t menu_out_sound;
 extern sfxHandle_t menu_buzz_sound;
 extern sfxHandle_t menu_null_sound;
 extern sfxHandle_t weaponChangeSound;
+
 extern vec4_t menu_text_color;
 extern vec4_t menu_grayed_color;
 extern vec4_t menu_dark_color;
@@ -384,7 +385,7 @@ extern void UI_GraphicsOptionsMenu(void);
 extern void GraphicsOptions_Cache(void);
 extern void DriverInfo_Cache(void);
 // ui_players.c
-//FIXME ripped from cg_local.h
+// FIXME ripped from cg_local.h
 typedef struct {
 	int oldFrame;
 	int oldFrameTime;		// time when->oldFrame was exactly on
@@ -726,6 +727,7 @@ extern void UI_Refresh(int time);
 extern void UI_KeyEvent(int key);
 extern void UI_StartDemoLoop(void);
 extern qboolean m_entersound;
+
 void UI_LoadBestScores(const char *map, int game);
 extern uiStatic_t uis;
 // ui_spLevel.c

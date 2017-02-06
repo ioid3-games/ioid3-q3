@@ -1749,6 +1749,7 @@ int BotInitLibrary(void) {
 	}
 
 	trap_BotLibVarSet("maxclients", buf);
+
 	Com_sprintf(buf, sizeof(buf), "%d", MAX_GENTITIES);
 	trap_BotLibVarSet("maxentities", buf);
 	// bsp checksum

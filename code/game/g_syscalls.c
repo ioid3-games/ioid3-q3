@@ -462,13 +462,12 @@ trap_SnapVector
 void trap_SnapVector(float *v) {
 	syscall(G_SNAPVECTOR, v);
 }
-
+// BotLib traps start here
 /*
 =======================================================================================================================================
 trap_BotLibSetup
 =======================================================================================================================================
 */
-// BotLib traps start here
 int trap_BotLibSetup(void) {
 	return syscall(BOTLIB_SETUP);
 }

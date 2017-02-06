@@ -407,7 +407,7 @@ void CopyToBodyQue(gentity_t *ent) {
 	level.bodyQueIndex = (level.bodyQueIndex + 1) % BODY_QUEUE_SIZE;
 
 	body->s = ent->s;
-	body->s.eFlags = EF_DEAD; // clear EF_TALK, etc
+	body->s.eFlags = EF_DEAD; // clear EF_TALK, etc.
 #ifdef MISSIONPACK
 	if (ent->s.eFlags & EF_KAMIKAZE) {
 		body->s.eFlags |= EF_KAMIKAZE;
@@ -1132,6 +1132,7 @@ void ClientSpawn(gentity_t *ent) {
 	client->ps.pm_flags |= PMF_RESPAWNED;
 
 	trap_GetUsercmd(client - level.clients, &ent->client->pers.cmd);
+
 	SetClientViewAngle(ent, spawn_angles);
 	// don't allow full run speed for a bit
 	client->ps.pm_flags |= PMF_TIME_KNOCKBACK;

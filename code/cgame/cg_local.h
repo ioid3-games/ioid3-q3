@@ -512,7 +512,7 @@ typedef struct {
 	int bobcycle;
 	float xyspeed;
 	int nextOrbitTime;
-	//qboolean cameraMode; // if rendering from a loaded camera
+	//qboolean cameraMode;	// if rendering from a loaded camera
 	// development tool
 	refEntity_t testModelEntity;
 	char testModelName[MAX_QPATH];
@@ -1187,7 +1187,7 @@ void CG_CheckChangedPredictableEvents(playerState_t *ps);
 
 	SYSTEM TRAPS
 
-	These functions are how the cgame communicates with the main game system
+	These functions are how the cgame communicates with the main game system.
 
 =======================================================================================================================================
 */

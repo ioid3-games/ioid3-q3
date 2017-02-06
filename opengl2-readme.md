@@ -65,7 +65,7 @@ For Win32:
 
 Cvars for simple rendering features:
 
-* `r_ext_compressed_textures`       - Automatically compress textures.
+*  `r_ext_compressed_textures`       - Automatically compress textures.
                                      0 - No texture compression. (default)
                                      1 - DXT/RGTC texture compression if
                                          supported.
@@ -84,7 +84,7 @@ Cvars for simple rendering features:
 
 Cvars for HDR and tonemapping:
 
- * `r_hdr`                          - Do scene rendering in a framebuffer with
+*  `r_hdr`                          - Do scene rendering in a framebuffer with
                                    high dynamic range.  (Less banding, and
                                    exposure changes look much better)
                                      0 - No.

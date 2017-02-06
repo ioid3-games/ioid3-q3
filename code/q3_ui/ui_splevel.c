@@ -408,6 +408,7 @@ static void UI_SPLevelMenu_LevelEvent(void *ptr, int notification) {
 
 	selectedArena = ((menucommon_s *)ptr)->id - ID_PICTURE0;
 	levelMenuInfo.selectedArenaInfo = UI_GetArenaInfoByNumber(selectedArenaSet * ARENAS_PER_TIER + selectedArena);
+
 	UI_SPLevelMenu_SetBots();
 
 	trap_Cvar_SetValue("ui_spSelection", selectedArenaSet * ARENAS_PER_TIER + selectedArena);
@@ -429,6 +430,7 @@ static void UI_SPLevelMenu_LeftArrowEvent(void *ptr, int notification) {
 	}
 
 	selectedArenaSet--;
+
 	UI_SPLevelMenu_SetMenuItems();
 }
 
@@ -448,6 +450,7 @@ static void UI_SPLevelMenu_RightArrowEvent(void *ptr, int notification) {
 	}
 
 	selectedArenaSet++;
+
 	UI_SPLevelMenu_SetMenuItems();
 }
 
@@ -644,8 +647,10 @@ static void UI_SPLevelMenu_MenuDraw(void) {
 	}
 	// show map name and long name of selected level
 	y = 192;
+
 	Q_strncpyz(buf, Info_ValueForKey(levelMenuInfo.selectedArenaInfo, "map"), 20);
 	Q_strupr(buf);
+
 	Com_sprintf(string, sizeof(string), "%s: %s", buf, Info_ValueForKey(levelMenuInfo.selectedArenaInfo, "longname"));
 	UI_DrawProportionalString(320, y, string, UI_CENTER|UI_SMALLFONT, color_orange);
 
@@ -1002,7 +1007,9 @@ UI_SPLevelMenu_f
 void UI_SPLevelMenu_f(void) {
 
 	trap_Key_SetCatcher(KEYCATCH_UI);
+
 	uis.menusp = 0;
+
 	UI_SPLevelMenu();
 }
 

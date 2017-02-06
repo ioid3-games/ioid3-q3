@@ -372,6 +372,7 @@ BotVoiceChat_ReturnFlag
 =======================================================================================================================================
 */
 void BotVoiceChat_ReturnFlag(bot_state_t *bs, int client, int mode) {
+
 	// if not in CTF mode
 	if (gametype != GT_CTF
 #ifdef MISSIONPACK

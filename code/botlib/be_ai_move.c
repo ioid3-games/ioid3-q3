@@ -1180,6 +1180,7 @@ int BotCheckBarrierJump(bot_movestate_t *ms, vec3_t dir, float speed) {
 
 	EA_Jump(ms->client);
 	EA_Move(ms->client, hordir, speed);
+
 	ms->moveflags |= MFL_BARRIERJUMP;
 	// there is a barrier
 	return qtrue;
@@ -1195,6 +1196,7 @@ int BotSwimInDirection(bot_movestate_t *ms, vec3_t dir, float speed, int type) {
 
 	VectorCopy(dir, normdir);
 	VectorNormalize(normdir);
+
 	EA_Move(ms->client, normdir, speed);
 	return qtrue;
 }
@@ -1380,9 +1382,9 @@ void BotCheckBlocked(bot_movestate_t *ms, vec3_t dir, int checkbottom, bot_mover
 
 	// test for entities obstructing the bot's path
 	AAS_PresenceTypeBoundingBox(ms->presencetype, mins, maxs);
-
+	// if the bot can step on
 	if (fabs(DotProduct(dir, up)) < 0.7) {
-		mins[2] += sv_maxstep->value; // if the bot can step on
+		mins[2] += sv_maxstep->value;
 		maxs[2] -= 10; // a little lower to avoid low ceiling
 	}
 
@@ -3543,7 +3545,7 @@ void BotMoveToGoal(bot_moveresult_t *result, int movestate, bot_goal_t *goal, in
 			switch (reach.traveltype & TRAVELTYPE_MASK) {
 				case TRAVEL_WALK:
 					*result = BotTravel_Walk(ms, &reach);
-					break; // BotFinishTravel_Walk(ms, &reach); break;
+					break; //BotFinishTravel_Walk(ms, &reach); break;
 				case TRAVEL_CROUCH:
 					/*do nothing*/
 					break;

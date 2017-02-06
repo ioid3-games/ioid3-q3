@@ -2020,7 +2020,7 @@ void CL_DownloadsComplete(void) {
 	if (clc.downloadRestart) {
 		clc.downloadRestart = qfalse;
 
-		FS_Restart(clc.checksumFeed); // We possibly downloaded a pak, restart the file system to load it
+		FS_Restart(clc.checksumFeed); // we possibly downloaded a pak, restart the file system to load it
 		// inform the server so we get new gamestate info
 		CL_AddReliableCommand("donedl", qfalse);
 		// by sending the donedl command we request a new gamestate so we don't want to load stuff yet
@@ -2028,7 +2028,7 @@ void CL_DownloadsComplete(void) {
 	}
 	// let the client game init and load data
 	clc.state = CA_LOADING;
-	// Pump the loop, this may change gamestate!
+	// pump the loop, this may change gamestate!
 	Com_EventLoop();
 	// if the gamestate was changed by calling Com_EventLoop then we loaded everything already and we don't want to do it again.
 	if (clc.state != CA_LOADING) {
@@ -2054,8 +2054,7 @@ void CL_DownloadsComplete(void) {
 =======================================================================================================================================
 CL_BeginDownload
 
-Requests a file to download from the server. Stores it in the current game
-directory.
+Requests a file to download from the server. Stores it in the current game directory.
 =======================================================================================================================================
 */
 void CL_BeginDownload(const char *localName, const char *remoteName) {
@@ -2234,9 +2233,8 @@ void CL_CheckForResend(void) {
 				CL_RequestAuthorization();
 			}
 #endif
-			// The challenge request shall be followed by a client challenge so no malicious server can hijack this connection.
-			// Add the gamename so the server knows we're running the correct game or can reject the client
-			// with a meaningful message
+			// the challenge request shall be followed by a client challenge so no malicious server can hijack this connection.
+			// add the gamename so the server knows we're running the correct game or can reject the client with a meaningful message.
 			Com_sprintf(data, sizeof(data), "getchallenge %d %s", clc.challenge, com_gamename->string);
 
 			NET_OutOfBandPrint(NS_CLIENT, clc.serverAddress, "%s", data);
@@ -2409,8 +2407,8 @@ void CL_ServersResponsePacket(const netadr_t *from, msg_t *msg, qboolean extende
 	for (i = 0; i < numservers && count < MAX_GLOBAL_SERVERS; i++) {
 		// build net address
 		serverInfo_t *server = &cls.globalServers[count];
-		// It's possible to have sent many master server requests. Then we may receive many times the same addresses from the master server.
-		// We just avoid to add a server if it is still in the global servers list.
+		// it's possible to have sent many master server requests. Then we may receive many times the same addresses from the master server.
+		// we just avoid to add a server if it is still in the global servers list.
 		for (j = 0; j < count; j++) {
 			if (NET_CompareAdr(cls.globalServers[j].adr, addresses[i])) {
 				break;
@@ -2486,7 +2484,7 @@ void CL_ConnectionlessPacket(netadr_t from, msg_t *msg) {
 			if (ver != com_protocol->integer) {
 #ifdef LEGACY_PROTOCOL
 				if (com_legacyprotocol->integer > 0) {
-					// Server is ioq3 but has a different protocol than we do. Fall back to idq3 protocol.
+					// server is ioq3 but has a different protocol than we do. Fall back to idq3 protocol.
 					clc.compat = qtrue;
 
 					Com_Printf(S_COLOR_YELLOW "Warning: Server reports protocol version %d, we have %d. Trying legacy protocol %d.\n", ver, com_protocol->integer, com_legacyprotocol->integer);
@@ -3312,7 +3310,7 @@ void CL_Init(void) {
 	m_forward = Cvar_Get("m_forward", "0.25", CVAR_ARCHIVE);
 	m_side = Cvar_Get("m_side", "0.25", CVAR_ARCHIVE);
 #ifdef __APPLE__
-	// Input is jittery on OS X w/o this
+	// input is jittery on OS X w/o this
 	m_filter = Cvar_Get("m_filter", "1", CVAR_ARCHIVE);
 #else
 	m_filter = Cvar_Get("m_filter", "0", CVAR_ARCHIVE);
@@ -3926,7 +3924,7 @@ void CL_GlobalServers_f(void) {
 
 	cls.numglobalservers = -1;
 	cls.pingUpdateSource = AS_GLOBAL;
-	// Use the extended query for IPv6 masters
+	// use the extended query for IPv6 masters
 	if (to.type == NA_IP6 || to.type == NA_MULTICAST6) {
 		int v4enabled = Cvar_VariableIntegerValue("net_enabled") & NET_ENABLEV4;
 

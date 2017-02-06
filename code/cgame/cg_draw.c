@@ -473,8 +473,7 @@ static void CG_DrawStatusBarHead(float x) {
 
 	CG_DrawHead(x, 480 - size, size, size, cg.snap->ps.clientNum, angles);
 }
-#endif // MISSIONPACK
-#ifndef MISSIONPACK
+
 /*
 =======================================================================================================================================
 CG_DrawStatusBarFlag
@@ -548,6 +547,7 @@ static void CG_DrawStatusBar(void) {
 		origin[1] = 0;
 		origin[2] = 0;
 		angles[YAW] = 90 + 20 * sin(cg.time / 1000.0);
+
 		CG_Draw3DModel(CHAR_WIDTH * 3 + TEXT_ICON_SPACE, 432, ICON_SIZE, ICON_SIZE, cg_weapons[cent->currentState.weapon].ammoModel, 0, origin, angles);
 	}
 
@@ -566,6 +566,7 @@ static void CG_DrawStatusBar(void) {
 		origin[1] = 0;
 		origin[2] = -10;
 		angles[YAW] = (cg.time & 2047) * 360 / 2048.0;
+
 		CG_Draw3DModel(370 + CHAR_WIDTH * 3 + TEXT_ICON_SPACE, 432, ICON_SIZE, ICON_SIZE, cgs.media.armorModel, 0, origin, angles);
 	}
 	// ammo
@@ -585,7 +586,6 @@ static void CG_DrawStatusBar(void) {
 			}
 
 			trap_R_SetColor(colors[color]);
-
 			CG_DrawField(0, 432, 3, value);
 			trap_R_SetColor(NULL);
 			// if we didn't draw a 3D icon, draw a 2D icon for ammo
@@ -687,8 +687,11 @@ static float CG_DrawAttacker(float y) {
 
 	info = CG_ConfigString(CS_PLAYERS + clientNum);
 	name = Info_ValueForKey(info, "n");
+
 	y += size;
+
 	CG_DrawBigString(640 - (Q_PrintStrlen(name) * BIGCHAR_WIDTH), y, name, 0.5);
+
 	return y + BIGCHAR_HEIGHT + 2;
 }
 
@@ -705,6 +708,7 @@ static float CG_DrawSnapshot(float y) {
 	w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
 
 	CG_DrawBigString(635 - w, y + 2, s, 1.0F);
+
 	return y + BIGCHAR_HEIGHT + 4;
 }
 
@@ -724,7 +728,7 @@ static float CG_DrawFPS(float y) {
 	static int previous;
 	int t, frameTime;
 
-	// don't use serverTime, because that will be drifting to correct for internet lag changes, timescales, timedemos, etc
+	// don't use serverTime, because that will be drifting to correct for internet lag changes, timescales, timedemos, etc.
 	t = trap_Milliseconds();
 	frameTime = t - previous;
 	previous = t;
@@ -895,13 +899,6 @@ static float CG_DrawTeamOverlay(float y, qboolean right, qboolean upper) {
 					p = "unknown";
 				}
 
-//				len = CG_DrawStrlen(p);
-
-//				if (len > lwidth) {
-//					len = lwidth;
-//				}
-
-//				xx = x + TINYCHAR_WIDTH * 2 + TINYCHAR_WIDTH * pwidth + ((lwidth / 2 - len / 2) * TINYCHAR_WIDTH);
 				xx = x + TINYCHAR_WIDTH * 2 + TINYCHAR_WIDTH * pwidth;
 				CG_DrawStringExt(xx, y, p, hcolor, qfalse, qfalse, TINYCHAR_WIDTH, TINYCHAR_HEIGHT, TEAM_OVERLAY_MAXLOCATION_WIDTH);
 			}
@@ -949,7 +946,6 @@ static float CG_DrawTeamOverlay(float y, qboolean right, qboolean upper) {
 	}
 
 	return ret_y;
-//#endif
 }
 
 /*
@@ -1023,6 +1019,7 @@ static float CG_DrawScores(float y) {
 		s = va("%2i", s2);
 		w = CG_DrawStrlen(s) * BIGCHAR_WIDTH + 8;
 		x -= w;
+
 		CG_FillRect(x, y - 4, w, BIGCHAR_HEIGHT + 8, color);
 
 		if (cg.snap->ps.persistant[PERS_TEAM] == TEAM_BLUE) {
@@ -1032,7 +1029,7 @@ static float CG_DrawScores(float y) {
 		CG_DrawBigString(x + 4, y, s, 1.0F);
 
 		if (cgs.gametype == GT_CTF) {
-			// Display flag status
+			// display flag status
 			item = BG_FindItemForPowerup(PW_BLUEFLAG);
 
 			if (item) {
@@ -1052,6 +1049,7 @@ static float CG_DrawScores(float y) {
 		s = va("%2i", s1);
 		w = CG_DrawStrlen(s) * BIGCHAR_WIDTH + 8;
 		x -= w;
+
 		CG_FillRect(x, y - 4, w, BIGCHAR_HEIGHT + 8, color);
 
 		if (cg.snap->ps.persistant[PERS_TEAM] == TEAM_RED) {
@@ -1083,6 +1081,7 @@ static float CG_DrawScores(float y) {
 			s = va("%2i", v);
 			w = CG_DrawStrlen(s) * BIGCHAR_WIDTH + 8;
 			x -= w;
+
 			CG_DrawBigString(x + 4, y, s, 1.0F);
 		}
 	} else {
@@ -1151,8 +1150,7 @@ static float CG_DrawScores(float y) {
 
 	return y1 - 8;
 }
-#endif // MISSIONPACK
-#ifndef MISSIONPACK
+
 /*
 =======================================================================================================================================
 CG_DrawPowerups
@@ -1299,8 +1297,7 @@ static int CG_DrawPickupItem(int y) {
 
 	return y;
 }
-#endif // MISSIONPACK
-#ifndef MISSIONPACK
+
 /*
 =======================================================================================================================================
 CG_DrawLowerLeft
@@ -1317,8 +1314,7 @@ static void CG_DrawLowerLeft(void) {
 
 	CG_DrawPickupItem(y);
 }
-#endif // MISSIONPACK
-#ifndef MISSIONPACK
+
 /*
 =======================================================================================================================================
 CG_DrawTeamInfo
@@ -1329,8 +1325,10 @@ static void CG_DrawTeamInfo(void) {
 	int i;
 	vec4_t hcolor;
 	int chatHeight;
+
 #define CHATLOC_Y 420 // bottom end
 #define CHATLOC_X 0
+
 	if (cg_teamChatHeight.integer < TEAMCHAT_HEIGHT) {
 		chatHeight = cg_teamChatHeight.integer;
 	} else {
@@ -1377,8 +1375,7 @@ static void CG_DrawTeamInfo(void) {
 		}
 	}
 }
-#endif // MISSIONPACK
-#ifndef MISSIONPACK
+
 /*
 =======================================================================================================================================
 CG_DrawHoldableItem
@@ -1394,8 +1391,7 @@ static void CG_DrawHoldableItem(void) {
 		CG_DrawPic(640 - ICON_SIZE, (SCREEN_HEIGHT - ICON_SIZE) / 2, ICON_SIZE, ICON_SIZE, cg_items[value].icon);
 	}
 }
-#endif // MISSIONPACK
-#ifdef MISSIONPACK
+
 /*
 =======================================================================================================================================
 CG_DrawPersistantPowerup
@@ -1916,18 +1912,20 @@ static void CG_DrawCrosshair3D(void) {
 	}
 
 	hShader = cgs.media.crosshairShader[ca % NUM_CROSSHAIRS];
-	// Use a different method rendering the crosshair so players don't see two of them when focusing their eyes at distant objects with
-	// high stereo separation We are going to trace to the next shootable object and place the crosshair in front of it.
-
+	// use a different method rendering the crosshair so players don't see two of them when focusing their eyes at distant objects with
+	// high stereo separation. We are going to trace to the next shootable object and place the crosshair in front of it.
 	// first get all the important renderer information
 	trap_Cvar_VariableStringBuffer("r_zProj", rendererinfos, sizeof(rendererinfos));
 	zProj = atof(rendererinfos);
+
 	trap_Cvar_VariableStringBuffer("r_stereoSeparation", rendererinfos, sizeof(rendererinfos));
 	stereoSep = zProj / atof(rendererinfos);
+
 	xmax = zProj * tan(cg.refdef.fov_x * M_PI / 360.0f);
 	// let the trace run through until a change in stereo separation of the crosshair becomes less than one pixel.
 	maxdist = cgs.glconfig.vidWidth * stereoSep * zProj / (2 * xmax);
 	VectorMA(cg.refdef.vieworg, maxdist, cg.refdef.viewaxis[0], endpos);
+
 	CG_Trace(&trace, cg.refdef.vieworg, NULL, NULL, endpos, 0, MASK_SHOT);
 
 	memset(&ent, 0, sizeof(ent));

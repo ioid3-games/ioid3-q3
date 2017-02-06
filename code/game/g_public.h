@@ -79,7 +79,6 @@ typedef struct {
 
 typedef enum {
 	//============== general Quake services ==================
-
 	G_PRINT,					// (const char *string);
 	// print message on the local console
 	G_ERROR,					// (const char *string);
