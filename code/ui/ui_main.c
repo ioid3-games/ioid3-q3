@@ -2467,7 +2467,7 @@ static void UI_DrawGLInfo(rectDef_t *rect, float scale, vec4_t color, int textSt
 	Text_Paint(rect->x + 2, rect->y + 30, scale, color, va("PIXELFORMAT: color(%d-bits) Z(%d-bits) stencil(%d-bits)", uiInfo.uiDC.glconfig.colorBits, uiInfo.uiDC.glconfig.depthBits, uiInfo.uiDC.glconfig.stencilBits), 0, 30, textStyle);
 	// build null terminated extension strings
 	// TTimo: https://zerowing.idsoftware.com/bugzilla/show_bug.cgi?id=399
-	// in TA this was not directly crashing, but displaying a nasty broken shader right in the middle
+	// in Team Arena this was not directly crashing, but displaying a nasty broken shader right in the middle
 	// brought down the string size to 1024, there's not much that can be shown on the screen anyway
 	Q_strncpyz(buff, uiInfo.uiDC.glconfig.extensions_string, 1024);
 
@@ -6776,7 +6776,7 @@ static cvarTable_t cvarTable[] = {
 	{&ui_scoreCaptures, "ui_scoreCaptures", "0", CVAR_ARCHIVE},
 	{&ui_scoreDefends, "ui_scoreDefends", "0", CVAR_ARCHIVE},
 	{&ui_scoreAssists, "ui_scoreAssists", "0", CVAR_ARCHIVE},
-	{&ui_scoreGauntlets, "ui_scoreGauntlets", "0",CVAR_ARCHIVE},
+	{&ui_scoreGauntlets, "ui_scoreGauntlets", "0", CVAR_ARCHIVE},
 	{&ui_scoreScore, "ui_scoreScore", "0", CVAR_ARCHIVE},
 	{&ui_scorePerfect, "ui_scorePerfect", "0", CVAR_ARCHIVE},
 	{&ui_scoreTeam, "ui_scoreTeam", "0 to 0", CVAR_ARCHIVE},
