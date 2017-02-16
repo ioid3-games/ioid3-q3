@@ -26,7 +26,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 /*
 =======================================================================================================================================
 
-BASIC MATH
+	BASIC MATH
 
 =======================================================================================================================================
 */
@@ -396,12 +396,12 @@ void CM_TestBoundingBoxInCapsule(traceWork_t *tw, clipHandle_t model) {
 	CM_TestInLeaf(tw, &cmod->leaf);
 }
 
+#define MAX_POSITION_LEAFS 1024
 /*
 =======================================================================================================================================
 CM_PositionTest
 =======================================================================================================================================
 */
-#define MAX_POSITION_LEAFS 1024
 void CM_PositionTest(traceWork_t *tw) {
 	int leafs[MAX_POSITION_LEAFS];
 	int i;
@@ -1229,7 +1229,7 @@ void CM_Trace(trace_t *results, const vec3_t start, const vec3_t end, vec3_t min
 				tw.sphere.use = qfalse;
 				CM_TestInLeaf(&tw, &cmod->leaf);
 			} else
-#elif defined(ALWAYS_CAPSULE_VS_CAPSULE)
+#elif defined (ALWAYS_CAPSULE_VS_CAPSULE)
 			if (model == BOX_MODEL_HANDLE || model == CAPSULE_MODEL_HANDLE) {
 				CM_TestCapsuleInCapsule(&tw, model);
 			} else
@@ -1264,7 +1264,7 @@ void CM_Trace(trace_t *results, const vec3_t start, const vec3_t end, vec3_t min
 				tw.sphere.use = qfalse;
 				CM_TraceThroughLeaf(&tw, &cmod->leaf);
 			} else
-#elif defined(ALWAYS_CAPSULE_VS_CAPSULE)
+#elif defined (ALWAYS_CAPSULE_VS_CAPSULE)
 			if (model == BOX_MODEL_HANDLE || model == CAPSULE_MODEL_HANDLE) {
 				CM_TraceCapsuleThroughCapsule(&tw, model);
 			} else

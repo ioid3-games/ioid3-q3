@@ -18,7 +18,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include "ui_local.h"
 
 // arena and bot info
-
 int ui_numBots;
 static char *ui_botInfos[MAX_BOTS];
 static int ui_numArenas;
