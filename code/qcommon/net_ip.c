@@ -23,9 +23,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include <ws2tcpip.h>
 #if WINVER < 0x501
 #ifdef __MINGW32__
-// wspiapi.h isn't available on MinGW, so if it's
-// present it's because the end user has added it
-// and we should look for it in our tree
+// wspiapi.h isn't available on MinGW, so if it's present it's because the end user has added it and we should look for it in our tree
 #include "wspiapi.h"
 #else
 #include <wspiapi.h>
