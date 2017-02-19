@@ -1001,7 +1001,7 @@ int PC_Directive_include(source_t *source) {
 		script = LoadScriptFile(path);
 
 		if (script) {
-			strncpy(script->filename, path, MAX_PATH);
+			Q_strncpyz(script->filename, path, sizeof(script->filename));
 		}
 	}
 #endif // QUAKE
@@ -3117,7 +3117,7 @@ PC_SetIncludePath
 void PC_SetIncludePath(source_t *source, char *path) {
 	size_t len;
 
-	Q_strncpyz(source->includepath, path, MAX_PATH - 1);
+	Q_strncpyz(source->includepath, path, sizeof(source->includepath) - 1);
 
 	len = strlen(source->includepath);
 	// add trailing path separator
@@ -3158,7 +3158,7 @@ source_t *LoadSourceFile(const char *filename) {
 
 	Com_Memset(source, 0, sizeof(source_t));
 
-	strncpy(source->filename, filename, MAX_PATH);
+	Q_strncpyz(source->filename, filename, sizeof(source->filename));
 
 	source->scriptstack = script;
 	source->tokens = NULL;
@@ -3195,7 +3195,7 @@ source_t *LoadSourceMemory(char *ptr, int length, char *name) {
 
 	Com_Memset(source, 0, sizeof(source_t));
 
-	strncpy(source->filename, name, MAX_PATH);
+	Q_strncpyz(source->filename, name, sizeof(source->filename));
 
 	source->scriptstack = script;
 	source->tokens = NULL;
