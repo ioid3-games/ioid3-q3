@@ -910,6 +910,7 @@ void MSG_WriteDeltaUsercmdKey(msg_t *msg, int key, usercmd_t *from, usercmd_t *t
 	}
 
 	key ^= to->serverTime;
+
 	MSG_WriteBits(msg, 1, 1);
 	MSG_WriteDeltaKey(msg, key, from->angles[0], to->angles[0], 16);
 	MSG_WriteDeltaKey(msg, key, from->angles[1], to->angles[1], 16);

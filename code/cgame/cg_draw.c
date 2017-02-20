@@ -872,7 +872,7 @@ static float CG_DrawTeamOverlay(float y, qboolean right, qboolean upper) {
 		hcolor[1] = 0.0f;
 		hcolor[2] = 0.0f;
 		hcolor[3] = 0.33f;
-	} else { // if (cg.snap->ps.persistant[PERS_TEAM] == TEAM_BLUE)
+	} else {
 		hcolor[0] = 0.0f;
 		hcolor[1] = 0.0f;
 		hcolor[2] = 1.0f;
@@ -1011,6 +1011,7 @@ static float CG_DrawScores(float y) {
 	// draw from the right side to left
 	if (cgs.gametype >= GT_TEAM) {
 		x = 640;
+
 		color[0] = 0.0f;
 		color[1] = 0.0f;
 		color[2] = 1.0f;
@@ -1086,6 +1087,7 @@ static float CG_DrawScores(float y) {
 		}
 	} else {
 		qboolean spectator;
+
 		x = 640;
 		score = cg.snap->ps.persistant[PERS_SCORE];
 		spectator = (cg.snap->ps.persistant[PERS_TEAM] == TEAM_SPECTATOR);
@@ -1246,8 +1248,7 @@ static float CG_DrawPowerups(float y) {
 
 	return y;
 }
-#endif // MISSIONPACK
-#ifndef MISSIONPACK
+
 /*
 =======================================================================================================================================
 CG_DrawLowerRight
@@ -1265,8 +1266,7 @@ static void CG_DrawLowerRight(void) {
 	y = CG_DrawScores(y);
 	CG_DrawPowerups(y);
 }
-#endif // MISSIONPACK
-#ifndef MISSIONPACK
+
 /*
 =======================================================================================================================================
 CG_DrawPickupItem
