@@ -3384,8 +3384,9 @@ void Field_CompleteCommand(char *cmd, qboolean doCommands, qboolean doCvars) {
 	if (*(cmd + strlen(cmd) - 1) == ' ') {
 		completionString = "";
 		completionArgument++;
-	} else
+	} else {
 		completionString = Cmd_Argv(completionArgument - 1);
+	}
 #ifndef DEDICATED
 	// unconditionally add a '\' to the start of the buffer
 	if (completionField->buffer[0] && completionField->buffer[0] != '\\') {
@@ -3687,7 +3688,7 @@ void Field_CompletePlayerName(const char **names, int nameCount) {
 		Name_PlayerNameCompletion(names, nameCount, PrintMatches);
 	}
 
-	whitespace = nameCount == 1? qtrue: qfalse;
+	whitespace = nameCount == 1 ? qtrue : qfalse;
 
 	if (!Field_CompletePlayerNameFinal(whitespace)) {
 
