@@ -1444,7 +1444,7 @@ int AAS_Reachability_Step_Barrier_WaterJump_WalkOffLedge(int area1num, int area2
 		if (aasworld.areasettings[AAS_PointAreaNum(testpoint)].areaflags & AREA_LIQUID) {
 			// don't create rediculous water jump reachabilities from areas very far below the water surface
 			if (water_bestdist < aassettings.phys_maxwaterjump + 24) {
-				// waterjumping from or towards a crouch only area is not possible in Quake2
+				// waterjumping from or towards a crouch only area is not possible
 				if ((aasworld.areasettings[area1num].presencetype & PRESENCE_NORMAL) && (aasworld.areasettings[area2num].presencetype & PRESENCE_NORMAL)) {
 					// create water jump reachability from area1 to area2
 					lreach = AAS_AllocReachability();
@@ -1492,7 +1492,7 @@ int AAS_Reachability_Step_Barrier_WaterJump_WalkOffLedge(int area1num, int area2
 		if (ground_bestdist > 0 && ground_bestdist < aassettings.phys_maxbarrier) {
 			// if no water in area1 or a very thin layer of water on the ground
 			if (!water_foundreach || (ground_bestdist - water_bestdist < 16)) {
-				// cannot perform a barrier jump towards or from a crouch area in Quake2
+				// cannot perform a barrier jump towards or from a crouch area
 				if (!AAS_AreaCrouch(area1num) && !AAS_AreaCrouch(area2num)) {
 					// create barrier jump reachability from area1 to area2
 					lreach = AAS_AllocReachability();

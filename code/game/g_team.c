@@ -145,8 +145,7 @@ static __attribute__((format(printf, 2, 3))) void QDECL PrintMsg(gentity_t *ent,
 =======================================================================================================================================
 AddTeamScore
 
-Used for gametype > GT_TEAM.
-For gametype GT_TEAM the level.teamScores is updated in AddScore in g_combat.c.
+Used for gametype > GT_TEAM. For gametype GT_TEAM the level.teamScores is updated in AddScore in g_combat.c.
 =======================================================================================================================================
 */
 void AddTeamScore(vec3_t origin, int team, int score) {

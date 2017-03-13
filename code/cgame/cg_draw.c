@@ -918,7 +918,7 @@ static float CG_DrawTeamOverlay(float y, qboolean right, qboolean upper) {
 			} else {
 				CG_DrawPic(xx, y, TINYCHAR_WIDTH, TINYCHAR_HEIGHT, cgs.media.deferShader);
 			}
-			// Draw powerup icons
+			// draw powerup icons
 			if (right) {
 				xx = x;
 			} else {

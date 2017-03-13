@@ -1452,7 +1452,7 @@ bot_moveresult_t BotTravel_Walk(bot_movestate_t *ms, aas_reachability_t *reach) 
 
 	if (ms->moveflags & MFL_WALK) {
 		if (dist > 0) {
-			speed = 200 - (180 - 1 * dist);
+			speed = 200 - (180 - dist);
 		} else {
 			speed = 200;
 		}

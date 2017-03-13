@@ -202,8 +202,7 @@ typedef int clipHandle_t;
 #define PITCH	0 // up / down
 #define YAW		1 // left / right
 #define ROLL	2 // fall over
-// the game guarantees that no string from the network will ever
-// exceed MAX_STRING_CHARS
+// the game guarantees that no string from the network will ever exceed MAX_STRING_CHARS
 #define MAX_STRING_CHARS 1024 // max length of a string passed to Cmd_TokenizeString
 #define MAX_STRING_TOKENS 1024 // max tokens resulting from Cmd_TokenizeString
 #define MAX_TOKEN_CHARS 1024 // max length of an individual token
@@ -254,7 +253,7 @@ typedef enum {
 #define PROP_HEIGHT 27
 #define PROP_SMALL_SIZE_SCALE 0.75
 #define BLINK_DIVISOR 200
-#define PULSE_DIVISOR 75
+#define PULSE_DIVISOR 75.0f
 
 #define UI_LEFT			0x00000000 // default
 #define UI_CENTER		0x00000001

@@ -525,9 +525,7 @@ static void ArenaServers_UpdateMenu(void) {
 			pingColor = S_COLOR_RED;
 		}
 
-		Com_sprintf(buff, MAX_LISTBOXWIDTH, "%-20.20s %-12.12s %2d/%2d %-8.8s %4s%s%3d " S_COLOR_YELLOW "%s",
-			servernodeptr->hostname, servernodeptr->mapname, servernodeptr->numclients, servernodeptr->maxclients,
-			servernodeptr->gamename, netnames[servernodeptr->nettype], pingColor, servernodeptr->pingtime, servernodeptr->bPB ? "Yes" : "No");
+		Com_sprintf(buff, MAX_LISTBOXWIDTH, "%-20.20s %-12.12s %2d/%2d %-8.8s %4s%s%3d " S_COLOR_YELLOW "%s", servernodeptr->hostname, servernodeptr->mapname, servernodeptr->numclients, servernodeptr->maxclients, servernodeptr->gamename, netnames[servernodeptr->nettype], pingColor, servernodeptr->pingtime, servernodeptr->bPB ? "Yes" : "No");
 		j++;
 	}
 

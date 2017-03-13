@@ -291,7 +291,7 @@ void SV_DirectConnect(netadr_t from) {
 #ifdef LEGACY_PROTOCOL
 	qboolean compat = qfalse;
 #endif
-	Com_DPrintf("SVC_DirectConnect ()\n");
+	Com_DPrintf("SVC_DirectConnect()\n");
 	// Check whether this client is banned.
 	if (SV_IsBanned(&from, qfalse)) {
 		NET_OutOfBandPrint(NS_SERVER, from, "print\nYou are banned from this server.\n");

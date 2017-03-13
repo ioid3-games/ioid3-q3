@@ -632,7 +632,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 	// create the bot's userinfo
 	userinfo[0] = '\0';
-
+	// botname
 	botname = Info_ValueForKey(botinfo, "funname");
 
 	if (!botname[0]) {
@@ -647,7 +647,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	Info_SetValueForKey(userinfo, "rate", "25000");
 	Info_SetValueForKey(userinfo, "snaps", "20");
 	Info_SetValueForKey(userinfo, "skill", va("%.2f", skill));
-
+	// handicap
 	if (skill >= 1 && skill < 2) {
 		Info_SetValueForKey(userinfo, "handicap", "50");
 	} else if (skill >= 2 && skill < 3) {
@@ -655,7 +655,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	} else if (skill >= 3 && skill < 4) {
 		Info_SetValueForKey(userinfo, "handicap", "90");
 	}
-
+	// model
 	key = "model";
 	model = Info_ValueForKey(botinfo, key);
 
@@ -664,10 +664,10 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 
 	Info_SetValueForKey(userinfo, key, model);
-
+	// team model
 	key = "team_model";
 	Info_SetValueForKey(userinfo, key, model);
-
+	// head model
 	key = "headmodel";
 	headmodel = Info_ValueForKey(botinfo, key);
 
@@ -676,10 +676,10 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 
 	Info_SetValueForKey(userinfo, key, headmodel);
-
+	// team head model
 	key = "team_headmodel";
 	Info_SetValueForKey(userinfo, key, headmodel);
-
+	// gender
 	key = "gender";
 	s = Info_ValueForKey(botinfo, key);
 
@@ -688,7 +688,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 
 	Info_SetValueForKey(userinfo, "sex", s);
-
+	// color1
 	key = "color1";
 	s = Info_ValueForKey(botinfo, key);
 
@@ -697,7 +697,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 
 	Info_SetValueForKey(userinfo, key, s);
-
+	// color2
 	key = "color2";
 	s = Info_ValueForKey(botinfo, key);
 
@@ -706,7 +706,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	}
 
 	Info_SetValueForKey(userinfo, key, s);
-
+	// ai character
 	s = Info_ValueForKey(botinfo, "aifile");
 
 	if (!*s) {

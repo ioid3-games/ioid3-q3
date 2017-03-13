@@ -424,7 +424,7 @@ void CG_AddParticleToScene(cparticle_t *p, vec3_t org, float alpha) {
 
 			invratio *= p->alpha;
 		} else {
-			invratio = 1 * p->alpha;
+			invratio = p->alpha;
 		}
 
 		if (cgs.glconfig.hardwareType == GLHW_RAGEPRO) {
