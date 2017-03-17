@@ -2338,7 +2338,7 @@ int sscanf(const char *buffer, const char *fmt, ...) {
 				*(va_arg(ap, float *)) = _atof(&buffer);
 				break;
 			case 's':
-				{
+			{
 				char *s = va_arg(ap, char *);
 
 				while (isspace(*buffer)) {
