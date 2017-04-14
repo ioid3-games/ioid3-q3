@@ -528,17 +528,17 @@ static void SVC_Status(netadr_t from) {
 	if (Cvar_VariableValue("g_gametype") == GT_SINGLE_PLAYER || Cvar_VariableValue("ui_singlePlayerActive")) {
 		return;
 	}
-	// Prevent using getstatus as an amplifier
+	// prevent using getstatus as an amplifier
 	if (SVC_RateLimitAddress(from, 10, 1000)) {
 		Com_DPrintf("SVC_Status: rate limit from %s exceeded, dropping request\n", NET_AdrToString(from));
 		return;
 	}
-	// Allow getstatus to be DoSed relatively easily, but prevent excess outbound bandwidth usage when being flooded inbound
+	// allow getstatus to be DoSed relatively easily, but prevent excess outbound bandwidth usage when being flooded inbound
 	if (SVC_RateLimit(&outboundLeakyBucket, 10, 100)) {
 		Com_DPrintf("SVC_Status: rate limit exceeded, dropping request\n");
 		return;
 	}
-	// A maximum challenge length of 128 should be more than plenty.
+	// a maximum challenge length of 128 should be more than plenty.
 	if (strlen(Cmd_Argv(1)) > 128) {
 		return;
 	}
@@ -587,20 +587,20 @@ void SVC_Info(netadr_t from) {
 	if (Cvar_VariableValue("g_gametype") == GT_SINGLE_PLAYER || Cvar_VariableValue("ui_singlePlayerActive")) {
 		return;
 	}
-	// Prevent using getinfo as an amplifier
+	// prevent using getinfo as an amplifier
 	if (SVC_RateLimitAddress(from, 10, 1000)) {
 		Com_DPrintf("SVC_Info: rate limit from %s exceeded, dropping request\n", NET_AdrToString(from));
 		return;
 	}
-	// Allow getinfo to be DoSed relatively easily, but prevent excess outbound bandwidth usage when being flooded inbound
+	// allow getinfo to be DoSed relatively easily, but prevent excess outbound bandwidth usage when being flooded inbound
 	if (SVC_RateLimit(&outboundLeakyBucket, 10, 100)) {
 		Com_DPrintf("SVC_Info: rate limit exceeded, dropping request\n");
 		return;
 	}
-	// Check whether Cmd_Argv(1) has a sane length. This was not done in the original Quake3 version which led to the Infostring bug
+	// check whether Cmd_Argv(1) has a sane length. This was not done in the original Quake3 version which led to the Infostring bug
 	// discovered by Luigi Auriemma. See http://aluigi.altervista.org/ for the advisory.
 
-	// A maximum challenge length of 128 should be more than plenty.
+	// a maximum challenge length of 128 should be more than plenty.
 	if (strlen(Cmd_Argv(1)) > 128) {
 		return;
 	}

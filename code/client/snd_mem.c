@@ -121,7 +121,7 @@ void SND_shutdown(void) {
 =======================================================================================================================================
 ResampleSfx
 
-Resample / decimate to the current source rate.
+Resample/decimate to the current source rate.
 =======================================================================================================================================
 */
 static int ResampleSfx(sfx_t *sfx, int channels, int inrate, int inwidth, int samples, byte *data, qboolean compressed) {
@@ -178,7 +178,7 @@ static int ResampleSfx(sfx_t *sfx, int channels, int inrate, int inwidth, int sa
 =======================================================================================================================================
 ResampleSfxRaw
 
-Resample / decimate to the current source rate.
+Resample/decimate to the current source rate.
 =======================================================================================================================================
 */
 static int ResampleSfxRaw(short *sfx, int channels, int inrate, int inwidth, int samples, byte *data) {

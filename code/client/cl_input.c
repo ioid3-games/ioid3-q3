@@ -1104,7 +1104,7 @@ qboolean CL_ReadyToSendPacket(void) {
 	if (clc.demoplaying || clc.state == CA_CINEMATIC) {
 		return qfalse;
 	}
-	// If we are downloading, we send no less than 50ms between packets
+	// if we are downloading, we send no less than 50ms between packets
 	if (*clc.downloadTempName && cls.realtime - clc.lastPacketSentTime < 50) {
 		return qfalse;
 	}
@@ -1218,7 +1218,7 @@ void CL_WritePacket(void) {
 			MSG_WriteByte(&buf, clc.voipFlags);
 			MSG_WriteShort(&buf, clc.voipOutgoingDataSize);
 			MSG_WriteData(&buf, clc.voipOutgoingData, clc.voipOutgoingDataSize);
-			// If we're recording a demo, we have to fake a server packet with this VoIP data so it gets to disk; the server doesn't send it
+			// if we're recording a demo, we have to fake a server packet with this VoIP data so it gets to disk; the server doesn't send it
 			// back to us, and we might as well eliminate concerns about dropped and misordered packets here.
 			if (clc.demorecording && !clc.demowaiting) {
 				const int voipSize = clc.voipOutgoingDataSize;
@@ -1245,7 +1245,7 @@ void CL_WritePacket(void) {
 			clc.voipOutgoingDataSize = 0;
 			clc.voipOutgoingDataFrames = 0;
 		} else {
-			// We have data, but no targets. Silently discard all data
+			// we have data, but no targets. Silently discard all data
 			clc.voipOutgoingDataSize = 0;
 			clc.voipOutgoingDataFrames = 0;
 		}
