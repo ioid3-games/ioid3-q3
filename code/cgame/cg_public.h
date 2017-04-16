@@ -37,7 +37,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define MAX_ENTITIES_IN_SNAPSHOT 256
 
 typedef struct {
-	int snapFlags;						// SNAPFLAG_RATE_DELAYED, etc
+	int snapFlags;						// SNAPFLAG_RATE_DELAYED, etc.
 	int ping;
 	int serverTime;						// server time the message is valid for (in msec)
 	byte areamask[MAX_MAP_AREA_BYTES];	// portalarea visibility bits
