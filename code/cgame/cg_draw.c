@@ -1568,10 +1568,13 @@ static void CG_DrawDisconnect(void) {
 	if ((cg.time >> 9) & 1) {
 		return;
 	}
-
+#ifdef MISSIONPACK
+	x = 640 - 48;
+	y = 480 - 144;
+#else
 	x = 640 - 48;
 	y = 480 - 48;
-
+#endif
 	CG_DrawPic(x, y, 48, 48, trap_R_RegisterShader("gfx/2d/net.tga"));
 }
 
@@ -2557,18 +2560,6 @@ static void CG_Draw2D(stereoFrame_t stereoFrame) {
 	if (!cg.scoreBoardShowing) {
 		CG_DrawCenterString();
 	}
-}
-
-/*
-=======================================================================================================================================
-CG_DrawTourneyScoreboard
-=======================================================================================================================================
-*/
-static void CG_DrawTourneyScoreboard(void) {
-#ifdef MISSIONPACK
-#else
-	CG_DrawOldTourneyScoreboard();
-#endif
 }
 
 /*

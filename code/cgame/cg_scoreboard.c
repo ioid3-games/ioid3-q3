@@ -401,12 +401,12 @@ static void CG_CenterGiantLine(float y, const char *string) {
 
 /*
 =======================================================================================================================================
-CG_DrawOldTourneyScoreboard
+CG_DrawTourneyScoreboard
 
 Draw the oversize scoreboard for tournaments.
 =======================================================================================================================================
 */
-void CG_DrawOldTourneyScoreboard(void) {
+void CG_DrawTourneyScoreboard(void) {
 	const char *s;
 	vec4_t color;
 	int min, tens, ones;
