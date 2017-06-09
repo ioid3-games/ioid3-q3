@@ -243,7 +243,7 @@ int Export_BotLibShutdown(void) {
 Export_BotLibVarSet
 =======================================================================================================================================
 */
-int Export_BotLibVarSet(char *var_name, char *value) {
+int Export_BotLibVarSet(const char *var_name, const char *value) {
 
 	LibVarSet(var_name, value);
 	return BLERR_NOERROR;
@@ -254,7 +254,7 @@ int Export_BotLibVarSet(char *var_name, char *value) {
 Export_BotLibVarGet
 =======================================================================================================================================
 */
-int Export_BotLibVarGet(char *var_name, char *value, int size) {
+int Export_BotLibVarGet(const char *var_name, char *value, int size) {
 	char *varvalue;
 
 	varvalue = LibVarGetString(var_name);

@@ -568,7 +568,7 @@ int CG_ParseVoiceChats(const char *filename, voiceChatList_t *voiceChatList, int
 
 	token = COM_ParseExt(p, qtrue);
 
-	if (!token || token[0] == 0) {
+	if (!token[0]) {
 		return qtrue;
 	}
 
@@ -588,7 +588,7 @@ int CG_ParseVoiceChats(const char *filename, voiceChatList_t *voiceChatList, int
 	while (1) {
 		token = COM_ParseExt(p, qtrue);
 
-		if (!token || token[0] == 0) {
+		if (!token[0]) {
 			return qtrue;
 		}
 
@@ -605,7 +605,7 @@ int CG_ParseVoiceChats(const char *filename, voiceChatList_t *voiceChatList, int
 		while (1) {
 			token = COM_ParseExt(p, qtrue);
 
-			if (!token || token[0] == 0) {
+			if (!token[0]) {
 				return qtrue;
 			}
 
@@ -617,7 +617,7 @@ int CG_ParseVoiceChats(const char *filename, voiceChatList_t *voiceChatList, int
 			voiceChats[voiceChatList->numVoiceChats].sounds[voiceChats[voiceChatList->numVoiceChats].numSounds] = sound;
 			token = COM_ParseExt(p, qtrue);
 
-			if (!token || token[0] == 0) {
+			if (!token[0]) {
 				return qtrue;
 			}
 
@@ -697,7 +697,7 @@ int CG_HeadModelVoiceChats(char *filename) {
 	p = &ptr;
 	token = COM_ParseExt(p, qtrue);
 
-	if (!token || token[0] == 0) {
+	if (!token[0]) {
 		return -1;
 	}
 

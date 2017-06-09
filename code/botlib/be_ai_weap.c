@@ -200,7 +200,7 @@ weaponconfig_t *LoadWeaponConfig(char *filename) {
 		LibVarSet("max_projectileinfo", "32");
 	}
 
-	strncpy(path, filename, MAX_PATH);
+	Q_strncpyz(path, filename, sizeof(path));
 	PC_SetBaseFolder(BOTFILESBASEFOLDER);
 	source = LoadSourceFile(path);
 

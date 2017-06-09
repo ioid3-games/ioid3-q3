@@ -247,7 +247,7 @@ itemconfig_t *LoadItemConfig(char *filename) {
 		LibVarSet("max_iteminfo", "256");
 	}
 
-	strncpy(path, filename, MAX_PATH);
+	Q_strncpyz(path, filename, sizeof(path));
 	PC_SetBaseFolder(BOTFILESBASEFOLDER);
 	source = LoadSourceFile(path);
 
@@ -280,7 +280,7 @@ itemconfig_t *LoadItemConfig(char *filename) {
 			}
 
 			StripDoubleQuotes(token.string);
-			strncpy(ii->classname, token.string, sizeof(ii->classname) - 1);
+			Q_strncpyz(ii->classname, token.string, sizeof(ii->classname));
 
 			if (!ReadStructure(source, &iteminfo_struct, (char *)ii)) {
 				FreeMemory(ic);
@@ -671,8 +671,7 @@ void BotGoalName(int number, char *name, int size) {
 
 	for (li = levelitems; li; li = li->next) {
 		if (li->number == number) {
-			strncpy(name, itemconfig->iteminfo[li->iteminfo].name, size - 1);
-			name[size - 1] = '\0';
+			Q_strncpyz(name, itemconfig->iteminfo[li->iteminfo].name, size);
 			return;
 		}
 	}

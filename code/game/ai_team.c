@@ -69,15 +69,10 @@ BotNumTeamMates
 int BotNumTeamMates(bot_state_t *bs) {
 	int i, numplayers;
 	char buf[MAX_INFO_STRING];
-	static int maxclients;
-
-	if (!maxclients) {
-		maxclients = trap_Cvar_VariableIntegerValue("sv_maxclients");
-	}
 
 	numplayers = 0;
 
-	for (i = 0; i < maxclients && i < MAX_CLIENTS; i++) {
+	for (i = 0; i < level.maxclients; i++) {
 		trap_GetConfigstring(CS_PLAYERS + i, buf, sizeof(buf));
 		// if no config string or no name
 		if (!strlen(buf) || !strlen(Info_ValueForKey(buf, "n"))) {
@@ -105,8 +100,11 @@ int BotClientTravelTimeToGoal(int client, bot_goal_t *goal) {
 	playerState_t ps;
 	int areanum;
 
-	BotAI_GetClientState(client, &ps);
-	areanum = BotPointAreaNum(ps.origin);
+	if (BotAI_GetClientState(client, &ps)) {
+		areanum = BotPointAreaNum(ps.origin);
+	} else {
+		areanum = 0;
+	}
 
 	if (!areanum) {
 		return 1;
@@ -123,7 +121,6 @@ BotSortTeamMatesByBaseTravelTime
 int BotSortTeamMatesByBaseTravelTime(bot_state_t *bs, int *teammates, int maxteammates) {
 	int i, j, k, numteammates, traveltime;
 	char buf[MAX_INFO_STRING];
-	static int maxclients;
 	int traveltimes[MAX_CLIENTS];
 	bot_goal_t *goal = NULL;
 #ifdef MISSIONPACK
@@ -147,13 +144,9 @@ int BotSortTeamMatesByBaseTravelTime(bot_state_t *bs, int *teammates, int maxtea
 		}
 	}
 #endif
-	if (!maxclients) {
-		maxclients = trap_Cvar_VariableIntegerValue("sv_maxclients");
-	}
-
 	numteammates = 0;
 
-	for (i = 0; i < maxclients && i < MAX_CLIENTS; i++) {
+	for (i = 0; i < level.maxclients; i++) {
 		trap_GetConfigstring(CS_PLAYERS + i, buf, sizeof(buf));
 		// if no config string or no name
 		if (!strlen(buf) || !strlen(Info_ValueForKey(buf, "n"))) {
@@ -979,15 +972,10 @@ void BotTeamOrders(bot_state_t *bs) {
 	int teammates[MAX_CLIENTS];
 	int numteammates, i;
 	char buf[MAX_INFO_STRING];
-	static int maxclients;
-
-	if (!maxclients) {
-		maxclients = trap_Cvar_VariableIntegerValue("sv_maxclients");
-	}
 
 	numteammates = 0;
 
-	for (i = 0; i < maxclients && i < MAX_CLIENTS; i++) {
+	for (i = 0; i < level.maxclients; i++) {
 		trap_GetConfigstring(CS_PLAYERS + i, buf, sizeof(buf));
 		// if no config string or no name
 		if (!strlen(buf) || !strlen(Info_ValueForKey(buf, "n"))) {
