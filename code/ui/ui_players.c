@@ -719,7 +719,6 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 	refdef.y = y;
 	refdef.width = w;
 	refdef.height = h;
-
 	refdef.fov_x = (int)((float)refdef.width / uiInfo.uiDC.xscale / 640.0f * 90.0f);
 	xx = refdef.width / uiInfo.uiDC.xscale / tan(refdef.fov_x / 360 * M_PI);
 	refdef.fov_y = atan2(refdef.height / uiInfo.uiDC.yscale, xx);
@@ -729,7 +728,6 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 	origin[0] = len / tan(DEG2RAD(refdef.fov_x) * 0.5);
 	origin[1] = 0.5 * (mins[1] + maxs[1]);
 	origin[2] = -0.5 * (mins[2] + maxs[2]);
-
 	refdef.time = dp_realtime;
 
 	trap_R_ClearScene();
@@ -793,10 +791,10 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 
 		gun.hModel = pi->weaponModel;
 		VectorCopy(origin, gun.lightingOrigin);
-
 		UI_PositionEntityOnTag(&gun, &torso, pi->torsoModel, "tag_weapon");
 
 		gun.renderfx = renderfx;
+
 		trap_R_AddRefEntityToScene(&gun);
 	}
 	// add the spinning barrel
@@ -815,9 +813,7 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 		angles[ROLL] = UI_MachinegunSpinAngle(pi);
 
 		AnglesToAxis(angles, barrel.axis);
-
 		UI_PositionRotatedEntityOnTag(&barrel, &gun, pi->weaponModel, "tag_barrel");
-
 		trap_R_AddRefEntityToScene(&barrel);
 	}
 	// add muzzle flash
@@ -827,9 +823,7 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 
 			flash.hModel = pi->flashModel;
 			VectorCopy(origin, flash.lightingOrigin);
-
 			UI_PositionEntityOnTag(&flash, &gun, pi->weaponModel, "tag_flash");
-
 			flash.renderfx = renderfx;
 			trap_R_AddRefEntityToScene(&flash);
 		}
@@ -1171,6 +1165,7 @@ qboolean UI_RegisterClientModelname(playerInfo_t *pi, const char *modelSkinName,
 
 	if (!pi->legsModel) {
 		Com_sprintf(filename, sizeof(filename), "models/players/characters/%s/lower.md3", modelName);
+
 		pi->legsModel = trap_R_RegisterModel(filename);
 
 		if (!pi->legsModel) {
@@ -1184,6 +1179,7 @@ qboolean UI_RegisterClientModelname(playerInfo_t *pi, const char *modelSkinName,
 
 	if (!pi->torsoModel) {
 		Com_sprintf(filename, sizeof(filename), "models/players/characters/%s/upper.md3", modelName);
+
 		pi->torsoModel = trap_R_RegisterModel(filename);
 
 		if (!pi->torsoModel) {
@@ -1202,6 +1198,7 @@ qboolean UI_RegisterClientModelname(playerInfo_t *pi, const char *modelSkinName,
 
 	if (!pi->headModel && headModelName[0] != '*') {
 		Com_sprintf(filename, sizeof(filename), "models/players/heads/%s/%s.md3", headModelName, headModelName);
+
 		pi->headModel = trap_R_RegisterModel(filename);
 	}
 

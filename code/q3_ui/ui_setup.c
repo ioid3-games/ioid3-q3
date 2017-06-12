@@ -166,6 +166,7 @@ static void UI_SetupMenu_Init(void) {
 	setupMenuInfo.framer.generic.y = 76;
 	setupMenuInfo.framer.width = 256;
 	setupMenuInfo.framer.height = 334;
+
 	y = 134;
 	setupMenuInfo.setupplayer.generic.type = MTYPE_PTEXT;
 	setupMenuInfo.setupplayer.generic.flags = QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;

@@ -980,7 +980,7 @@ void BeginIntermission(void) {
 	if (level.intermissiontime) {
 		return; // already active
 	}
-	// if in tournament mode, change the wins / losses
+	// if in tournament mode, change the wins/losses
 	if (g_gametype.integer == GT_TOURNAMENT) {
 		AdjustTournamentScores();
 	}

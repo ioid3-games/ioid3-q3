@@ -1563,6 +1563,7 @@ static void CG_BreathPuffs(centity_t *cent, refEntity_t *head) {
 	VectorMA(head->origin, 8, head->axis[0], origin);
 	VectorMA(origin, -4, head->axis[2], origin);
 	CG_SmokePuff(origin, up, 16, 1, 1, 1, 0.66f, 1500, cg.time, cg.time + 400, LEF_PUFF_DONT_SCALE, cgs.media.shotgunSmokePuffShader);
+
 	ci->breathPuffTime = cg.time + 2000;
 }
 
@@ -1916,6 +1917,7 @@ static void CG_PlayerFloatSprite(centity_t *cent, qhandle_t shader) {
 	memset(&ent, 0, sizeof(ent));
 
 	VectorCopy(cent->lerpOrigin, ent.origin);
+
 	ent.origin[2] += 48;
 	ent.reType = RT_SPRITE;
 	ent.customShader = shader;
@@ -2028,7 +2030,7 @@ static qboolean CG_PlayerShadow(centity_t *cent, float *shadowPlane) {
 	}
 	// fade the shadow out with height
 	alpha = 1.0 - trace.fraction;
-	// hack / FPE - bogus planes?
+	// hack/FPE - bogus planes?
 	//assert(DotProduct(trace.plane.normal, trace.plane.normal) != 0.0f)
 	// add the mark as a temporary, so it goes directly to the renderer without taking a spot in the cg_marks array
 	CG_ImpactMark(cgs.media.shadowMarkShader, trace.endpos, trace.plane.normal, cent->pe.legs.yawAngle, alpha, alpha, alpha, 1, qfalse, 24, qtrue);

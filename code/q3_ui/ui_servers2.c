@@ -599,7 +599,6 @@ static void ArenaServers_Insert(char *adrstr, char *info, int pingtime) {
 	char *s;
 	int i;
 
-
 	if ((pingtime >= ArenaServers_MaxPing()) && (g_servertype != UIAS_FAVORITES)) {
 		// slow global or local servers do not get entered
 		return;

@@ -778,7 +778,7 @@ void CL_KeyMove(usercmd_t *cmd) {
 	int movespeed;
 	int forward, side, up;
 
-	// adjust for speed key / running
+	// adjust for speed key/running
 	// the walking flag is to keep animations consistent even during acceleration and deceleration
 	if (in_speed.active ^ cl_run->integer) {
 		movespeed = 127;
@@ -1279,6 +1279,7 @@ void CL_WritePacket(void) {
 	}
 	// deliver the message
 	packetNum = clc.netchan.outgoingSequence & PACKET_MASK;
+
 	cl.outPackets[packetNum].p_realtime = cls.realtime;
 	cl.outPackets[packetNum].p_serverTime = oldcmd->serverTime;
 	cl.outPackets[packetNum].p_cmdNumber = cl.cmdNumber;

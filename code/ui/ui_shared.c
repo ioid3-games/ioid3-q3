@@ -89,6 +89,7 @@ void *UI_Alloc(int size) {
 		if (DC->Print) {
 			DC->Print("UI_Alloc: Failure. Out of memory!\n");
 		}
+
 		//DC->trap_Print(S_COLOR_YELLOW "WARNING: UI Out of Memory!\n");
 		return NULL;
 	}
@@ -192,9 +193,10 @@ const char *String_Alloc(const char *p) {
 
 	if (len + strPoolIndex + 1 < STRING_POOL_SIZE) {
 		int ph = strPoolIndex;
-		strcpy(&strPool[strPoolIndex], p);
-		strPoolIndex += len + 1;
 
+		strcpy(&strPool[strPoolIndex], p);
+
+		strPoolIndex += len + 1;
 		str = strHandle[hash];
 		last = str;
 
@@ -340,6 +342,7 @@ Float_Parse
 */
 qboolean Float_Parse(char **p, float *f) {
 	char *token;
+
 	token = COM_ParseExt(p, qfalse);
 
 	if (token && token[0] != 0) {
@@ -432,6 +435,7 @@ Int_Parse
 */
 qboolean Int_Parse(char **p, int *i) {
 	char *token;
+
 	token = COM_ParseExt(p, qfalse);
 
 	if (token && token[0] != 0) {
@@ -817,7 +821,6 @@ FIXME: consolidate this with nearby stuff.
 */
 void Item_UpdatePosition(itemDef_t *item) {
 	float x, y;
-
 	menuDef_t *menu;
 
 	if (item == NULL || item->parent == NULL) {
@@ -825,7 +828,6 @@ void Item_UpdatePosition(itemDef_t *item) {
 	}
 
 	menu = item->parent;
-
 	x = menu->window.rect.x;
 	y = menu->window.rect.y;
 
@@ -1598,6 +1600,7 @@ void Item_RunScript(itemDef_t *item, const char *s) {
 	char script[1024], *p;
 	int i;
 	qboolean bRan;
+
 	memset(script, 0, sizeof(script));
 
 	if (item && s && s[0]) {
@@ -1607,7 +1610,7 @@ void Item_RunScript(itemDef_t *item, const char *s) {
 
 		while (1) {
 			const char *command;
-			// expect command then arguments,; ends command, NULL ends script
+			// expect command then arguments, ; ends command, NULL ends script
 			if (!String_Parse(&p, &command)) {
 				return;
 			}
@@ -1640,13 +1643,13 @@ Item_EnableShowViaCvar
 */
 qboolean Item_EnableShowViaCvar(itemDef_t *item, int flag) {
 	char script[1024], *p;
+
 	memset(script, 0, sizeof(script));
 
 	if (item && item->enableCvar && *item->enableCvar && item->cvarTest && *item->cvarTest) {
 		char buff[1024];
 
 		DC->getCVarString(item->cvarTest, buff, sizeof(buff));
-
 		Q_strcat(script, 1024, item->enableCvar);
 
 		p = script;
@@ -1713,6 +1716,7 @@ qboolean Item_SetFocus(itemDef_t *item, float x, float y) {
 
 	if (item->type == ITEM_TYPE_TEXT) {
 		rectDef_t r;
+
 		r = item->textRect;
 		r.y -= r.h;
 
@@ -2398,6 +2402,7 @@ qboolean Item_ListBox_HandleKey(itemDef_t *item, int key, qboolean down, qboolea
 				}
 
 				item->cursorPos = listPtr->cursorPos;
+
 				DC->feederSelection(item->special, item->cursorPos);
 			} else {
 				listPtr->startPos -= viewmax;
@@ -2428,6 +2433,7 @@ qboolean Item_ListBox_HandleKey(itemDef_t *item, int key, qboolean down, qboolea
 				}
 
 				item->cursorPos = listPtr->cursorPos;
+
 				DC->feederSelection(item->special, item->cursorPos);
 			} else {
 				listPtr->startPos += viewmax;
@@ -2617,7 +2623,9 @@ qboolean Item_TextField_HandleKey(itemDef_t *item, int key) {
 
 	if (item->cvar) {
 		memset(buff, 0, sizeof(buff));
+
 		DC->getCVarString(item->cvar, buff, sizeof(buff));
+
 		len = strlen(buff);
 
 		if (editPtr->maxChars && len > editPtr->maxChars) {
@@ -2710,13 +2718,13 @@ qboolean Item_TextField_HandleKey(itemDef_t *item, int key) {
 				return qtrue;
 			}
 
-			if (key == K_HOME || key == K_KP_HOME) { // || (tolower(key) == 'a' && trap_Key_IsDown(K_CTRL))) {
+			if (key == K_HOME || key == K_KP_HOME) { //|| (tolower(key) == 'a' && trap_Key_IsDown(K_CTRL))) {
 				item->cursorPos = 0;
 				editPtr->paintOffset = 0;
 				return qtrue;
 			}
 
-			if (key == K_END || key == K_KP_END) { // (tolower(key) == 'e' && trap_Key_IsDown(K_CTRL))) {
+			if (key == K_END || key == K_KP_END) { //(tolower(key) == 'e' && trap_Key_IsDown(K_CTRL))) {
 				item->cursorPos = len;
 
 				if (item->cursorPos > editPtr->maxPaintChars) {
@@ -2771,6 +2779,7 @@ static void Scroll_ListBox_AutoFunc(void *p) {
 		// this is done a bit sideways as the autoscroll "knows" that the item is a listbox
 		// so it calls it directly
 		Item_ListBox_HandleKey(si->item, si->scrollKey, qtrue, qfalse);
+
 		si->nextScrollTime = DC->realTime + si->adjustValue;
 	}
 
@@ -2963,6 +2972,7 @@ qboolean Item_Slider_HandleKey(itemDef_t *item, int key, qboolean down) {
 
 			if (editDef && Rect_ContainsPoint(&item->window.rect, DC->cursorx, DC->cursory) && item->window.flags & WINDOW_HASFOCUS) {
 				rectDef_t testRect;
+
 				width = SLIDER_WIDTH;
 
 				if (item->text) {
@@ -3221,6 +3231,7 @@ void Menus_Activate(menuDef_t *menu) {
 
 	if (menu->onOpen) {
 		itemDef_t item;
+
 		item.parent = menu;
 		Item_RunScript(&item, menu->onOpen);
 	}
@@ -3652,9 +3663,11 @@ void Item_Text_AutoWrapped_Paint(itemDef_t *item) {
 				}
 
 				item->textRect.y = y;
+
 				ToWindowCoords(&item->textRect.x, &item->textRect.y, &item->window);
 
 				buff[newLine] = '\0';
+
 				DC->drawText(item->textRect.x, item->textRect.y, item->textscale, color, buff, 0, 0, item->textStyle);
 			}
 
@@ -3832,6 +3845,7 @@ void Item_TextField_Paint(itemDef_t *item) {
 
 	if (item->window.flags & WINDOW_HASFOCUS && g_editingField) {
 		char cursor = DC->getOverstrikeMode() ? '_' : '|';
+
 		DC->drawTextWithCursor(item->textRect.x + item->textRect.w + offset, item->textRect.y, item->textscale, newColor, buff + editPtr->paintOffset, item->cursorPos - editPtr->paintOffset, cursor, editPtr->maxPaintChars, item->textStyle);
 	} else {
 		DC->drawText(item->textRect.x + item->textRect.w + offset, item->textRect.y, item->textscale, newColor, buff + editPtr->paintOffset, 0, editPtr->maxPaintChars, item->textStyle);
@@ -4186,6 +4200,7 @@ void Item_Slider_Paint(itemDef_t *item) {
 
 	if (item->text) {
 		Item_Text_Paint(item);
+
 		x = item->textRect.x + item->textRect.w + 8;
 	} else {
 		x = item->window.rect.x;
@@ -4287,6 +4302,7 @@ qboolean Item_Bind_HandleKey(itemDef_t *item, int key, qboolean down) {
 				}
 
 				Controls_SetConfig(qtrue);
+
 				g_waitingForKey = qfalse;
 				g_bindItem = NULL;
 				return qtrue;
@@ -4475,11 +4491,16 @@ void Item_ListBox_Paint(itemDef_t *item) {
 		// bar
 		x = item->window.rect.x + 1;
 		y = item->window.rect.y + item->window.rect.h - SCROLLBAR_SIZE - 1;
+
 		DC->drawHandlePic(x, y, SCROLLBAR_SIZE, SCROLLBAR_SIZE, DC->Assets.scrollBarArrowLeft);
+
 		x += SCROLLBAR_SIZE - 1;
 		size = item->window.rect.w - (SCROLLBAR_SIZE * 2);
+
 		DC->drawHandlePic(x, y, size + 1, SCROLLBAR_SIZE, DC->Assets.scrollBar);
+
 		x += size - 1;
+
 		DC->drawHandlePic(x, y, SCROLLBAR_SIZE, SCROLLBAR_SIZE, DC->Assets.scrollBarArrowRight);
 		// thumb
 		thumb = Item_ListBox_ThumbDrawPosition(item); //Item_ListBox_ThumbPosition(item);
@@ -4530,13 +4551,17 @@ void Item_ListBox_Paint(itemDef_t *item) {
 		// draw scrollbar to right side of the window
 		x = item->window.rect.x + item->window.rect.w - SCROLLBAR_SIZE - 1;
 		y = item->window.rect.y + 1;
-		DC->drawHandlePic(x, y, SCROLLBAR_SIZE, SCROLLBAR_SIZE, DC->Assets.scrollBarArrowUp);
-		y += SCROLLBAR_SIZE - 1;
 
+		DC->drawHandlePic(x, y, SCROLLBAR_SIZE, SCROLLBAR_SIZE, DC->Assets.scrollBarArrowUp);
+
+		y += SCROLLBAR_SIZE - 1;
 		listPtr->endPos = listPtr->startPos;
 		size = item->window.rect.h - (SCROLLBAR_SIZE * 2);
+
 		DC->drawHandlePic(x, y, SCROLLBAR_SIZE, size + 1, DC->Assets.scrollBar);
+
 		y += size - 1;
+
 		DC->drawHandlePic(x, y, SCROLLBAR_SIZE, SCROLLBAR_SIZE, DC->Assets.scrollBarArrowDown);
 		// thumb
 		thumb = Item_ListBox_ThumbDrawPosition(item); //Item_ListBox_ThumbPosition(item);
@@ -4641,6 +4666,7 @@ void Item_OwnerDraw_Paint(itemDef_t *item) {
 	if (DC->ownerDrawItem) {
 		vec4_t color, lowLight;
 		menuDef_t *parent = (menuDef_t *)item->parent;
+
 		Fade(&item->window.flags, &item->window.foreColor[3], parent->fadeClamp, &item->window.nextTime, parent->fadeCycle, qtrue, parent->fadeAmount);
 
 		memcpy(&color, &item->window.foreColor, sizeof(color));
@@ -4722,8 +4748,10 @@ void Item_Paint(itemDef_t *item) {
 			a = 3 * M_PI / 180;
 			c = cos(a);
 			s = sin(a);
+
 			item->window.rectClient.x = (rx * c - ry * s) + item->window.rectEffects.x - w;
 			item->window.rectClient.y = (rx * s + ry * c) + item->window.rectEffects.y - h;
+
 			Item_UpdatePosition(item);
 		}
 	}
@@ -5184,6 +5212,7 @@ void Menu_Paint(menuDef_t *menu, qboolean forcePaint) {
 
 	if (debugMode) {
 		vec4_t color;
+
 		color[0] = color[2] = color[3] = 1;
 		color[1] = 0;
 		DC->drawRect(menu->window.rect.x, menu->window.rect.y, menu->window.rect.w, menu->window.rect.h, 1, color);
@@ -5203,9 +5232,11 @@ void Item_ValidateTypeData(itemDef_t *item) {
 
 	if (item->type == ITEM_TYPE_LISTBOX) {
 		item->typeData = UI_Alloc(sizeof(listBoxDef_t));
+
 		memset(item->typeData, 0, sizeof(listBoxDef_t));
 	} else if (item->type == ITEM_TYPE_EDITFIELD || item->type == ITEM_TYPE_NUMERICFIELD || item->type == ITEM_TYPE_YESNO || item->type == ITEM_TYPE_BIND || item->type == ITEM_TYPE_SLIDER || item->type == ITEM_TYPE_TEXT) {
 		item->typeData = UI_Alloc(sizeof(editFieldDef_t));
+
 		memset(item->typeData, 0, sizeof(editFieldDef_t));
 
 		if (item->type == ITEM_TYPE_EDITFIELD) {
@@ -5545,6 +5576,7 @@ ItemParse_decoration
 =======================================================================================================================================
 */
 qboolean ItemParse_decoration(itemDef_t *item, int handle) {
+
 	item->window.flags |= WINDOW_DECORATION;
 	return qtrue;
 }
@@ -5583,6 +5615,7 @@ ItemParse_autowrapped
 =======================================================================================================================================
 */
 qboolean ItemParse_autowrapped(itemDef_t *item, int handle) {
+
 	item->window.flags |= WINDOW_AUTOWRAPPED;
 	return qtrue;
 }
@@ -5593,6 +5626,7 @@ ItemParse_horizontalscroll
 =======================================================================================================================================
 */
 qboolean ItemParse_horizontalscroll(itemDef_t *item, int handle) {
+
 	item->window.flags |= WINDOW_HORIZONTAL;
 	return qtrue;
 }
@@ -6623,6 +6657,7 @@ void Item_InitControls(itemDef_t *item) {
 
 	if (item->type == ITEM_TYPE_LISTBOX) {
 		listBoxDef_t *listPtr = (listBoxDef_t *)item->typeData;
+
 		item->cursorPos = 0;
 
 		if (listPtr) {
@@ -7119,6 +7154,7 @@ qboolean MenuParse_itemDef(itemDef_t *item, int handle) {
 		}
 
 		Item_InitControls(menu->items[menu->itemCount]);
+
 		menu->items[menu->itemCount++]->parent = menu;
 	}
 
@@ -7352,6 +7388,7 @@ int Display_CursorType(int x, int y) {
 
 	for (i = 0; i < menuCount; i++) {
 		rectDef_t r2;
+
 		r2.x = Menus[i].window.rect.x - 3;
 		r2.y = Menus[i].window.rect.y - 3;
 		r2.w = r2.h = 7;

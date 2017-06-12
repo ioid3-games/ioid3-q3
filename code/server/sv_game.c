@@ -175,9 +175,7 @@ qboolean SV_inPVS(const vec3_t p1, const vec3_t p2) {
 	leafnum = CM_PointLeafnum(p1);
 	cluster = CM_LeafCluster(leafnum);
 	area1 = CM_LeafArea(leafnum);
-
 	mask = CM_ClusterPVS(cluster);
-
 	leafnum = CM_PointLeafnum(p2);
 	cluster = CM_LeafCluster(leafnum);
 	area2 = CM_LeafArea(leafnum);
@@ -207,9 +205,7 @@ qboolean SV_inPVSIgnorePortals(const vec3_t p1, const vec3_t p2) {
 
 	leafnum = CM_PointLeafnum(p1);
 	cluster = CM_LeafCluster(leafnum);
-
 	mask = CM_ClusterPVS(cluster);
-
 	leafnum = CM_PointLeafnum(p2);
 	cluster = CM_LeafCluster(leafnum);
 
@@ -431,19 +427,18 @@ intptr_t SV_GameSystemCalls(intptr_t *args) {
 			SV_GetUsercmd(args[1], VMA(2));
 			return 0;
 		case G_GET_ENTITY_TOKEN:
-		{
-			const char *s;
+			{
+				const char *s;
 
-			s = COM_Parse(&sv.entityParsePoint);
-			Q_strncpyz(VMA(1), s, args[2]);
+				s = COM_Parse(&sv.entityParsePoint);
+				Q_strncpyz(VMA(1), s, args[2]);
 
-			if (!sv.entityParsePoint && !s[0]) {
-				return qfalse;
-			} else {
-				return qtrue;
+				if (!sv.entityParsePoint && !s[0]) {
+					return qfalse;
+				} else {
+					return qtrue;
+				}
 			}
-		}
-
 		case G_DEBUG_POLYGON_CREATE:
 			return BotImport_DebugPolygonCreate(args[1], args[2], VMA(3));
 		case G_DEBUG_POLYGON_DELETE:

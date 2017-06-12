@@ -119,7 +119,6 @@ typedef enum {
 	// 1.32
 	UI_FS_SEEK,
 	UI_SET_PBCLSTATUS,
-
 	UI_MEMSET = 100,
 	UI_MEMCPY,
 	UI_STRNCPY,

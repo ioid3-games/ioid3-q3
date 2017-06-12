@@ -83,7 +83,6 @@ extern vmCvar_t ui_ioq3;
 #define RCOLUMN_OFFSET (BIGCHAR_WIDTH)
 #define LCOLUMN_OFFSET (-BIGCHAR_WIDTH)
 #define SLIDER_RANGE 10
-
 #define MAX_EDIT_LINE 256
 #define MAX_MENUDEPTH 8
 #define MAX_MENUITEMS 64

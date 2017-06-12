@@ -75,7 +75,7 @@ void G_DamageFeedback(gentity_t *player) {
 =======================================================================================================================================
 G_WorldEffects
 
-Check for lava / slime contents and drowning.
+Check for lava/slime contents and drowning.
 =======================================================================================================================================
 */
 void G_WorldEffects(gentity_t *ent) {

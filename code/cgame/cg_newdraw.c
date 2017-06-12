@@ -763,9 +763,10 @@ static void CG_DrawBlueScore(rectDef_t *rect, float scale, vec4_t color, qhandle
 /*
 =======================================================================================================================================
 CG_DrawRedName
+
+FIXME: team name support.
 =======================================================================================================================================
 */
-// FIXME: team name support
 static void CG_DrawRedName(rectDef_t *rect, float scale, vec4_t color, int textStyle) {
 	CG_Text_Paint(rect->x, rect->y + rect->h, scale, color, cg_redTeamName.string, 0, 0, textStyle);
 }
@@ -1241,10 +1242,12 @@ qboolean CG_YourTeamHasFlag(void) {
 
 	return qfalse;
 }
-// THINKABOUTME: should these be exclusive or inclusive...
+
 /*
 =======================================================================================================================================
 CG_OwnerDrawVisible
+
+THINKABOUTME: should these be exclusive or inclusive..
 =======================================================================================================================================
 */
 qboolean CG_OwnerDrawVisible(int flags) {
@@ -1592,13 +1595,12 @@ static void CG_Text_Paint_Limit(float *maxX, float x, float y, float scale, vec4
 	}
 }
 
+#define PIC_WIDTH 12
 /*
 =======================================================================================================================================
 CG_DrawNewTeamInfo
 =======================================================================================================================================
 */
-#define PIC_WIDTH 12
-
 void CG_DrawNewTeamInfo(rectDef_t *rect, float text_x, float text_y, float scale, vec4_t color, qhandle_t shader) {
 	int xx;
 	float y;
@@ -2198,8 +2200,10 @@ CG_ShowResponseHead
 =======================================================================================================================================
 */
 void CG_ShowResponseHead(void) {
+
 	Menus_OpenByName("voiceMenu");
 	trap_Cvar_Set("cl_conXOffset", "72");
+
 	cg.voiceTime = cg.time;
 }
 
