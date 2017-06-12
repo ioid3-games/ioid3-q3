@@ -56,6 +56,7 @@ static client_t *SV_GetPlayerByHandle(void) {
 
 	if (!s[i]) {
 		int plid = atoi(s);
+
 		// Check for numeric playerid match
 		if (plid >= 0 && plid < sv_maxclients->integer) {
 			cl = &svs.clients[plid];
@@ -266,6 +267,7 @@ static void SV_MapRestart_f(void) {
 	// generate a new serverid
 	// TTimo - don't update restartedserverId there, otherwise we won't deal correctly with multiple map_restart
 	sv.serverId = com_frameTime;
+
 	Cvar_Set("sv_serverid", va("%i", sv.serverId));
 	// if a map_restart occurs while a client is changing maps, we need to give them the correct time so that when they finish loading
 	// they don't violate the backwards time check in cl_cgame.c
@@ -325,6 +327,7 @@ static void SV_MapRestart_f(void) {
 	}
 	// run another frame to allow things to look at all the players
 	VM_Call(gvm, GAME_RUN_FRAME, sv.time);
+
 	sv.time += 100;
 	svs.time += 100;
 }
@@ -393,6 +396,7 @@ static void SV_Kick_f(void) {
 	}
 
 	SV_DropClient(cl, "was kicked");
+
 	cl->lastPacketTime = svs.time; // in case there is a funny zombie
 }
 
@@ -634,7 +638,6 @@ static void SV_RehashBans_f(void) {
 		}
 
 		curpos = textbuf = Z_Malloc(filelen);
-
 		filelen = FS_Read(textbuf, filelen, readfrom);
 
 		FS_FCloseFile(readfrom);
@@ -1421,7 +1424,6 @@ static void SV_CompletePlayerName(char *args, int argNum) {
 			Q_CleanStr(names[nameCount]);
 
 			namesPtr[nameCount] = names[nameCount];
-
 			nameCount++;
 		}
 
@@ -1456,7 +1458,7 @@ void SV_AddOperatorCommands(void) {
 	Cmd_AddCommand("kickbots", SV_KickBots_f);
 	Cmd_AddCommand("kickall", SV_KickAll_f);
 	Cmd_AddCommand("kicknum", SV_KickNum_f);
-	Cmd_AddCommand("clientkick", SV_KickNum_f); // Legacy command
+	Cmd_AddCommand("clientkick", SV_KickNum_f); // legacy command
 	Cmd_AddCommand("status", SV_Status_f);
 	Cmd_AddCommand("serverinfo", SV_Serverinfo_f);
 	Cmd_AddCommand("systeminfo", SV_Systeminfo_f);

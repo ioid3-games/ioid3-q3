@@ -90,7 +90,7 @@ cvar_t *com_basegame;
 cvar_t *com_homepath;
 cvar_t *com_busyWait;
 #ifndef DEDICATED
-cvar_t  *con_autochat;
+cvar_t *con_autochat;
 #endif
 #if idx64
 	int (*Q_VMftol)(void);

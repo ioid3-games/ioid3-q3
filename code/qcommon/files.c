@@ -2414,7 +2414,7 @@ void FS_GetModDescription(const char *modDir, char *description, int description
 FS_GetModList
 
 Returns a list of mod directory names.
-A mod directory is a peer to baseq3 with a pk3 in it. The directories are searched in base path, cd path and home path.
+A mod directory is a peer to baseq3 with a pk3 or pk3dir in it.
 =======================================================================================================================================
 */
 int FS_GetModList(char *listbuf, int bufsize) {

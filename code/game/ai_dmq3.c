@@ -3254,7 +3254,7 @@ int BotFindEnemy(bot_state_t *bs, int curenemy) {
 		if (i == curenemy) {
 			continue;
 		}
-		//if the enemy has targeting disabled
+		// if the enemy has targeting disabled
 		if (g_entities[i].flags & FL_NOTARGET) {
 			continue;
 		}
