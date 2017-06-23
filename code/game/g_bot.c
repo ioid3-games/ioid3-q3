@@ -589,7 +589,6 @@ qboolean G_BotConnect(int clientNum, qboolean restart) {
 
 	Q_strncpyz(settings.characterfile, Info_ValueForKey(userinfo, "characterfile"), sizeof(settings.characterfile));
 	settings.skill = atof(Info_ValueForKey(userinfo, "skill"));
-	Q_strncpyz(settings.team, Info_ValueForKey(userinfo, "team"), sizeof(settings.team));
 
 	if (!BotAISetupClient(clientNum, &settings, restart)) {
 		trap_DropClient(clientNum, "BotAISetupClient failed");
@@ -729,7 +728,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 		}
 	}
 
-	Info_SetValueForKey(userinfo, "team", team);
+	Info_SetValueForKey(userinfo, "teampref", team);
 	// register the userinfo
 	trap_SetUserinfo(clientNum, userinfo);
 	// have it connect to the game as a normal client

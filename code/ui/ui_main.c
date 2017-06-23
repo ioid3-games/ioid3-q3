@@ -3750,7 +3750,10 @@ static void UI_StartSkirmish(qboolean next) {
 	}
 
 	if (g >= GT_TEAM) {
+		// send team command for vanilla q3 game qvm
 		trap_Cmd_ExecuteText(EXEC_APPEND, "wait 5; team Red\n");
+		// set g_localTeamPref for ioq3 game qvm
+		trap_Cvar_Set("g_localTeamPref", "Red");
 	}
 }
 
@@ -6854,6 +6857,7 @@ static cvarTable_t cvarTable[] = {
 	{&ui_realWarmUp, "g_warmup", "20", CVAR_ARCHIVE},
 	{&ui_realCaptureLimit, "capturelimit", "8", CVAR_SERVERINFO|CVAR_ARCHIVE|CVAR_NORESTART},
 	{&ui_serverStatusTimeOut, "ui_serverStatusTimeOut", "7000", CVAR_ARCHIVE},
+	{NULL, "g_localTeamPref", "", 0},
 };
 
 static int cvarTableSize = ARRAY_LEN(cvarTable);
@@ -6882,6 +6886,10 @@ void UI_UpdateCvars(void) {
 	cvarTable_t *cv;
 
 	for (i = 0, cv = cvarTable; i < cvarTableSize; i++, cv++) {
+		if (!cv->vmCvar) {
+			continue;
+		}
+
 		trap_Cvar_Update(cv->vmCvar);
 	}
 }

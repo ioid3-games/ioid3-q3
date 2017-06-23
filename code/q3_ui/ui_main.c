@@ -173,7 +173,8 @@ static cvarTable_t cvarTable[] = {
 	{&ui_server15, "server15", "", CVAR_ARCHIVE},
 	{&ui_server16, "server16", "", CVAR_ARCHIVE},
 	{&ui_cdkeychecked, "ui_cdkeychecked", "0", CVAR_ROM},
-	{&ui_ioq3, "ui_ioq3", "1", CVAR_ROM}
+	{&ui_ioq3, "ui_ioq3", "1", CVAR_ROM},
+	{NULL, "g_localTeamPref", "", 0}
 };
 
 static int cvarTableSize = ARRAY_LEN(cvarTable);
@@ -202,6 +203,10 @@ void UI_UpdateCvars(void) {
 	cvarTable_t *cv;
 
 	for (i = 0, cv = cvarTable; i < cvarTableSize; i++, cv++) {
+		if (!cv->vmCvar) {
+			continue;
+		}
+
 		trap_Cvar_Update(cv->vmCvar);
 	}
 }

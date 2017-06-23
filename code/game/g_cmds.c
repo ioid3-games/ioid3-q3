@@ -506,7 +506,7 @@ void BroadcastTeamChange(gclient_t *client, int oldTeam) {
 SetTeam
 =======================================================================================================================================
 */
-void SetTeam(gentity_t *ent, char *s) {
+void SetTeam(gentity_t *ent, const char *s) {
 	int team, oldTeam;
 	gclient_t *client;
 	int clientNum;
@@ -547,12 +547,12 @@ void SetTeam(gentity_t *ent, char *s) {
 			team = PickTeam(clientNum);
 		}
 
-		if (g_teamForceBalance.integer) {
+		if (g_teamForceBalance.integer && !client->pers.localClient && !(ent->r.svFlags & SVF_BOT)) {
 			int counts[TEAM_NUM_TEAMS];
 
 			counts[TEAM_BLUE] = TeamCount(clientNum, TEAM_BLUE);
 			counts[TEAM_RED] = TeamCount(clientNum, TEAM_RED);
-			// We allow a spread of two
+			// we allow a spread of two
 			if (team == TEAM_RED && counts[TEAM_RED] - counts[TEAM_BLUE] > 1) {
 				trap_SendServerCommand(clientNum, "cp \"Red team has too many players.\n\"");
 				return; // ignore the request
@@ -562,7 +562,7 @@ void SetTeam(gentity_t *ent, char *s) {
 				trap_SendServerCommand(clientNum, "cp \"Blue team has too many players.\n\"");
 				return; // ignore the request
 			}
-			// It's ok, the team we are switching to has less or same number of players
+			// it's ok, the team we are switching to has less or same number of players
 		}
 	} else {
 		// force them to spectators if there aren't any spots free
@@ -590,7 +590,7 @@ void SetTeam(gentity_t *ent, char *s) {
 	client->pers.teamState.state = TEAM_BEGIN;
 
 	if (oldTeam != TEAM_SPECTATOR) {
-		// Kill him (makes sure he loses flags, etc.)
+		// kill him (makes sure he loses flags, etc.)
 		ent->flags &= ~FL_GODMODE;
 		ent->client->ps.stats[STAT_HEALTH] = ent->health = 0;
 		PlayerDie(ent, ent, ent, 100000, MOD_SUICIDE);
@@ -620,7 +620,7 @@ void SetTeam(gentity_t *ent, char *s) {
 	BroadcastTeamChange(client, oldTeam);
 	// get and distribute relevant parameters
 	ClientUserinfoChanged(clientNum);
-	// client hasn't spawned yet, they sent an early team command
+	// client hasn't spawned yet, they sent an early team command, teampref userinfo, or g_teamAutoJoin is enabled
 	if (client->pers.connected != CON_CONNECTED) {
 		return;
 	}
