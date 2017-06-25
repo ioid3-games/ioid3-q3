@@ -804,7 +804,7 @@ void CG_DrawActiveFrame(int serverTime, stereoFrame_t stereoView, qboolean demoP
 	// update cg.predictedPlayerState
 	CG_PredictPlayerState();
 	// decide on third person view
-	cg.renderingThirdPerson = cg_thirdPerson.integer || (cg.snap->ps.stats[STAT_HEALTH] <= 0);
+	cg.renderingThirdPerson = cg.snap->ps.persistant[PERS_TEAM] != TEAM_SPECTATOR && (cg_thirdPerson.integer || (cg.snap->ps.stats[STAT_HEALTH] <= 0));
 	// build cg.refdef
 	inwater = CG_CalcViewValues();
 	// first person blend blobs, done after AnglesToAxis
