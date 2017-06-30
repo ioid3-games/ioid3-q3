@@ -245,7 +245,7 @@ int G_CountBotPlayersByName(const char *name, int team) {
 
 	num = 0;
 
-	for (i = 0; i< g_maxclients.integer; i++) {
+	for (i = 0; i < g_maxclients.integer; i++) {
 		cl = level.clients + i;
 
 		if (cl->pers.connected == CON_DISCONNECTED) {
@@ -727,6 +727,7 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 	if (!*headmodel) {
 		headmodel = model;
 	}
+
 	Info_SetValueForKey(userinfo, key, headmodel);
 	// team head model
 	key = "team_headmodel";
