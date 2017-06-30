@@ -1,9 +1,11 @@
-<img src="https://raw.githubusercontent.com/ioid3_games/ioid3-q3/master/misc/quake3_flat.iconset/icon_128x128.png" width="128">
-
-[http://ioquake3.org](http://ioquake3.org)                     
-                               
-
-# ioquake3 
+                   ,---------------------------------------.
+                   |   _                     _       ____  |
+                   |  (_)___  __ _ _  _ __ _| |_____|__ /  |
+                   |  | / _ \/ _` | || / _` | / / -_)|_ \  |
+                   |  |_\___/\__, |\_,_\__,_|_\_\___|___/  |
+                   |            |_|                        |
+                   |                                       |
+                   `---------- http://ioquake3.org --------'
 
 The intent of this project is to provide a baseline Quake 3 which may be used
 for further development and baseq3 fun.
@@ -331,6 +333,8 @@ The defaults for these variables differ depending on the target platform.
 
   cvar_modified [filter]  - list modified cvars, can filter results (such as "r*"
                             for renderer cvars) like cvarlist which lists all cvars
+
+  addbot random           - the bot name "random" now selects a random bot
 ```
 
 
