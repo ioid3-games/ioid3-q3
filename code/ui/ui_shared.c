@@ -95,7 +95,6 @@ void *UI_Alloc(int size) {
 	}
 
 	p = &memoryPool[allocPoint];
-
 	allocPoint += (size + 15) & ~15;
 
 	return p;
@@ -178,7 +177,6 @@ const char *String_Alloc(const char *p) {
 	}
 
 	hash = hashForString(p);
-
 	str = strHandle[hash];
 
 	while (str) {
@@ -288,6 +286,7 @@ static __attribute__((format(printf, 2, 3))) void PC_SourceWarning(int handle, c
 
 	filename[0] = '\0';
 	line = 0;
+
 	trap_PC_SourceFileAndLine(handle, filename, &line);
 
 	Com_Printf(S_COLOR_YELLOW "WARNING: %s, line %d: %s\n", filename, line, string);
@@ -310,6 +309,7 @@ static __attribute__((format(printf, 2, 3))) void PC_SourceError(int handle, cha
 
 	filename[0] = '\0';
 	line = 0;
+
 	trap_PC_SourceFileAndLine(handle, filename, &line);
 
 	Com_Printf(S_COLOR_RED "ERROR: %s, line %d: %s\n", filename, line, string);
@@ -780,8 +780,10 @@ void Window_Paint(Window *w, float fadeAmount, float fadeClamp, float fadeCycle)
 	} else if (w->border == WINDOW_BORDER_KCGRADIENT) {
 		// this is just two gradient bars along each horz edge
 		rectDef_t r = w->rect;
+
 		r.h = w->borderSize;
 		GradientBar_Paint(&r, w->borderColor);
+
 		r.y = w->rect.y + w->rect.h - 1;
 		GradientBar_Paint(&r, w->borderColor);
 	}
@@ -1029,6 +1031,7 @@ void Script_SetAsset(itemDef_t *item, char **args) {
 	if (String_Parse(args, &name)) {
 		// check for a model
 		if (item->type == ITEM_TYPE_MODEL) {
+
 		}
 	}
 }
@@ -1235,6 +1238,7 @@ static void Menu_RunCloseScript(menuDef_t *menu) {
 
 	if (menu && menu->window.flags & WINDOW_VISIBLE && menu->onClose) {
 		itemDef_t item;
+
 		item.parent = menu;
 		Item_RunScript(&item, menu->onClose);
 	}
@@ -2994,7 +2998,7 @@ qboolean Item_Slider_HandleKey(itemDef_t *item, int key, qboolean down) {
 					value = work / width;
 					value *= (editDef->maxVal - editDef->minVal);
 					// vm fuckage
-					// value = (((float)(DC->cursorx - x) / SLIDER_WIDTH) * (editDef->maxVal - editDef->minVal));
+					//value = (((float)(DC->cursorx - x) / SLIDER_WIDTH) * (editDef->maxVal - editDef->minVal));
 					value += editDef->minVal;
 					DC->setCVar(item->cvar, va("%f", value));
 					return qtrue;
@@ -3545,6 +3549,7 @@ void Item_SetTextExtents(itemDef_t *item, int *width, int *height, const char *t
 			originalWidth += DC->ownerDrawWidth(item->window.ownerDraw, item->textscale);
 		} else if (item->type == ITEM_TYPE_EDITFIELD && item->textalignment == ITEM_ALIGN_CENTER && item->cvar) {
 			char buff[256];
+
 			DC->getCVarString(item->cvar, buff, 256);
 			originalWidth += DC->textWidth(buff, item->textscale, 0);
 		}
@@ -4210,6 +4215,7 @@ void Item_Slider_Paint(itemDef_t *item) {
 	DC->drawHandlePic(x, y, SLIDER_WIDTH, SLIDER_HEIGHT, DC->Assets.sliderBar);
 
 	x = Item_Slider_ThumbPosition(item);
+
 	DC->drawHandlePic(x - (SLIDER_THUMB_WIDTH / 2), y - 2, SLIDER_THUMB_WIDTH, SLIDER_THUMB_HEIGHT, DC->Assets.sliderThumb);
 }
 
@@ -4350,6 +4356,7 @@ qboolean Item_Bind_HandleKey(itemDef_t *item, int key, qboolean down) {
 	}
 
 	Controls_SetConfig(qtrue);
+
 	g_waitingForKey = qfalse;
 
 	return qtrue;
@@ -4418,7 +4425,6 @@ void Item_Model_Paint(itemDef_t *item) {
 
 	refdef.fov_x = (modelPtr->fov_x) ? modelPtr->fov_x : w;
 	refdef.fov_y = (modelPtr->fov_y) ? modelPtr->fov_y : h;
-
 	//refdef.fov_x = (int)((float)refdef.width / 640.0f * 90.0f);
 	//xx = refdef.width / tan(refdef.fov_x / 360 * M_PI);
 	//refdef.fov_y = atan2(refdef.height, xx);
@@ -4445,9 +4451,12 @@ void Item_Model_Paint(itemDef_t *item) {
 	AnglesToAxis(angles, ent.axis);
 
 	ent.hModel = item->asset;
+
 	VectorCopy(origin, ent.origin);
 	VectorCopy(origin, ent.lightingOrigin);
+
 	ent.renderfx = RF_LIGHTING_ORIGIN|RF_NOSHADOW;
+
 	VectorCopy(ent.origin, ent.oldorigin);
 
 	DC->addRefEntityToScene(&ent);
@@ -5155,8 +5164,7 @@ void Menu_HandleMouseMove(menuDef_t *menu, float x, float y) {
 					if (IsVisible(overItem->window.flags)) {
 						// different one
 						Item_MouseEnter(overItem, x, y);
-						// Item_SetMouseOver(overItem, qtrue);
-
+						//Item_SetMouseOver(overItem, qtrue);
 						// if item is not a decoration see if it can take focus
 						if (!focusSet) {
 							focusSet = Item_SetFocus(overItem, x, y);
@@ -5405,6 +5413,7 @@ qboolean ItemParse_asset_model(itemDef_t *item, int handle) {
 	modelDef_t *modelPtr;
 
 	Item_ValidateTypeData(item);
+
 	modelPtr = (modelDef_t *)item->typeData;
 
 	if (!PC_String_Parse(handle, &temp)) {
@@ -5445,6 +5454,7 @@ qboolean ItemParse_model_origin(itemDef_t *item, int handle) {
 	modelDef_t *modelPtr;
 
 	Item_ValidateTypeData(item);
+
 	modelPtr = (modelDef_t *)item->typeData;
 
 	if (PC_Float_Parse(handle, &modelPtr->origin[0])) {
@@ -5469,6 +5479,7 @@ qboolean ItemParse_model_fovx(itemDef_t *item, int handle) {
 	modelDef_t *modelPtr;
 
 	Item_ValidateTypeData(item);
+
 	modelPtr = (modelDef_t *)item->typeData;
 
 	if (!PC_Float_Parse(handle, &modelPtr->fov_x)) {
@@ -5489,6 +5500,7 @@ qboolean ItemParse_model_fovy(itemDef_t *item, int handle) {
 	modelDef_t *modelPtr;
 
 	Item_ValidateTypeData(item);
+
 	modelPtr = (modelDef_t *)item->typeData;
 
 	if (!PC_Float_Parse(handle, &modelPtr->fov_y)) {
@@ -5509,6 +5521,7 @@ qboolean ItemParse_model_rotation(itemDef_t *item, int handle) {
 	modelDef_t *modelPtr;
 
 	Item_ValidateTypeData(item);
+
 	modelPtr = (modelDef_t *)item->typeData;
 
 	if (!PC_Int_Parse(handle, &modelPtr->rotationSpeed)) {
@@ -5529,6 +5542,7 @@ qboolean ItemParse_model_angle(itemDef_t *item, int handle) {
 	modelDef_t *modelPtr;
 
 	Item_ValidateTypeData(item);
+
 	modelPtr = (modelDef_t *)item->typeData;
 
 	if (!PC_Int_Parse(handle, &modelPtr->angle)) {
@@ -5590,6 +5604,7 @@ qboolean ItemParse_notselectable(itemDef_t *item, int handle) {
 	listBoxDef_t *listPtr;
 
 	Item_ValidateTypeData(item);
+
 	listPtr = (listBoxDef_t *)item->typeData;
 
 	if (item->type == ITEM_TYPE_LISTBOX && listPtr) {
@@ -5605,6 +5620,7 @@ ItemParse_wrapped
 =======================================================================================================================================
 */
 qboolean ItemParse_wrapped(itemDef_t *item, int handle) {
+
 	item->window.flags |= WINDOW_WRAPPED;
 	return qtrue;
 }
@@ -5659,6 +5675,7 @@ qboolean ItemParse_elementwidth(itemDef_t *item, int handle) {
 	listBoxDef_t *listPtr;
 
 	Item_ValidateTypeData(item);
+
 	listPtr = (listBoxDef_t *)item->typeData;
 
 	if (!PC_Float_Parse(handle, &listPtr->elementWidth)) {
@@ -5679,6 +5696,7 @@ qboolean ItemParse_elementheight(itemDef_t *item, int handle) {
 	listBoxDef_t *listPtr;
 
 	Item_ValidateTypeData(item);
+
 	listPtr = (listBoxDef_t *)item->typeData;
 
 	if (!PC_Float_Parse(handle, &listPtr->elementHeight)) {
@@ -6724,8 +6742,7 @@ MenuParse_fullscreen
 */
 qboolean MenuParse_fullscreen(itemDef_t *item, int handle) {
 	menuDef_t *menu = (menuDef_t *)item;
-	union
-	{
+	union {
 		qboolean b;
 		int i;
 	} fullScreen;
@@ -7300,6 +7317,7 @@ void Menu_PaintAll(void) {
 
 	if (debugMode) {
 		vec4_t v = {1, 1, 1, 1};
+
 		DC->drawText(5, 25, .5, v, va("fps: %f", DC->FPS), 0, 0, 0);
 	}
 }

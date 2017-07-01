@@ -1,7 +1,7 @@
 /*
 =======================================================================================================================================
 Copyright (C) 2009 David S. Miller <davem@davemloft.net>.
-Copyright (C) 2013,2014 SUSE Linux Products GmbH.
+Copyright (C) 2013, 2014 SUSE Linux Products GmbH.
 
 This file is part of Quake III Arena source code.
 

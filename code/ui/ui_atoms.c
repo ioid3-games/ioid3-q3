@@ -293,6 +293,7 @@ static void UI_CalcPostGameStats(void) {
 
 	trap_GetConfigString(CS_SERVERINFO, info, sizeof(info));
 	Q_strncpyz(map, Info_ValueForKey(info, "mapname"), sizeof(map));
+
 	game = atoi(Info_ValueForKey(info, "g_gametype"));
 	// compose file name
 	Com_sprintf(fileName, MAX_QPATH, "games/%s_%i.game", map, game);
@@ -300,8 +301,9 @@ static void UI_CalcPostGameStats(void) {
 	memset(&oldInfo, 0, sizeof(postGameInfo_t));
 
 	if (trap_FS_FOpenFile(fileName, &f, FS_READ) >= 0) {
-	// if so load it
+		// if so load it
 		size = 0;
+
 		trap_FS_Read(&size, sizeof(int), f);
 
 		if (size == sizeof(postGameInfo_t)) {
@@ -530,10 +532,8 @@ Coordinates are 640 * 480 virtual values.
 void UI_FillRect(float x, float y, float width, float height, const float *color) {
 
 	trap_R_SetColor(color);
-
 	UI_AdjustFrom640(&x, &y, &width, &height);
 	trap_R_DrawStretchPic(x, y, width, height, 0, 0, 0, 0, uiInfo.uiDC.whiteShader);
-
 	trap_R_SetColor(NULL);
 }
 
@@ -570,10 +570,8 @@ Coordinates are 640 * 480 virtual values.
 void UI_DrawRect(float x, float y, float width, float height, const float *color) {
 
 	trap_R_SetColor(color);
-
 	UI_DrawTopBottom(x, y, width, height);
 	UI_DrawSides(x, y, width, height);
-
 	trap_R_SetColor(NULL);
 }
 
