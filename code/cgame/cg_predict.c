@@ -94,6 +94,7 @@ static void CG_ClipMoveToEntities(const vec3_t start, const vec3_t mins, const v
 		if (ent->solid == SOLID_BMODEL) {
 			// special value for bmodel
 			cmodel = trap_CM_InlineModel(ent->modelindex);
+
 			VectorCopy(cent->lerpAngles, angles);
 			BG_EvaluateTrajectory(&cent->currentState.pos, cg.physicsTime, origin);
 		} else {
@@ -262,7 +263,7 @@ static void CG_TouchItem(centity_t *cent) {
 	}
 
 	item = &bg_itemlist[cent->currentState.modelindex];
-	// Special case for flags. We don't predict touching our own flag
+	// special case for flags. we don't predict touching our own flag
 #ifdef MISSIONPACK
 	if (cgs.gametype == GT_1FCTF) {
 		if (item->giType == IT_TEAM && item->giTag != PW_NEUTRALFLAG) {

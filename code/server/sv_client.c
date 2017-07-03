@@ -965,7 +965,7 @@ int SV_WriteDownloadToClient(client_t *cl, msg_t *msg) {
 	}
 
 	if (cl->downloadClientBlock == cl->downloadCurrentBlock) {
-		return 0; // Nothing to transmit
+		return 0; // nothing to transmit
 	}
 	// write out the next section of the file, if we have already reached our window, automatically start retransmitting
 	if (cl->downloadXmitBlock == cl->downloadCurrentBlock) {

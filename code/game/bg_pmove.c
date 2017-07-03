@@ -1350,7 +1350,7 @@ static void PM_Footsteps(void) {
 			}
 		}
 	}
-	// check for footstep / splash sounds
+	// check for footstep/splash sounds
 	old = pm->ps->bobCycle;
 	pm->ps->bobCycle = (int)(old + bobmove * pml.msec) & 255;
 	// if we just crossed a cycle boundary, play an appropriate footstep event
@@ -1364,7 +1364,7 @@ static void PM_Footsteps(void) {
 			// splashing
 			PM_AddEvent(EV_FOOTSPLASH);
 		} else if (pm->waterlevel == 2) {
-			// wading / swimming at surface
+			// wading/swimming at surface
 			PM_AddEvent(EV_SWIM);
 		} else if (pm->waterlevel == 3) {
 			// no sound when completely underwater
@@ -1751,13 +1751,12 @@ void PM_UpdateViewAngles(playerState_t *ps, const usercmd_t *cmd) {
 	}
 }
 
+void trap_SnapVector(float *v);
 /*
 =======================================================================================================================================
 PmoveSingle
 =======================================================================================================================================
 */
-void trap_SnapVector(float *v);
-
 void PmoveSingle(pmove_t *pmove) {
 	pm = pmove;
 
@@ -1907,9 +1906,9 @@ void PmoveSingle(pmove_t *pmove) {
 	PM_Weapon();
 	// torso animation
 	PM_TorsoAnimation();
-	// footstep events / legs animations
+	// footstep events/legs animations
 	PM_Footsteps();
-	// entering / leaving water splashes
+	// entering/leaving water splashes
 	PM_WaterEvents();
 	// snap some parts of playerstate to save network bandwidth
 	trap_SnapVector(pm->ps->velocity);

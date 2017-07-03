@@ -474,6 +474,8 @@ void CG_ZoomUp_f(void) {
 	cg.zoomTime = cg.time;
 }
 
+#define WAVE_AMPLITUDE 1
+#define WAVE_FREQUENCY 0.4
 /*
 =======================================================================================================================================
 CG_CalcFov
@@ -481,9 +483,6 @@ CG_CalcFov
 Fixed fov at intermissions, otherwise account for fov variable and zooms.
 =======================================================================================================================================
 */
-#define WAVE_AMPLITUDE 1
-#define WAVE_FREQUENCY 0.4
-
 static int CG_CalcFov(void) {
 	float x;
 	float phase;

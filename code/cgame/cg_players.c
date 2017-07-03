@@ -1562,6 +1562,7 @@ static void CG_BreathPuffs(centity_t *cent, refEntity_t *head) {
 	VectorSet(up, 0, 0, 8);
 	VectorMA(head->origin, 8, head->axis[0], origin);
 	VectorMA(origin, -4, head->axis[2], origin);
+
 	CG_SmokePuff(origin, up, 16, 1, 1, 1, 0.66f, 1500, cg.time, cg.time + 400, LEF_PUFF_DONT_SCALE, cgs.media.shotgunSmokePuffShader);
 
 	ci->breathPuffTime = cg.time + 2000;

@@ -323,7 +323,7 @@ typedef enum {
 	EV_WATER_UNDER,			// head touches
 	EV_WATER_CLEAR,			// head leaves
 	EV_ITEM_PICKUP,			// normal item pickups are predictable
-	EV_GLOBAL_ITEM_PICKUP,	// powerup / team sounds are broadcast to everyone
+	EV_GLOBAL_ITEM_PICKUP,	// powerup/team sounds are broadcast to everyone
 	EV_NOAMMO,
 	EV_CHANGE_WEAPON,
 	EV_FIRE_WEAPON,

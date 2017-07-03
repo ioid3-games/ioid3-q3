@@ -51,13 +51,13 @@ static client_t *SV_GetPlayerByHandle(void) {
 	}
 
 	s = Cmd_Argv(1);
-	// Check whether this is a numeric player handle
+	// check whether this is a numeric player handle
 	for (i = 0; s[i] >= '0' && s[i] <= '9'; i++);
 
 	if (!s[i]) {
 		int plid = atoi(s);
 
-		// Check for numeric playerid match
+		// check for numeric playerid match
 		if (plid >= 0 && plid < sv_maxclients->integer) {
 			cl = &svs.clients[plid];
 
@@ -286,6 +286,7 @@ static void SV_MapRestart_f(void) {
 	// run a few frames to allow everything to settle
 	for (i = 0; i < 3; i++) {
 		VM_Call(gvm, GAME_RUN_FRAME, sv.time);
+
 		sv.time += 100;
 		svs.time += 100;
 	}

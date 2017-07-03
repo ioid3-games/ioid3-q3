@@ -693,7 +693,7 @@ Only in CTF games
 /* sounds */ ""
 	},
 
-/*QUAKED item_doubler (.3 .3 1) (-16 -16 -16) (16 16 16) suspended redTeam blueTeam
+/*QUAKED item_ammoregen (.3 .3 1) (-16 -16 -16) (16 16 16) suspended redTeam blueTeam
 */
 	{
 		"item_ammoregen",
@@ -707,7 +707,7 @@ Only in CTF games
 /* sounds */ ""
 	},
 
-	/*QUAKED team_CTF_neutralflag (0 0 1) (-16 -16 -16) (16 16 16)
+/*QUAKED team_CTF_neutralflag (0 0 1) (-16 -16 -16) (16 16 16)
 Only in One Flag CTF games
 */
 	{
@@ -722,6 +722,8 @@ Only in One Flag CTF games
 /* sounds */ ""
 	},
 
+/*QUAKED item_redcube (0 0 1) (-16 -16 -16) (16 16 16)
+*/
 	{
 		"item_redcube",
 		"sound/misc/am_pkup.wav",
@@ -734,6 +736,8 @@ Only in One Flag CTF games
 /* sounds */ ""
 	},
 
+/*QUAKED item_bluecube (0 0 1) (-16 -16 -16) (16 16 16)
+*/
 	{
 		"item_bluecube",
 		"sound/misc/am_pkup.wav",
@@ -745,6 +749,7 @@ Only in One Flag CTF games
 		0,
 /* sounds */ ""
 	},
+
 /*QUAKED weapon_nailgun (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
 */
 	{
@@ -1141,7 +1146,7 @@ char *eventnames[] = {
 	"EV_WATER_UNDER", // head touches
 	"EV_WATER_CLEAR", // head leaves
 	"EV_ITEM_PICKUP", // normal item pickups are predictable
-	"EV_GLOBAL_ITEM_PICKUP", // powerup / team sounds are broadcast to everyone
+	"EV_GLOBAL_ITEM_PICKUP", // powerup/team sounds are broadcast to everyone
 	"EV_NOAMMO",
 	"EV_CHANGE_WEAPON",
 	"EV_FIRE_WEAPON",
@@ -1209,6 +1214,7 @@ char *eventnames[] = {
 
 };
 
+void trap_Cvar_VariableStringBuffer(const char *var_name, char *buffer, int bufsize);
 /*
 =======================================================================================================================================
 BG_AddPredictableEventToPlayerstate
@@ -1216,8 +1222,6 @@ BG_AddPredictableEventToPlayerstate
 Handles the sequence numbers.
 =======================================================================================================================================
 */
-void trap_Cvar_VariableStringBuffer(const char *var_name, char *buffer, int bufsize);
-
 void BG_AddPredictableEventToPlayerstate(int newEvent, int eventParm, playerState_t *ps) {
 #ifdef _DEBUG
 	{

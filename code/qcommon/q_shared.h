@@ -924,13 +924,13 @@ typedef struct {
 // other channels will always override a playing sound on that channel
 typedef enum {
 	CHAN_AUTO,
-	CHAN_LOCAL,			// menu sounds, etc
+	CHAN_LOCAL,			// menu sounds, etc.
 	CHAN_WEAPON,
 	CHAN_VOICE,
 	CHAN_ITEM,
 	CHAN_BODY,
-	CHAN_LOCAL_SOUND,	// chat messages, etc
-	CHAN_ANNOUNCER		// announcer voices, etc
+	CHAN_LOCAL_SOUND,	// chat messages, etc.
+	CHAN_ANNOUNCER		// announcer voices, etc.
 } soundChannel_t;
 
 /*
