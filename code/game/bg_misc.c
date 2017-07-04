@@ -432,6 +432,7 @@ gitem_t bg_itemlist[] = {
 		HI_TELEPORTER,
 /* sounds */ ""
 	},
+
 /*QUAKED holdable_medkit (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
 */
 	{
