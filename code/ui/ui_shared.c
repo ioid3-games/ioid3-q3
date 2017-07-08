@@ -38,7 +38,7 @@ typedef struct scrollInfo_s {
 static scrollInfo_t scrollInfo;
 static void (*captureFunc)(void *p) = 0;
 static void *captureData = NULL;
-static itemDef_t *itemCapture = NULL; // item that has the mouse captured(if any)
+static itemDef_t *itemCapture = NULL; // item that has the mouse captured (if any)
 
 displayContextDef_t *DC = NULL;
 
@@ -569,7 +569,7 @@ qboolean PC_Script_Parse(int handle, const char **out) {
 	pc_token_t token;
 
 	memset(script, 0, sizeof(script));
-	// scripts start with { and have; separated command lists.. commands are command, arg..
+	// scripts start with { and have ; separated command lists.. commands are command, arg..
 	// basically we want everything between the { } as it will be interpreted at run time
 	if (!trap_PC_ReadToken(handle, &token)) {
 		return qfalse;
@@ -2891,6 +2891,7 @@ static void Scroll_Slider_ThumbFunc(void *p) {
 	value /= SLIDER_WIDTH;
 	value *= (editDef->maxVal - editDef->minVal);
 	value += editDef->minVal;
+
 	DC->setCVar(si->item->cvar, va("%f", value));
 }
 
