@@ -74,14 +74,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define GR_LETTERS	31
 
 #define UIAS_LOCAL		0
-#define UIAS_GLOBAL1	1
-#define UIAS_GLOBAL2	2
-#define UIAS_GLOBAL3	3
-#define UIAS_GLOBAL4	4
-#define UIAS_GLOBAL5	5
-#define UIAS_FAVORITES	6
+#define UIAS_GLOBAL0	1
+#define UIAS_GLOBAL1	2
+#define UIAS_GLOBAL2	3
+#define UIAS_GLOBAL3	4
+#define UIAS_GLOBAL4	5
+#define UIAS_GLOBAL5	6
+#define UIAS_FAVORITES	7
 
-#define UI_MAX_MASTER_SERVERS 5
+#define UI_MAX_MASTER_SERVERS 6
 
 #define SORT_HOST		0
 #define SORT_MAP		1
@@ -97,11 +98,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 
 static const char *master_items[] = {
 	"Local",
-	"Internet1",
-	"Internet2",
-	"Internet3",
-	"Internet4",
-	"Internet5",
+	"Internet",
+	"Master1",
+	"Master2",
+	"Master3",
+	"Master4",
+	"Master5",
 	"Favorites",
 	NULL
 };
@@ -336,6 +338,7 @@ int ArenaServers_SourceForLAN(void) {
 		default:
 		case UIAS_LOCAL:
 			return AS_LOCAL;
+		case UIAS_GLOBAL0:
 		case UIAS_GLOBAL1:
 		case UIAS_GLOBAL2:
 		case UIAS_GLOBAL3:
@@ -414,7 +417,7 @@ static void ArenaServers_UpdateMenu(void) {
 			g_arenaservers.go.generic.flags &= ~QMF_GRAYED;
 			g_arenaservers.punkbuster.generic.flags &= ~QMF_GRAYED;
 			// update status bar
-			if (g_servertype >= UIAS_GLOBAL1 && g_servertype <= UIAS_GLOBAL5) {
+			if (g_servertype >= UIAS_GLOBAL0 && g_servertype <= UIAS_GLOBAL5) {
 				g_arenaservers.statusbar.string = quake3worldMessage;
 			} else {
 				g_arenaservers.statusbar.string = "";
@@ -441,7 +444,7 @@ static void ArenaServers_UpdateMenu(void) {
 				strcpy(g_arenaservers.status.string, "No Servers Found.");
 			}
 			// update status bar
-			if (g_servertype >= UIAS_GLOBAL1 && g_servertype <= UIAS_GLOBAL5) {
+			if (g_servertype >= UIAS_GLOBAL0 && g_servertype <= UIAS_GLOBAL5) {
 				g_arenaservers.statusbar.string = quake3worldMessage;
 			} else {
 				g_arenaservers.statusbar.string = "";
@@ -924,7 +927,7 @@ static void ArenaServers_StartRefresh(void) {
 		return;
 	}
 
-	if (g_servertype >= UIAS_GLOBAL1 && g_servertype <= UIAS_GLOBAL5) {
+	if (g_servertype >= UIAS_GLOBAL0 && g_servertype <= UIAS_GLOBAL5) {
 		switch (g_arenaservers.gametype.curvalue) {
 			default:
 			case GAMES_ALL:
@@ -956,9 +959,9 @@ static void ArenaServers_StartRefresh(void) {
 		trap_Cvar_VariableStringBuffer("debug_protocol", protocol, sizeof(protocol));
 
 		if (strlen(protocol)) {
-			trap_Cmd_ExecuteText(EXEC_APPEND, va("globalservers %d %s%s\n", g_servertype - UIAS_GLOBAL1, protocol, myargs));
+			trap_Cmd_ExecuteText(EXEC_APPEND, va("globalservers %d %s%s\n", g_servertype - UIAS_GLOBAL0, protocol, myargs));
 		} else {
-			trap_Cmd_ExecuteText(EXEC_APPEND, va("globalservers %d %d%s\n", g_servertype - UIAS_GLOBAL1, (int)trap_Cvar_VariableValue("protocol"), myargs));
+			trap_Cmd_ExecuteText(EXEC_APPEND, va("globalservers %d %d%s\n", g_servertype - UIAS_GLOBAL0, (int)trap_Cvar_VariableValue("protocol"), myargs));
 		}
 	}
 }
@@ -1008,7 +1011,7 @@ int ArenaServers_SetType(int type) {
 		char masterstr[2], cvarname[sizeof("sv_master1")];
 
 		while (type <= UIAS_GLOBAL5) {
-			Com_sprintf(cvarname, sizeof(cvarname), "sv_master%d", type);
+			Com_sprintf(cvarname, sizeof(cvarname), "sv_master%d", type - UIAS_GLOBAL0);
 			trap_Cvar_VariableStringBuffer(cvarname, masterstr, sizeof(masterstr));
 
 			if (*masterstr) {
@@ -1029,14 +1032,15 @@ int ArenaServers_SetType(int type) {
 			g_arenaservers.numservers = &g_numlocalservers;
 			g_arenaservers.maxservers = MAX_LOCALSERVERS;
 			break;
+		case UIAS_GLOBAL0:
 		case UIAS_GLOBAL1:
 		case UIAS_GLOBAL2:
 		case UIAS_GLOBAL3:
 		case UIAS_GLOBAL4:
 		case UIAS_GLOBAL5:
 			g_arenaservers.remove.generic.flags |= (QMF_INACTIVE|QMF_HIDDEN);
-			g_arenaservers.serverlist = g_globalserverlist[type - UIAS_GLOBAL1];
-			g_arenaservers.numservers = &g_numglobalservers[type - UIAS_GLOBAL1];
+			g_arenaservers.serverlist = g_globalserverlist[type - UIAS_GLOBAL0];
+			g_arenaservers.numservers = &g_numglobalservers[type - UIAS_GLOBAL0];
 			g_arenaservers.maxservers = MAX_GLOBALSERVERS;
 			break;
 		case UIAS_FAVORITES:
