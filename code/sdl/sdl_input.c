@@ -1302,14 +1302,13 @@ IN_Shutdown
 =======================================================================================================================================
 */
 void IN_Shutdown(void) {
-	SDL_StopTextInput();
 
+	SDL_StopTextInput();
 	IN_DeactivateMouse();
 
 	mouseAvailable = qfalse;
 
 	IN_ShutdownJoystick();
-
 	SDL_window = NULL;
 }
 
@@ -1319,6 +1318,7 @@ IN_Restart
 =======================================================================================================================================
 */
 void IN_Restart(void) {
+
 	IN_ShutdownJoystick();
 	IN_Init(SDL_window);
 }

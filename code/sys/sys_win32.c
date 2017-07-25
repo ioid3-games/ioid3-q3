@@ -35,11 +35,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #ifndef KEY_WOW64_32KEY
 #define KEY_WOW64_32KEY 0x0200
 #endif
-// Used to determine where to store user-specific files
+// used to determine where to store user-specific files
 static char homePath[MAX_OSPATH] = {0};
-// Used to store the Steam Quake 3 installation path
+// used to store the Steam Quake 3 installation path
 static char steamPath[MAX_OSPATH] = {0};
-// Used to store the GOG Quake 3 installation path
+// used to store the GOG Quake 3 installation path
 static char gogPath[MAX_OSPATH] = {0};
 #ifndef DEDICATED
 static UINT timerResolution = 0;
@@ -489,6 +489,7 @@ char **Sys_ListFiles(const char *directory, const char *extension, char *filter,
 	if (filter) {
 		nfiles = 0;
 		Sys_ListFilteredFiles(directory, "", filter, list, &nfiles);
+
 		list[nfiles] = 0;
 		*numfiles = nfiles;
 
@@ -571,6 +572,7 @@ char **Sys_ListFiles(const char *directory, const char *extension, char *filter,
 		for (i = 1; i < nfiles; i++) {
 			if (strgtr(listCopy[i - 1], listCopy[i])) {
 				char *temp = listCopy[i];
+
 				listCopy[i] = listCopy[i - 1];
 				listCopy[i - 1] = temp;
 				flag = 1;
