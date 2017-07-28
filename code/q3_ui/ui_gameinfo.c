@@ -455,8 +455,8 @@ void UI_GetBestScore(int level, int *score, int *skill) {
 
 	for (n = 1; n <= 5; n++) {
 		trap_Cvar_VariableStringBuffer(va("g_spScores%i", n), scores, MAX_INFO_VALUE);
-
 		Com_sprintf(arenaKey, sizeof(arenaKey), "l%i", level);
+
 		skillScore = atoi(Info_ValueForKey(scores, arenaKey));
 
 		if (skillScore < 1 || skillScore > 8) {
@@ -500,6 +500,7 @@ void UI_SetBestScore(int level, int score) {
 	trap_Cvar_VariableStringBuffer(va("g_spScores%i", skill), scores, MAX_INFO_VALUE);
 	// see if this is better
 	Com_sprintf(arenaKey, sizeof(arenaKey), "l%i", level);
+
 	oldScore = atoi(Info_ValueForKey(scores, arenaKey));
 
 	if (oldScore && oldScore <= score) {
@@ -530,8 +531,8 @@ void UI_LogAwardData(int award, int data) {
 	}
 
 	trap_Cvar_VariableStringBuffer("g_spAwards", awardData, sizeof(awardData));
-
 	Com_sprintf(key, sizeof(key), "a%i", award);
+
 	oldValue = atoi(Info_ValueForKey(awardData, key));
 
 	Info_SetValueForKey(awardData, key, va("%i", oldValue + data));
@@ -548,7 +549,6 @@ int UI_GetAwardLevel(int award) {
 	char awardData[MAX_INFO_VALUE];
 
 	trap_Cvar_VariableStringBuffer("g_spAwards", awardData, sizeof(awardData));
-
 	Com_sprintf(key, sizeof(key), "a%i", award);
 	return atoi(Info_ValueForKey(awardData, key));
 }
@@ -610,7 +610,6 @@ qboolean UI_ShowTierVideo(int tier) {
 	}
 
 	trap_Cvar_VariableStringBuffer("g_spVideos", videos, sizeof(videos));
-
 	Com_sprintf(key, sizeof(key), "tier%i", tier);
 
 	if (atoi(Info_ValueForKey(videos, key))) {
@@ -641,7 +640,6 @@ qboolean UI_CanShowTierVideo(int tier) {
 	}
 
 	trap_Cvar_VariableStringBuffer("g_spVideos", videos, sizeof(videos));
-
 	Com_sprintf(key, sizeof(key), "tier%i", tier);
 
 	if (atoi(Info_ValueForKey(videos, key))) {
@@ -700,6 +698,7 @@ Clears the scores and sets the difficutly level.
 =======================================================================================================================================
 */
 void UI_NewGame(void) {
+
 	trap_Cvar_Set("g_spScores1", "");
 	trap_Cvar_Set("g_spScores2", "");
 	trap_Cvar_Set("g_spScores3", "");
@@ -771,7 +770,6 @@ void UI_SPUnlock_f(void) {
 	}
 
 	trap_Print("All levels unlocked at skill level 1\n");
-
 	UI_SPLevelMenu_ReInit();
 }
 

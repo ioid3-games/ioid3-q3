@@ -909,6 +909,7 @@ void CM_TraceThroughVerticalCylinder(traceWork_t *tw, vec3_t origin, float radiu
 				}
 #endif
 				scale = 1 / (radius + RADIUS_EPSILON);
+
 				VectorScale(dir, scale, dir);
 				VectorCopy(dir, tw->trace.plane.normal);
 				VectorAdd(tw->modelOrigin, intersection, intersection);

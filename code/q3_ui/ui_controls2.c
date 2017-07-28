@@ -347,6 +347,7 @@ static void Controls_InitCvars(void) {
 		cvarptr->value = trap_Cvar_VariableValue(cvarptr->name);
 		// get default value
 		trap_Cvar_Reset(cvarptr->name);
+
 		cvarptr->defaultvalue = trap_Cvar_VariableValue(cvarptr->name);
 		// restore current value
 		trap_Cvar_SetValue(cvarptr->name, cvarptr->value);
@@ -563,6 +564,7 @@ static void Controls_Update(void) {
 	s_controls.movement.generic.flags &= ~(QMF_GRAYED|QMF_HIGHLIGHT|QMF_HIGHLIGHT_IF_FOCUS);
 	s_controls.weapons.generic.flags &= ~(QMF_GRAYED|QMF_HIGHLIGHT|QMF_HIGHLIGHT_IF_FOCUS);
 	s_controls.misc.generic.flags &= ~(QMF_GRAYED|QMF_HIGHLIGHT|QMF_HIGHLIGHT_IF_FOCUS);
+
 	s_controls.looking.generic.flags |= QMF_PULSEIFFOCUS;
 	s_controls.movement.generic.flags |= QMF_PULSEIFFOCUS;
 	s_controls.weapons.generic.flags |= QMF_PULSEIFFOCUS;
@@ -913,6 +915,7 @@ static sfxHandle_t Controls_MenuKey(int key) {
 			} else {
 				trap_Key_SetBinding(bindptr->bind1, "");
 				trap_Key_SetBinding(bindptr->bind2, "");
+
 				bindptr->bind1 = key;
 				bindptr->bind2 = -1;
 			}

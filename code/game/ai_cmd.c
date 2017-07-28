@@ -506,6 +506,7 @@ int BotGPSToPosition(char *buf, vec3_t position) {
 		}
 
 		BotAI_Print(PRT_MESSAGE, "%d\n", sign * num);
+
 		position[i] = (float)sign * num;
 	}
 
@@ -538,6 +539,7 @@ void BotMatch_HelpAccompany(bot_state_t *bs, bot_match_t *match) {
 	if (trap_BotFindMatch(teammate, &teammatematch, MTCONTEXT_TEAMMATE) && teammatematch.type == MSG_ME) { // if someone asks for him or herself
 		// get the netname
 		trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 		client = ClientFromName(netname);
 		other = qfalse;
 	} else {
@@ -562,6 +564,7 @@ void BotMatch_HelpAccompany(bot_state_t *bs, bot_match_t *match) {
 		}
 
 		client = ClientFromName(netname);
+
 		trap_BotEnterChat(bs->cs, client, CHAT_TELL);
 		return;
 	}
@@ -607,6 +610,7 @@ void BotMatch_HelpAccompany(bot_state_t *bs, bot_match_t *match) {
 		}
 
 		client = ClientFromName(netname);
+
 		trap_BotEnterChat(bs->cs, client, CHAT_TEAM);
 		return;
 	}
@@ -797,6 +801,7 @@ void BotMatch_Camp(bot_state_t *bs, bot_match_t *match) {
 		}
 
 		bs->teamgoal.entitynum = -1;
+
 		BotEntityInfo(client, &entinfo);
 		// if info is valid (in PVS)
 		if (entinfo.valid) {
@@ -1115,6 +1120,7 @@ void BotMatch_TaskPreference(bot_state_t *bs, bot_match_t *match) {
 	}
 
 	trap_BotMatchVariable(match, NETNAME, teammatename, sizeof(teammatename));
+
 	teammate = ClientFromName(teammatename);
 
 	if (teammate < 0) {
@@ -1220,7 +1226,9 @@ void BotMatch_JoinSubteam(bot_state_t *bs, bot_match_t *match) {
 
 	trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
 	BotAI_BotInitialChat(bs, "joinedteam", teammate, NULL);
+
 	client = ClientFromName(netname);
+
 	trap_BotEnterChat(bs->cs, client, CHAT_TELL);
 }
 
@@ -1244,7 +1252,9 @@ void BotMatch_LeaveSubteam(bot_state_t *bs, bot_match_t *match) {
 	if (strlen(bs->subteam)) {
 		BotAI_BotInitialChat(bs, "leftteam", bs->subteam, NULL);
 		trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 		client = ClientFromName(netname);
+
 		trap_BotEnterChat(bs->cs, client, CHAT_TELL);
 	}
 
@@ -1293,8 +1303,8 @@ void BotMatch_CheckPoint(bot_state_t *bs, bot_match_t *match) {
 
 	trap_BotMatchVariable(match, POSITION, buf, MAX_MESSAGE_SIZE);
 	VectorClear(position);
-
 	trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 	client = ClientFromName(netname);
 	//BotGPSToPosition(buf, position);
 	sscanf(buf, "%f %f %f", &position[0], &position[1], &position[2]);
@@ -1340,7 +1350,6 @@ void BotMatch_CheckPoint(bot_state_t *bs, bot_match_t *match) {
 
 	if (BotAddressedToBot(bs, match)) {
 		Com_sprintf(buf, sizeof(buf), "%1.0f %1.0f %1.0f", cp->goal.origin[0], cp->goal.origin[1], cp->goal.origin[2]);
-
 		BotAI_BotInitialChat(bs, "checkpoint_confirm", cp->name, buf, NULL);
 		trap_BotEnterChat(bs->cs, client, CHAT_TELL);
 	}
@@ -1397,6 +1406,7 @@ void BotMatch_Dismiss(bot_state_t *bs, bot_match_t *match) {
 	}
 
 	trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 	client = ClientFromName(netname);
 
 	bs->decisionmaker = client;
@@ -1426,8 +1436,8 @@ void BotMatch_Suicide(bot_state_t *bs, bot_match_t *match) {
 	}
 
 	trap_EA_Command(bs->client, "kill");
-
 	trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 	client = ClientFromName(netname);
 
 	BotVoiceChat(bs, client, VOICECHAT_TAUNT);
@@ -1451,11 +1461,13 @@ void BotMatch_StartTeamLeaderShip(bot_state_t *bs, bot_match_t *match) {
 		// get the team mate that will be the team leader
 		trap_BotMatchVariable(match, NETNAME, teammate, sizeof(teammate));
 		strncpy(bs->teamleader, teammate, sizeof(bs->teamleader));
+
 		bs->teamleader[sizeof(bs->teamleader) - 1] = '\0';
 	// chats for someone else
 	} else {
 		// get the team mate that will be the team leader
 		trap_BotMatchVariable(match, TEAMMATE, teammate, sizeof(teammate));
+
 		client = FindClientByName(teammate);
 
 		if (client >= 0) {
@@ -1482,6 +1494,7 @@ void BotMatch_StopTeamLeaderShip(bot_state_t *bs, bot_match_t *match) {
 	// if chats for him or herself
 	if (match->subtype & ST_I) {
 		trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 		client = FindClientByName(netname);
 	// chats for someone else
 	} else {
@@ -1607,7 +1620,9 @@ void BotMatch_WhatAreYouDoing(bot_state_t *bs, bot_match_t *match) {
 	}
 	// chat what the bot is doing
 	trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 	client = ClientFromName(netname);
+
 	trap_BotEnterChat(bs->cs, client, CHAT_TELL);
 }
 
@@ -1646,6 +1661,7 @@ float BotNearestVisibleItem(bot_state_t *bs, char *itemname, bot_goal_t *goal) {
 
 	do {
 		i = trap_BotGetLevelItemGoal(i, itemname, &tmpgoal);
+
 		trap_BotGoalName(tmpgoal.number, name, sizeof(name));
 
 		if (Q_stricmp(itemname, name) != 0) {
@@ -1653,6 +1669,7 @@ float BotNearestVisibleItem(bot_state_t *bs, char *itemname, bot_goal_t *goal) {
 		}
 
 		VectorSubtract(tmpgoal.origin, bs->origin, dir);
+
 		dist = VectorLength(dir);
 
 		if (dist < bestdist) {
@@ -1769,7 +1786,9 @@ void BotMatch_WhereAreYou(bot_state_t *bs, bot_match_t *match) {
 		}
 
 		trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 		client = ClientFromName(netname);
+
 		trap_BotEnterChat(bs->cs, client, CHAT_TELL);
 	}
 }
@@ -1795,6 +1814,7 @@ void BotMatch_LeadTheWay(bot_state_t *bs, bot_match_t *match) {
 	if (match->subtype & ST_SOMEONE) {
 		// get the team mate name
 		trap_BotMatchVariable(match, TEAMMATE, teammate, sizeof(teammate));
+
 		client = FindClientByName(teammate);
 		// if this is the bot self
 		if (client == bs->client) {
@@ -1808,6 +1828,7 @@ void BotMatch_LeadTheWay(bot_state_t *bs, bot_match_t *match) {
 	} else {
 		// get the netname
 		trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 		client = ClientFromName(netname);
 		other = qfalse;
 	}
@@ -1875,7 +1896,9 @@ void BotMatch_Kill(bot_state_t *bs, bot_match_t *match) {
 	if (client < 0) {
 		BotAI_BotInitialChat(bs, "whois", enemy, NULL);
 		trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 		client = ClientFromName(netname);
+
 		trap_BotEnterChat(bs->cs, client, CHAT_TELL);
 		return;
 	}
@@ -1943,6 +1966,7 @@ void BotMatch_CTF(bot_state_t *bs, bot_match_t *match) {
 	else if (gametype == GT_1FCTF) {
 		if (match->subtype & ST_1FCTFGOTFLAG) {
 			trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
+
 			bs->flagcarrier = ClientFromName(netname);
 		}
 	}

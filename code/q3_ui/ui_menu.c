@@ -139,7 +139,7 @@ sfxHandle_t ErrorMessage_Key(int key) {
 =======================================================================================================================================
 Main_MenuDraw
 
-TTimo: this function is common to the main menu and errorMessage menu.
+This function is common to the main menu and errorMessage menu.
 =======================================================================================================================================
 */
 static void Main_MenuDraw(void) {
@@ -355,7 +355,9 @@ void UI_MainMenu(void) {
 
 	if (!uis.demoversion && UI_TeamArenaExists()) {
 		teamArena = qtrue;
+
 		y += MAIN_MENU_VERTICAL_SPACING;
+
 		s_main.teamArena.generic.type = MTYPE_PTEXT;
 		s_main.teamArena.generic.flags = QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
 		s_main.teamArena.generic.x = 320;

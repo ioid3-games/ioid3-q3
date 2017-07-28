@@ -132,14 +132,15 @@ static void UI_DisplayDownloadInfo(const char *downloadName) {
 		}
 
 		UI_ReadableSize(xferRateBuf, sizeof xferRateBuf, xferRate);
-		// Extrapolate estimated completion time
+		// extrapolate estimated completion time
 		if (downloadSize && xferRate) {
 			int n = downloadSize / xferRate; // estimated time for entire d/l in secs
-			// We do it in K (/1024) because we'd overflow around 4MB
+
+			// we do it in K (/1024) because we'd overflow around 4MB
 			n = (n - (((downloadCount / 1024) * n) / (downloadSize / 1024))) * 1000;
 
 			UI_PrintTime(dlTimeBuf, sizeof dlTimeBuf, n);
-			// (n - (((downloadCount / 1024) * n) / (downloadSize / 1024))) * 1000);
+			//(n - (((downloadCount / 1024) * n) / (downloadSize / 1024))) * 1000);
 			UI_DrawProportionalString(leftWidth, 160, dlTimeBuf, style, color_white);
 			UI_DrawProportionalString(leftWidth, 192, va("(%s of %s copied)", dlSizeBuf, totalSizeBuf), style, color_white);
 		} else {
@@ -206,13 +207,14 @@ void UI_DrawConnectScreen(qboolean overlay) {
 		passwordField.generic.callback = 0;
 		passwordField.generic.x = 10;
 		passwordField.generic.y = 180;
+
 		Field_Clear(&passwordField.field);
+
 		passwordField.width = 256;
 		passwordField.field.widthInChars = 16;
+
 		Q_strncpyz(passwordField.field.buffer, Cvar_VariableString("password"), sizeof(passwordField.field.buffer));
-
 		Menu_AddItem(&s_ingame_menu, (void *)&s_customize_player_action);
-
 		MField_Draw(&passwordField);
 	}
 #endif

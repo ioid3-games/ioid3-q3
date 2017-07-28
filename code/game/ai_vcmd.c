@@ -257,6 +257,7 @@ void BotVoiceChat_Camp(bot_state_t *bs, int client, int mode) {
 			//if (BotEntityVisible(bs->entitynum, bs->eye, bs->viewangles, 360, client)) {
 				bs->teamgoal.entitynum = client;
 				bs->teamgoal.areanum = areanum;
+
 				VectorCopy(entinfo.origin, bs->teamgoal.origin);
 				VectorSet(bs->teamgoal.mins, -8, -8, -8);
 				VectorSet(bs->teamgoal.maxs, 8, 8, 8);
@@ -457,7 +458,6 @@ void BotVoiceChat_WantOnDefense(bot_state_t *bs, int client, int mode) {
 	preference |= TEAMTP_DEFENDER;
 
 	BotSetTeamMateTaskPreference(bs, client, preference);
-
 	EasyClientName(client, netname, sizeof(netname));
 	BotAI_BotInitialChat(bs, "keepinmind", netname, NULL);
 	trap_BotEnterChat(bs->cs, client, CHAT_TELL);
@@ -479,7 +479,6 @@ void BotVoiceChat_WantOnOffense(bot_state_t *bs, int client, int mode) {
 	preference |= TEAMTP_ATTACKER;
 
 	BotSetTeamMateTaskPreference(bs, client, preference);
-
 	EasyClientName(client, netname, sizeof(netname));
 	BotAI_BotInitialChat(bs, "keepinmind", netname, NULL);
 	trap_BotEnterChat(bs->cs, client, CHAT_TELL);
@@ -493,6 +492,7 @@ BotVoiceChat_Dummy
 =======================================================================================================================================
 */
 void BotVoiceChat_Dummy(bot_state_t *bs, int client, int mode) {
+
 }
 
 voiceCommand_t voiceCommands[] = {
@@ -532,6 +532,7 @@ int BotVoiceChatCommand(bot_state_t *bs, int mode, char *voiceChat) {
 	}
 
 	Q_strncpyz(buf, voiceChat, sizeof(buf));
+
 	cmd = buf;
 
 	for (; *cmd && *cmd > ' '; cmd++);
@@ -539,7 +540,7 @@ int BotVoiceChatCommand(bot_state_t *bs, int mode, char *voiceChat) {
 	while (*cmd && *cmd <= ' ') {
 		*cmd++ = '\0';
 	}
-	//voiceOnly = atoi(ptr);
+	// voiceOnly = atoi(ptr);
 	for (ptr = cmd; *cmd && *cmd > ' '; cmd++);
 
 	while (*cmd && *cmd <= ' ') {
@@ -553,7 +554,7 @@ int BotVoiceChatCommand(bot_state_t *bs, int mode, char *voiceChat) {
 	while (*cmd && *cmd <= ' ') {
 		*cmd++ = '\0';
 	}
-	//color = atoi(ptr);
+	// color = atoi(ptr);
 	if (!BotSameTeam(bs, clientNum)) {
 		return qfalse;
 	}
