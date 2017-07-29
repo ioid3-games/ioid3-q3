@@ -197,6 +197,7 @@ gentity_t *SelectRandomFurthestSpawnPoint(vec3_t avoidPoint, vec3_t origin, vec3
 		}
 
 		VectorSubtract(spot->s.origin, avoidPoint, delta);
+
 		dist = VectorLength(delta);
 
 		for (i = 0; i < numSpots; i++) {
@@ -644,7 +645,7 @@ static void ClientCleanName(const char *in, char *out, int outSize) {
 				colorlessLen--;
 
 				if (ColorIndex(*in) == 0) {
-					// Disallow color black in names to prevent players from getting advantage playing in front of black backgrounds
+					// disallow color black in names to prevent players from getting advantage playing in front of black backgrounds
 					outpos--;
 					continue;
 				}
@@ -710,7 +711,9 @@ void ClientUserinfoChanged(int clientNum) {
 	}
 	// set name
 	Q_strncpyz(oldname, client->pers.netname, sizeof(oldname));
+
 	s = Info_ValueForKey(userinfo, "name");
+
 	ClientCleanName(s, client->pers.netname, sizeof(client->pers.netname));
 
 	if (client->sess.sessionTeam == TEAM_SPECTATOR) {
@@ -805,7 +808,7 @@ void ClientUserinfoChanged(int clientNum) {
 	*/
 	// team task (0 = none, 1 = offence, 2 = defence)
 	teamTask = atoi(Info_ValueForKey(userinfo, "teamtask"));
-	// team Leader (1 = leader, 0 is normal player)
+	// team leader (1 = leader, 0 is normal player)
 	teamLeader = client->sess.teamLeader;
 	// colors
 	strcpy(c1, Info_ValueForKey(userinfo, "color1"));
@@ -831,15 +834,10 @@ void ClientUserinfoChanged(int clientNum) {
 =======================================================================================================================================
 ClientConnect
 
-Called when a player begins connecting to the server.
-Called again for every map change or tournament restart.
-
+Called when a player begins connecting to the server. Called again for every map change or tournament restart.
 The session information will be valid after exit.
-
 Return NULL if the client should be allowed, otherwise return a string with the reason for denial.
-
 Otherwise, the client will be sent the current gamestate and will eventually get to ClientBegin.
-
 'firstTime' will be qtrue the very first time a client connects to the server machine, but qfalse on map changes and tournament
 restarts.
 =======================================================================================================================================
@@ -986,8 +984,7 @@ void ClientBegin(int clientNum) {
 =======================================================================================================================================
 ClientSpawn
 
-Called every time a client is placed fresh in the world: After the first ClientBegin, and after each respawn.
-
+Called every time a client is placed fresh in the world: after the first ClientBegin, and after each respawn.
 Initializes all non-persistant parts of playerState.
 =======================================================================================================================================
 */

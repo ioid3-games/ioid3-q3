@@ -114,7 +114,9 @@ static qboolean CG_ParseAnimationFile(const char *filename, clientInfo_t *ci) {
 	skip = 0; // quite the compiler warning
 
 	ci->footsteps = FOOTSTEP_NORMAL;
+
 	VectorClear(ci->headOffset);
+
 	ci->gender = GENDER_MALE;
 	ci->fixedlegs = qfalse;
 	ci->fixedtorso = qfalse;
@@ -265,9 +267,11 @@ static qboolean CG_ParseAnimationFile(const char *filename, clientInfo_t *ci) {
 	}
 	// crouch backward animation
 	memcpy(&animations[LEGS_BACKCR], &animations[LEGS_WALKCR], sizeof(animation_t));
+
 	animations[LEGS_BACKCR].reversed = qtrue;
 	// walk backward animation
 	memcpy(&animations[LEGS_BACKWALK], &animations[LEGS_WALK], sizeof(animation_t));
+
 	animations[LEGS_BACKWALK].reversed = qtrue;
 	// flag moving fast
 	animations[FLAG_RUN].firstFrame = 0;
@@ -2338,6 +2342,7 @@ void CG_Player(centity_t *cent) {
 		memset(&skull, 0, sizeof(skull));
 
 		VectorCopy(cent->lerpOrigin, skull.lightingOrigin);
+
 		skull.shadowPlane = shadowPlane;
 		skull.renderfx = renderfx;
 
@@ -2353,9 +2358,11 @@ void CG_Player(centity_t *cent) {
 			dir[1] = cos(angle) * 20;
 			angle = ((cg.time / 4) & 255) * (M_PI * 2) / 255;
 			dir[2] = 15 + sin(angle) * 8;
+
 			VectorAdd(torso.origin, dir, skull.origin);
 
 			dir[2] = 0;
+
 			VectorCopy(dir, skull.axis[1]);
 			VectorNormalize(skull.axis[1]);
 			VectorSet(skull.axis[2], 0, 0, 1);
@@ -2381,6 +2388,7 @@ void CG_Player(centity_t *cent) {
 			}
 
 			angles[2] = 0;
+
 			AnglesToAxis(angles, skull.axis);
 			/*
 			dir[2] = 0;
@@ -2394,6 +2402,7 @@ void CG_Player(centity_t *cent) {
 			trap_R_AddRefEntityToScene(&skull);
 			// flip the trail because this skull is spinning in the other direction
 			VectorInverse(skull.axis[1]);
+
 			skull.hModel = cgs.media.kamikazeHeadTrail;
 			trap_R_AddRefEntityToScene(&skull);
 
@@ -2416,6 +2425,7 @@ void CG_Player(centity_t *cent) {
 			}
 
 			angles[2] = 0;
+
 			AnglesToAxis(angles, skull.axis);
 			/*
 			dir[2] = 0;
@@ -2500,6 +2510,7 @@ void CG_Player(centity_t *cent) {
 
 	if ((cent->currentState.powerups & (1 << PW_INVULNERABILITY)) || cg.time - ci->invulnerabilityStopTime < 250) {
 		memcpy(&powerup, &torso, sizeof(torso));
+
 		powerup.hModel = cgs.media.invulnerabilityPowerupModel;
 		powerup.customSkin = 0;
 		// always draw
@@ -2559,7 +2570,6 @@ void CG_Player(centity_t *cent) {
 	head.customSkin = ci->headSkin;
 
 	VectorCopy(cent->lerpOrigin, head.lightingOrigin);
-
 	CG_PositionRotatedEntityOnTag(&head, &torso, ci->torsoModel, "tag_head");
 
 	head.shadowPlane = shadowPlane;

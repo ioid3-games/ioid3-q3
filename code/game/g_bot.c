@@ -216,6 +216,7 @@ static void PlayerIntroSound(const char *modelAndSkin) {
 	char *skin;
 
 	Q_strncpyz(model, modelAndSkin, sizeof(model));
+
 	skin = strrchr(model, '/');
 
 	if (skin) {
@@ -235,8 +236,7 @@ static void PlayerIntroSound(const char *modelAndSkin) {
 =======================================================================================================================================
 G_CountBotPlayersByName
 
-Check connected and connecting (delay join) bots.
-Returns number of bots with name on specified team or whole server if team is -1.
+Check connected and connecting (delay join) bots. Returns number of bots with name on specified team or whole server if team is -1.
 =======================================================================================================================================
 */
 int G_CountBotPlayersByName(const char *name, int team) {

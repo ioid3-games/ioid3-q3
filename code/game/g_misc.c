@@ -76,20 +76,20 @@ void TeleportPlayer(gentity_t *player, vec3_t origin, vec3_t angles) {
 	if (player->client->sess.sessionTeam != TEAM_SPECTATOR) {
 		tent = G_TempEntity(player->client->ps.origin, EV_PLAYER_TELEPORT_OUT);
 		tent->s.clientNum = player->s.clientNum;
-
 		tent = G_TempEntity(origin, EV_PLAYER_TELEPORT_IN);
 		tent->s.clientNum = player->s.clientNum;
 	}
 	// unlink to make sure it can't possibly interfere with G_KillBox
 	trap_UnlinkEntity(player);
-
 	VectorCopy(origin, player->client->ps.origin);
+
 	player->client->ps.origin[2] += 1;
 
 	if (!noAngles) {
 		// spit the player out
 		AngleVectors(angles, player->client->ps.velocity, NULL, NULL);
 		VectorScale(player->client->ps.velocity, 400, player->client->ps.velocity);
+
 		player->client->ps.pm_time = 160; // hold time
 		player->client->ps.pm_flags |= PMF_TIME_KNOCKBACK;
 		// set angles
@@ -129,9 +129,7 @@ void SP_misc_model(gentity_t *ent) {
 
 	VectorSet(ent->mins, -16, -16, -16);
 	VectorSet(ent->maxs, 16, 16, 16);
-
 	trap_LinkEntity(ent);
-
 	G_SetOrigin(ent, ent->s.origin);
 	VectorCopy(ent->s.angles, ent->s.apos.trBase);
 #else
@@ -196,7 +194,6 @@ void SP_misc_portal_surface(gentity_t *ent) {
 
 	VectorClear(ent->r.mins);
 	VectorClear(ent->r.maxs);
-
 	trap_LinkEntity(ent);
 
 	ent->r.svFlags = SVF_PORTAL;
@@ -219,9 +216,7 @@ void SP_misc_portal_camera(gentity_t *ent) {
 
 	VectorClear(ent->r.mins);
 	VectorClear(ent->r.maxs);
-
 	trap_LinkEntity(ent);
-
 	G_SpawnFloat("roll", "0", &roll);
 
 	ent->s.clientNum = roll / 360.0 * 256;
@@ -302,7 +297,6 @@ void InitShooter(gentity_t *ent, int weapon) {
 	ent->s.weapon = weapon;
 
 	RegisterItem(BG_FindItemForWeapon(weapon));
-
 	G_SetMovedir(ent->s.angles, ent->movedir);
 
 	if (!ent->random) {

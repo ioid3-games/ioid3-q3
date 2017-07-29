@@ -129,7 +129,6 @@ void G_InitSessionData(gclient_t *client, char *userinfo) {
 	}
 
 	AddTournamentQueue(client);
-
 	G_WriteClientSessionData(client);
 }
 

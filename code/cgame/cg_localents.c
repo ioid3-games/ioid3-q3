@@ -83,7 +83,6 @@ localEntity_t *CG_AllocLocalEntity(void) {
 	}
 
 	le = cg_freeLocalEntities;
-
 	cg_freeLocalEntities = cg_freeLocalEntities->next;
 
 	memset(le, 0, sizeof(*le));
@@ -526,12 +525,15 @@ void CG_AddKamikaze(localEntity_t *le) {
 		shockwave.hModel = cgs.media.kamikazeShockWave;
 		shockwave.reType = RT_MODEL;
 		shockwave.shaderTime = re->shaderTime;
+
 		VectorCopy(re->origin, shockwave.origin);
 
 		c = (float)(t - KAMI_SHOCKWAVE_STARTTIME) / (float)(KAMI_SHOCKWAVE_ENDTIME - KAMI_SHOCKWAVE_STARTTIME);
+
 		VectorScale(axis[0], c * KAMI_SHOCKWAVE_MAXRADIUS / KAMI_SHOCKWAVEMODEL_RADIUS, shockwave.axis[0]);
 		VectorScale(axis[1], c * KAMI_SHOCKWAVE_MAXRADIUS / KAMI_SHOCKWAVEMODEL_RADIUS, shockwave.axis[1]);
 		VectorScale(axis[2], c * KAMI_SHOCKWAVE_MAXRADIUS / KAMI_SHOCKWAVEMODEL_RADIUS, shockwave.axis[2]);
+
 		shockwave.nonNormalizedAxes = qtrue;
 
 		if (t > KAMI_SHOCKWAVEFADE_STARTTIME) {
@@ -553,6 +555,7 @@ void CG_AddKamikaze(localEntity_t *le) {
 		// explosion and implosion
 		c = (le->endTime - cg.time) * le->lifeRate;
 		c *= 0xff;
+
 		re->shaderRGBA[0] = le->color[0] * c;
 		re->shaderRGBA[1] = le->color[1] * c;
 		re->shaderRGBA[2] = le->color[2] * c;
@@ -564,6 +567,7 @@ void CG_AddKamikaze(localEntity_t *le) {
 			if (!(le->leFlags & LEF_SOUND2)) {
 //				trap_S_StartSound(re->origin, ENTITYNUM_WORLD, CHAN_AUTO, cgs.media.kamikazeImplodeSound);
 				trap_S_StartLocalSound(cgs.media.kamikazeImplodeSound, CHAN_AUTO);
+
 				le->leFlags |= LEF_SOUND2;
 			}
 
@@ -573,6 +577,7 @@ void CG_AddKamikaze(localEntity_t *le) {
 		VectorScale(axis[0], c * KAMI_BOOMSPHERE_MAXRADIUS / KAMI_BOOMSPHEREMODEL_RADIUS, re->axis[0]);
 		VectorScale(axis[1], c * KAMI_BOOMSPHERE_MAXRADIUS / KAMI_BOOMSPHEREMODEL_RADIUS, re->axis[1]);
 		VectorScale(axis[2], c * KAMI_BOOMSPHERE_MAXRADIUS / KAMI_BOOMSPHEREMODEL_RADIUS, re->axis[2]);
+
 		re->nonNormalizedAxes = qtrue;
 
 		trap_R_AddRefEntityToScene(re);
@@ -593,17 +598,20 @@ void CG_AddKamikaze(localEntity_t *le) {
 		shockwave.hModel = cgs.media.kamikazeShockWave;
 		shockwave.reType = RT_MODEL;
 		shockwave.shaderTime = re->shaderTime;
+
 		VectorCopy(re->origin, shockwave.origin);
 
 		test[0] = le->angles.trBase[0];
 		test[1] = le->angles.trBase[1];
 		test[2] = le->angles.trBase[2];
+
 		AnglesToAxis(test, axis);
 
 		c = (float)(t - KAMI_SHOCKWAVE2_STARTTIME) / (float)(KAMI_SHOCKWAVE2_ENDTIME - KAMI_SHOCKWAVE2_STARTTIME);
 		VectorScale(axis[0], c * KAMI_SHOCKWAVE2_MAXRADIUS / KAMI_SHOCKWAVEMODEL_RADIUS, shockwave.axis[0]);
 		VectorScale(axis[1], c * KAMI_SHOCKWAVE2_MAXRADIUS / KAMI_SHOCKWAVEMODEL_RADIUS, shockwave.axis[1]);
 		VectorScale(axis[2], c * KAMI_SHOCKWAVE2_MAXRADIUS / KAMI_SHOCKWAVEMODEL_RADIUS, shockwave.axis[2]);
+
 		shockwave.nonNormalizedAxes = qtrue;
 
 		if (t > KAMI_SHOCKWAVE2FADE_STARTTIME) {
@@ -613,6 +621,7 @@ void CG_AddKamikaze(localEntity_t *le) {
 		}
 
 		c *= 0xff;
+
 		shockwave.shaderRGBA[0] = 0xff - c;
 		shockwave.shaderRGBA[1] = 0xff - c;
 		shockwave.shaderRGBA[2] = 0xff - c;

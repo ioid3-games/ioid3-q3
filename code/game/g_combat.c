@@ -163,7 +163,6 @@ void TossClientCubes(gentity_t *self) {
 	}
 
 	drop = Launch_Item(item, origin, velocity);
-
 	drop->nextthink = level.time + g_cubeTimeout.integer * 1000;
 	drop->think = G_FreeEntity;
 	drop->spawnflags = self->client->sess.sessionTeam;
@@ -580,7 +579,6 @@ void PlayerDie(gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int d
 	self->s.angles[2] = 0;
 
 	LookAtKiller(self, inflictor, attacker);
-
 	VectorCopy(self->s.angles, self->client->ps.viewangles);
 
 	self->s.loopSound = 0;
@@ -683,7 +681,7 @@ RaySphereIntersections
 int RaySphereIntersections(vec3_t origin, float radius, vec3_t point, vec3_t dir, vec3_t intersections[2]) {
 	float b, c, d, t;
 
-	//	| origin - (point + t * dir)|= radius
+	//	| origin - (point + t * dir) |= radius
 	//	a = dir[0] ^ 2 + dir[1] ^ 2 + dir[2] ^ 2;
 	//	b = 2 * (dir[0] * (point[0] - origin[0]) + dir[1] * (point[1] - origin[1]) + dir[2] * (point[2] - origin[2]));
 	//	c = (point[0] - origin[0]) ^ 2 + (point[1] - origin[1]) ^ 2 + (point[2] - origin[2]) ^ 2 - radius ^ 2;
@@ -1033,7 +1031,6 @@ qboolean CanDamage(gentity_t *targ, vec3_t origin) {
 	// use the midpoint of the bounds instead of the origin, because bmodels may have their origin is 0, 0, 0
 	VectorAdd(targ->r.absmin, targ->r.absmax, midpoint);
 	VectorScale(midpoint, 0.5, midpoint);
-
 	VectorCopy(midpoint, dest);
 	trap_Trace(&tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID);
 

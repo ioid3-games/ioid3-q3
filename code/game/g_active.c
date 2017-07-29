@@ -296,7 +296,6 @@ void SpectatorThink(gentity_t *ent, usercmd_t *ucmd) {
 		Pmove(&pm);
 		// save results of pmove
 		VectorCopy(client->ps.origin, ent->s.origin);
-
 		G_TouchTriggers(ent);
 		trap_UnlinkEntity(ent);
 	}
@@ -1035,6 +1034,7 @@ void G_RunClient(gentity_t *ent) {
 	}
 
 	ent->client->pers.cmd.serverTime = level.time;
+
 	ClientThink_Real(ent);
 }
 

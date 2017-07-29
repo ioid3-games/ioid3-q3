@@ -353,7 +353,6 @@ void Team_FragBonuses(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker
 		attacker->client->pers.teamState.lastfraggedcarrier = level.time;
 
 		AddScore(attacker, targ->r.currentOrigin, CTF_FRAG_CARRIER_BONUS);
-
 		PrintMsg(NULL, "%s" S_COLOR_WHITE " fragged %s's flag carrier!\n", attacker->client->pers.netname, TeamName(team));
 		// the target had the flag, clear the hurt carrier field on the other team
 		for (i = 0; i < g_maxclients.integer; i++) {
@@ -371,7 +370,6 @@ void Team_FragBonuses(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker
 		attacker->client->pers.teamState.lastfraggedcarrier = level.time;
 
 		AddScore(attacker, targ->r.currentOrigin, CTF_FRAG_CARRIER_BONUS * tokens * tokens);
-
 		PrintMsg(NULL, "%s" S_COLOR_WHITE " fragged %s's skull carrier!\n", attacker->client->pers.netname, TeamName(team));
 		// the target had the flag, clear the hurt carrier field on the other team
 		for (i = 0; i < g_maxclients.integer; i++) {
@@ -724,7 +722,7 @@ void Team_DroppedFlagThink(gentity_t *ent) {
 	}
 
 	Team_ReturnFlagSound(Team_ResetFlag(team), team);
-	// Reset Flag will delete this entity
+	// 'Reset Flag' will delete this entity
 }
 
 /*
@@ -829,10 +827,9 @@ int Team_TouchOurFlag(gentity_t *ent, gentity_t *other, int team) {
 	}
 
 	Team_ResetFlags();
-
 	CalculateRanks();
 
-	return 0; // Do not respawn this automatically
+	return 0; // do not respawn this automatically
 }
 
 /*
@@ -871,7 +868,7 @@ int Team_TouchEnemyFlag(gentity_t *ent, gentity_t *other, int team) {
 #endif
 	Team_TakeFlagSound(ent, team);
 
-	return -1; // Do not respawn this automatically, but do delete it if it was FL_DROPPED
+	return -1; // do not respawn this automatically, but do delete it if it was FL_DROPPED
 }
 
 /*
@@ -1133,7 +1130,7 @@ void TeamplayInfoMessage(gentity_t *ent) {
 			clients[cnt++] = level.sortedClients[i];
 		}
 	}
-	// We have the top eight players, sort them by clientNum
+	// we have the top eight players, sort them by clientNum
 	qsort(clients, cnt, sizeof(clients[0]), SortClients);
 	// send the latest information on all clients
 	string[0] = 0;
@@ -1155,6 +1152,7 @@ void TeamplayInfoMessage(gentity_t *ent) {
 			}
 
 			Com_sprintf(entry, sizeof(entry), " %i %i %i %i %i %i", i, player->client->pers.teamState.location, h, a, player->client->ps.weapon, player->s.powerups); // level.sortedClients[i], player->client->pers.teamState.location, h, a,
+
 			j = strlen(entry);
 
 			if (stringlength + j >= sizeof(string)) {
@@ -1304,7 +1302,6 @@ static void ObeliskDie(gentity_t *self, gentity_t *inflictor, gentity_t *attacke
 	self->activator->s.frame = 2;
 
 	G_AddEvent(self->activator, EV_OBELISKEXPLODE, 0);
-
 	AddScore(attacker, self->r.currentOrigin, CTF_CAPTURE_BONUS);
 	// add the sprite over the player's head
 	attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE|EF_AWARD_EXCELLENT|EF_AWARD_GAUNTLET|EF_AWARD_ASSIST|EF_AWARD_DEFEND|EF_AWARD_CAP);
@@ -1339,11 +1336,8 @@ static void ObeliskTouch(gentity_t *self, gentity_t *other, trace_t *trace) {
 	}
 
 	PrintMsg(NULL, "%s" S_COLOR_WHITE " brought in %i %s.\n", other->client->pers.netname, tokens, (tokens == 1) ? "skull" : "skulls");
-
 	AddTeamScore(self->s.pos.trBase, other->client->sess.sessionTeam, tokens);
-
 	Team_ForceGesture(other->client->sess.sessionTeam);
-
 	AddScore(other, self->r.currentOrigin, CTF_CAPTURE_BONUS * tokens);
 	// add the sprite over the player's head
 	other->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE|EF_AWARD_EXCELLENT|EF_AWARD_GAUNTLET|EF_AWARD_ASSIST|EF_AWARD_DEFEND|EF_AWARD_CAP);
@@ -1353,7 +1347,6 @@ static void ObeliskTouch(gentity_t *self, gentity_t *other, trace_t *trace) {
 	other->client->ps.generic1 = 0;
 
 	CalculateRanks();
-
 	Team_CaptureFlagSound(self, self->spawnflags);
 }
 
@@ -1395,7 +1388,6 @@ gentity_t *SpawnObelisk(vec3_t origin, vec3_t mins, vec3_t maxs, int team) {
 	VectorCopy(origin, ent->s.origin);
 	VectorCopy(origin, ent->s.pos.trBase);
 	VectorCopy(origin, ent->r.currentOrigin);
-
 	VectorCopy(mins, ent->r.mins);
 	VectorCopy(maxs, ent->r.maxs);
 
@@ -1457,6 +1449,7 @@ void ObeliskInit(gentity_t *ent) {
 			G_Printf("SpawnObelisk: %s startsolid at %s\n", ent->classname, vtos(ent->s.origin));
 
 			ent->s.groundEntityNum = ENTITYNUM_NONE;
+
 			G_SetOrigin(ent, ent->s.origin);
 		} else {
 			// allow to ride movers
