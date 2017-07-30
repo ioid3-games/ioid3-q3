@@ -820,6 +820,7 @@ static void ServerOptions_InitPlayerItems(void) {
 		// human
 		s_serveroptions.playerType[0].generic.flags |= QMF_INACTIVE;
 		s_serveroptions.playerType[0].curvalue = 0;
+
 		trap_Cvar_VariableStringBuffer("name", s_serveroptions.playerNameBuffers[0], sizeof(s_serveroptions.playerNameBuffers[0]));
 		Q_CleanStr(s_serveroptions.playerNameBuffers[0]);
 	}
@@ -1126,6 +1127,7 @@ static void ServerOptions_SetMenuItems(void) {
 	}
 
 	Q_strncpyz(s_serveroptions.hostname.field.buffer, UI_Cvar_VariableString("sv_hostname"), sizeof(s_serveroptions.hostname.field.buffer));
+
 	s_serveroptions.pure.curvalue = Com_Clamp(0, 1, trap_Cvar_VariableValue("sv_pure"));
 	// set the map pic
 	info = UI_GetArenaInfoByNumber(s_startserver.maplist[s_startserver.currentmap]);
@@ -1133,6 +1135,7 @@ static void ServerOptions_SetMenuItems(void) {
 	Q_strncpyz(mapname, Info_ValueForKey(info, "map"), MAX_NAMELENGTH);
 	Q_strupr(mapname);
 	Com_sprintf(picname, 64, "levelshots/%s", mapname);
+
 	s_serveroptions.mappic.generic.name = picname;
 	// set the map name
 	strcpy(s_serveroptions.mapnamebuffer, s_startserver.mapname.string);

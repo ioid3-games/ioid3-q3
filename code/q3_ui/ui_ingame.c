@@ -215,6 +215,7 @@ void InGame_MenuInit(void) {
 	} else {
 		trap_GetClientState(&cs);
 		trap_GetConfigString(CS_PLAYERS + cs.clientNum, info, MAX_INFO_STRING);
+
 		team = atoi(Info_ValueForKey(info, "t"));
 
 		if (team == TEAM_SPECTATOR) {
