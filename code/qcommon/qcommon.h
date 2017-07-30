@@ -23,7 +23,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define _QCOMMON_H_
 
 #include "../qcommon/cm_public.h"
-// Ignore __attribute__ on non-gcc platforms
+// ignore __attribute__ on non-gcc platforms
 #ifndef __GNUC__
 #ifndef __attribute__
 #define __attribute__(x)
@@ -160,7 +160,7 @@ void NET_Sleep(int msec);
 #define MAX_DOWNLOAD_WINDOW 48 // ACK window of 48 download chunks. Cannot set this higher, or clients will overflow the reliable commands buffer
 #define MAX_DOWNLOAD_BLKSIZE 1024 // 896 byte block chunks
 #define NETCHAN_GENCHECKSUM(challenge, sequence) ((challenge) ^ ((sequence) * (challenge)))
-// Netchan handles packet fragmentation and out of order / duplicate suppression
+// Netchan handles packet fragmentation and out of order/duplicate suppression
 typedef struct {
 	netsrc_t sock;
 	int dropped;	// between last packet and previous
@@ -323,7 +323,7 @@ static ID_INLINE float _vmf(intptr_t x) {
 
 	CMD
 
-	Command text buffering and command execution
+	Command text buffering and command execution.
 
 =======================================================================================================================================
 */
@@ -452,7 +452,7 @@ void Cvar_Restart_f(void);
 void Cvar_CompleteCvarName(char *args, int argNum);
 extern int cvar_modifiedFlags;
 // whenever a cvar is modifed, its flags will be OR'd into this, so a single check can determine if any CVAR_USERINFO, CVAR_SERVERINFO,
-// etc, variables have been modified since the last check. The bit can then be cleared to allow another change detection.
+// etc. variables have been modified since the last check. The bit can then be cleared to allow another change detection.
 
 /*
 =======================================================================================================================================
@@ -526,8 +526,7 @@ long FS_ReadFile(const char *qpath, void **buffer);
 // a null buffer will just return the file length without loading
 // as a quick check for existance. -1 length == not present
 // A 0 byte will always be appended at the end, so string ops are safe.
-// the buffer should be considered read-only, because it may be cached
-// for other uses.
+// the buffer should be considered read-only, because it may be cached for other uses.
 void FS_ForceFlush(fileHandle_t f);
 // forces flush on files we're writing to.
 void FS_FreeFile(void *buffer);
@@ -554,17 +553,14 @@ const char *FS_LoadedPakPureChecksums(void);
 const char *FS_ReferencedPakNames(void);
 const char *FS_ReferencedPakChecksums(void);
 const char *FS_ReferencedPakPureChecksums(void);
-// Returns a space separated string containing the checksums of all loaded
-// AND referenced pk3 files. Servers with sv_pure set will get this string
-// back from clients for pure validation
+// Returns a space separated string containing the checksums of all loaded AND referenced pk3 files.
+// Servers with sv_pure set will get this string back from clients for pure validation.
 void FS_ClearPakReferences(int flags);
 // clears referenced booleans on loaded pk3s
 void FS_PureServerSetReferencedPaks(const char *pakSums, const char *pakNames);
 void FS_PureServerSetLoadedPaks(const char *pakSums, const char *pakNames);
 // If the string is empty, all data sources will be allowed.
-// If not empty, only pk3 files that match one of the space
-// separated checksums will be checked for files, with the
-// sole exception of .cfg files.
+// If not empty, only pk3 files that match one of the space separated checksums will be checked for files, with the sole exception of .cfg files.
 qboolean FS_CheckDirTraversal(const char *checkdir);
 qboolean FS_idPak(char *pak, char *base, int numPaks);
 qboolean FS_ComparePaks(char *neededpaks, int len, qboolean dlstring);
@@ -578,7 +574,7 @@ qboolean FS_Which(const char *filename, void *searchPath);
 /*
 =======================================================================================================================================
 
-	Edit fields and command line history/completion
+	Edit fields and command line history/completion.
 
 =======================================================================================================================================
 */
@@ -779,7 +775,7 @@ void Com_Shutdown(void);
 /*
 =======================================================================================================================================
 
-	CLIENT / SERVER SYSTEMS
+	CLIENT/SERVER SYSTEMS
 
 =======================================================================================================================================
 */
@@ -800,14 +796,11 @@ void CL_JoystickEvent(int axis, int value, int time);
 void CL_PacketEvent(netadr_t from, msg_t *msg);
 void CL_ConsolePrint(char *text);
 void CL_MapLoading(void);
-// do a screen update before starting to load a map
-// when the server is going to load a new map, the entire hunk
-// will be cleared, so the client must shutdown cgame, ui, and
-// the renderer
+// do a screen update before starting to load a map when the server is going to load a new map, the entire hunk
+// will be cleared, so the client must shutdown cgame, ui, and the renderer
 void CL_ForwardCommandToServer(const char *string);
 // adds the current command line as a clc_clientCommand to the client message.
-// things like godmode, noclip, etc, are commands directed to the server,
-// so when they are typed in at the console, they will need to be forwarded.
+// things like godmode, noclip, etc, are commands directed to the server, so when they are typed in at the console, they will need to be forwarded.
 void CL_CDDialog(void);
 // bring up the "need a cd to play" dialog
 void CL_FlushMemory(void);
@@ -819,7 +812,7 @@ void CL_InitRef(void);
 void CL_StartHunkUsers(qboolean rendererOnly);
 // start all the client stuff using the hunk
 void CL_Snd_Shutdown(void);
-// Restart sound subsystem
+// restart sound subsystem
 void Key_KeynameCompletion(void(*callback)(const char *s));
 // for keyname autocompletion
 void Key_WriteBindings(fileHandle_t f);
@@ -926,7 +919,7 @@ typedef struct nodetype {
 	int symbol;
 } node_t;
 
-#define HMAX 256 // Maximum symbol
+#define HMAX 256 // maximum symbol
 
 typedef struct {
 	int blocNode;

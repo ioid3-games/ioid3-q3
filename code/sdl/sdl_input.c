@@ -36,7 +36,6 @@ static qboolean mouseActive = qfalse;
 
 static cvar_t *in_mouse = NULL;
 static cvar_t *in_nograb;
-
 static cvar_t *in_joystick = NULL;
 static cvar_t *in_joystickThreshold = NULL;
 static cvar_t *in_joystickNo = NULL;
@@ -492,7 +491,7 @@ static void IN_DeactivateMouse(void) {
 	if (!SDL_WasInit(SDL_INIT_VIDEO)) {
 		return;
 	}
-	// Always show the cursor when the mouse is disabled, but not when fullscreen
+	// always show the cursor when the mouse is disabled, but not when fullscreen
 	if (!Cvar_VariableIntegerValue("r_fullscreen")) {
 		SDL_ShowCursor(1);
 	}
@@ -514,7 +513,7 @@ static void IN_DeactivateMouse(void) {
 	}
 }
 
-// We translate axes movement into keypresses
+// we translate axes movement into keypresses
 static int joy_keys[16] = {
 	K_LEFTARROW, K_RIGHTARROW,
 	K_UPARROW, K_DOWNARROW,
@@ -526,8 +525,7 @@ static int joy_keys[16] = {
 	K_JOY27, K_JOY28
 };
 
-// translate hat events into keypresses
-// the 4 highest buttons are used for the first hat ...
+// translate hat events into keypresses, the 4 highest buttons are used for the first hat ...
 static int hat_keys[16] = {
 	K_JOY29, K_JOY30,
 	K_JOY31, K_JOY32,
@@ -1195,8 +1193,7 @@ static void IN_ProcessEvents(void) {
 							Cvar_SetValue("r_customwidth", width);
 							Cvar_SetValue("r_customheight", height);
 							Cvar_Set("r_mode", "-1");
-							// Wait until user stops dragging for 1 second, so we aren't constantly recreating the GL context while
-							// he tries to drag...
+							// wait until user stops dragging for 1 second, so we aren't constantly recreating the GL context while he tries to drag...
 							vidRestartTime = Sys_Milliseconds() + 1000;
 						}
 
@@ -1232,24 +1229,24 @@ void IN_Frame(void) {
 	qboolean loading;
 
 	IN_JoyMove();
-	// If not DISCONNECTED (main menu) or ACTIVE (in game), we're loading
+	// if not DISCONNECTED (main menu) or ACTIVE (in game), we're loading
 	loading = (clc.state != CA_DISCONNECTED && clc.state != CA_ACTIVE);
 
 	if (!cls.glconfig.isFullscreen && (Key_GetCatcher() & KEYCATCH_CONSOLE)) {
-		// Console is down in windowed mode
+		// console is down in windowed mode
 		IN_DeactivateMouse();
 	} else if (!cls.glconfig.isFullscreen && loading) {
-		// Loading in windowed mode
+		// loading in windowed mode
 		IN_DeactivateMouse();
 	} else if (!(SDL_GetWindowFlags(SDL_window) & SDL_WINDOW_INPUT_FOCUS)) {
-		// Window not got focus
+		// window not got focus
 		IN_DeactivateMouse();
 	} else {
 		IN_ActivateMouse();
 	}
 
 	IN_ProcessEvents();
-	// In case we had to delay actual restart of video system
+	// in case we had to delay actual restart of video system
 	if ((vidRestartTime != 0) && (vidRestartTime < Sys_Milliseconds())) {
 		vidRestartTime = 0;
 		Cbuf_AddText("vid_restart\n");

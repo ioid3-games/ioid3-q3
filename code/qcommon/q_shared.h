@@ -93,7 +93,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #pragma warning(disable : 4220) // varargs matches remaining parameters
 //#pragma intrinsic(memset, memcpy)
 #endif
-// Ignore __attribute__ on non-gcc platforms
+// ignore __attribute__ on non-gcc platforms
 #ifndef __GNUC__
 #ifndef __attribute__
 #define __attribute__(x)
@@ -200,8 +200,8 @@ typedef int clipHandle_t;
 #define ARRAY_LEN(x) (sizeof(x) / sizeof(*(x)))
 #define STRARRAY_LEN(x) (ARRAY_LEN(x) - 1)
 // angle indexes
-#define PITCH	0 // up / down
-#define YAW		1 // left / right
+#define PITCH	0 // up/down
+#define YAW		1 // left/right
 #define ROLL	2 // fall over
 // the game guarantees that no string from the network will ever exceed MAX_STRING_CHARS
 #define MAX_STRING_CHARS 1024 // max length of a string passed to Cmd_TokenizeString
@@ -811,7 +811,7 @@ void QDECL Com_Printf(const char *msg, ...) __attribute__((format(printf, 1, 2))
 #define CVAR_SERVER_CREATED		0x0800 // cvar was created by a server the client connected to.
 #define CVAR_VM_CREATED			0x1000 // cvar was created exclusively in one of the VMs.
 #define CVAR_PROTECTED			0x2000 // prevent modifying this var from VMs or the server
-// These flags are only returned by the Cvar_Flags() function
+// these flags are only returned by the Cvar_Flags() function
 #define CVAR_MODIFIED		0x40000000 // Cvar was modified
 #define CVAR_NONEXISTENT	0x80000000 // Cvar doesn't exist.
 // nothing outside the Cvar_*() functions should modify these fields!
@@ -863,7 +863,7 @@ typedef struct {
 #define VOIP_SPATIAL	0x01 // spatialized voip message
 #define VOIP_DIRECT		0x02 // non-spatialized voip message
 // number of flags voip knows. You will have to bump protocol version number if you change this.
-#define VOIP_FLAGCNT	2
+#define VOIP_FLAGCNT 2
 
 /*
 =======================================================================================================================================
@@ -991,7 +991,7 @@ typedef struct playerState_s {
 	int commandTime;		// cmd->serverTime of last executed command
 	int pm_type;
 	int bobCycle;			// for view bobbing and footstep generation
-	int pm_flags;			// ducked, jump_held, etc
+	int pm_flags;			// ducked, jump_held, etc.
 	int pm_time;
 	vec3_t origin;
 	vec3_t velocity;
@@ -1012,7 +1012,7 @@ typedef struct playerState_s {
 	int eventParms[MAX_PS_EVENTS];
 	int externalEvent;		// events set on player from another source
 	int externalEventParm;
-	int clientNum;			// ranges from 0 to MAX_CLIENTS-1
+	int clientNum;			// ranges from 0 to MAX_CLIENTS - 1
 	int weapon;				// copied to entityState_t->weapon
 	int weaponstate;
 	vec3_t viewangles;		// for fixed views
@@ -1075,7 +1075,7 @@ typedef struct {
 	int trTime;
 	int trDuration;		// if non 0, trTime + trDuration = stop time
 	vec3_t trBase;
-	vec3_t trDelta;		// velocity, etc
+	vec3_t trDelta;		// velocity, etc.
 } trajectory_t;
 // entityState_t is the information conveyed from the server in an update message about entities that the client will need to render in some way
 // Different eTypes may use the information in different ways
@@ -1092,7 +1092,7 @@ typedef struct entityState_s {
 	vec3_t origin2;
 	vec3_t angles;
 	vec3_t angles2;
-	int otherEntityNum;	// shotgun sources, etc
+	int otherEntityNum;	// shotgun sources, etc.
 	int otherEntityNum2;
 	int groundEntityNum; // ENTITYNUM_NONE = in air
 	int constantLight;	// r + (g << 8) + (b << 16) + (intensity << 24)
@@ -1102,11 +1102,11 @@ typedef struct entityState_s {
 	int clientNum;		// 0 to (MAX_CLIENTS - 1), for players and corpses
 	int frame;
 	int solid;			// for client side prediction, trap_linkentity sets this properly
-	int event;			// impulse events -- muzzle flashes, footsteps, etc
+	int event;			// impulse events -- muzzle flashes, footsteps, etc.
 	int eventParm;
 	// for players
 	int powerups;		// bit flags
-	int weapon;			// determines weapon and flash model, etc
+	int weapon;			// determines weapon and flash model, etc.
 	int legsAnim;		// mask off ANIM_TOGGLEBIT
 	int torsoAnim;		// mask off ANIM_TOGGLEBIT
 	int generic1;

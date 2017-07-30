@@ -880,6 +880,7 @@ static void ArenaServers_DoRefresh(void) {
 		}
 
 		strcpy(g_arenaservers.pinglist[j].adrstr, adrstr);
+
 		g_arenaservers.pinglist[j].start = uis.realtime;
 
 		trap_Cmd_ExecuteText(EXEC_NOW, va("ping %s\n", adrstr));
@@ -956,6 +957,7 @@ static void ArenaServers_StartRefresh(void) {
 		}
 
 		protocol[0] = '\0';
+
 		trap_Cvar_VariableStringBuffer("debug_protocol", protocol, sizeof(protocol));
 
 		if (strlen(protocol)) {
@@ -995,6 +997,7 @@ void ArenaServers_Sort(int type) {
 	}
 
 	g_sortkey = type;
+
 	qsort(g_arenaservers.serverlist, *g_arenaservers.numservers, sizeof(servernode_t), ArenaServers_Compare);
 }
 
