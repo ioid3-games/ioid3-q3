@@ -807,7 +807,6 @@ void QDECL Com_Printf(const char *msg, ...) __attribute__((format(printf, 1, 2))
 #define CVAR_TEMP				0x0100 // can be set even when cheats are disabled, but is not archived
 #define CVAR_CHEAT				0x0200 // can not be changed if cheats are disabled
 #define CVAR_NORESTART			0x0400 // do not clear when a cvar_restart is issued
-
 #define CVAR_SERVER_CREATED		0x0800 // cvar was created by a server the client connected to.
 #define CVAR_VM_CREATED			0x1000 // cvar was created exclusively in one of the VMs.
 #define CVAR_PROTECTED			0x2000 // prevent modifying this var from VMs or the server

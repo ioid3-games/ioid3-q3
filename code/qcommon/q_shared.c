@@ -746,7 +746,6 @@ int Com_HexStrToInt(const char *str) {
 			char digit;
 
 			n *= 16;
-
 			digit = tolower(str[i]);
 
 			if (digit >= '0' && digit <= '9') {
