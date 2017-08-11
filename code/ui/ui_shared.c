@@ -4397,6 +4397,7 @@ void Item_Model_Paint(itemDef_t *item) {
 	memset(&refdef, 0, sizeof(refdef));
 
 	refdef.rdflags = RDF_NOWORLDMODEL;
+
 	AxisClear(refdef.viewaxis);
 
 	x = item->window.rect.x + 1;
@@ -5104,6 +5105,7 @@ void Item_Init(itemDef_t *item) {
 	memset(item, 0, sizeof(itemDef_t));
 
 	item->textscale = 0.55f;
+
 	Window_Init(&item->window);
 }
 

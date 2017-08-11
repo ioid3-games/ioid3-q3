@@ -222,6 +222,7 @@ static void CG_DrawPlayerArmorIcon(rectDef_t *rect, qboolean draw2D) {
 		CG_DrawPic(rect->x, rect->y + rect->h / 2 + 1, rect->w, rect->h, cgs.media.armorIcon);
 	} else if (cg_draw3dIcons.integer) {
 		VectorClear(angles);
+
 		origin[0] = 90;
 		origin[1] = 0;
 		origin[2] = -10;
@@ -494,6 +495,7 @@ static void CG_DrawPlayerStatus(rectDef_t *rect) {
 
 	if (ci) {
 		qhandle_t h = CG_StatusHandle(ci->teamTask);
+
 		CG_DrawPic(rect->x, rect->y, rect->w, rect->h, h);
 	}
 }
@@ -775,6 +777,8 @@ static void CG_DrawRedName(rectDef_t *rect, float scale, vec4_t color, int textS
 /*
 =======================================================================================================================================
 CG_DrawBlueName
+
+FIXME: team name support.
 =======================================================================================================================================
 */
 static void CG_DrawBlueName(rectDef_t *rect, float scale, vec4_t color, int textStyle) {
@@ -807,6 +811,7 @@ static void CG_DrawBlueFlagStatus(rectDef_t *rect, qhandle_t shader) {
 	if (cgs.gametype != GT_CTF && cgs.gametype != GT_1FCTF) {
 		if (cgs.gametype == GT_HARVESTER) {
 			vec4_t color = {0, 0, 1, 1};
+
 			trap_R_SetColor(color);
 			CG_DrawPic(rect->x, rect->y, rect->w, rect->h, cgs.media.blueCubeIcon);
 			trap_R_SetColor(NULL);
@@ -822,6 +827,7 @@ static void CG_DrawBlueFlagStatus(rectDef_t *rect, qhandle_t shader) {
 
 		if (item) {
 			vec4_t color = {0, 0, 1, 1};
+
 			trap_R_SetColor(color);
 
 			if (cgs.blueflag >= 0 && cgs.blueflag <= 2) {
@@ -848,7 +854,9 @@ static void CG_DrawBlueFlagHead(rectDef_t *rect) {
 			vec3_t angles;
 
 			VectorClear(angles);
+
 			angles[YAW] = 180 + 20 * sin(cg.time / 650.0);
+
 			CG_DrawHead(rect->x, rect->y, rect->w, rect->h, 0, angles);
 			return;
 		}
@@ -881,6 +889,7 @@ static void CG_DrawRedFlagStatus(rectDef_t *rect, qhandle_t shader) {
 	if (cgs.gametype != GT_CTF && cgs.gametype != GT_1FCTF) {
 		if (cgs.gametype == GT_HARVESTER) {
 			vec4_t color = {1, 0, 0, 1};
+
 			trap_R_SetColor(color);
 			CG_DrawPic(rect->x, rect->y, rect->w, rect->h, cgs.media.redCubeIcon);
 			trap_R_SetColor(NULL);
@@ -896,6 +905,7 @@ static void CG_DrawRedFlagStatus(rectDef_t *rect, qhandle_t shader) {
 
 		if (item) {
 			vec4_t color = {1, 0, 0, 1};
+
 			trap_R_SetColor(color);
 
 			if (cgs.redflag >= 0 && cgs.redflag <= 2) {
@@ -922,7 +932,9 @@ static void CG_DrawRedFlagHead(rectDef_t *rect) {
 			vec3_t angles;
 
 			VectorClear(angles);
+
 			angles[YAW] = 180 + 20 * sin(cg.time / 650.0);
+
 			CG_DrawHead(rect->x, rect->y, rect->w, rect->h, 0, angles);
 			return;
 		}
@@ -1119,6 +1131,7 @@ static void CG_DrawAreaPowerUp(rectDef_t *rect, int align, float special, float 
 				f = (float)(t - cg.time) / POWERUP_BLINK_TIME;
 				f -= (int)f;
 				modulate[0] = modulate[1] = modulate[2] = modulate[3] = f;
+
 				trap_R_SetColor(modulate);
 			}
 
@@ -1862,6 +1875,7 @@ void CG_DrawMedal(int ownerDraw, rectDef_t *rect, float scale, vec4_t color, qha
 	if (text) {
 		color[3] = 1.0;
 		value = CG_Text_Width(text, scale, 0);
+
 		CG_Text_Paint(rect->x + (rect->w - value) / 2, rect->y + rect->h + 10, scale, color, text, 0, 0, 0);
 	}
 

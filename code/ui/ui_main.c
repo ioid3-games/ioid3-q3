@@ -672,6 +672,7 @@ void _UI_Refresh(int realtime) {
 
 	if (index > UI_FPS_FRAMES) {
 		int i, total;
+
 		// average multiple frames together to smooth changes out a bit
 		total = 0;
 
@@ -2358,10 +2359,12 @@ static void UI_DrawServerRefreshDate(rectDef_t *rect, float scale, vec4_t color,
 		lowLight[1] = 0.8 * color[1];
 		lowLight[2] = 0.8 * color[2];
 		lowLight[3] = 0.8 * color[3];
+
 		LerpColor(color, lowLight, newColor, 0.5 + 0.5 * sin(uiInfo.uiDC.realTime / PULSE_DIVISOR));
-		Text_Paint(rect->x, rect->y, scale, newColor, va("Getting info for %d servers(ESC to cancel)", trap_LAN_GetServerCount(UI_SourceForLAN())), 0, 0, textStyle);
+		Text_Paint(rect->x, rect->y, scale, newColor, va("Getting info for %d servers (ESC to cancel)", trap_LAN_GetServerCount(UI_SourceForLAN())), 0, 0, textStyle);
 	} else {
 		char buff[64];
+
 		Q_strncpyz(buff, UI_Cvar_VariableString(va("ui_lastServerRefresh_%i", ui_netSource.integer)), 64);
 		Text_Paint(rect->x, rect->y, scale, color, va("Refresh Time: %s", buff), 0, 0, textStyle);
 	}
@@ -2921,6 +2924,7 @@ static qboolean UI_GameType_HandleKey(int flags, float *special, int key, qboole
 
 	if (select != 0) {
 		int oldCount = UI_MapCountByGameType(qtrue);
+
 		// hard coded mess here
 		if (select < 0) {
 			ui_gameType.integer--;
@@ -3009,7 +3013,6 @@ static qboolean UI_JoinGameType_HandleKey(int flags, float *special, int key) {
 		}
 
 		trap_Cvar_SetValue("ui_joinGameType", ui_joinGameType.integer);
-
 		UI_BuildServerDisplayList(qtrue);
 		return qtrue;
 	}
@@ -3142,7 +3145,6 @@ static qboolean UI_NetSource_HandleKey(int flags, float *special, int key) {
 
 		UI_BuildServerDisplayList(qtrue);
 		UI_StartServerRefresh(qtrue, qfalse);
-
 		trap_Cvar_SetValue("ui_netSource", ui_netSource.integer);
 		return qtrue;
 	}
@@ -3457,6 +3459,7 @@ UI_StartSinglePlayer
 static void UI_StartSinglePlayer(void) {
 	int i, j, k, skill;
 	char buff[1024];
+
 	i = trap_Cvar_VariableValue("ui_currentTier");
 
 	if (i < 0 || i >= tierCount) {
@@ -3578,6 +3581,7 @@ static void UI_LoadMovies(void) {
 			}
 
 			Q_strupr(moviename);
+
 			uiInfo.movieList[i] = String_Alloc(moviename);
 			moviename += len + 1;
 		}
@@ -3682,11 +3686,16 @@ static void UI_StartSkirmish(qboolean next) {
 	}
 
 	g = uiInfo.gameTypes[ui_gameType.integer].gtEnum;
+
 	trap_Cvar_SetValue("g_gametype", g);
 	trap_Cmd_ExecuteText(EXEC_APPEND, va("wait; wait; map %s\n", uiInfo.mapList[ui_currentMap.integer].mapLoadName));
+
 	skill = trap_Cvar_VariableValue("g_spSkill");
+
 	trap_Cvar_Set("ui_scoreMap", uiInfo.mapList[ui_currentMap.integer].mapName);
+
 	k = UI_TeamIndexFromName(UI_Cvar_VariableString("ui_opponentName"));
+
 	trap_Cvar_Set("ui_singlePlayerActive", "1");
 	// set up sp overrides, will be replaced on postgame
 	temp = trap_Cvar_VariableValue("capturelimit");
@@ -3732,6 +3741,7 @@ static void UI_StartSkirmish(qboolean next) {
 		trap_Cmd_ExecuteText(EXEC_APPEND, buff);
 	} else {
 		temp = uiInfo.mapList[ui_currentMap.integer].teamMembers * 2;
+
 		trap_Cvar_Set("sv_maxClients", va("%d", temp));
 
 		for (i = 0; i < uiInfo.mapList[ui_currentMap.integer].teamMembers; i++) {
@@ -4568,7 +4578,7 @@ static void UI_BuildServerDisplayList(int force) {
 		// mark all servers as visible so we store ping updates for them
 		trap_LAN_MarkServerVisible(lanSource, -1, qtrue);
 	}
-	// get the server count(comes from the master)
+	// get the server count (comes from the master)
 	count = trap_LAN_GetServerCount(lanSource);
 
 	if (count == -1 || (ui_netSource.integer == UIAS_LOCAL && count == 0)) {
@@ -4947,7 +4957,7 @@ static void UI_BuildFindPlayerList(qboolean force) {
 					Q_CleanStr(name);
 					// if the player name is a substring
 					if (stristr(name, uiInfo.findPlayerName)) {
-						// add to found server list if we have space(always leave space for a line with the number found)
+						// add to found server list if we have space (always leave space for a line with the number found)
 						if (uiInfo.numFoundPlayerServers < MAX_FOUNDPLAYER_SERVERS - 1) {
 							Q_strncpyz(uiInfo.foundPlayerServerAddresses[uiInfo.numFoundPlayerServers - 1], uiInfo.pendingServerStatus.server[i].adrstr, sizeof(uiInfo.foundPlayerServerAddresses[0]));
 							Q_strncpyz(uiInfo.foundPlayerServerNames[uiInfo.numFoundPlayerServers - 1], uiInfo.pendingServerStatus.server[i].name, sizeof(uiInfo.foundPlayerServerNames[0]));
@@ -6258,6 +6268,7 @@ void UI_LoadNonIngame(void) {
 	}
 
 	UI_LoadMenus(menuSet, qfalse);
+
 	uiInfo.inGameLoad = qfalse;
 }
 

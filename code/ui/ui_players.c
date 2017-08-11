@@ -763,7 +763,6 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 	torso.customSkin = pi->torsoSkin;
 
 	VectorCopy(origin, torso.lightingOrigin);
-
 	UI_PositionRotatedEntityOnTag(&torso, &legs, pi->legsModel, "tag_torso");
 
 	torso.renderfx = renderfx;
@@ -779,7 +778,6 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 	head.customSkin = pi->headSkin;
 
 	VectorCopy(origin, head.lightingOrigin);
-
 	UI_PositionRotatedEntityOnTag(&head, &torso, pi->torsoModel, "tag_head");
 
 	head.renderfx = renderfx;
@@ -790,6 +788,7 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 		memset(&gun, 0, sizeof(gun));
 
 		gun.hModel = pi->weaponModel;
+
 		VectorCopy(origin, gun.lightingOrigin);
 		UI_PositionEntityOnTag(&gun, &torso, pi->torsoModel, "tag_weapon");
 
@@ -822,8 +821,10 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 			memset(&flash, 0, sizeof(flash));
 
 			flash.hModel = pi->flashModel;
+
 			VectorCopy(origin, flash.lightingOrigin);
 			UI_PositionEntityOnTag(&flash, &gun, pi->weaponModel, "tag_flash");
+
 			flash.renderfx = renderfx;
 			trap_R_AddRefEntityToScene(&flash);
 		}
@@ -1175,6 +1176,7 @@ qboolean UI_RegisterClientModelname(playerInfo_t *pi, const char *modelSkinName,
 	}
 
 	Com_sprintf(filename, sizeof(filename), "models/players/%s/upper.md3", modelName);
+
 	pi->torsoModel = trap_R_RegisterModel(filename);
 
 	if (!pi->torsoModel) {
