@@ -336,7 +336,6 @@ Key digits:
 
 #define QGR_KEY_TELEPORTER				1111070100
 #define QGR_KEY_TELEPORTER_USE			1111070101
-
 #ifdef MISSIONPACK
 // new to team arena
 #define QGR_KEY_KAMIKAZE				1111070200

@@ -40,6 +40,7 @@ CG_InitTeamChat
 =======================================================================================================================================
 */
 void CG_InitTeamChat(void) {
+
 	memset(teamChat1, 0, sizeof(teamChat1));
 	memset(teamChat2, 0, sizeof(teamChat2));
 	memset(systemChat, 0, sizeof(systemChat));
