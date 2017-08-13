@@ -54,8 +54,8 @@ typedef struct gentity_s gentity_t;
 typedef struct gclient_s gclient_t;
 
 struct gentity_s {
-	entityState_t s;	// communicated by server to clients
-	entityShared_t r;	// shared by both the server system and game
+	entityState_t s;			// communicated by server to clients
+	entityShared_t r;			// shared by both the server system and game
 	//=================================================================================================================================
 	// DO NOT MODIFY ANYTHING ABOVE THIS, THE SERVER EXPECTS THE FIELDS IN THAT ORDER!
 	//=================================================================================================================================
@@ -86,7 +86,7 @@ struct gentity_s {
 	gentity_t *prevTrain;
 	vec3_t pos1, pos2;
 	char *message;
-	int timestamp;			// body queue sinking, etc
+	int timestamp;				// body queue sinking, etc.
 	char *target;
 	char *targetname;
 	char *team;
@@ -108,7 +108,7 @@ struct gentity_s {
 	int health;
 	qboolean takedamage;
 	int damage;
-	int splashDamage;		// quad will increase this without increasing radius
+	int splashDamage;			// quad will increase this without increasing radius
 	int splashRadius;
 	int methodOfDeath;
 	int splashMethodOfDeath;
@@ -116,8 +116,8 @@ struct gentity_s {
 	gentity_t *chain;
 	gentity_t *enemy;
 	gentity_t *activator;
-	gentity_t *teamchain;	// next entity in team
-	gentity_t *teammaster;	// master of the team
+	gentity_t *teamchain;		// next entity in team
+	gentity_t *teammaster;		// master of the team
 #ifdef MISSIONPACK
 	int kamikazeTime;
 	int kamikazeShockTime;
@@ -128,7 +128,7 @@ struct gentity_s {
 	// timing variables
 	float wait;
 	float random;
-	gitem_t *item;			// for bonus items
+	gitem_t *item;				// for bonus items
 };
 
 typedef enum {
@@ -363,9 +363,9 @@ void TossClientCubes(gentity_t *self);
 #define DAMAGE_RADIUS				0x00000001 // damage was indirect
 #define DAMAGE_NO_ARMOR				0x00000002 // armour does not protect from this damage
 #define DAMAGE_NO_KNOCKBACK			0x00000004 // do not affect velocity, just view angles
-#define DAMAGE_NO_PROTECTION		0x00000008 // armor, shields, invulnerability, and godmode have no effect
+#define DAMAGE_NO_PROTECTION		0x00000008 // armor, shields, invulnerability and godmode have no effect
 #ifdef MISSIONPACK
-#define DAMAGE_NO_TEAM_PROTECTION	0x00000010 // armor, shields, invulnerability, and godmode have no effect
+#define DAMAGE_NO_TEAM_PROTECTION	0x00000010 // armor, shields, invulnerability and godmode have no effect
 #endif
 // g_missile.c
 void G_RunMissile(gentity_t *ent);

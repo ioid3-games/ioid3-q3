@@ -2086,6 +2086,7 @@ void AIEnter_Battle_Fight(bot_state_t *bs, char *s) {
 
 	BotRecordNodeSwitch(bs, "battle fight", "", s);
 	trap_BotResetLastAvoidReach(bs->ms);
+
 	bs->ainode = AINode_Battle_Fight;
 	bs->flags &= ~BFL_FIGHTSUICIDAL;
 }
@@ -2099,6 +2100,7 @@ void AIEnter_Battle_SuicidalFight(bot_state_t *bs, char *s) {
 
 	BotRecordNodeSwitch(bs, "battle fight", "", s);
 	trap_BotResetLastAvoidReach(bs->ms);
+
 	bs->ainode = AINode_Battle_Fight;
 	bs->flags |= BFL_FIGHTSUICIDAL;
 }
