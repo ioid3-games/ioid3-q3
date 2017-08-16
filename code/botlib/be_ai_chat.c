@@ -57,9 +57,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define CHATMESSAGE_RECENTTIME 20
 // the actuall chat messages
 typedef struct bot_chatmessage_s {
-	char *chatmessage; // chat message string
-	float time; // last time used
-	struct bot_chatmessage_s *next; // next chat message in a list
+	char *chatmessage;				// chat message string
+	float time;						// last time used
+	struct bot_chatmessage_s *next;	// next chat message in a list
 } bot_chatmessage_t;
 // bot chat type with chat lines
 typedef struct bot_chattype_s {
@@ -139,14 +139,14 @@ typedef struct bot_stringlist_s {
 } bot_stringlist_t;
 // chat state of a bot
 typedef struct bot_chatstate_s {
-	int gender; // 0 = it, 1 = female, 2 = male
-	int client; // client number
-	char name[32]; // name of the bot
+	int gender;							// 0 = it, 1 = female, 2 = male
+	int client;							// client number
+	char name[32];						// name of the bot
 	char chatmessage[MAX_MESSAGE_SIZE];
 	int handle;
 	// the console messages visible to the bot
-	bot_consolemessage_t *firstmessage; // first message is the first typed message
-	bot_consolemessage_t *lastmessage; // last message is the last typed message, bottom of console
+	bot_consolemessage_t *firstmessage;	// first message is the first typed message
+	bot_consolemessage_t *lastmessage;	// last message is the last typed message, bottom of console
 	// number of console messages stored in the state
 	int numconsolemessages;
 	// the bot chat lines
@@ -369,6 +369,7 @@ int BotNextConsoleMessage(int chatstate, bot_consolemessage_t *cm) {
 		cm->handle = firstmsg->handle;
 		cm->time = firstmsg->time;
 		cm->type = firstmsg->type;
+
 		Q_strncpyz(cm->message, firstmsg->message, sizeof(cm->message));
 		// We omit setting the two pointers in cm because pointer size in the VM differs between the size in the engine on 64 bit
 		// machines, which would lead to a buffer overflow if this functions is called from the VM. The pointers are of no interest
@@ -631,6 +632,7 @@ bot_synonymlist_t *BotLoadSynonyms(char *filename) {
 		}
 
 		PC_SetBaseFolder(BOTFILESBASEFOLDER);
+
 		source = LoadSourceFile(filename);
 
 		if (!source) {
@@ -640,6 +642,7 @@ bot_synonymlist_t *BotLoadSynonyms(char *filename) {
 
 		context = 0;
 		contextlevel = 0;
+
 		synlist = NULL; // list synonyms
 		lastsyn = NULL; // last synonym in the list
 
@@ -1022,6 +1025,7 @@ bot_randomlist_t *BotLoadRandomStrings(char *filename) {
 		}
 
 		PC_SetBaseFolder(BOTFILESBASEFOLDER);
+
 		source = LoadSourceFile(filename);
 
 		if (!source) {
@@ -1083,6 +1087,7 @@ bot_randomlist_t *BotLoadRandomStrings(char *filename) {
 					ptr += sizeof(bot_randomstring_t);
 					randomstring->string = ptr;
 					ptr += len;
+
 					strcpy(randomstring->string, chatmessagestring);
 
 					random->numstrings++;
@@ -1269,8 +1274,10 @@ bot_matchpiece_t *BotLoadMatchPieces(source_t *source, char *endtoken) {
 				}
 
 				StripDoubleQuotes(token.string);
+
 				matchstring = (bot_matchstring_t *)GetClearedHunkMemory(sizeof(bot_matchstring_t) + strlen(token.string) + 1);
 				matchstring->string = (char *)matchstring + sizeof(bot_matchstring_t);
+
 				strcpy(matchstring->string, token.string);
 
 				if (!strlen(token.string)) {
@@ -1339,6 +1346,7 @@ bot_matchtemplate_t *BotLoadMatchTemplates(char *matchfile) {
 	unsigned long int context;
 
 	PC_SetBaseFolder(BOTFILESBASEFOLDER);
+
 	source = LoadSourceFile(matchfile);
 
 	if (!source) {
@@ -1450,7 +1458,9 @@ int StringsMatch(bot_matchpiece_t *pieces, bot_match_t *match) {
 					newstrptr = strptr;
 					break;
 				}
+
 				//Log_Write("MT_STRING: %s", mp->string);
+
 				index = StringContains(strptr, ms->string, qfalse);
 
 				if (index >= 0) {
@@ -1633,6 +1643,7 @@ bot_stringlist_t *BotCheckChatMessageIntegrety(char *message, bot_stringlist_t *
 
 					break;
 				}
+
 				default:
 				{
 					botimport.Print(PRT_FATAL, "BotCheckChatMessageIntegrety: message \"%s\" invalid escape char\n", message);
@@ -1920,6 +1931,7 @@ bot_replychat_t *BotLoadReplyChat(char *filename) {
 	bot_replychatkey_t *key;
 
 	PC_SetBaseFolder(BOTFILESBASEFOLDER);
+
 	source = LoadSourceFile(filename);
 
 	if (!source) {
@@ -2000,6 +2012,7 @@ bot_replychat_t *BotLoadReplyChat(char *filename) {
 				}
 
 				key->string = (char *)GetClearedHunkMemory(strlen(namebuffer) + 1);
+
 				strcpy(key->string, namebuffer);
 			} else { // normal string key
 				key->flags |= RCKFL_STRING;
@@ -2011,7 +2024,9 @@ bot_replychat_t *BotLoadReplyChat(char *filename) {
 				}
 
 				StripDoubleQuotes(token.string);
+
 				key->string = (char *)GetClearedHunkMemory(strlen(token.string) + 1);
+
 				strcpy(key->string, token.string);
 			}
 
@@ -2055,6 +2070,7 @@ bot_replychat_t *BotLoadReplyChat(char *filename) {
 	}
 
 	FreeSource(source);
+
 	botimport.Print(PRT_MESSAGE, "loaded %s\n", filename);
 
 	//BotDumpReplyChat(replychatlist);
@@ -2125,6 +2141,7 @@ bot_chat_t *BotLoadInitialChat(char *chatfile, char *chatname) {
 		}
 		// load the source file
 		PC_SetBaseFolder(BOTFILESBASEFOLDER);
+
 		source = LoadSourceFile(chatfile);
 
 		if (!source) {
@@ -2418,6 +2435,7 @@ int BotExpandChatMessage(char *outmessage, char *message, unsigned long mcontext
 
 					break;
 				}
+
 				case 'r': // random
 				{
 					msgptr++;
@@ -2449,6 +2467,7 @@ int BotExpandChatMessage(char *outmessage, char *message, unsigned long mcontext
 					expansion = qtrue;
 					break;
 				}
+
 				default:
 				{
 					botimport.Print(PRT_FATAL, "BotConstructChat: message \"%s\" invalid escape char\n", message);
@@ -2760,6 +2779,7 @@ int BotReplyChat(int chatstate, char *message, int mcontext, int vcontext, char 
 	Com_Memset(&match, 0, sizeof(bot_match_t));
 
 	strcpy(match.string, message);
+
 	bestpriority = -1;
 	bestchatmessage = NULL;
 	bestrchat = NULL;
@@ -2981,6 +3001,7 @@ void BotGetChatMessage(int chatstate, char *buf, int size) {
 
 	BotRemoveTildes(cs->chatmessage);
 	strncpy(buf, cs->chatmessage, size - 1);
+
 	buf[size - 1] = '\0';
 	// clear the chat message from the state
 	strcpy(cs->chatmessage, "");
@@ -3098,6 +3119,7 @@ void BotFreeChatState(int handle) {
 	}
 
 	FreeMemory(botchatstates[handle]);
+
 	botchatstates[handle] = NULL;
 }
 

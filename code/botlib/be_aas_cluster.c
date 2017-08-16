@@ -998,6 +998,7 @@ int AAS_CheckAreaForPossiblePortals(int areanum) {
 		aasworld.areasettings[areanums[i]].contents |= AREACONTENTS_CLUSTERPORTAL;
 		// this area can be used as a route portal
 		aasworld.areasettings[areanums[i]].contents |= AREACONTENTS_ROUTEPORTAL;
+
 		Log_Write("possible portal: %d\r\n", areanums[i]);
 	}
 
@@ -1048,6 +1049,7 @@ void AAS_FloodCluster_r(int areanum, int clusternum) {
 	aasworld.areasettings[areanum].cluster = clusternum;
 	// if the area is a portal
 	//if (aasworld.areasettings[areanum].contents & AREACONTENTS_CLUSTERPORTAL) return;
+
 	area = &aasworld.areas[areanum];
 	// use area faces to flood into adjacent areas
 	for (i = 0; i < area->numfaces; i++) {
@@ -1372,7 +1374,9 @@ void AAS_AddTeleporterPortals(void) {
 			}
 
 			destorigin[2] += 24; // just for q2e1m2, the dork has put the telepads in the ground
+
 			VectorCopy(destorigin, end);
+
 			end[2] -= 100;
 			trace = AAS_TraceClientBBox(destorigin, end, PRESENCE_CROUCH, -1);
 
@@ -1382,6 +1386,7 @@ void AAS_AddTeleporterPortals(void) {
 			}
 
 			VectorCopy(trace.endpos, destorigin);
+
 			area2num = AAS_PointAreaNum(destorigin);
 			// reset all cluster fields
 			for (j = 0; j < aasworld.numareas; j++) {
@@ -1603,6 +1608,7 @@ void AAS_InitClustering(void) {
 
 	aasworld.clusters = (aas_cluster_t *)GetClearedMemory(AAS_MAX_CLUSTERS * sizeof(aas_cluster_t));
 	removedPortalAreas = 0;
+
 	botimport.Print(PRT_MESSAGE, "\r%6d removed portal areas", removedPortalAreas);
 
 	while (1) {

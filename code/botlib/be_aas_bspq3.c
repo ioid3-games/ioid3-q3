@@ -287,7 +287,9 @@ int AAS_VectorForBSPEpairKey(int ent, char *key, vec3_t v) {
 	}
 	// scanf into doubles, then assign, so it is vec_t size independent
 	v1 = v2 = v3 = 0;
+
 	sscanf(buf, "%lf %lf %lf", &v1, &v2, &v3);
+
 	v[0] = v1;
 	v[1] = v2;
 	v[2] = v3;
@@ -392,7 +394,9 @@ void AAS_ParseBSPEntities(void) {
 		}
 
 		ent = &bspworld.entities[bspworld.numentities];
+
 		bspworld.numentities++;
+
 		ent->epairs = NULL;
 
 		while (PS_ReadToken(script, &token)) {
@@ -414,6 +418,7 @@ void AAS_ParseBSPEntities(void) {
 			StripDoubleQuotes(token.string);
 
 			epair->key = (char *)GetHunkMemory(strlen(token.string) + 1);
+
 			strcpy(epair->key, token.string);
 
 			if (!PS_ExpectTokenType(script, TT_STRING, 0, &token)) {
@@ -425,6 +430,7 @@ void AAS_ParseBSPEntities(void) {
 			StripDoubleQuotes(token.string);
 
 			epair->value = (char *)GetHunkMemory(strlen(token.string) + 1);
+
 			strcpy(epair->value, token.string);
 		}
 
@@ -454,6 +460,7 @@ AAS_DumpBSPData
 =======================================================================================================================================
 */
 void AAS_DumpBSPData(void) {
+
 	AAS_FreeBSPEntities();
 
 	if (bspworld.dentdata) {
@@ -484,6 +491,7 @@ int AAS_LoadBSPFile(void) {
 	Com_Memcpy(bspworld.dentdata, botimport.BSPEntityData(), bspworld.entdatasize);
 
 	AAS_ParseBSPEntities();
+
 	bspworld.loaded = qtrue;
 	return BLERR_NOERROR;
 }

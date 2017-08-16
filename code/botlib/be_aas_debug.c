@@ -145,10 +145,15 @@ void AAS_DrawPermanentCross(vec3_t origin, float size, int color) {
 
 	for (i = 0; i < 3; i++) {
 		VectorCopy(origin, start);
+
 		start[i] += size;
+
 		VectorCopy(origin, end);
+
 		end[i] -= size;
+
 		AAS_DebugLine(start, end, color);
+
 		debugline = botimport.DebugLineCreate();
 		botimport.DebugLineShow(debugline, start, end, color);
 	}
@@ -302,8 +307,10 @@ void AAS_ShowFace(int facenum) {
 	plane = &aasworld.planes[face->planenum];
 	edgenum = abs(aasworld.edgeindex[face->firstedge]);
 	edge = &aasworld.edges[edgenum];
+
 	VectorCopy(aasworld.vertexes[edge->v[0]], start);
 	VectorMA(start, 20, plane->normal, end);
+
 	AAS_DebugLine(start, end, LINECOLOR_RED);
 }
 
@@ -332,7 +339,9 @@ void AAS_ShowFacePolygon(int facenum, int color, int flip) {
 			// edge number
 			edgenum = aasworld.edgeindex[face->firstedge + i];
 			edge = &aasworld.edges[abs(edgenum)];
+
 			VectorCopy(aasworld.vertexes[edge->v[edgenum < 0]], points[numpoints]);
+
 			numpoints++;
 		}
 	} else {
@@ -340,7 +349,9 @@ void AAS_ShowFacePolygon(int facenum, int color, int flip) {
 			// edge number
 			edgenum = aasworld.edgeindex[face->firstedge + i];
 			edge = &aasworld.edges[abs(edgenum)];
+
 			VectorCopy(aasworld.vertexes[edge->v[edgenum < 0]], points[numpoints]);
+
 			numpoints++;
 		}
 	}
@@ -436,6 +447,7 @@ void AAS_ShowArea(int areanum, int groundfacesonly) {
 		}
 
 		botimport.DebugLineShow(debuglines[line], aasworld.vertexes[edge->v[0]], aasworld.vertexes[edge->v[1]], color);
+
 		debuglinevisible[line] = qtrue;
 	}
 }
@@ -487,9 +499,13 @@ void AAS_DrawCross(vec3_t origin, float size, int color) {
 
 	for (i = 0; i < 3; i++) {
 		VectorCopy(origin, start);
+
 		start[i] += size;
+
 		VectorCopy(origin, end);
+
 		end[i] -= size;
+
 		AAS_DebugLine(start, end, color);
 	}
 }
@@ -608,12 +624,15 @@ void AAS_ShowReachability(aas_reachability_t *reach) {
 	if ((reach->traveltype & TRAVELTYPE_MASK) == TRAVEL_JUMP || (reach->traveltype & TRAVELTYPE_MASK) == TRAVEL_WALKOFFLEDGE) {
 		AAS_HorizontalVelocityForJump(aassettings.phys_jumpvel, reach->start, reach->end, &speed);
 		VectorSubtract(reach->end, reach->start, dir);
+
 		dir[2] = 0;
+
 		VectorNormalize(dir);
 		// set the velocity
 		VectorScale(dir, speed, velocity);
 		// set the command movement
 		VectorClear(cmdmove);
+
 		cmdmove[2] = aassettings.phys_jumpvel;
 
 		AAS_PredictClientMovement(&move, -1, reach->start, PRESENCE_NORMAL, qtrue, velocity, cmdmove, 3, 30, 0.1f, SE_HITGROUND|SE_ENTERWATER|SE_ENTERSLIME|SE_ENTERLAVA|SE_HITGROUNDDAMAGE, 0, qtrue);
@@ -624,9 +643,12 @@ void AAS_ShowReachability(aas_reachability_t *reach) {
 		}
 	} else if ((reach->traveltype & TRAVELTYPE_MASK) == TRAVEL_ROCKETJUMP) {
 		zvel = AAS_RocketJumpZVelocity(reach->start);
+
 		AAS_HorizontalVelocityForJump(zvel, reach->start, reach->end, &speed);
 		VectorSubtract(reach->end, reach->start, dir);
+
 		dir[2] = 0;
+
 		VectorNormalize(dir);
 		// get command movement
 		VectorScale(dir, speed, cmdmove);
@@ -636,7 +658,9 @@ void AAS_ShowReachability(aas_reachability_t *reach) {
 	} else if ((reach->traveltype & TRAVELTYPE_MASK) == TRAVEL_JUMPPAD) {
 		VectorSet(cmdmove, 0, 0, 0);
 		VectorSubtract(reach->end, reach->start, dir);
+
 		dir[2] = 0;
+
 		VectorNormalize(dir);
 		// set the velocity
 		// NOTE: the edgenum is the horizontal velocity
@@ -676,7 +700,9 @@ void AAS_ShowReachableAreas(int areanum) {
 
 	if (AAS_Time() - lasttime > 1.5) {
 		Com_Memcpy(&reach, &aasworld.reachability[settings->firstreachablearea + index], sizeof(aas_reachability_t));
+
 		index++;
+
 		lasttime = AAS_Time();
 		AAS_PrintTravelType(reach.traveltype & TRAVELTYPE_MASK);
 		botimport.Print(PRT_MESSAGE, "\n");
@@ -774,5 +800,6 @@ void AAS_FloodAreas(vec3_t origin) {
 	done = (int *)GetClearedMemory(aasworld.numareas * sizeof(int));
 	areanum = AAS_PointAreaNum(origin);
 	cluster = AAS_AreaCluster(areanum);
+
 	AAS_FloodAreas_r(areanum, cluster, done);
 }

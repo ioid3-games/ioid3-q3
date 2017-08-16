@@ -92,11 +92,13 @@ static ID_INLINE int AAS_ClusterAreaNum(int cluster, int areanum) {
 	if (areacluster > 0) {
 		return aasworld.areasettings[areanum].clusterareanum;
 	} else {
-/*#ifdef ROUTING_DEBUG
+/*
+#ifdef ROUTING_DEBUG
 		if (aasworld.portals[-areacluster].frontcluster != cluster && aasworld.portals[-areacluster].backcluster != cluster) {
 			botimport.Print(PRT_ERROR, "portal %d: does not belong to cluster %d\n", -areacluster, cluster);
 		}
-#endif // ROUTING_DEBUG*/
+#endif // ROUTING_DEBUG
+*/
 		side = aasworld.portals[-areacluster].frontcluster != cluster;
 		return aasworld.portals[-areacluster].clusterareanum[side];
 	}
@@ -220,7 +222,9 @@ AAS_FreeRoutingCache
 void AAS_FreeRoutingCache(aas_routingcache_t *cache) {
 
 	AAS_UnlinkCache(cache);
+
 	routingcachesize -= cache->size;
+
 	FreeMemory(cache);
 }
 
@@ -425,7 +429,6 @@ void AAS_CreateReversedReachability(void) {
 	}
 	// allocate memory for the reversed reachability links
 	ptr = (char *)GetClearedMemory(aasworld.numareas * sizeof(aas_reversedreachability_t) + aasworld.reachabilitysize * sizeof(aas_reversedlink_t));
-
 	aasworld.reversedreachability = (aas_reversedreachability_t *)ptr;
 	// pointer to the memory for the reversed links
 	ptr += aasworld.numareas * sizeof(aas_reversedreachability_t);
@@ -466,6 +469,7 @@ unsigned short int AAS_AreaTravelTime(int areanum, vec3_t start, vec3_t end) {
 	vec3_t dir;
 
 	VectorSubtract(start, end, dir);
+
 	dist = VectorLength(dir);
 	// if crouch only area
 	if (AAS_AreaCrouch(areanum)) {
@@ -650,6 +654,7 @@ int AAS_FreeOldestCache(void) {
 		}
 
 		AAS_FreeRoutingCache(cache);
+
 		freed = qtrue;
 	}
 
@@ -682,13 +687,13 @@ int AAS_FreeOldestCache(void) {
 		}
 
 		AAS_FreeRoutingCache(cache);
+
 		freed = qtrue;
 	}
 
 	return freed;
 }
 */
-
 int AAS_FreeOldestCache(void) {
 	int clusterareanum;
 	aas_routingcache_t *cache;
@@ -783,6 +788,7 @@ void AAS_FreeAllClusterAreaCache(void) {
 	}
 	// free the cluster cache array
 	FreeMemory(aasworld.clusterareacache);
+
 	aasworld.clusterareacache = NULL;
 }
 
@@ -833,6 +839,7 @@ void AAS_FreeAllPortalCache(void) {
 	}
 
 	FreeMemory(aasworld.portalcache);
+
 	aasworld.portalcache = NULL;
 }
 
@@ -929,6 +936,7 @@ typedef struct routecacheheader_s {
 
 //void AAS_DecompressVis(byte *in, int numareas, byte *decompressed);
 //int AAS_CompressVis(byte *vis, int numareas, byte *dest);
+
 /*
 =======================================================================================================================================
 AAS_WriteRouteCache
@@ -963,6 +971,7 @@ void AAS_WriteRouteCache(void) {
 	}
 	// open the file for writing
 	Com_sprintf(filename, MAX_QPATH, "maps/%s.rcd", aasworld.mapname);
+
 	botimport.FS_FOpenFile(filename, &fp, FS_WRITE);
 
 	if (!fp) {
@@ -1010,7 +1019,9 @@ void AAS_WriteRouteCache(void) {
 		}
 
 		AAS_DecompressVis(aasworld.areavisibility[i], aasworld.numareas, aasworld.decompressedvis);
+
 		size = AAS_CompressVis(aasworld.decompressedvis, aasworld.numareas, aasworld.decompressedvis);
+
 		botimport.FS_Write(&size, sizeof(int), fp);
 		botimport.FS_Write(aasworld.decompressedvis, size, fp);
 	}
@@ -1333,6 +1344,7 @@ void AAS_UpdateAreaRoutingCache(aas_routingcache_t *areacache) {
 	aasworld.frameroutingupdates++;
 	// clear the routing update fields
 //	Com_Memset(aasworld.areaupdate, 0, aasworld.numareas * sizeof(aas_routingupdate_t));
+
 	badtravelflags = ~areacache->travelflags;
 	clusterareanum = AAS_ClusterAreaNum(areacache->cluster, areacache->areanum);
 
@@ -1352,6 +1364,7 @@ void AAS_UpdateAreaRoutingCache(aas_routingcache_t *areacache) {
 	// put the area to start with in the current read list
 	curupdate->next = NULL;
 	curupdate->prev = NULL;
+
 	updateliststart = curupdate;
 	updatelistend = curupdate;
 	// while there are updates in the current list
@@ -1455,7 +1468,9 @@ aas_routingcache_t *AAS_GetAreaRoutingCache(int clusternum, int areanum, int tra
 		cache = AAS_AllocRoutingCache(aasworld.clusters[clusternum].numreachabilityareas);
 		cache->cluster = clusternum;
 		cache->areanum = areanum;
+
 		VectorCopy(aasworld.areas[areanum].center, cache->origin);
+
 		cache->starttraveltime = 1;
 		cache->travelflags = travelflags;
 		cache->prev = NULL;
@@ -1466,6 +1481,7 @@ aas_routingcache_t *AAS_GetAreaRoutingCache(int clusternum, int areanum, int tra
 		}
 
 		aasworld.clusterareacache[clusternum][clusterareanum] = cache;
+
 		AAS_UpdateAreaRoutingCache(cache);
 	} else {
 		AAS_UnlinkCache(cache);
@@ -1473,6 +1489,7 @@ aas_routingcache_t *AAS_GetAreaRoutingCache(int clusternum, int areanum, int tra
 	// the cache has been accessed
 	cache->time = AAS_RoutingTime();
 	cache->type = CACHETYPE_AREA;
+
 	AAS_LinkCache(cache);
 	return cache;
 }
@@ -1494,6 +1511,7 @@ void AAS_UpdatePortalRoutingCache(aas_routingcache_t *portalcache) {
 #endif // ROUTING_DEBUG
 	// clear the routing update fields
 //	Com_Memset(aasworld.portalupdate, 0, (aasworld.numportals + 1) * sizeof(aas_routingupdate_t));
+
 	curupdate = &aasworld.portalupdate[aasworld.numportals];
 	curupdate->cluster = portalcache->cluster;
 	curupdate->areanum = portalcache->areanum;
@@ -1507,6 +1525,7 @@ void AAS_UpdatePortalRoutingCache(aas_routingcache_t *portalcache) {
 	// put the area to start with in the current read list
 	curupdate->next = NULL;
 	curupdate->prev = NULL;
+
 	updateliststart = curupdate;
 	updatelistend = curupdate;
 	// while there are updates in the current list
@@ -1600,7 +1619,9 @@ aas_routingcache_t *AAS_GetPortalRoutingCache(int clusternum, int areanum, int t
 		cache = AAS_AllocRoutingCache(aasworld.numportals);
 		cache->cluster = clusternum;
 		cache->areanum = areanum;
+
 		VectorCopy(aasworld.areas[areanum].center, cache->origin);
+
 		cache->starttraveltime = 1;
 		cache->travelflags = travelflags;
 		// add the cache to the cache list
@@ -1620,6 +1641,7 @@ aas_routingcache_t *AAS_GetPortalRoutingCache(int clusternum, int areanum, int t
 	// the cache has been accessed
 	cache->time = AAS_RoutingTime();
 	cache->type = CACHETYPE_PORTAL;
+
 	AAS_LinkCache(cache);
 	return cache;
 }
@@ -1767,8 +1789,7 @@ int AAS_AreaRouteToGoalArea(int areanum, vec3_t origin, int goalareanum, int tra
 		if (!areacache->traveltimes[clusterareanum]) {
 			continue;
 		}
-		// total travel time is the travel time the portal area is from
-		// the goal area plus the travel time towards the portal area
+		// total travel time is the travel time the portal area is from the goal area plus the travel time towards the portal area
 		t = portalcache->traveltimes[portalnum] + areacache->traveltimes[clusterareanum];
 		// FIXME: add the exact travel time through the actual portal area
 		// NOTE: for now we just add the largest travel time through the portal area
@@ -1846,10 +1867,12 @@ int AAS_PredictRoute(struct aas_predictroute_s *route, int areanum, vec3_t origi
 	route->endarea = goalareanum;
 	route->endcontents = 0;
 	route->endtravelflags = 0;
-	VectorCopy(origin, route->endpos);
-	route->time = 0;
 
+	VectorCopy(origin, route->endpos);
+
+	route->time = 0;
 	curareanum = areanum;
+
 	VectorCopy(origin, curorigin);
 
 	for (i = 0; curareanum != goalareanum && (!maxareas || i < maxareas) && i < aasworld.numareas; i++) {
@@ -1868,6 +1891,7 @@ int AAS_PredictRoute(struct aas_predictroute_s *route, int areanum, vec3_t origi
 				route->endarea = curareanum;
 				route->endcontents = aasworld.areasettings[curareanum].contents;
 				route->endtravelflags = AAS_TravelFlagForType_inline(reach->traveltype);
+
 				VectorCopy(reach->start, route->endpos);
 				return qtrue;
 			}
@@ -1877,7 +1901,9 @@ int AAS_PredictRoute(struct aas_predictroute_s *route, int areanum, vec3_t origi
 				route->endarea = reach->areanum;
 				route->endcontents = aasworld.areasettings[reach->areanum].contents;
 				route->endtravelflags = AAS_AreaContentsTravelFlags_inline(reach->areanum);
+
 				VectorCopy(reach->end, route->endpos);
+
 				route->time += AAS_AreaTravelTime(areanum, origin, reach->start);
 				route->time += reach->traveltime;
 				return qtrue;
@@ -1898,7 +1924,9 @@ int AAS_PredictRoute(struct aas_predictroute_s *route, int areanum, vec3_t origi
 					route->stopevent = RSE_ENTERCONTENTS;
 					route->endarea = testareanum;
 					route->endcontents = aasworld.areasettings[testareanum].contents;
+
 					VectorCopy(reach->end, route->endpos);
+
 					route->time += AAS_AreaTravelTime(areanum, origin, reach->start);
 					route->time += reach->traveltime;
 					return qtrue;
@@ -1910,6 +1938,7 @@ int AAS_PredictRoute(struct aas_predictroute_s *route, int areanum, vec3_t origi
 					route->stopevent = RSE_ENTERAREA;
 					route->endarea = testareanum;
 					route->endcontents = aasworld.areasettings[testareanum].contents;
+
 					VectorCopy(reach->start, route->endpos);
 					return qtrue;
 				}
@@ -1921,9 +1950,11 @@ int AAS_PredictRoute(struct aas_predictroute_s *route, int areanum, vec3_t origi
 		route->endarea = reach->areanum;
 		route->endcontents = aasworld.areasettings[reach->areanum].contents;
 		route->endtravelflags = AAS_TravelFlagForType_inline(reach->traveltype);
+
 		VectorCopy(reach->end, route->endpos);
 
 		curareanum = reach->areanum;
+
 		VectorCopy(reach->end, curorigin);
 
 		if (maxtime && route->time > maxtime) {
@@ -2067,6 +2098,7 @@ int AAS_RandomGoalArea(int areanum, int travelflags, int *goalareanum, vec3_t go
 			if (t > 0) {
 				if (AAS_AreaSwim(n)) {
 					*goalareanum = n;
+
 					VectorCopy(aasworld.areas[n].center, goalorigin);
 					//botimport.Print(PRT_MESSAGE, "found random goal area %d\n", *goalareanum);
 					return qtrue;
@@ -2079,6 +2111,7 @@ int AAS_RandomGoalArea(int areanum, int travelflags, int *goalareanum, vec3_t go
 				}
 
 				VectorCopy(start, end);
+
 				end[2] -= 300;
 				trace = AAS_TraceClientBBox(start, end, PRESENCE_CROUCH, -1);
 
@@ -2147,14 +2180,18 @@ int AAS_NearestHideArea(int srcnum, vec3_t origin, int areanum, int enemynum, ve
 	// assume visible
 	startVisible = qtrue;
 	badtravelflags = ~travelflags;
+
 	curupdate = &aasworld.areaupdate[areanum];
 	curupdate->areanum = areanum;
+
 	VectorCopy(origin, curupdate->start);
+
 	curupdate->areatraveltimes = aasworld.areatraveltimes[areanum][0];
 	curupdate->tmptraveltime = 0;
 	// put the area to start with in the current read list
 	curupdate->next = NULL;
 	curupdate->prev = NULL;
+
 	updateliststart = curupdate;
 	updatelistend = curupdate;
 	// while there are updates in the list
@@ -2212,6 +2249,7 @@ int AAS_NearestHideArea(int srcnum, vec3_t origin, int areanum, int enemynum, ve
 			}
 
 			VectorSubtract(enemyorigin, curupdate->start, v1);
+
 			dist1 = VectorLength(v1);
 
 			if (dist2 < dist1) {

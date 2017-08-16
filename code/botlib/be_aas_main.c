@@ -50,6 +50,7 @@ void QDECL AAS_Error(char *fmt, ...) {
 	va_start(arglist, fmt);
 	Q_vsnprintf(str, sizeof(str), fmt, arglist);
 	va_end(arglist);
+
 	botimport.Print(PRT_FATAL, "%s", str);
 }
 
@@ -79,6 +80,7 @@ AAS_SetInitialized
 void AAS_SetInitialized(void) {
 
 	aasworld.initialized = qtrue;
+
 	botimport.Print(PRT_MESSAGE, "AAS initialized.\n");
 #ifdef DEBUG
 	// create all the routing cache
@@ -214,6 +216,7 @@ int AAS_LoadFiles(const char *mapname) {
 	AAS_LoadBSPFile();
 	// load the aas file
 	Com_sprintf(aasfile, MAX_PATH, "maps/%s.aas", mapname);
+
 	errnum = AAS_LoadAASFile(aasfile);
 
 	if (errnum != BLERR_NOERROR) {
@@ -221,6 +224,7 @@ int AAS_LoadFiles(const char *mapname) {
 	}
 
 	botimport.Print(PRT_MESSAGE, "loaded %s\n", aasfile);
+
 	Q_strncpyz(aasworld.filename, aasfile, sizeof(aasworld.filename));
 	return BLERR_NOERROR;
 }

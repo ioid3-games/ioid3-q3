@@ -144,6 +144,7 @@ void BotFreeCharacter2(int handle) {
 
 	BotFreeCharacterStrings(botcharacters[handle]);
 	FreeMemory(botcharacters[handle]);
+
 	botcharacters[handle] = NULL;
 }
 
@@ -713,6 +714,7 @@ int Characteristic_Integer(int character, int index) {
 		botimport.Print(PRT_ERROR, "characteristic %d is not an integer\n", index);
 		return 0;
 	}
+
 //	return 0;
 }
 
