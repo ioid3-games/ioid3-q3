@@ -491,6 +491,7 @@ void CopyToBodyQue(gentity_t *ent) {
 	}
 
 	VectorCopy(body->s.pos.trBase, body->r.currentOrigin);
+
 	trap_LinkEntity(body);
 }
 
