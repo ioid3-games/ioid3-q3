@@ -525,6 +525,7 @@ static void PM_WaterMove(void) {
 	}
 
 	VectorCopy(wishvel, wishdir);
+
 	wishspeed = VectorNormalize(wishdir);
 
 	if (wishspeed > pm->ps->speed * pm_swimScale) {
@@ -592,6 +593,7 @@ static void PM_FlyMove(void) {
 	}
 
 	VectorCopy(wishvel, wishdir);
+
 	wishspeed = VectorNormalize(wishdir);
 
 	PM_Accelerate(wishdir, wishspeed, pm_flyaccelerate);

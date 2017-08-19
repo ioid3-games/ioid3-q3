@@ -234,7 +234,9 @@ gentity_t *SelectRandomFurthestSpawnPoint(vec3_t avoidPoint, vec3_t origin, vec3
 		}
 
 		VectorCopy(spot->s.origin, origin);
+
 		origin[2] += 9;
+
 		VectorCopy(spot->s.angles, angles);
 		return spot;
 	}
@@ -242,7 +244,9 @@ gentity_t *SelectRandomFurthestSpawnPoint(vec3_t avoidPoint, vec3_t origin, vec3
 	rnd = random() * (numSpots / 2);
 
 	VectorCopy(list_spot[rnd]->s.origin, origin);
+
 	origin[2] += 9;
+
 	VectorCopy(list_spot[rnd]->s.angles, angles);
 
 	return list_spot[rnd];

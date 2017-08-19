@@ -936,7 +936,6 @@ qboolean BG_CanItemBeGrabbed(int gametype, const entityState_t *ent, const playe
 			}
 #endif
 			return qtrue;
-
 		case IT_HEALTH:
 			// small and mega healths will go over the max, otherwise don't pick up if already at max
 #ifdef MISSIONPACK
@@ -1140,14 +1139,14 @@ char *eventnames[] = {
 	"EV_FALL_SHORT",
 	"EV_FALL_MEDIUM",
 	"EV_FALL_FAR",
-	"EV_JUMP_PAD", // boing sound at origin", jump sound on player
+	"EV_JUMP_PAD",				// boing sound at origin, jump sound on player
 	"EV_JUMP",
-	"EV_WATER_TOUCH", // foot touches
-	"EV_WATER_LEAVE", // foot leaves
-	"EV_WATER_UNDER", // head touches
-	"EV_WATER_CLEAR", // head leaves
-	"EV_ITEM_PICKUP", // normal item pickups are predictable
-	"EV_GLOBAL_ITEM_PICKUP", // powerup/team sounds are broadcast to everyone
+	"EV_WATER_TOUCH",			// foot touches
+	"EV_WATER_LEAVE",			// foot leaves
+	"EV_WATER_UNDER",			// head touches
+	"EV_WATER_CLEAR",			// head leaves
+	"EV_ITEM_PICKUP",			// normal item pickups are predictable
+	"EV_GLOBAL_ITEM_PICKUP",	// powerup/team sounds are broadcast to everyone
 	"EV_NOAMMO",
 	"EV_CHANGE_WEAPON",
 	"EV_FIRE_WEAPON",
@@ -1171,9 +1170,9 @@ char *eventnames[] = {
 	"EV_ITEM_POP",
 	"EV_PLAYER_TELEPORT_IN",
 	"EV_PLAYER_TELEPORT_OUT",
-	"EV_GRENADE_BOUNCE", // eventParm will be the soundindex
+	"EV_GRENADE_BOUNCE",		// eventParm will be the soundindex
 	"EV_GENERAL_SOUND",
-	"EV_GLOBAL_SOUND", // no attenuation
+	"EV_GLOBAL_SOUND",			// no attenuation
 	"EV_GLOBAL_TEAM_SOUND",
 	"EV_BULLET_HIT_FLESH",
 	"EV_BULLET_HIT_WALL",
@@ -1182,7 +1181,7 @@ char *eventnames[] = {
 	"EV_MISSILE_MISS_METAL",
 	"EV_RAILTRAIL",
 	"EV_SHOTGUN",
-	"EV_BULLET", // otherEntity is the shooter
+	"EV_BULLET",				// otherEntity is the shooter
 	"EV_PAIN",
 	"EV_DEATH1",
 	"EV_DEATH2",
@@ -1191,17 +1190,17 @@ char *eventnames[] = {
 	"EV_POWERUP_QUAD",
 	"EV_POWERUP_BATTLESUIT",
 	"EV_POWERUP_REGEN",
-	"EV_GIB_PLAYER", // gib a previously living player
-	"EV_SCOREPLUM", // score plum
+	"EV_GIB_PLAYER",			// gib a previously living player
+	"EV_SCOREPLUM",				// score plum
 //#ifdef MISSIONPACK
 	"EV_PROXIMITY_MINE_STICK",
 	"EV_PROXIMITY_MINE_TRIGGER",
-	"EV_KAMIKAZE", // kamikaze explodes
-	"EV_OBELISKEXPLODE", // obelisk explodes
-	"EV_OBELISKPAIN", // obelisk pain
-	"EV_INVUL_IMPACT", // invulnerability sphere impact
-	"EV_JUICED", // invulnerability juiced effect
-	"EV_LIGHTNINGBOLT", // lightning bolt bounced of invulnerability sphere
+	"EV_KAMIKAZE",				// kamikaze explodes
+	"EV_OBELISKEXPLODE",		// obelisk explodes
+	"EV_OBELISKPAIN",			// obelisk pain
+	"EV_INVUL_IMPACT",			// invulnerability sphere impact
+	"EV_JUICED",				// invulnerability juiced effect
+	"EV_LIGHTNINGBOLT",			// lightning bolt bounced of invulnerability sphere
 //#endif
 	"EV_DEBUG_LINE",
 	"EV_STOPLOOPINGSOUND",
@@ -1212,7 +1211,6 @@ char *eventnames[] = {
 	"EV_TAUNT_GETFLAG",
 	"EV_TAUNT_GUARDBASE",
 	"EV_TAUNT_PATROL"
-
 };
 
 void trap_Cvar_VariableStringBuffer(const char *var_name, char *buffer, int bufsize);
@@ -1227,6 +1225,7 @@ void BG_AddPredictableEventToPlayerstate(int newEvent, int eventParm, playerStat
 #ifdef _DEBUG
 	{
 		char buf[256];
+
 		trap_Cvar_VariableStringBuffer("showevents", buf, sizeof(buf));
 
 		if (atof(buf) != 0) {

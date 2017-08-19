@@ -201,13 +201,16 @@ static void ProximityMine_ExplodeOnPlayer(gentity_t *mine) {
 
 	if (player->client->invulnerabilityTime > level.time) {
 		G_Damage(player, mine->parent, mine->parent, vec3_origin, mine->s.origin, 1000, DAMAGE_NO_KNOCKBACK, MOD_JUICED);
+
 		player->client->invulnerabilityTime = 0;
+
 		G_TempEntity(player->client->ps.origin, EV_JUICED);
 	} else {
 		G_SetOrigin(mine, player->s.pos.trBase);
 		// make sure the explosion gets to the client
 		mine->r.svFlags &= ~SVF_NOCLIENT;
 		mine->splashMethodOfDeath = MOD_PROXIMITY_MINE;
+
 		G_ExplodeMissile(mine);
 	}
 }

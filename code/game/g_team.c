@@ -778,7 +778,6 @@ int Team_TouchOurFlag(gentity_t *ent, gentity_t *other, int team) {
 	teamgame.last_capture_team = team;
 	// Increase the team's score
 	AddTeamScore(ent->s.pos.trBase, other->client->sess.sessionTeam, 1);
-
 	Team_ForceGesture(other->client->sess.sessionTeam);
 	// add the sprite over the player's head
 	other->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE|EF_AWARD_EXCELLENT|EF_AWARD_GAUNTLET|EF_AWARD_ASSIST|EF_AWARD_DEFEND|EF_AWARD_CAP);
@@ -1290,9 +1289,7 @@ static void ObeliskDie(gentity_t *self, gentity_t *inflictor, gentity_t *attacke
 	otherTeam = OtherTeam(self->spawnflags);
 
 	AddTeamScore(self->s.pos.trBase, otherTeam, 1);
-
 	Team_ForceGesture(otherTeam);
-
 	CalculateRanks();
 
 	self->takedamage = qfalse;
@@ -1336,6 +1333,7 @@ static void ObeliskTouch(gentity_t *self, gentity_t *other, trace_t *trace) {
 	}
 
 	PrintMsg(NULL, "%s" S_COLOR_WHITE " brought in %i %s.\n", other->client->pers.netname, tokens, (tokens == 1) ? "skull" : "skulls");
+
 	AddTeamScore(self->s.pos.trBase, other->client->sess.sessionTeam, tokens);
 	Team_ForceGesture(other->client->sess.sessionTeam);
 	AddScore(other, self->r.currentOrigin, CTF_CAPTURE_BONUS * tokens);
@@ -1485,6 +1483,7 @@ void SP_team_redobelisk(gentity_t *ent) {
 	}
 
 	ent->s.modelindex = TEAM_RED;
+
 	trap_LinkEntity(ent);
 }
 
@@ -1514,6 +1513,7 @@ void SP_team_blueobelisk(gentity_t *ent) {
 	}
 
 	ent->s.modelindex = TEAM_BLUE;
+
 	trap_LinkEntity(ent);
 }
 
@@ -1534,6 +1534,7 @@ void SP_team_neutralobelisk(gentity_t *ent) {
 	}
 
 	ent->s.modelindex = TEAM_FREE;
+
 	trap_LinkEntity(ent);
 }
 
