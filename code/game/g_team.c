@@ -788,7 +788,7 @@ int Team_TouchOurFlag(gentity_t *ent, gentity_t *other, int team) {
 	AddScore(other, ent->r.currentOrigin, CTF_CAPTURE_BONUS);
 
 	Team_CaptureFlagSound(ent, team);
-	// Ok, let's do the player loop, hand out the bonuses
+	// ok, let's do the player loop, hand out the bonuses
 	for (i = 0; i < g_maxclients.integer; i++) {
 		player = &g_entities[i];
 		// also make sure we don't award assist bonuses to the flag carrier himself.
@@ -1418,7 +1418,7 @@ gentity_t *SpawnObelisk(vec3_t origin, vec3_t mins, vec3_t maxs, int team) {
 
 /*
 =======================================================================================================================================
-SpawnObelisk
+ObeliskInit
 
 Setup entity for team base model/obelisk model.
 =======================================================================================================================================

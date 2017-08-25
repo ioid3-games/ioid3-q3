@@ -439,6 +439,7 @@ void G_MoverTeam(gentity_t *ent) {
 
 			BG_EvaluateTrajectory(&part->s.pos, level.time, part->r.currentOrigin);
 			BG_EvaluateTrajectory(&part->s.apos, level.time, part->r.currentAngles);
+
 			trap_LinkEntity(part);
 		}
 		// if the pusher has a "blocked" function, call it
