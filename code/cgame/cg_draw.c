@@ -543,6 +543,8 @@ static void CG_DrawStatusBar(void) {
 
 	VectorClear(angles);
 	// draw any 3D icons first, so the changes back to 2D are minimized
+
+	// ammo
 	if (cent->currentState.weapon && cg_weapons[cent->currentState.weapon].ammoModel) {
 		origin[0] = 70;
 		origin[1] = 0;
@@ -554,6 +556,7 @@ static void CG_DrawStatusBar(void) {
 
 	CG_DrawStatusBarHead(185 + CHAR_WIDTH * 3 + TEXT_ICON_SPACE);
 
+	// flags
 	if (cg.predictedPlayerState.powerups[PW_REDFLAG]) {
 		CG_DrawStatusBarFlag(185 + CHAR_WIDTH * 3 + TEXT_ICON_SPACE + ICON_SIZE, TEAM_RED);
 	} else if (cg.predictedPlayerState.powerups[PW_BLUEFLAG]) {
@@ -561,7 +564,7 @@ static void CG_DrawStatusBar(void) {
 	} else if (cg.predictedPlayerState.powerups[PW_NEUTRALFLAG]) {
 		CG_DrawStatusBarFlag(185 + CHAR_WIDTH * 3 + TEXT_ICON_SPACE + ICON_SIZE, TEAM_FREE);
 	}
-
+	// armor
 	if (ps->stats[STAT_ARMOR]) {
 		origin[0] = 90;
 		origin[1] = 0;

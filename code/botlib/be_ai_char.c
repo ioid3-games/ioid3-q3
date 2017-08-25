@@ -203,6 +203,7 @@ bot_character_t *BotLoadCharacterFromFile(char *charfile, int skill) {
 	foundcharacter = qfalse;
 	// a bot character is parsed in two phases
 	PC_SetBaseFolder(BOTFILESBASEFOLDER);
+
 	source = LoadSourceFile(charfile);
 
 	if (!source) {
@@ -211,6 +212,7 @@ bot_character_t *BotLoadCharacterFromFile(char *charfile, int skill) {
 	}
 
 	ch = (bot_character_t *)GetClearedMemory(sizeof(bot_character_t) + MAX_CHARACTERISTICS * sizeof(bot_characteristic_t));
+
 	strcpy(ch->filename, charfile);
 
 	while (PC_ReadToken(source, &token)) {
@@ -281,8 +283,11 @@ bot_character_t *BotLoadCharacterFromFile(char *charfile, int skill) {
 						}
 					} else if (token.type == TT_STRING) {
 						StripDoubleQuotes(token.string);
+
 						ch->c[index].value.string = GetMemory(strlen(token.string) + 1);
+
 						strcpy(ch->c[index].value.string, token.string);
+
 						ch->c[index].type = CT_STRING;
 					} else {
 						SourceError(source, "expected integer, float or string, found %s", token.string);
@@ -511,6 +516,7 @@ int BotInterpolateCharacters(int handle1, int handle2, float desiredskill) {
 	out->skill = desiredskill;
 
 	strcpy(out->filename, ch1->filename);
+
 	botcharacters[handle] = out;
 	scale = (float)(desiredskill - ch1->skill) / (ch2->skill - ch1->skill);
 

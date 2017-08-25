@@ -5453,7 +5453,6 @@ void BotCheckEvents(bot_state_t *bs, entityState_t *state) {
 
 			break;
 		}
-
 		case EV_FOOTSTEP:
 		case EV_FOOTSTEP_METAL:
 		case EV_FOOTSPLASH:
