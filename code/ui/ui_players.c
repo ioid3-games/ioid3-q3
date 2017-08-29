@@ -282,6 +282,7 @@ static void UI_PositionEntityOnTag(refEntity_t *entity, const refEntity_t *paren
 	}
 	// cast away const because of compiler problems
 	MatrixMultiply(lerped.axis, ((refEntity_t *)parent)->axis, entity->axis);
+
 	entity->backlerp = parent->backlerp;
 }
 
@@ -747,7 +748,6 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 	legs.renderfx = renderfx;
 
 	VectorCopy(legs.origin, legs.oldorigin);
-
 	trap_R_AddRefEntityToScene(&legs);
 
 	if (!legs.hModel) {
@@ -826,6 +826,7 @@ void UI_DrawPlayer(float x, float y, float w, float h, playerInfo_t *pi, int tim
 			UI_PositionEntityOnTag(&flash, &gun, pi->weaponModel, "tag_flash");
 
 			flash.renderfx = renderfx;
+
 			trap_R_AddRefEntityToScene(&flash);
 		}
 		// make a dlight for the flash
@@ -1150,6 +1151,7 @@ qboolean UI_RegisterClientModelname(playerInfo_t *pi, const char *modelSkinName,
 	}
 
 	Q_strncpyz(headModelName, headModelSkinName, sizeof(headModelName));
+
 	slash = strchr(headModelName, '/');
 
 	if (!slash) {

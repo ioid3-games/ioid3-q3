@@ -42,7 +42,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define WINDOW_FADINGIN			0x00000040 // fading in
 #define WINDOW_MOUSEOVERTEXT	0x00000080 // mouse is over it, non exclusive
 #define WINDOW_INTRANSITION		0x00000100 // window is in transition
-#define WINDOW_FORECOLORSET		0x00000200 // forecolor was explicitly set(used to color alpha images or not)
+#define WINDOW_FORECOLORSET		0x00000200 // forecolor was explicitly set (used to color alpha images or not)
 #define WINDOW_HORIZONTAL		0x00000400 // for list boxes and sliders, vertical is default this is set of horizontal
 #define WINDOW_LB_LEFTARROW		0x00000800 // mouse is over left/up arrow
 #define WINDOW_LB_RIGHTARROW	0x00001000 // mouse is over right/down arrow
@@ -56,7 +56,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define WINDOW_FORCED			0x00100000 // forced open
 #define WINDOW_POPUP			0x00200000 // popup
 #define WINDOW_BACKCOLORSET		0x00400000 // backcolor was explicitly set
-#define WINDOW_TIMEDVISIBLE		0x00800000 // visibility timing(NOT implemented)
+#define WINDOW_TIMEDVISIBLE		0x00800000 // visibility timing (NOT implemented)
+
 // CGAME cursor type bits
 #define CURSOR_NONE		0x00000001
 #define CURSOR_ARROW	0x00000002

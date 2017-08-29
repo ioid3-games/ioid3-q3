@@ -203,10 +203,12 @@ void AssetCache(void) {
 	int n;
 
 	//if (Assets.textFont == NULL) {
+
 	//}
 
 	//Assets.background = trap_R_RegisterShaderNoMip(ASSET_BACKGROUND);
 	//Com_Printf("Menu Size: %i bytes\n", sizeof(Menus));
+
 	uiInfo.uiDC.Assets.gradientBar = trap_R_RegisterShaderNoMip(ASSET_GRADIENTBAR);
 	uiInfo.uiDC.Assets.fxBasePic = trap_R_RegisterShaderNoMip(ART_FX_BASE);
 	uiInfo.uiDC.Assets.fxPic[0] = trap_R_RegisterShaderNoMip(ART_FX_RED);
@@ -749,9 +751,12 @@ char *GetMenuBuffer(const char *filename) {
 	}
 
 	trap_FS_Read(buf, len, f);
+
 	buf[len] = 0;
+
 	trap_FS_FCloseFile(f);
 	//COM_Compress(buf);
+
 	return buf;
 }
 
@@ -1120,6 +1125,7 @@ void UI_Load(void) {
 	UI_LoadArenas();
 #endif
 	UI_LoadMenus(menuSet, qtrue);
+
 	Menus_CloseAll();
 	Menus_ActivateByName(lastName);
 }
@@ -2448,7 +2454,7 @@ UI_DrawKeyBindStatus
 =======================================================================================================================================
 */
 static void UI_DrawKeyBindStatus(rectDef_t *rect, float scale, vec4_t color, int textStyle) {
-//	int ofs = 0; TTimo: unused
+	//int ofs = 0; TTimo: unused
 
 	if (Display_KeyBindPending()) {
 		Text_Paint(rect->x, rect->y, scale, color, "Waiting for new key... Press ESCAPE to cancel", 0, 0, textStyle);
@@ -4541,7 +4547,7 @@ UI_BuildServerDisplayList
 static void UI_BuildServerDisplayList(int force) {
 	int i, count, clients, maxClients, ping, game, len, visible;
 	char info[MAX_STRING_CHARS];
-//	qboolean startRefresh = qtrue; TTimo: unused
+	//qboolean startRefresh = qtrue; TTimo: unused
 	static int numinvisible;
 	int lanSource;
 
@@ -4554,6 +4560,7 @@ static void UI_BuildServerDisplayList(int force) {
 	}
 	// do motd updates here too
 	trap_Cvar_VariableStringBuffer("cl_motdString", uiInfo.serverStatus.motd, sizeof(uiInfo.serverStatus.motd));
+
 	len = strlen(uiInfo.serverStatus.motd);
 
 	if (len == 0) {
@@ -5204,6 +5211,7 @@ static const char *UI_FeederItemText(float feederID, int index, int column, qhan
 
 	if (feederID == FEEDER_HEADS) {
 		int actual;
+
 		return UI_SelectedHead(index, &actual);
 	} else if (feederID == FEEDER_Q3HEADS) {
 		if (index >= 0 && index < uiInfo.q3HeadCount) {
@@ -5211,6 +5219,7 @@ static const char *UI_FeederItemText(float feederID, int index, int column, qhan
 		}
 	} else if (feederID == FEEDER_MAPS || feederID == FEEDER_ALLMAPS) {
 		int actual;
+
 		return UI_SelectedMap(index, &actual);
 	} else if (feederID == FEEDER_SERVERS) {
 		if (index >= 0 && index < uiInfo.serverStatus.numDisplayServers) {
@@ -6931,7 +6940,9 @@ static void UI_StopServerRefresh(void) {
 	}
 
 	uiInfo.serverStatus.refreshActive = qfalse;
+
 	Com_Printf("%d servers listed in browser with %d players.\n", uiInfo.serverStatus.numDisplayServers, uiInfo.serverStatus.numPlayersOnServers);
+
 	count = trap_LAN_GetServerCount(UI_SourceForLAN());
 
 	if (count - uiInfo.serverStatus.numDisplayServers > 0) {

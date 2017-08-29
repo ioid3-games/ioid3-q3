@@ -139,6 +139,7 @@ static void UI_RemoveBotsMenu_UpEvent(void *ptr, int event) {
 
 	if (removeBotsMenuInfo.baseBotNum > 0) {
 		removeBotsMenuInfo.baseBotNum--;
+
 		UI_RemoveBotsMenu_SetBotNames();
 	}
 }
@@ -156,6 +157,7 @@ static void UI_RemoveBotsMenu_DownEvent(void *ptr, int event) {
 
 	if (removeBotsMenuInfo.baseBotNum + 7 < removeBotsMenuInfo.numBots) {
 		removeBotsMenuInfo.baseBotNum++;
+
 		UI_RemoveBotsMenu_SetBotNames();
 	}
 }

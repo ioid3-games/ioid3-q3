@@ -371,7 +371,9 @@ static void UI_DrawBannerString2(int x, int y, const char *str, vec4_t color) {
 			fheight = (float)PROPB_HEIGHT / 256.0f;
 			aw = (float)propMapB[ch][2] * uis.xscale;
 			ah = (float)PROPB_HEIGHT * uis.yscale;
+
 			trap_R_DrawStretchPic(ax, ay, aw, ah, fcol, frow, fcol + fwidth, frow + fheight, uis.charsetPropB);
+
 			ax += (aw + (float)PROPB_GAP_WIDTH * uis.xscale);
 		}
 
@@ -380,6 +382,14 @@ static void UI_DrawBannerString2(int x, int y, const char *str, vec4_t color) {
 
 	trap_R_SetColor(NULL);
 }
+
+/*
+=======================================================================================================================================
+
+	STRING FUNCTIONS
+
+=======================================================================================================================================
+*/
 
 /*
 =======================================================================================================================================
@@ -497,6 +507,7 @@ static void UI_DrawProportionalString2(int x, int y, const char *str, vec4_t col
 			fheight = (float)PROP_HEIGHT / 256.0f;
 			aw = (float)propMap[ch][2] * uis.xscale * sizeScale;
 			ah = (float)PROP_HEIGHT * uis.yscale * sizeScale;
+
 			trap_R_DrawStretchPic(ax, ay, aw, ah, fcol, frow, fcol + fwidth, frow + fheight, charset);
 		}
 

@@ -116,7 +116,9 @@ static void UI_LoadArenasFromFile(char *filename) {
 	}
 
 	trap_FS_Read(buf, len, f);
+
 	buf[len] = 0;
+
 	trap_FS_FCloseFile(f);
 
 	ui_numArenas += UI_ParseInfos(buf, MAX_ARENAS - ui_numArenas, &ui_arenaInfos[ui_numArenas]);
@@ -235,9 +237,10 @@ static void UI_LoadBotsFromFile(char *filename) {
 	}
 
 	trap_FS_Read(buf, len, f);
-	buf[len] = 0;
-	trap_FS_FCloseFile(f);
 
+	buf[len] = 0;
+
+	trap_FS_FCloseFile(f);
 	COM_Compress(buf);
 
 	ui_numBots += UI_ParseInfos(buf, MAX_BOTS - ui_numBots, &ui_botInfos[ui_numBots]);

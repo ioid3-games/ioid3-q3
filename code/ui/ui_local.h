@@ -365,7 +365,6 @@ extern void SpecifyLeague_Cache(void);
 extern void UI_SpecifyServerMenu(void);
 extern void SpecifyServer_Cache(void);
 // ui_servers2.c
-
 #define MAX_FAVORITESERVERS 16
 
 extern void UI_ArenaServersMenu(void);
@@ -387,9 +386,9 @@ extern void DriverInfo_Cache(void);
 // FIXME ripped from cg_local.h
 typedef struct {
 	int oldFrame;
-	int oldFrameTime;		// time when->oldFrame was exactly on
+	int oldFrameTime;		// time when -> oldFrame was exactly on
 	int frame;
-	int frameTime;			// time when->frame will be exactly on
+	int frameTime;			// time when -> frame will be exactly on
 	float backlerp;
 	float yawAngle;
 	qboolean yawing;

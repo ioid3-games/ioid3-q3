@@ -132,7 +132,7 @@ static void UI_SoundOptionsMenu_Event(void *ptr, int event) {
 
 			trap_Cvar_SetValue("s_musicvolume", soundOptionsInfo.musicvolume.curvalue / 10);
 			soundOptionsInfo.musicvolume_original = soundOptionsInfo.musicvolume.curvalue;
-			// Check if something changed that requires the sound system to be restarted.
+			// check if something changed that requires the sound system to be restarted.
 			if (soundOptionsInfo.quality_original != soundOptionsInfo.quality.curvalue || soundOptionsInfo.soundSystem_original != soundOptionsInfo.soundSystem.curvalue) {
 				int speed;
 
@@ -394,7 +394,7 @@ static void UI_SoundOptionsMenu_Init(void) {
 
 	speed = trap_Cvar_VariableValue("s_sdlSpeed");
 
-	if (!speed) { // Check for default
+	if (!speed) { // check for default
 		speed = DEFAULT_SDL_SND_SPEED;
 	}
 
