@@ -1252,7 +1252,6 @@ Menus_CloseByName
 =======================================================================================================================================
 */
 void Menus_CloseByName(const char *p) {
-
 	menuDef_t *menu = Menus_FindByName(p);
 
 	if (menu != NULL) {
@@ -2300,6 +2299,7 @@ qboolean Item_ListBox_HandleKey(itemDef_t *item, int key, qboolean down, qboolea
 					}
 
 					item->cursorPos = listPtr->cursorPos;
+
 					DC->feederSelection(item->special, item->cursorPos);
 				} else {
 					listPtr->startPos++;
@@ -2378,6 +2378,7 @@ qboolean Item_ListBox_HandleKey(itemDef_t *item, int key, qboolean down, qboolea
 
 				if (item->cursorPos != listPtr->cursorPos) {
 					item->cursorPos = listPtr->cursorPos;
+
 					DC->feederSelection(item->special, item->cursorPos);
 				}
 			}

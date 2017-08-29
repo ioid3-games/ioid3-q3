@@ -36,7 +36,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define WINDOW_MOUSEOVER		0x00000001 // mouse is over it, non exclusive
 #define WINDOW_HASFOCUS			0x00000002 // has cursor focus, exclusive
 #define WINDOW_VISIBLE			0x00000004 // is visible
-#define WINDOW_GREY				0x00000008 // is visible but grey(non-active)
+#define WINDOW_GREY				0x00000008 // is visible but grey (non-active)
 #define WINDOW_DECORATION		0x00000010 // for decoration only, no mouse, keyboard, etc..
 #define WINDOW_FADINGOUT		0x00000020 // fading out, non-active
 #define WINDOW_FADINGIN			0x00000040 // fading in

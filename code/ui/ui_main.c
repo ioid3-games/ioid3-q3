@@ -6545,11 +6545,11 @@ static void UI_DisplayDownloadInfo(const char *downloadName, float centerPoint, 
 		}
 
 		UI_ReadableSize(xferRateBuf, sizeof xferRateBuf, xferRate);
-		// Extrapolate estimated completion time
+		// extrapolate estimated completion time
 		if (downloadSize && xferRate) {
 			int n = downloadSize / xferRate; // estimated time for entire d/l in secs
 
-			// We do it in K (/1024) because we'd overflow around 4MB
+			// we do it in K (/1024) because we'd overflow around 4MB
 			UI_PrintTime(dlTimeBuf, sizeof dlTimeBuf, (n - (((downloadCount / 1024) * n) / (downloadSize / 1024))) * 1000);
 
 			Text_PaintCenter(leftWidth, yStart + 216, scale, colorWhite, dlTimeBuf, 0);
