@@ -133,13 +133,6 @@ static int UI_GetIndexFromSelection(int actual);
 static void UI_DrawCinematic(int handle, float x, float y, float w, float h);
 int ProcessNewUI(int command, int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
 
-/*
-=======================================================================================================================================
-vmMain
-
-This is the only way control passes into the module. This must be the very first function compiled into the .qvm file.
-=======================================================================================================================================
-*/
 vmCvar_t ui_new;
 vmCvar_t ui_debug;
 vmCvar_t ui_initialized;
@@ -155,6 +148,8 @@ qboolean _UI_IsFullscreen(void);
 /*
 =======================================================================================================================================
 vmMain
+
+This is the only way control passes into the module. This must be the very first function compiled into the .qvm file.
 =======================================================================================================================================
 */
 Q_EXPORT intptr_t vmMain(int command, int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11) {
@@ -533,7 +528,7 @@ void Text_PaintWithCursor(float x, float y, float scale, vec4_t color, const cha
 
 				yadj = useScale * glyph2->top;
 
-				if (count == cursorPos && !((uiInfo.uiDC.realTime/BLINK_DIVISOR) & 1)) {
+				if (count == cursorPos && !((uiInfo.uiDC.realTime / BLINK_DIVISOR) & 1)) {
 					Text_PaintChar(x, y - yadj, glyph2->imageWidth, glyph2->imageHeight, useScale, glyph2->s, glyph2->t, glyph2->s2, glyph2->t2, glyph2->glyph);
 				}
 
@@ -543,7 +538,7 @@ void Text_PaintWithCursor(float x, float y, float scale, vec4_t color, const cha
 			}
 		}
 		// need to paint cursor at end of text
-		if (cursorPos == len && !((uiInfo.uiDC.realTime/BLINK_DIVISOR) & 1)) {
+		if (cursorPos == len && !((uiInfo.uiDC.realTime / BLINK_DIVISOR) & 1)) {
 			yadj = useScale * glyph2->top;
 
 			Text_PaintChar(x, y - yadj, glyph2->imageWidth, glyph2->imageHeight, useScale, glyph2->s, glyph2->t, glyph2->s2, glyph2->t2, glyph2->glyph);
@@ -1438,6 +1433,7 @@ UI_DrawEffects
 =======================================================================================================================================
 */
 static void UI_DrawEffects(rectDef_t *rect, float scale, vec4_t color) {
+
 	UI_DrawHandlePic(rect->x, rect->y - 14, 128, 8, uiInfo.uiDC.Assets.fxBasePic);
 	UI_DrawHandlePic(rect->x + uiInfo.effectsColor * 16 + 8, rect->y - 16, 16, 12, uiInfo.uiDC.Assets.fxPic[uiInfo.effectsColor]);
 }
@@ -3994,6 +3990,7 @@ static void UI_RunMenuScript(char **args) {
 			trap_Cmd_ExecuteText(EXEC_APPEND, "vid_restart\n");
 		} else if (Q_stricmp(name, "getCDKey") == 0) {
 			char out[17];
+
 			trap_GetCDKey(buff, 17);
 			trap_Cvar_Set("cdkey1", "");
 			trap_Cvar_Set("cdkey2", "");
@@ -5823,9 +5820,10 @@ static qboolean MapList_Parse(char **p) {
 			//mapList[mapCount].imageName = String_Alloc(va("levelshots/%s", mapList[mapCount].mapLoadName));
 
 			//if (uiInfo.mapCount == 0) {
-				// only load the first cinematic, selection loads the others
-				//uiInfo.mapList[uiInfo.mapCount].cinematic = trap_CIN_PlayCinematic(va("%s.roq", uiInfo.mapList[uiInfo.mapCount].mapLoadName), qfalse, qfalse, qtrue, 0, 0, 0, 0);
+			//	only load the first cinematic, selection loads the others
+			//	uiInfo.mapList[uiInfo.mapCount].cinematic = trap_CIN_PlayCinematic(va("%s.roq", uiInfo.mapList[uiInfo.mapCount].mapLoadName), qfalse, qfalse, qtrue, 0, 0, 0, 0);
 			//}
+
 			uiInfo.mapList[uiInfo.mapCount].cinematic = -1;
 			uiInfo.mapList[uiInfo.mapCount].levelShot = trap_R_RegisterShaderNoMip(va("levelshots/%s_small", uiInfo.mapList[uiInfo.mapCount].mapLoadName));
 
@@ -6141,7 +6139,6 @@ void _UI_Init(qboolean inGameLoad) {
 	uiInfo.uiDC.runCinematicFrame = &UI_RunCinematicFrame;
 
 	Init_Display(&uiInfo.uiDC);
-
 	String_Init();
 
 	uiInfo.uiDC.cursor = trap_R_RegisterShaderNoMip("menu/art/3_cursor2");

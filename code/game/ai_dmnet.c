@@ -1253,6 +1253,7 @@ void AIEnter_Observer(bot_state_t *bs, char *s) {
 	BotRecordNodeSwitch(bs, "observer", "", s);
 	// reset the bot state
 	BotResetState(bs);
+
 	bs->ainode = AINode_Observer;
 }
 
@@ -1279,6 +1280,7 @@ AIEnter_Stand
 void AIEnter_Stand(bot_state_t *bs, char *s) {
 
 	BotRecordNodeSwitch(bs, "stand", "", s);
+
 	bs->standfindenemy_time = FloatTime() + 1;
 	bs->ainode = AINode_Stand;
 }

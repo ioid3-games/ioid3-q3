@@ -452,6 +452,7 @@ UI_Shutdown
 =======================================================================================================================================
 */
 void UI_Shutdown(void) {
+
 }
 
 /*
@@ -554,6 +555,7 @@ void UI_DrawTopBottom(float x, float y, float w, float h) {
 	trap_R_DrawStretchPic(x, y, w, 1, 0, 0, 0, 0, uiInfo.uiDC.whiteShader);
 	trap_R_DrawStretchPic(x, y + h - 1, w, 1, 0, 0, 0, 0, uiInfo.uiDC.whiteShader);
 }
+
 /*
 =======================================================================================================================================
 UI_DrawRect

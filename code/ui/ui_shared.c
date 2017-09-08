@@ -4440,6 +4440,7 @@ void Item_Model_Paint(itemDef_t *item) {
 	// calculate distance so the model nearly fills the box
 	if (qtrue) {
 		float len = 0.5 * (maxs[2] - mins[2]);
+
 		origin[0] = len / 0.268; // len / tan(fov / 2)
 		//origin[0] = len / tan(w / 2);
 	} else {
