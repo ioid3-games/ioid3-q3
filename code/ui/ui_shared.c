@@ -204,6 +204,11 @@ const char *String_Alloc(const char *p) {
 		}
 
 		str = UI_Alloc(sizeof(stringDef_t));
+
+		if (!str) {
+			return NULL;
+		}
+
 		str->next = NULL;
 		str->str = &strPool[ph];
 
