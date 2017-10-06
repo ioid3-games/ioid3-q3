@@ -22,9 +22,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define DF_NUMBERAASENT(x) (&aasworld.entities[x])
 #define DF_AASENTCLIENT(x) (x - aasworld.entities - 1)
 #define DF_CLIENTAASENT(x) (&aasworld.entities[x + 1])
-#ifndef MAX_PATH
-#define MAX_PATH MAX_QPATH
-#endif
 // structure to link entities to areas and areas to entities
 typedef struct aas_link_s {
 	int entnum;
@@ -151,8 +148,8 @@ typedef struct aas_s {
 	float time;
 	int numframes;
 	// name of the aas file
-	char filename[MAX_PATH];
-	char mapname[MAX_PATH];
+	char filename[MAX_QPATH];
+	char mapname[MAX_QPATH];
 	// bounding boxes
 	int numbboxes;
 	aas_bbox_t *bboxes;

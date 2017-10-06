@@ -35,9 +35,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include "chars.h"
 #include "inv.h"
 #include "syn.h"
-#ifndef MAX_PATH
-#define MAX_PATH 144
-#endif
 // bot states
 bot_state_t *botstates[MAX_CLIENTS];
 // number of bots
@@ -1283,7 +1280,7 @@ BotAISetupClient
 =======================================================================================================================================
 */
 int BotAISetupClient(int client, struct bot_settings_s *settings, qboolean restart) {
-	char filename[MAX_PATH], name[MAX_PATH], gender[MAX_PATH];
+	char filename[144], name[144], gender[144];
 	bot_state_t *bs;
 	int errnum;
 
@@ -1318,7 +1315,7 @@ int BotAISetupClient(int client, struct bot_settings_s *settings, qboolean resta
 	// allocate a goal state
 	bs->gs = trap_BotAllocGoalState(client);
 	// load the item weights
-	trap_Characteristic_String(bs->character, CHARACTERISTIC_ITEMWEIGHTS, filename, MAX_PATH);
+	trap_Characteristic_String(bs->character, CHARACTERISTIC_ITEMWEIGHTS, filename, sizeof(filename));
 	errnum = trap_BotLoadItemWeights(bs->gs, filename);
 
 	if (errnum != BLERR_NOERROR) {
@@ -1328,7 +1325,7 @@ int BotAISetupClient(int client, struct bot_settings_s *settings, qboolean resta
 	// allocate a weapon state
 	bs->ws = trap_BotAllocWeaponState();
 	// load the weapon weights
-	trap_Characteristic_String(bs->character, CHARACTERISTIC_WEAPONWEIGHTS, filename, MAX_PATH);
+	trap_Characteristic_String(bs->character, CHARACTERISTIC_WEAPONWEIGHTS, filename, sizeof(filename));
 	errnum = trap_BotLoadWeaponWeights(bs->ws, filename);
 
 	if (errnum != BLERR_NOERROR) {
@@ -1339,8 +1336,8 @@ int BotAISetupClient(int client, struct bot_settings_s *settings, qboolean resta
 	// allocate a chat state
 	bs->cs = trap_BotAllocChatState();
 	// load the chat file
-	trap_Characteristic_String(bs->character, CHARACTERISTIC_CHAT_FILE, filename, MAX_PATH);
-	trap_Characteristic_String(bs->character, CHARACTERISTIC_CHAT_NAME, name, MAX_PATH);
+	trap_Characteristic_String(bs->character, CHARACTERISTIC_CHAT_FILE, filename, sizeof(filename));
+	trap_Characteristic_String(bs->character, CHARACTERISTIC_CHAT_NAME, name, sizeof(name));
 	errnum = trap_BotLoadChatFile(bs->cs, filename, name);
 
 	if (errnum != BLERR_NOERROR) {
@@ -1350,7 +1347,7 @@ int BotAISetupClient(int client, struct bot_settings_s *settings, qboolean resta
 		return qfalse;
 	}
 	// get the gender characteristic
-	trap_Characteristic_String(bs->character, CHARACTERISTIC_GENDER, gender, MAX_PATH);
+	trap_Characteristic_String(bs->character, CHARACTERISTIC_GENDER, gender, sizeof(gender));
 	// set the chat gender
 	if (*gender == 'f' || *gender == 'F') {
 		trap_BotSetChatGender(bs->cs, CHAT_GENDERFEMALE);

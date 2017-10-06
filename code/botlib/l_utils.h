@@ -20,8 +20,5 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 **************************************************************************************************************************************/
 
 #define Vector2Angles(v, a) vectoangles(v, a)
-#ifndef MAX_PATH
-#define MAX_PATH MAX_QPATH
-#endif
 #define Maximum(x, y) (x > y ? x : y)
 #define Minimum(x, y) (x < y ? x : y)

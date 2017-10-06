@@ -953,7 +953,7 @@ PC_Directive_include
 int PC_Directive_include(source_t *source) {
 	script_t *script;
 	token_t token;
-	char path[MAX_PATH];
+	char path[MAX_QPATH];
 #ifdef QUAKE
 	foundfile_t file;
 #endif // QUAKE
