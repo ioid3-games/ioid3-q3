@@ -1910,6 +1910,7 @@ void CG_LoadHudMenu(void) {
 	Menu_Reset();
 
 	trap_Cvar_VariableStringBuffer("cg_hudFiles", buff, sizeof(buff));
+
 	hudSet = buff;
 
 	if (hudSet[0] == '\0') {
@@ -1932,6 +1933,7 @@ void CG_AssetCache(void) {
 
 	//Assets.background = trap_R_RegisterShaderNoMip(ASSET_BACKGROUND);
 	//Com_Printf("Menu Size: %i bytes\n", sizeof(Menus));
+
 	cgDC.Assets.gradientBar = trap_R_RegisterShaderNoMip(ASSET_GRADIENTBAR);
 	cgDC.Assets.fxBasePic = trap_R_RegisterShaderNoMip(ART_FX_BASE);
 	cgDC.Assets.fxPic[0] = trap_R_RegisterShaderNoMip(ART_FX_RED);
@@ -2030,7 +2032,7 @@ void CG_Init(int serverMessageNum, int serverCommandSequence, int clientNum) {
 	CG_InitMarkPolys();
 	// remove the last loading update
 	cg.infoScreenText[0] = 0;
-	// Make sure we have update values (scores)
+	// make sure we have update values (scores)
 	CG_SetConfigValues();
 	CG_StartMusic();
 	CG_LoadingString("");

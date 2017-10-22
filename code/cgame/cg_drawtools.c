@@ -116,7 +116,6 @@ Coordinates are 640 * 480 virtual values.
 void CG_DrawPic(float x, float y, float width, float height, qhandle_t hShader) {
 
 	CG_AdjustFrom640(&x, &y, &width, &height);
-
 	trap_R_DrawStretchPic(x, y, width, height, 0, 0, 1, 1, hShader);
 }
 
@@ -143,6 +142,7 @@ void CG_DrawChar(int x, int y, int width, int height, int ch) {
 	ay = y;
 	aw = width;
 	ah = height;
+
 	CG_AdjustFrom640(&ax, &ay, &aw, &ah);
 
 	row = ch >> 4;

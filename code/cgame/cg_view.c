@@ -383,10 +383,9 @@ static void CG_OffsetFirstPersonView(void) {
 
 	delta = DotProduct(predictedVelocity, cg.refdef.viewaxis[1]);
 	angles[ROLL] -= delta * cg_runroll.value;
-	// add angles based on bob
-
-	// make sure the bob is visible even at low speeds
+	// add angles based on bob, make sure the bob is visible even at low speeds
 	speed = cg.xyspeed > 200 ? cg.xyspeed : 200;
+	// pitch
 	delta = cg.bobfracsin * cg_bobpitch.value * speed;
 
 	if (cg.predictedPlayerState.pm_flags & PMF_DUCKED) {
@@ -394,6 +393,7 @@ static void CG_OffsetFirstPersonView(void) {
 	}
 
 	angles[PITCH] += delta;
+	// roll
 	delta = cg.bobfracsin * cg_bobroll.value * speed;
 
 	if (cg.predictedPlayerState.pm_flags & PMF_DUCKED) {
@@ -441,6 +441,7 @@ static void CG_OffsetFirstPersonView(void) {
 		vec3_t forward, up;
 
 		cg.refdef.vieworg[2] -= NECK_LENGTH;
+
 		AngleVectors(cg.refdefViewAngles, forward, NULL, up);
 		VectorMA(cg.refdef.vieworg, 3, forward, cg.refdef.vieworg);
 		VectorMA(cg.refdef.vieworg, NECK_LENGTH, up, cg.refdef.vieworg);

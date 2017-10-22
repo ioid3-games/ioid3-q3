@@ -353,7 +353,7 @@ void AAS_DData(unsigned char *data, int size) {
 	int i;
 
 	for (i = 0; i < size; i++) {
-		data[i] ^= (unsigned char) i * 119;
+		data[i] ^= (unsigned char)i * 119;
 	}
 }
 

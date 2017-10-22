@@ -143,6 +143,7 @@ void CG_Text_PaintChar(float x, float y, float width, float height, float scale,
 
 	w = width * scale;
 	h = height * scale;
+
 	CG_AdjustFrom640(&x, &y, &w, &h);
 	trap_R_DrawStretchPic(x, y, w, h, s, t, s2, t2, hShader);
 }
@@ -692,7 +693,6 @@ static float CG_DrawAttacker(float y) {
 
 	info = CG_ConfigString(CS_PLAYERS + clientNum);
 	name = Info_ValueForKey(info, "n");
-
 	y += size;
 
 	CG_DrawBigString(640 - (Q_PrintStrlen(name) * BIGCHAR_WIDTH), y, name, 0.5);
@@ -755,6 +755,7 @@ static float CG_DrawFPS(float y) {
 		fps = 1000 * FPS_FRAMES / total;
 		s = va("%ifps", fps);
 		w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
+
 		CG_DrawBigString(635 - w, y + 2, s, 1.0F);
 	}
 
@@ -905,6 +906,7 @@ static float CG_DrawTeamOverlay(float y, qboolean right, qboolean upper) {
 				}
 
 				xx = x + TINYCHAR_WIDTH * 2 + TINYCHAR_WIDTH * pwidth;
+
 				CG_DrawStringExt(xx, y, p, hcolor, qfalse, qfalse, TINYCHAR_WIDTH, TINYCHAR_HEIGHT, TEAM_OVERLAY_MAXLOCATION_WIDTH);
 			}
 
@@ -1795,6 +1797,7 @@ static void CG_DrawCenterString(void) {
 		w = CG_Text_Width(linebuffer, 0.5, 0);
 		h = CG_Text_Height(linebuffer, 0.5, 0);
 		x = (SCREEN_WIDTH - w) / 2;
+
 		CG_Text_Paint(x, y + h, 0.5, color, linebuffer, 0, 0, ITEM_TEXTSTYLE_SHADOWEDMORE);
 
 		y += h + 6;
@@ -1936,6 +1939,7 @@ static void CG_DrawCrosshair3D(void) {
 	// high stereo separation. We are going to trace to the next shootable object and place the crosshair in front of it.
 	// first get all the important renderer information
 	trap_Cvar_VariableStringBuffer("r_zProj", rendererinfos, sizeof(rendererinfos));
+
 	zProj = atof(rendererinfos);
 
 	trap_Cvar_VariableStringBuffer("r_stereoSeparation", rendererinfos, sizeof(rendererinfos));
@@ -2459,6 +2463,7 @@ static void CG_DrawWarmup(void) {
 	}
 
 	w = CG_DrawStrlen(s);
+
 	CG_DrawStringExt(320 - w * cw / 2, 70, s, colorWhite, qfalse, qtrue, cw, (int)(cw * 1.5), 0);
 #endif
 }
