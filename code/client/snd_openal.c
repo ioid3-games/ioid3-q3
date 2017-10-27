@@ -1491,6 +1491,7 @@ static void S_AL_AllocateStreamChannel(int stream, int entityNum) {
 		}
 
 		S_AL_SrcSetup(cursrc, -1, SRCPRI_ENTITY, entityNum, 0, qfalse);
+
 		alsrc = S_AL_SrcGet(cursrc);
 		srcList[cursrc].isTracking = qtrue;
 		srcList[cursrc].isStream = qtrue;
@@ -1920,6 +1921,7 @@ static void S_AL_MusicUpdate(void) {
 
 	while (numBuffers--) {
 		ALuint b;
+
 		qalSourceUnqueueBuffers(musicSource, 1, &b);
 		S_AL_MusicProcess(b);
 		qalSourceQueueBuffers(musicSource, 1, &b);
@@ -1994,6 +1996,7 @@ static void S_AL_Respatialize(int entityNum, const vec3_t origin, vec3_t axis[3]
 	orientation[5] = axis[2][2];
 
 	lastListenerNumber = entityNum;
+
 	VectorCopy(sorigin, lastListenerOrigin);
 	// set OpenAL listener parameters
 	qalListenerfv(AL_POSITION, (ALfloat *)sorigin);

@@ -55,8 +55,7 @@ static vec3_t listener_axis[3];
 
 int s_soundtime; // sample PAIRS
 int s_paintedtime; // sample PAIRS
-// MAX_SFX may be larger than MAX_SOUNDS because
-// of custom player sounds
+// MAX_SFX may be larger than MAX_SOUNDS because of custom player sounds
 #define MAX_SFX 4096
 sfx_t s_knownSfx[MAX_SFX];
 int s_numSfx = 0;
@@ -474,8 +473,8 @@ void S_SpatializeOrigin(vec3_t origin, int master_vol, int *left_vol, int *right
 	vec_t lscale, rscale, scale;
 	vec3_t source_vec;
 	vec3_t vec;
-
 	const float dist_mult = SOUND_ATTENUATE;
+
 	// calculate stereo separation and distance attenuation
 	VectorSubtract(origin, listener_origin, source_vec);
 
@@ -1430,6 +1429,7 @@ void S_Base_StopBackgroundTrack(void) {
 	}
 
 	S_CodecCloseStream(s_backgroundStream);
+
 	s_backgroundStream = NULL;
 	s_rawend[0] = 0;
 }
