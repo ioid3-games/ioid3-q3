@@ -45,6 +45,10 @@ void CG_CheckAmmo(void) {
 			continue;
 		}
 
+		if (cg.snap->ps.ammo[i] < 0) {
+			continue;
+		}
+
 		switch (i) {
 			case WP_ROCKET_LAUNCHER:
 			case WP_GRENADE_LAUNCHER:
