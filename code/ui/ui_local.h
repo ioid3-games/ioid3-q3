@@ -220,8 +220,8 @@ typedef struct {
 	const char **itemnames;
 	int width;
 	int height;
-	int columns;
-	int seperation;
+	int	columns;
+	int	separation;
 } menulist_s;
 
 typedef struct {

@@ -5354,7 +5354,7 @@ void BotCheckEvents(bot_state_t *bs, entityState_t *state) {
 			*/
 #ifdef MISSIONPACK
 			if (!strcmp(buf, "sound/items/kamikazerespawn.wav")) {
-				// the kamikaze respawned so dont avoid it
+				// the kamikaze respawned so don't avoid it
 				BotDontAvoid(bs, "Kamikaze");
 			} else
 #endif
