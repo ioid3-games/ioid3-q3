@@ -288,7 +288,6 @@ char *G_NewString(const char *string) {
 	int i, l;
 
 	l = strlen(string) + 1;
-
 	newb = G_Alloc(l);
 	new_p = newb;
 	// turn \n into a real linefeed
@@ -574,7 +573,7 @@ void SP_worldspawn(void) {
 	if (g_restarted.integer) {
 		trap_Cvar_Set("g_restarted", "0");
 		level.warmupTime = 0;
-	} else if (g_doWarmup.integer) { // Turn it on
+	} else if (g_doWarmup.integer) { // turn it on
 		level.warmupTime = -1;
 		trap_SetConfigstring(CS_WARMUP, va("%i", level.warmupTime));
 		G_LogPrintf("Warmup:\n");

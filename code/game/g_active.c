@@ -1137,7 +1137,7 @@ void ClientEndFrame(gentity_t *ent) {
 		VectorClear(ent->client->ps.viewangles);
 	}
 #endif
-	// If the end of unit layout is displayed, don't give the player any normal movement attributes
+	// if the end of unit layout is displayed, don't give the player any normal movement attributes
 	if (level.intermissiontime) {
 		return;
 	}

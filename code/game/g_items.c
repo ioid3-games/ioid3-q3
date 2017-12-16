@@ -547,8 +547,8 @@ void Touch_Item(gentity_t *ent, gentity_t *other, trace_t *trace) {
 	ent->r.svFlags |= SVF_NOCLIENT;
 	ent->s.eFlags |= EF_NODRAW;
 	ent->r.contents = 0;
-	// A negative respawn times means to never respawn this item (but don't delete it).
-	// This is used by items that are respawned by third party events such as ctf flags
+	// a negative respawn times means to never respawn this item (but don't delete it).
+	// this is used by items that are respawned by third party events such as ctf flags
 	if (respawn <= 0) {
 		ent->nextthink = 0;
 		ent->think = 0;
@@ -709,7 +709,6 @@ void FinishSpawningItem(gentity_t *ent) {
 }
 
 qboolean itemRegistered[MAX_ITEMS];
-
 /*
 =======================================================================================================================================
 G_CheckTeamItems
@@ -895,7 +894,6 @@ void G_SpawnItem(gentity_t *ent, gitem_t *item) {
 
 	G_SpawnFloat("random", "0", &ent->random);
 	G_SpawnFloat("wait", "0", &ent->wait);
-
 	RegisterItem(item);
 
 	if (G_ItemDisabled(item)) {

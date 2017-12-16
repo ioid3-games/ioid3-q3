@@ -129,7 +129,6 @@ void SP_misc_model(gentity_t *ent) {
 
 	VectorSet(ent->mins, -16, -16, -16);
 	VectorSet(ent->maxs, 16, 16, 16);
-
 	trap_LinkEntity(ent);
 	G_SetOrigin(ent, ent->s.origin);
 	VectorCopy(ent->s.angles, ent->s.apos.trBase);
@@ -253,11 +252,12 @@ void Use_Shooter(gentity_t *ent, gentity_t *other, gentity_t *activator) {
 	CrossProduct(up, dir, right);
 
 	deg = crandom() * ent->random;
+
 	VectorMA(dir, deg, up, dir);
 
 	deg = crandom() * ent->random;
-	VectorMA(dir, deg, right, dir);
 
+	VectorMA(dir, deg, right, dir);
 	VectorNormalize(dir);
 
 	switch (ent->s.weapon) {
@@ -364,7 +364,6 @@ void DropPortalDestination(gentity_t *player) {
 	VectorCopy(player->s.pos.trBase, snapped);
 	SnapVector(snapped);
 	G_SetOrigin(ent, snapped);
-
 	VectorCopy(player->r.mins, ent->r.mins);
 	VectorCopy(player->r.maxs, ent->r.maxs);
 

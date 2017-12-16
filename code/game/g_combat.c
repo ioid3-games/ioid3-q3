@@ -530,7 +530,7 @@ void PlayerDie(gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int d
 	} else {
 		AddScore(self, self->r.currentOrigin, -1);
 	}
-	// Add team bonuses
+	// add team bonuses
 	Team_FragBonuses(self, inflictor, attacker);
 	// if I committed suicide, the flag does not fall, it returns.
 	if (meansOfDeath == MOD_SUICIDE) {
@@ -672,7 +672,6 @@ int CheckArmor(gentity_t *ent, int damage, int dflags) {
 	}
 
 	client->ps.stats[STAT_ARMOR] -= save;
-
 	return save;
 }
 
@@ -684,10 +683,10 @@ RaySphereIntersections
 int RaySphereIntersections(vec3_t origin, float radius, vec3_t point, vec3_t dir, vec3_t intersections[2]) {
 	float b, c, d, t;
 
-	//	| origin - (point + t * dir) |= radius
-	//	a = dir[0] ^ 2 + dir[1] ^ 2 + dir[2] ^ 2;
-	//	b = 2 * (dir[0] * (point[0] - origin[0]) + dir[1] * (point[1] - origin[1]) + dir[2] * (point[2] - origin[2]));
-	//	c = (point[0] - origin[0]) ^ 2 + (point[1] - origin[1]) ^ 2 + (point[2] - origin[2]) ^ 2 - radius ^ 2;
+	// | origin - (point + t * dir) |= radius
+	// a = dir[0] ^ 2 + dir[1] ^ 2 + dir[2] ^ 2;
+	// b = 2 * (dir[0] * (point[0] - origin[0]) + dir[1] * (point[1] - origin[1]) + dir[2] * (point[2] - origin[2]));
+	// c = (point[0] - origin[0]) ^ 2 + (point[1] - origin[1]) ^ 2 + (point[2] - origin[2]) ^ 2 - radius ^ 2;
 	// normalize dir so a = 1
 	VectorNormalize(dir);
 
@@ -1188,6 +1187,7 @@ qboolean G_RadiusDamage(vec3_t origin, gentity_t *attacker, float damage, float 
 			VectorSubtract(ent->r.currentOrigin, origin, dir);
 			// push the center of mass higher than the origin so players get knocked into the air more
 			dir[2] += 24;
+
 			G_Damage(ent, NULL, attacker, dir, origin, (int)points, DAMAGE_RADIUS, mod);
 		}
 	}

@@ -3276,6 +3276,7 @@ Display_VisibleMenuCount
 */
 int Display_VisibleMenuCount(void) {
 	int i, count;
+
 	count = 0;
 
 	for (i = 0; i < menuCount; i++) {
@@ -3804,7 +3805,6 @@ void Item_Text_Paint(itemDef_t *item) {
 	}
 
 	Item_TextColor(item, &color);
-
 	// FIXME: this is a fucking mess
 /*
 	adjust = 0;
@@ -3836,14 +3836,14 @@ void Item_Text_Paint(itemDef_t *item) {
 	DC->drawText(item->textRect.x, item->textRect.y, item->textscale, color, textPtr, 0, 0, item->textStyle);
 }
 
+//float trap_Cvar_VariableValue(const char *var_name);
+//void trap_Cvar_VariableStringBuffer(const char *var_name, char *buffer, int bufsize);
+
 /*
 =======================================================================================================================================
 Item_TextField_Paint
 =======================================================================================================================================
 */
-//float trap_Cvar_VariableValue(const char *var_name);
-//void trap_Cvar_VariableStringBuffer(const char *var_name, char *buffer, int bufsize);
-
 void Item_TextField_Paint(itemDef_t *item) {
 	char buff[1024];
 	vec4_t newColor, lowLight;

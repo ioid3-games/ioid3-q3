@@ -538,7 +538,6 @@ static void PM_WaterMove(void) {
 		vel = VectorLength(pm->ps->velocity);
 		// slide along the ground plane
 		PM_ClipVelocity(pm->ps->velocity, pml.groundTrace.plane.normal, pm->ps->velocity, OVERCLIP);
-
 		VectorNormalize(pm->ps->velocity);
 		VectorScale(pm->ps->velocity, vel, pm->ps->velocity);
 	}
@@ -618,7 +617,6 @@ static void PM_AirMove(void) {
 
 	fmove = pm->cmd.forwardmove;
 	smove = pm->cmd.rightmove;
-
 	cmd = pm->cmd;
 	scale = PM_CmdScale(&cmd);
 	// set the movementDir so clients can rotate the legs for strafing
@@ -793,7 +791,6 @@ static void PM_WalkMove(void) {
 	}
 
 	PM_StepSlideMove(qfalse);
-
 	//Com_Printf("velocity2 = %1.1f\n", VectorLength(pm->ps->velocity));
 }
 
@@ -923,7 +920,6 @@ static void PM_CrashLand(void) {
 	dist = pm->ps->origin[2] - pml.previous_origin[2];
 	vel = pml.previous_velocity[2];
 	acc = -pm->ps->gravity;
-
 	a = acc / 2;
 	b = vel;
 	c = -dist;
@@ -1190,7 +1186,6 @@ static void PM_SetWaterLevel(void) {
 	if (cont & MASK_WATER) {
 		sample2 = pm->ps->viewheight - MINS_Z;
 		sample1 = sample2 / 2;
-
 		pm->watertype = cont;
 		pm->waterlevel = 1;
 		point[2] = pm->ps->origin[2] + MINS_Z + sample1;
@@ -1237,10 +1232,8 @@ static void PM_CheckDuck(void) {
 
 	pm->mins[0] = -15;
 	pm->mins[1] = -15;
-
 	pm->maxs[0] = 15;
 	pm->maxs[1] = 15;
-
 	pm->mins[2] = MINS_Z;
 
 	if (pm->ps->pm_type == PM_DEAD) {
@@ -1823,7 +1816,6 @@ void PmoveSingle(pmove_t *pmove) {
 	pml.frametime = pml.msec * 0.001;
 	// update the viewangles
 	PM_UpdateViewAngles(pm->ps, &pm->cmd);
-
 	AngleVectors(pm->ps->viewangles, pml.forward, pml.right, pml.up);
 
 	if (pm->cmd.upmove < 10) {

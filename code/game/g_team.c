@@ -786,7 +786,6 @@ int Team_TouchOurFlag(gentity_t *ent, gentity_t *other, int team) {
 	other->client->ps.persistant[PERS_CAPTURES]++;
 	// other gets another 10 frag bonus
 	AddScore(other, ent->r.currentOrigin, CTF_CAPTURE_BONUS);
-
 	Team_CaptureFlagSound(ent, team);
 	// ok, let's do the player loop, hand out the bonuses
 	for (i = 0; i < g_maxclients.integer; i++) {
@@ -999,6 +998,7 @@ qboolean Team_GetLocationMsg(gentity_t *ent, char *loc, int loclen) {
 	return qtrue;
 }
 
+#define MAX_TEAM_SPAWN_POINTS 32
 /*
 =======================================================================================================================================
 SelectRandomTeamSpawnPoint
@@ -1006,7 +1006,6 @@ SelectRandomTeamSpawnPoint
 Go to a random point that doesn't telefrag.
 =======================================================================================================================================
 */
-#define MAX_TEAM_SPAWN_POINTS 32
 gentity_t *SelectRandomTeamSpawnPoint(int teamstate, team_t team) {
 	gentity_t *spot;
 	int count;
@@ -1070,7 +1069,9 @@ gentity_t *SelectCTFSpawnPoint(team_t team, int teamstate, vec3_t origin, vec3_t
 	}
 
 	VectorCopy(spot->s.origin, origin);
+
 	origin[2] += 9;
+
 	VectorCopy(spot->s.angles, angles);
 
 	return spot;
@@ -1159,6 +1160,7 @@ void TeamplayInfoMessage(gentity_t *ent) {
 			}
 
 			strcpy(string + stringlength, entry);
+
 			stringlength += j;
 			cnt++;
 		}
