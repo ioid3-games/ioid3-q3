@@ -187,8 +187,10 @@ void CG_Text_Paint(float x, float y, float scale, vec4_t color, const char *text
 			glyph = &font->glyphs[*s & 255];
 			//int yadj = Assets.textFont.glyphs[text[i]].bottom + Assets.textFont.glyphs[text[i]].top;
 			//float yadj = scale * (Assets.textFont.glyphs[text[i]].imageHeight - Assets.textFont.glyphs[text[i]].height);
+
 			if (Q_IsColorString(s)) {
 				memcpy(newColor, g_color_table[ColorIndex(*(s + 1))], sizeof(newColor));
+
 				newColor[3] = color[3];
 				trap_R_SetColor(newColor);
 				s += 2;
@@ -277,12 +279,13 @@ static void CG_DrawField(int x, int y, int width, int value) {
 		}
 
 		CG_DrawPic(x, y, CHAR_WIDTH, CHAR_HEIGHT, cgs.media.numberShaders[frame]);
+
 		x += CHAR_WIDTH;
 		ptr++;
 		l--;
 	}
 }
-#endif // MISSIONPACK
+#endif
 /*
 =======================================================================================================================================
 CG_Draw3DModel
@@ -357,7 +360,6 @@ void CG_DrawHead(float x, float y, float w, float h, int clientNum, vec3_t headA
 		origin[0] = len / 0.268; // len / tan(fov / 2)
 		// allow per-model tweaking
 		VectorAdd(origin, ci->headOffset, origin);
-
 		CG_Draw3DModel(x, y, w, h, ci->headModel, ci->headSkin, origin, headAngles);
 	} else if (cg_drawIcons.integer) {
 		CG_DrawPic(x, y, w, h, ci->modelIcon);
@@ -484,7 +486,7 @@ CG_DrawStatusBarFlag
 static void CG_DrawStatusBarFlag(float x, int team) {
 	CG_DrawFlagModel(x, 480 - ICON_SIZE, ICON_SIZE, ICON_SIZE, team, qfalse);
 }
-#endif // MISSIONPACK
+#endif
 /*
 =======================================================================================================================================
 CG_DrawTeamBackground
@@ -779,9 +781,9 @@ static float CG_DrawTimer(float y) {
 	seconds -= mins * 60;
 	tens = seconds / 10;
 	seconds -= tens * 10;
-
 	s = va("%i:%i%i", mins, tens, seconds);
 	w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
+
 	CG_DrawBigString(635 - w, y + 2, s, 1.0F);
 
 	return y + BIGCHAR_HEIGHT + 4;
@@ -1157,6 +1159,7 @@ static float CG_DrawScores(float y) {
 			s = va("%2i", cgs.fraglimit);
 			w = CG_DrawStrlen(s) * BIGCHAR_WIDTH + 8;
 			x -= w;
+
 			CG_DrawBigString(x + 4, y, s, 1.0F);
 		}
 	}
@@ -1260,7 +1263,6 @@ static float CG_DrawPowerups(float y) {
 	}
 
 	trap_R_SetColor(NULL);
-
 	return y;
 }
 
@@ -1573,6 +1575,7 @@ static void CG_DrawDisconnect(void) {
 
 	// draw the phone jack if we are completely past our buffers
 	cmdNum = trap_GetCurrentCmdNumber() - CMD_BACKUP + 1;
+
 	trap_GetUserCmd(cmdNum, &cmd);
 
 	if (cmd.serverTime <= cg.snap->ps.commandTime || cmd.serverTime > cg.time) { // special check for map_restart
@@ -2033,9 +2036,11 @@ static void CG_DrawCrosshairNames(void) {
 #ifdef MISSIONPACK
 	color[3] *= 0.5f;
 	w = CG_Text_Width(name, 0.3f, 0);
+
 	CG_Text_Paint(320 - w / 2, 190, 0.3f, color, name, 0, 0, ITEM_TEXTSTYLE_SHADOWED);
 #else
 	w = CG_DrawStrlen(name) * BIGCHAR_WIDTH;
+
 	CG_DrawBigString(320 - w / 2, 170, name, color[3] * 0.5f);
 #endif
 	trap_R_SetColor(NULL);
@@ -2082,12 +2087,15 @@ static void CG_DrawVote(void) {
 	}
 #ifdef MISSIONPACK
 	s = va("VOTE(%i):%s yes:%i no:%i", sec, cgs.voteString, cgs.voteYes, cgs.voteNo);
+
 	CG_DrawSmallString(0, 58, s, 1.0F);
 
 	s = "or press ESC then click Vote";
+
 	CG_DrawSmallString(0, 58 + SMALLCHAR_HEIGHT + 2, s, 1.0F);
 #else
 	s = va("VOTE(%i):%s yes:%i no:%i", sec, cgs.voteString, cgs.voteYes, cgs.voteNo);
+
 	CG_DrawSmallString(0, 58, s, 1.0F);
 #endif
 }
@@ -2125,6 +2133,7 @@ static void CG_DrawTeamVote(void) {
 	}
 
 	s = va("TEAMVOTE(%i):%s yes:%i no:%i", sec, cgs.teamVoteString[cs_offset], cgs.teamVoteYes[cs_offset], cgs.teamVoteNo[cs_offset]);
+
 	CG_DrawSmallString(0, 90, s, 1.0F);
 }
 
@@ -2270,6 +2279,7 @@ static void CG_DrawAmmoWarning(void) {
 	}
 
 	w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
+
 	CG_DrawBigString(320 - w / 2, 64, s, 1.0F);
 }
 #ifdef MISSIONPACK
@@ -2302,6 +2312,7 @@ static void CG_DrawProxWarning(void) {
 	}
 
 	w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
+
 	CG_DrawBigStringColor(320 - w / 2, 64 + BIGCHAR_HEIGHT, s, g_color_table[ColorIndex(COLOR_RED)]);
 }
 #endif

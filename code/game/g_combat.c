@@ -514,8 +514,7 @@ void PlayerDie(gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int d
 				// also play humiliation on target
 				self->client->ps.persistant[PERS_PLAYEREVENTS] ^= PLAYEREVENT_GAUNTLETREWARD;
 			}
-			// check for two kills in a short amount of time
-			// if this is close enough to the last kill, give a reward sound
+			// check for two kills in a short amount of time, if this is close enough to the last kill, give a reward sound
 			if (level.time - attacker->client->lastKillTime < CARNAGE_REWARD_TIME) {
 				// play excellent on player
 				attacker->client->ps.persistant[PERS_EXCELLENT_COUNT]++;
@@ -976,7 +975,7 @@ void G_Damage(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, vec3_t
 			client->damage_fromWorld = qtrue;
 		}
 	}
-	// See if it's the player hurting the emeny flag carrier
+	// see if it's the player hurting the emeny flag carrier
 #ifdef MISSIONPACK
 	if (g_gametype.integer == GT_CTF || g_gametype.integer == GT_1FCTF) {
 #else

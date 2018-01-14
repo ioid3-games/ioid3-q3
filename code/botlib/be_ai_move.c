@@ -1217,7 +1217,6 @@ int BotSwimInDirection(bot_movestate_t *ms, vec3_t dir, float speed, int type) {
 
 	VectorCopy(dir, normdir);
 	VectorNormalize(normdir);
-
 	EA_Move(ms->client, normdir, speed);
 	return qtrue;
 }
@@ -1381,7 +1380,6 @@ int Intersection(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4, vec2_t out) {
 	dy1 = p2[1] - p1[1];
 	dx2 = p4[0] - p3[0];
 	dy2 = p4[1] - p3[1];
-
 	d = dy1 * dx2 - dx1 * dy2;
 
 	if (d != 0) {
@@ -2429,7 +2427,6 @@ void BotFuncBobStartEnd(aas_reachability_t *reach, vec3_t start, vec3_t end, vec
 	}
 
 	AAS_BSPModelMinsMaxsOrigin(modelnum, angles, mins, maxs, NULL);
-
 	VectorAdd(mins, maxs, mid);
 	VectorScale(mid, 0.5, mid);
 	VectorCopy(mid, start);
@@ -3004,6 +3001,7 @@ bot_moveresult_t BotTravel_BFGJump(bot_movestate_t *ms, aas_reachability_t *reac
 		hordir[0] = reach->end[0] - ms->origin[0];
 		hordir[1] = reach->end[1] - ms->origin[1];
 		hordir[2] = 0;
+
 		VectorNormalize(hordir);
 		// elementary action jump
 		EA_Jump(ms->client);

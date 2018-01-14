@@ -113,10 +113,9 @@ static qboolean CG_ParseAnimationFile(const char *filename, clientInfo_t *ci) {
 	text_p = text;
 	skip = 0; // quite the compiler warning
 
-	ci->footsteps = FOOTSTEP_NORMAL;
-
 	VectorClear(ci->headOffset);
 
+	ci->footsteps = FOOTSTEP_NORMAL;
 	ci->gender = GENDER_MALE;
 	ci->fixedlegs = qfalse;
 	ci->fixedtorso = qfalse;
@@ -867,6 +866,7 @@ static void CG_SetDeferredClientInfo(int clientNum, clientInfo_t *ci) {
 			}
 
 			ci->deferred = qtrue;
+
 			CG_CopyClientInfoModel(match, ci);
 			return;
 		}
@@ -889,7 +889,6 @@ static void CG_SetDeferredClientInfo(int clientNum, clientInfo_t *ci) {
 	}
 	// we should never get here...
 	CG_Printf("CG_SetDeferredClientInfo: no valid clients!\n");
-
 	CG_LoadClientInfo(clientNum, ci);
 }
 
@@ -1605,7 +1604,9 @@ static void CG_DustTrail(centity_t *cent) {
 	}
 
 	VectorCopy(cent->currentState.pos.trBase, end);
+
 	end[2] -= 64;
+
 	CG_Trace(&tr, cent->currentState.pos.trBase, NULL, NULL, end, cent->currentState.number, MASK_PLAYERSOLID);
 
 	if (!(tr.surfaceFlags & SURF_DUST)) {
@@ -1613,6 +1614,7 @@ static void CG_DustTrail(centity_t *cent) {
 	}
 
 	VectorCopy(cent->currentState.pos.trBase, end);
+
 	end[2] -= 16;
 
 	VectorSet(vel, 0, 0, -30);
@@ -1662,9 +1664,12 @@ static void CG_PlayerFlag(centity_t *cent, qhandle_t hSkin, refEntity_t *torso) 
 	memset(&pole, 0, sizeof(pole));
 
 	pole.hModel = cgs.media.flagPoleModel;
+
 	VectorCopy(torso->lightingOrigin, pole.lightingOrigin);
+
 	pole.shadowPlane = torso->shadowPlane;
 	pole.renderfx = torso->renderfx;
+
 	CG_PositionEntityOnTag(&pole, torso, torso->hModel, "tag_flag");
 	trap_R_AddRefEntityToScene(&pole);
 	// show the flag model
@@ -1672,7 +1677,9 @@ static void CG_PlayerFlag(centity_t *cent, qhandle_t hSkin, refEntity_t *torso) 
 
 	flag.hModel = cgs.media.flagFlapModel;
 	flag.customSkin = hSkin;
+
 	VectorCopy(torso->lightingOrigin, flag.lightingOrigin);
+
 	flag.shadowPlane = torso->shadowPlane;
 	flag.renderfx = torso->renderfx;
 
@@ -1831,14 +1838,17 @@ static void CG_PlayerTokens(centity_t *cent, int renderfx) {
 
 	for (i = 0; i < trail->numpositions; i++) {
 		VectorSubtract(origin, trail->positions[i], ent.axis[0]);
+
 		ent.axis[0][2] = 0;
+
 		VectorNormalize(ent.axis[0]);
 		VectorSet(ent.axis[2], 0, 0, 1);
 		CrossProduct(ent.axis[0], ent.axis[2], ent.axis[1]);
-
 		VectorCopy(trail->positions[i], ent.origin);
+
 		angle = (((cg.time + 500 * MAX_SKULLTRAIL - 500 * i) / 16) & 255) * (M_PI * 2) / 255;
 		ent.origin[2] += sin(angle) * 10;
+
 		trap_R_AddRefEntityToScene(&ent);
 		VectorCopy(trail->positions[i], origin);
 	}
@@ -1934,6 +1944,7 @@ static void CG_PlayerFloatSprite(centity_t *cent, qhandle_t shader) {
 	ent.shaderRGBA[1] = 255;
 	ent.shaderRGBA[2] = 255;
 	ent.shaderRGBA[3] = 255;
+
 	trap_R_AddRefEntityToScene(&ent);
 }
 
@@ -2063,6 +2074,7 @@ static void CG_PlayerSplash(centity_t *cent) {
 	}
 
 	VectorCopy(cent->lerpOrigin, end);
+
 	end[2] -= 24;
 	// if the feet aren't in liquid, don't make a mark
 	// this won't handle moving water brushes, but they wouldn't draw right anyway...
@@ -2073,6 +2085,7 @@ static void CG_PlayerSplash(centity_t *cent) {
 	}
 
 	VectorCopy(cent->lerpOrigin, start);
+
 	start[2] += 32;
 	// if the head isn't out of liquid, don't make a mark
 	contents = CG_PointContents(start, 0);
@@ -2317,7 +2330,6 @@ void CG_Player(centity_t *cent) {
 	legs.renderfx = renderfx;
 
 	VectorCopy(legs.origin, legs.oldorigin); // don't positionally lerp at all
-
 	CG_AddRefEntityWithPowerups(&legs, &cent->currentState, ci->team);
 	// if the model failed, allow the default nullmodel to be displayed
 	if (!legs.hModel) {
@@ -2333,7 +2345,6 @@ void CG_Player(centity_t *cent) {
 	torso.customSkin = ci->torsoSkin;
 
 	VectorCopy(cent->lerpOrigin, torso.lightingOrigin);
-
 	CG_PositionRotatedEntityOnTag(&torso, &legs, ci->legsModel, "tag_torso");
 
 	torso.shadowPlane = shadowPlane;

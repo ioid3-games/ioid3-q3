@@ -279,7 +279,6 @@ void CG_AddFragment(localEntity_t *le) {
 	CG_FragmentBounceSound(le, &trace);
 	// reflect the velocity on the trace plane
 	CG_ReflectVelocity(le, &trace);
-
 	trap_R_AddRefEntityToScene(&le->refEntity);
 }
 
@@ -608,6 +607,7 @@ void CG_AddKamikaze(localEntity_t *le) {
 		AnglesToAxis(test, axis);
 
 		c = (float)(t - KAMI_SHOCKWAVE2_STARTTIME) / (float)(KAMI_SHOCKWAVE2_ENDTIME - KAMI_SHOCKWAVE2_STARTTIME);
+
 		VectorScale(axis[0], c * KAMI_SHOCKWAVE2_MAXRADIUS / KAMI_SHOCKWAVEMODEL_RADIUS, shockwave.axis[0]);
 		VectorScale(axis[1], c * KAMI_SHOCKWAVE2_MAXRADIUS / KAMI_SHOCKWAVEMODEL_RADIUS, shockwave.axis[1]);
 		VectorScale(axis[2], c * KAMI_SHOCKWAVE2_MAXRADIUS / KAMI_SHOCKWAVEMODEL_RADIUS, shockwave.axis[2]);

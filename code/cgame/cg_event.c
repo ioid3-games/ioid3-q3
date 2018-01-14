@@ -435,7 +435,6 @@ int CG_WaterLevel(centity_t *cent) {
 	point[0] = cent->lerpOrigin[0];
 	point[1] = cent->lerpOrigin[1];
 	point[2] = cent->lerpOrigin[2] + MINS_Z + 1;
-
 	contents = CG_PointContents(point, -1);
 
 	if (contents & MASK_WATER) {
@@ -473,7 +472,7 @@ void CG_PainEvent(centity_t *cent, int health) {
 	if (cg.time - cent->pe.painTime < 500) {
 		return;
 	}
-
+	// default pain sounds
 	if (health < 25) {
 		snd = "*pain25_1.wav";
 	} else if (health < 50) {
@@ -1247,7 +1246,6 @@ void CG_CheckEvents(centity_t *cent) {
 	}
 	// calculate the position at exactly the frame time
 	BG_EvaluateTrajectory(&cent->currentState.pos, cg.snap->serverTime, cent->lerpOrigin);
-
 	CG_SetEntitySoundPosition(cent);
 	CG_EntityEvent(cent, cent->lerpOrigin);
 }

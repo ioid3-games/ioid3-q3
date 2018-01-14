@@ -256,6 +256,7 @@ void CG_DrawSmallString(int x, int y, const char *s, float alpha) {
 
 	color[0] = color[1] = color[2] = 1.0;
 	color[3] = alpha;
+
 	CG_DrawStringExt(x, y, s, color, qfalse, qfalse, SMALLCHAR_WIDTH, SMALLCHAR_HEIGHT, 0);
 }
 
@@ -305,6 +306,7 @@ static void CG_TileClearBox(int x, int y, int w, int h, qhandle_t hShader) {
 	t1 = y / 64.0;
 	s2 = (x + w) / 64.0;
 	t2 = (y + h) / 64.0;
+
 	trap_R_DrawStretchPic(x, y, w, h, s1, t1, s2, t2, hShader);
 }
 

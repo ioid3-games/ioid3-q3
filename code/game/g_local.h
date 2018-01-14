@@ -73,7 +73,7 @@ struct gentity_s {
 	qboolean unlinkAfterEvent;
 	qboolean physicsObject;		// if true, it can be pushed by movers and fall off edges, all game items are physicsObjects
 	float physicsBounce;		// 1.0 = continuous bounce, 0.0 = no bounce
-	int clipmask; // brushes with this content value will be collided against when moving. items and corpses do not collide against players, for instance
+	int clipmask;				// brushes with this content value will be collided against when moving. items and corpses do not collide against players, for instance
 	// movers
 	moverState_t moverState;
 	int soundPos1;
@@ -145,8 +145,8 @@ typedef enum {
 } spectatorState_t;
 
 typedef enum {
-	TEAM_BEGIN, // Beginning a team game, spawn at base
-	TEAM_ACTIVE // Now actively playing
+	TEAM_BEGIN, // beginning a team game, spawn at base
+	TEAM_ACTIVE // now actively playing
 } playerTeamStateState_t;
 
 typedef struct {
@@ -158,7 +158,7 @@ typedef struct {
 } playerTeamState_t;
 // client data that stays across multiple levels or tournament restarts
 // this is achieved by writing all the data to cvar strings at game shutdown time and reading them back at connection time.
-// Anything added here MUST be dealt with in G_InitSessionData() / G_ReadSessionData() / G_WriteSessionData()
+// anything added here MUST be dealt with in G_InitSessionData()/G_ReadSessionData()/G_WriteSessionData()
 typedef struct {
 	team_t sessionTeam;
 	int spectatorNum;		// for determining next-in-line to play

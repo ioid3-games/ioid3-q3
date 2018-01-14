@@ -29,6 +29,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 =======================================================================================================================================
 */
 
+#define MAX_MARK_FRAGMENTS 128
+#define MAX_MARK_POINTS 384
+#define MARK_TOTAL_TIME 10000
+#define MARK_FADE_TIME 1000
+
 markPoly_t cg_activeMarkPolys; // double linked list
 markPoly_t *cg_freeMarkPolys; // single linked list
 markPoly_t cg_markPolys[MAX_MARK_POLYS];
@@ -116,9 +121,6 @@ CG_ImpactMark
 Temporary marks will not be stored or randomly oriented, but immediately passed to the renderer.
 =======================================================================================================================================
 */
-#define MAX_MARK_FRAGMENTS 128
-#define MAX_MARK_POINTS 384
-
 void CG_ImpactMark(qhandle_t markShader, const vec3_t origin, const vec3_t dir, float orientation, float red, float green, float blue, float alpha, qboolean alphaFade, float radius, qboolean temporary) {
 	vec3_t axis[3];
 	float texCoordScale;
@@ -207,8 +209,6 @@ void CG_ImpactMark(qhandle_t markShader, const vec3_t origin, const vec3_t dir, 
 	}
 }
 
-#define MARK_TOTAL_TIME 10000
-#define MARK_FADE_TIME 1000
 /*
 =======================================================================================================================================
 CG_AddMarks

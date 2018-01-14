@@ -21,6 +21,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 
 #include "g_local.h"
 
+#define MAX_SPAWN_POINTS 128
+
 static vec3_t playerMins = {-15, -15, -24};
 static vec3_t playerMaxs = {15, 15, 32};
 
@@ -105,7 +107,6 @@ SelectNearestDeathmatchSpawnPoint
 Find the spot that we DON'T want to use.
 =======================================================================================================================================
 */
-#define MAX_SPAWN_POINTS 128
 gentity_t *SelectNearestDeathmatchSpawnPoint(vec3_t from) {
 	gentity_t *spot;
 	vec3_t delta;
@@ -137,7 +138,6 @@ SelectRandomDeathmatchSpawnPoint
 Go to a random point that doesn't telefrag.
 =======================================================================================================================================
 */
-#define MAX_SPAWN_POINTS 128
 gentity_t *SelectRandomDeathmatchSpawnPoint(qboolean isbot) {
 	gentity_t *spot;
 	int count;

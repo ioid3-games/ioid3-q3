@@ -462,7 +462,7 @@ void G_RunMissile(gentity_t *ent) {
 	if (tr.fraction != 1) {
 		// never explode or bounce on sky
 		if (tr.surfaceFlags & SURF_NOIMPACT) {
-			// If grapple, reset owner
+			// if grapple, reset owner
 			if (ent->parent && ent->parent->client && ent->parent->client->hook == ent) {
 				ent->parent->client->hook = NULL;
 			}

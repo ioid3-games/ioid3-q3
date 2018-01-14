@@ -221,7 +221,6 @@ int AAS_GetJumpPadInfo(int ent, vec3_t areastart, vec3_t absmins, vec3_t absmaxs
 	}
 
 	AAS_BSPModelMinsMaxsOrigin(modelnum, angles, absmins, absmaxs, origin);
-
 	VectorAdd(origin, absmins, absmins);
 	VectorAdd(origin, absmaxs, absmaxs);
 	VectorAdd(absmins, absmaxs, origin);
@@ -2381,7 +2380,6 @@ int AAS_Reachability_Jump(int area1num, int area2num) {
 
 			VectorNormalize(dir);
 			VectorScale(dir, speed, velocity);
-
 			AAS_PredictClientMovement(&move, -1, beststart, PRESENCE_NORMAL, qtrue, velocity, cmdmove, 3, 30, 0.1f, stopevent, 0, qfalse);
 			// if prediction time wasn't enough to fully predict the movement
 			if (move.frames >= 30) {
@@ -4250,7 +4248,9 @@ int AAS_Reachability_Grapple(int area1num, int area2num) {
 		VectorCopy(bsptrace.endpos, lreach->end);
 
 		lreach->traveltype = TRAVEL_GRAPPLEHOOK;
+
 		VectorSubtract(lreach->end, lreach->start, dir);
+
 		lreach->traveltime = aassettings.rs_startgrapple + VectorLength(dir) * 0.25;
 		lreach->next = areareachability[area1num];
 		areareachability[area1num] = lreach;

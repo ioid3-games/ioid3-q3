@@ -575,6 +575,7 @@ void BotMatch_HelpAccompany(bot_state_t *bs, bot_match_t *match) {
 	}
 
 	bs->teamgoal.entitynum = -1;
+
 	BotEntityInfo(client, &entinfo);
 	// if info is valid (in PVS)
 	if (entinfo.valid) {
@@ -792,6 +793,7 @@ void BotMatch_Camp(bot_state_t *bs, bot_match_t *match) {
 		// camp at the spot the bot is currently standing
 		bs->teamgoal.entitynum = bs->entitynum;
 		bs->teamgoal.areanum = bs->areanum;
+
 		VectorCopy(bs->origin, bs->teamgoal.origin);
 		VectorSet(bs->teamgoal.mins, -8, -8, -8);
 		VectorSet(bs->teamgoal.maxs, 8, 8, 8);
@@ -813,6 +815,7 @@ void BotMatch_Camp(bot_state_t *bs, bot_match_t *match) {
 				//if (BotEntityVisible(bs->entitynum, bs->eye, bs->viewangles, 360, client)) {
 					bs->teamgoal.entitynum = client;
 					bs->teamgoal.areanum = areanum;
+
 					VectorCopy(entinfo.origin, bs->teamgoal.origin);
 					VectorSet(bs->teamgoal.mins, -8, -8, -8);
 					VectorSet(bs->teamgoal.maxs, 8, 8, 8);
@@ -1151,7 +1154,6 @@ void BotMatch_TaskPreference(bot_state_t *bs, bot_match_t *match) {
 	}
 
 	BotSetTeamMateTaskPreference(bs, teammate, preference);
-
 	EasyClientName(teammate, teammatename, sizeof(teammatename));
 	BotAI_BotInitialChat(bs, "keepinmind", teammatename, NULL);
 	trap_BotEnterChat(bs->cs, teammate, CHAT_TELL);
@@ -1223,6 +1225,7 @@ void BotMatch_JoinSubteam(bot_state_t *bs, bot_match_t *match) {
 	trap_BotMatchVariable(match, TEAMNAME, teammate, sizeof(teammate));
 	// set the sub team name
 	strncpy(bs->subteam, teammate, 32);
+
 	bs->subteam[31] = '\0';
 
 	trap_BotMatchVariable(match, NETNAME, netname, sizeof(netname));
@@ -1309,6 +1312,7 @@ void BotMatch_CheckPoint(bot_state_t *bs, bot_match_t *match) {
 	client = ClientFromName(netname);
 	//BotGPSToPosition(buf, position);
 	sscanf(buf, "%f %f %f", &position[0], &position[1], &position[2]);
+
 	position[2] += 0.5;
 	areanum = BotPointAreaNum(position);
 
@@ -1850,6 +1854,7 @@ void BotMatch_LeadTheWay(bot_state_t *bs, bot_match_t *match) {
 		if (areanum) { // && trap_AAS_AreaReachability(areanum)) {
 			bs->lead_teamgoal.entitynum = client;
 			bs->lead_teamgoal.areanum = areanum;
+
 			VectorCopy(entinfo.origin, bs->lead_teamgoal.origin);
 			VectorSet(bs->lead_teamgoal.mins, -8, -8, -8);
 			VectorSet(bs->lead_teamgoal.maxs, 8, 8, 8);

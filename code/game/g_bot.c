@@ -674,9 +674,10 @@ static void G_AddBot(const char *name, float skill, const char *team, int delay,
 			trap_BotFreeClient(clientNum);
 			return;
 		}
-
+		// get info of a randomly selected bot
 		botinfo = G_GetBotInfoByNumber(botinfoNum);
 	} else {
+		// get info of the bot
 		botinfo = G_GetBotInfoByName(name);
 	}
 
