@@ -47,7 +47,6 @@ void MSG_InitOOB(msg_t *buf, byte *data, int length);
 void MSG_Clear(msg_t *buf);
 void MSG_WriteData(msg_t *buf, const void *data, int length);
 void MSG_Bitstream(msg_t *buf);
-// TTimo
 // copy a msg_t in case we need to store it as is for a bit (as I needed this to keep an msg_t from a static var for later use)
 // sets data buffer as MSG_Init does prior to do the copy
 void MSG_Copy(msg_t *buf, byte *data, int length, msg_t *src);
@@ -301,9 +300,7 @@ intptr_t QDECL VM_Call(vm_t *vm, int callNum, ...);
 void VM_Debug(int level);
 void *VM_ArgPtr(intptr_t intValue);
 void *VM_ExplicitArgPtr(vm_t *vm, intptr_t intValue);
-
 #define VMA(x) VM_ArgPtr(args[x])
-
 /*
 =======================================================================================================================================
 _vmf
@@ -567,7 +564,7 @@ qboolean FS_ComparePaks(char *neededpaks, int len, qboolean dlstring);
 void FS_Rename(const char *from, const char *to);
 void FS_Remove(const char *osPath);
 void FS_HomeRemove(const char *homePath);
-void FS_FilenameCompletion(const char *dir, const char *ext, qboolean stripExt, void(*callback)(const char *s), qboolean allowNonPureFilesOnDisk);
+void FS_FilenameCompletion(const char *dir, const char *ext, qboolean stripExt, void (*callback)(const char *s), qboolean allowNonPureFilesOnDisk);
 const char *FS_GetCurrentGameDir(void);
 qboolean FS_Which(const char *filename, void *searchPath);
 
@@ -627,7 +624,7 @@ typedef enum {
 	SE_CHAR,			// evValue is an ascii char
 	SE_MOUSE,			// evValue and evValue2 are relative signed x / y moves
 	SE_JOYSTICK_AXIS,	// evValue is an axis number and evValue2 is the current state (-127 to 127)
-	SE_CONSOLE			// evPtr is a char*
+	SE_CONSOLE			// evPtr is a char *
 } sysEventType_t;
 
 typedef struct {
@@ -724,14 +721,14 @@ typedef enum {
 --- low memory ----
 server vm
 server clipmap
----mark---
+--- mark ---
 renderer initialization (shaders, etc.)
 UI vm
 cgame vm
 renderer map
 renderer models
 
----free---
+--- free ---
 
 temp file loading
 --- high memory ---
@@ -800,7 +797,7 @@ void CL_MapLoading(void);
 // will be cleared, so the client must shutdown cgame, ui, and the renderer
 void CL_ForwardCommandToServer(const char *string);
 // adds the current command line as a clc_clientCommand to the client message.
-// things like godmode, noclip, etc, are commands directed to the server, so when they are typed in at the console, they will need to be forwarded.
+// things like godmode, noclip, etc., are commands directed to the server, so when they are typed in at the console, they will need to be forwarded.
 void CL_CDDialog(void);
 // bring up the "need a cd to play" dialog
 void CL_FlushMemory(void);

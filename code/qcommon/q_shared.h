@@ -237,6 +237,7 @@ typedef enum {
 	PRINT_WARNING,
 	PRINT_ERROR
 } printParm_t;
+
 #ifdef ERR_FATAL
 #undef ERR_FATAL // this is be defined in malloc.h
 #endif
@@ -255,18 +256,20 @@ typedef enum {
 #define PROP_SMALL_SIZE_SCALE 0.75
 #define BLINK_DIVISOR 200
 #define PULSE_DIVISOR 75.0f
-
-#define UI_LEFT			0x00000000 // default
-#define UI_CENTER		0x00000001
-#define UI_RIGHT		0x00000002
-#define UI_FORMATMASK	0x00000007
-#define UI_SMALLFONT	0x00000010
-#define UI_BIGFONT		0x00000020 // default
-#define UI_GIANTFONT	0x00000040
-#define UI_DROPSHADOW	0x00000800
-#define UI_BLINK		0x00001000
-#define UI_INVERSE		0x00002000
-#define UI_PULSE		0x00004000
+// horizontal alignment
+#define UI_LEFT				0x00000000 // default
+#define UI_CENTER			0x00000001
+#define UI_RIGHT			0x00000002
+#define UI_FORMATMASK		0x00000007
+// font selection
+#define UI_SMALLFONT		0x00000010
+#define UI_BIGFONT			0x00000020 // default
+#define UI_GIANTFONT		0x00000040
+// other flags
+#define UI_DROPSHADOW		0x00000800
+#define UI_BLINK			0x00001000
+#define UI_INVERSE			0x00002000
+#define UI_PULSE			0x00004000
 #if !defined(NDEBUG) && !defined(BSPC)
 #define HUNK_DEBUG
 #endif
@@ -1012,6 +1015,7 @@ typedef struct playerState_s {
 	int externalEvent;		// events set on player from another source
 	int externalEventParm;
 	int clientNum;			// ranges from 0 to MAX_CLIENTS - 1
+	// weapon info
 	int weapon;				// copied to entityState_t->weapon
 	int weaponstate;
 	vec3_t viewangles;		// for fixed views

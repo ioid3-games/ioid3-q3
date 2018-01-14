@@ -5403,7 +5403,6 @@ static void UI_FeederSelection(float feederID, int index) {
 		}
 
 		UI_SelectedMap(index, &actual);
-
 		trap_Cvar_Set("ui_mapIndex", va("%d", index));
 
 		ui_mapIndex.integer = index;

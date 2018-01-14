@@ -557,6 +557,7 @@ static void PM_InvulnerabilityMove(void) {
 	pm->cmd.forwardmove = 0;
 	pm->cmd.rightmove = 0;
 	pm->cmd.upmove = 0;
+
 	VectorClear(pm->ps->velocity);
 }
 #endif
@@ -669,7 +670,9 @@ static void PM_GrappleMove(void) {
 	VectorScale(pml.forward, -16, v);
 	VectorAdd(pm->ps->grapplePoint, v, v);
 	VectorSubtract(v, pm->ps->origin, vel);
+
 	vlen = VectorLength(vel);
+
 	VectorNormalize(vel);
 
 	if (vlen <= 100) {

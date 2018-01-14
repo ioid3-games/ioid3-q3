@@ -748,7 +748,7 @@ void CL_Record_f(void) {
 	// write out the gamestate message
 	MSG_Init(&buf, bufData, sizeof(bufData));
 	MSG_Bitstream(&buf);
-	// NOTE, MRE: all server->client messages now acknowledge
+	// NOTE: all server->client messages now acknowledge
 	MSG_WriteLong(&buf, clc.reliableSequence);
 	MSG_WriteByte(&buf, svc_gamestate);
 	MSG_WriteLong(&buf, clc.serverCommandSequence);
@@ -1048,7 +1048,6 @@ void CL_PlayDemo_f(void) {
 	Cvar_Set("sv_killserver", "2");
 	// open the demo file
 	Q_strncpyz(arg, Cmd_Argv(1), sizeof(arg));
-
 	CL_Disconnect(qtrue);
 	// check for an extension .DEMOEXT_?? (?? is protocol)
 	ext_test = strrchr(arg, '.');
@@ -1098,6 +1097,7 @@ void CL_PlayDemo_f(void) {
 
 	clc.state = CA_CONNECTED;
 	clc.demoplaying = qtrue;
+
 	Q_strncpyz(clc.servername, arg, sizeof(clc.servername));
 #ifdef LEGACY_PROTOCOL
 	if (protocol <= com_legacyprotocol->integer) {
@@ -1401,7 +1401,6 @@ void CL_Disconnect(qboolean showMainMenu) {
 	// remove pure paks
 	FS_PureServerSetLoadedPaks("", "");
 	FS_PureServerSetReferencedPaks("", "");
-
 	CL_ClearState();
 	// wipe the client connection
 	Com_Memset(&clc, 0, sizeof(clc));
@@ -1657,7 +1656,6 @@ void CL_Connect_f(void) {
 	}
 	// save arguments for reconnect
 	Q_strncpyz(cl_reconnectArgs, Cmd_Args(), sizeof(cl_reconnectArgs));
-
 	Cvar_Set("ui_singlePlayerActive", "0");
 	// fire a message off to the motd server
 	CL_RequestMotd();
@@ -1840,7 +1838,6 @@ void CL_SendPureChecksums(void) {
 
 	// if we are pure we need to send back a command with our referenced pk3 checksums
 	Com_sprintf(cMsg, sizeof(cMsg), "cp %d %s", cl.serverId, FS_ReferencedPakPureChecksums());
-
 	CL_AddReliableCommand(cMsg, qfalse);
 }
 
@@ -2109,6 +2106,7 @@ void CL_NextDownload(void) {
 	}
 
 	*clc.downloadTempName = *clc.downloadName = 0;
+
 	Cvar_Set("cl_downloadName", "");
 	// we are looking to start a download here
 	if (*clc.downloadList) {
@@ -2260,6 +2258,7 @@ void CL_CheckForResend(void) {
 			} else
 #endif
 				Info_SetValueForKey(info, "protocol", va("%i", com_protocol->integer));
+
 			Info_SetValueForKey(info, "qport", va("%i", port));
 			Info_SetValueForKey(info, "challenge", va("%i", clc.challenge));
 
@@ -3485,7 +3484,6 @@ void CL_Shutdown(char *finalmsg, qboolean disconnect, qboolean quit) {
 
 	CL_ShutdownInput();
 	Con_Shutdown();
-
 	Cvar_Set("cl_running", "0");
 
 	recursive = qfalse;
@@ -3493,7 +3491,6 @@ void CL_Shutdown(char *finalmsg, qboolean disconnect, qboolean quit) {
 	Com_Memset(&cls, 0, sizeof(cls));
 
 	Key_SetCatcher(0);
-
 	Com_Printf("-----------------------\n");
 }
 

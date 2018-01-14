@@ -42,6 +42,7 @@ void SCR_DrawNamedPic(float x, float y, float width, float height, const char *p
 	assert(width != 0);
 
 	hShader = re.RegisterShader(picname);
+
 	SCR_AdjustFrom640(&x, &y, &width, &height);
 	re.DrawStretchPic(x, y, width, height, 0, 0, 1, 1, hShader);
 }
@@ -234,6 +235,7 @@ void SCR_DrawStringExt(int x, int y, float size, const char *string, float *setC
 		}
 
 		SCR_DrawChar(xx, y, size, *s);
+
 		xx += size;
 		s++;
 	}
@@ -251,6 +253,7 @@ void SCR_DrawBigString(int x, int y, const char *s, float alpha, qboolean noColo
 
 	color[0] = color[1] = color[2] = 1.0;
 	color[3] = alpha;
+
 	SCR_DrawStringExt(x, y, BIGCHAR_WIDTH, s, color, qfalse, noColorEscape);
 }
 
@@ -295,6 +298,7 @@ void SCR_DrawSmallStringExt(int x, int y, const char *string, float *setColor, q
 		}
 
 		SCR_DrawSmallChar(xx, y, *s);
+
 		xx += SMALLCHAR_WIDTH;
 		s++;
 	}
@@ -352,8 +356,8 @@ void SCR_DrawDemoRecording(void) {
 	}
 
 	pos = FS_FTell(clc.demofile);
-	sprintf(string, "RECORDING %s: %ik", clc.demoName, pos / 1024);
 
+	sprintf(string, "RECORDING %s: %ik", clc.demoName, pos / 1024);
 	SCR_DrawStringExt(320 - strlen(string) * 4, 20, 8, string, g_color_table[7], qtrue, qfalse);
 }
 #ifdef USE_VOIP

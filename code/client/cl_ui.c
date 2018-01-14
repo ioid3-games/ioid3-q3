@@ -75,7 +75,6 @@ LAN_SaveServersToCache
 */
 void LAN_SaveServersToCache(void) {
 	int size;
-
 	fileHandle_t fileOut = FS_SV_FOpenFileWrite("servercache.dat");
 
 	FS_Write(&cls.numglobalservers, sizeof(int), fileOut);
@@ -204,6 +203,7 @@ static void LAN_RemoveServer(int source, const char *addr) {
 
 	if (servers) {
 		netadr_t comp;
+
 		NET_StringToAdr(addr, &comp, NA_UNSPEC);
 
 		for (i = 0; i < *count; i++) {
@@ -654,7 +654,6 @@ static void CL_GetClipboardData(char *buf, int buflen) {
 	}
 
 	Q_strncpyz(buf, cbd, buflen);
-
 	Z_Free(cbd);
 }
 
@@ -1050,6 +1049,7 @@ CL_ShutdownUI
 void CL_ShutdownUI(void) {
 
 	Key_SetCatcher(Key_GetCatcher() & ~KEYCATCH_UI);
+
 	cls.uiStarted = qfalse;
 
 	if (!uivm) {

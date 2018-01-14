@@ -167,7 +167,7 @@ void Cbuf_Execute(void) {
 	char line[MAX_CMD_LINE];
 	int quotes;
 
-	// This will keep // style comments all on one line by not breaking on a semicolon. It will keep /* ... */ style comments all on
+	// this will keep // style comments all on one line by not breaking on a semicolon. It will keep /* ... */ style comments all on
 	// one line by not breaking it for semicolon or newline.
 	qboolean in_star_comment = qfalse;
 	qboolean in_slash_comment = qfalse;
@@ -195,8 +195,8 @@ void Cbuf_Execute(void) {
 						in_star_comment = qtrue;
 					} else if (in_star_comment && text[i] == '*' && text[i + 1] == '/') {
 						in_star_comment = qfalse;
-						// If we are in a star comment, then the part after it is valid
-						// Note: This will cause it to NUL out the terminating '/' but ExecuteString doesn't require it anyway.
+						// if we are in a star comment, then the part after it is valid
+						// NOTE: this will cause it to NULL out the terminating '/' but ExecuteString doesn't require it anyway.
 						i++;
 						break;
 					}
@@ -227,6 +227,7 @@ void Cbuf_Execute(void) {
 		} else {
 			i++;
 			cmd_text.cursize -= i;
+
 			memmove(text, text + i, cmd_text.cursize);
 		}
 		// execute the command line
@@ -795,8 +796,7 @@ void Cmd_ExecuteString(const char *text) {
 	if (com_cl_running && com_cl_running->integer && UI_GameCommand()) {
 		return;
 	}
-	// send it as a server command if we are connected
-	// this will usually result in a chat message
+	// send it as a server command if we are connected, this will usually result in a chat message
 	CL_ForwardCommandToServer(text);
 }
 

@@ -126,12 +126,12 @@ void Netchan_TransmitNextFragment(netchan_t *chan) {
 	MSG_WriteData(&send, chan->unsentBuffer + chan->unsentFragmentStart, fragmentLength);
 	// send the datagram
 	NET_SendPacket(chan->sock, send.cursize, send.data, chan->remoteAddress);
-	// Store send time and size of this packet for rate control
+	// store send time and size of this packet for rate control
 	chan->lastSentTime = Sys_Milliseconds();
 	chan->lastSentSize = send.cursize;
 
 	if (showpackets->integer) {
-		Com_Printf("%s send %4i : s=%i fragment=%i,%i\n", netsrcString[chan->sock], send.cursize, chan->outgoingSequence, chan->unsentFragmentStart, fragmentLength);
+		Com_Printf("%s send %4i : s=%i fragment=%i, %i\n", netsrcString[chan->sock], send.cursize, chan->outgoingSequence, chan->unsentFragmentStart, fragmentLength);
 	}
 
 	chan->unsentFragmentStart += fragmentLength;
@@ -186,7 +186,7 @@ void Netchan_Transmit(netchan_t *chan, int length, const byte *data) {
 	MSG_WriteData(&send, data, length);
 	// send the datagram
 	NET_SendPacket(chan->sock, send.cursize, send.data, chan->remoteAddress);
-	// Store send time and size of this packet for rate control
+	// store send time and size of this packet for rate control
 	chan->lastSentTime = Sys_Milliseconds();
 	chan->lastSentSize = send.cursize;
 
@@ -210,7 +210,7 @@ qboolean Netchan_Process(netchan_t *chan, msg_t *msg) {
 	qboolean fragmented;
 
 	// XOR unscramble all data in the packet after the header
-//	Netchan_UnScramblePacket(msg);
+	//Netchan_UnScramblePacket(msg);
 	// get sequence numbers
 	MSG_BeginReadingOOB(msg);
 
@@ -247,7 +247,7 @@ qboolean Netchan_Process(netchan_t *chan, msg_t *msg) {
 
 	if (showpackets->integer) {
 		if (fragmented) {
-			Com_Printf("%s recv %4i : s=%i fragment=%i,%i\n", netsrcString[chan->sock], msg->cursize, sequence, fragmentStart, fragmentLength);
+			Com_Printf("%s recv %4i : s=%i fragment=%i, %i\n", netsrcString[chan->sock], msg->cursize, sequence, fragmentStart, fragmentLength);
 		} else {
 			Com_Printf("%s recv %4i : s=%i\n", netsrcString[chan->sock], msg->cursize, sequence);
 		}
@@ -586,7 +586,7 @@ int NET_StringToAdr(const char *s, netadr_t *a, netadrtype_t family) {
 	Q_strncpyz(base, s, sizeof(base));
 
 	if (*base == '[' || Q_CountChar(base, ':') > 1) {
-		// This is an ipv6 address, handle it specially.
+		// this is an ipv6 address, handle it specially.
 		search = strchr(base, ']');
 
 		if (search) {

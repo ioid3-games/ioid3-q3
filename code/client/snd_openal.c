@@ -436,7 +436,9 @@ static qboolean S_AL_BufferInit(void) {
 	numSfx = 0;
 	// load the default sound, and lock it
 	default_sfx = S_AL_BufferFind("sound/feedback/hit.wav");
+
 	S_AL_BufferUse(default_sfx);
+
 	knownSfx[default_sfx].isLocked = qtrue;
 	// all done
 	alBuffersInitialised = qtrue;
@@ -472,7 +474,6 @@ S_AL_RegisterSound
 =======================================================================================================================================
 */
 static sfxHandle_t S_AL_RegisterSound(const char *sample, qboolean compressed) {
-
 	sfxHandle_t sfx = S_AL_BufferFind(sample);
 
 	if ((!knownSfx[sfx].inMemory) && (!knownSfx[sfx].isDefault)) {
@@ -841,7 +842,7 @@ static void S_AL_NewLoopMaster(src_t *rmSource, qboolean iskilled) {
 					// this was the last not stopped source, save last sample position + time
 					S_AL_SaveLoopPos(curSource, rmSource->alSource);
 				} else {
-					// second case: all loops using this sound have stopped due to listener being of of range, and now the inactive
+					// second case: all loops using this sound have stopped due to listener being out of range, and now the inactive
 					// master gets deleted. Just move over the soundpos settings to the new master.
 					curSource->lastTimePos = rmSource->lastTimePos;
 					curSource->lastSampleTime = rmSource->lastSampleTime;
@@ -982,8 +983,7 @@ static srcHandle_t S_AL_SrcAlloc(alSrcPriority_t priority, int entnum, int chann
 =======================================================================================================================================
 S_AL_SrcFind
 
-Finds an active source with matching entity and channel numbers.
-Returns -1 if there isn't one.
+Finds an active source with matching entity and channel numbers. Returns -1 if there isn't one.
 =======================================================================================================================================
 */
 static srcHandle_t S_AL_SrcFind(int entnum, int channel) {
@@ -1225,7 +1225,6 @@ static void S_AL_SrcLoop(alSrcPriority_t priority, sfxHandle_t sfx, const vec3_t
 		}
 
 		S_AL_SanitiseVector(sorigin);
-
 		VectorCopy(sorigin, curSource->loopSpeakerPos);
 
 		if (velocity) {
@@ -1827,6 +1826,7 @@ static void S_AL_MusicProcess(ALuint b) {
 	if (l == 0) {
 		// we have no data to buffer, so buffer silence
 		byte dummyData[2] = {0};
+
 		qalBufferData(b, AL_FORMAT_MONO16, (void *)dummyData, 2, 22050);
 	} else {
 		qalBufferData(b, format, decode_buffer, l, curstream->info.rate);
@@ -2307,7 +2307,7 @@ qboolean S_AL_Init(soundInterface_t *si) {
 			enumeration_ext = qtrue;
 		}
 #ifdef _WIN32
-		// check whether the default device is generic hardware. If it is, change to generic Software as that one works more reliably with various sound systems.
+		// check whether the default device is generic hardware. If it is, change to generic software as that one works more reliably with various sound systems.
 		// if it's not, use OpenAL's default selection as we don't want to ignore native hardware acceleration.
 		if (!device && defaultdevice && !strcmp(defaultdevice, "Generic Hardware")) {
 			device = "Generic Software";

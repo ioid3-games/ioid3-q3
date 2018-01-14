@@ -124,7 +124,7 @@ MSG_Copy
 void MSG_Copy(msg_t *buf, byte *data, int length, msg_t *src) {
 
 	if (length < src->cursize) {
-		Com_Error(ERR_DROP, "MSG_Copy: can't copy into a smaller msg_t buffer");
+		Com_Error(ERR_DROP, "MSG_Copy: can't copy %d into a smaller %d msg_t buffer", src->cursize, length);
 	}
 
 	Com_Memcpy(buf, src, sizeof(msg_t));
@@ -423,7 +423,7 @@ void MSG_WriteString(msg_t *sb, const char *s) {
 		l = strlen(s);
 
 		if (l >= MAX_STRING_CHARS) {
-			Com_Printf("MSG_WriteString: MAX_STRING_CHARS");
+			Com_Printf("MSG_WriteString: MAX_STRING_CHARS size reached.\n");
 			MSG_WriteData(sb, "", 1);
 			return;
 		}
@@ -456,7 +456,7 @@ void MSG_WriteBigString(msg_t *sb, const char *s) {
 		l = strlen(s);
 
 		if (l >= BIG_INFO_STRING) {
-			Com_Printf("MSG_WriteString: BIG_INFO_STRING");
+			Com_Printf("MSG_WriteString: BIG_INFO_STRING size reached.\n");
 			MSG_WriteData(sb, "", 1);
 			return;
 		}
@@ -980,7 +980,7 @@ void MSG_ReadDeltaUsercmdKey(msg_t *msg, int key, usercmd_t *from, usercmd_t *to
 		to->angles[1] = MSG_ReadDeltaKey(msg, key, from->angles[1], 16);
 		to->angles[2] = MSG_ReadDeltaKey(msg, key, from->angles[2], 16);
 		to->forwardmove = MSG_ReadDeltaKey(msg, key, from->forwardmove, 8);
-
+		// disallow moves of -128 (speedhack)
 		if (to->forwardmove == -128) {
 			to->forwardmove = -127;
 		}
@@ -1237,7 +1237,7 @@ void MSG_ReadDeltaEntity(msg_t *msg, entityState_t *from, entityState_t *to, int
 	int startBit, endBit;
 
 	if (number < 0 || number >= MAX_GENTITIES) {
-		Com_Error(ERR_DROP, "Bad delta entity number: %i", number);
+		Com_Error(ERR_DROP, "MSG_ReadDeltaEntity: Bad delta entity number: %i", number);
 	}
 
 	if (msg->bit == 0) {
@@ -1719,7 +1719,7 @@ void MSG_ReadDeltaPlayerstate(msg_t *msg, playerState_t *from, playerState_t *to
 		Com_Printf(" (%i bits)\n", endBit - startBit);
 	}
 }
-
+// predefined set of nodes for Huffman compression
 int msg_hData[256] = {
 	250315,	// 0
 	41193,	// 1

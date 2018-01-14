@@ -68,7 +68,6 @@ redo:
 
 	inUse -= sizeof(sndBuffer);
 	totalInUse += sizeof(sndBuffer);
-
 	v = freelist;
 	freelist = *(sndBuffer **)freelist;
 	v->next = NULL;
@@ -91,7 +90,6 @@ void SND_setup(void) {
 	// allocate the stack based hunk allocator
 	sfxScratchBuffer = malloc(SND_CHUNK_SIZE * sizeof(short) * 4); //Hunk_Alloc(SND_CHUNK_SIZE * sizeof(short) * 4);
 	sfxScratchPointer = NULL;
-
 	inUse = scs * sizeof(sndBuffer);
 	p = buffer;
 	q = p + scs;
@@ -242,7 +240,6 @@ qboolean S_LoadSound(sfx_t *sfx) {
 	}
 
 	samples = Hunk_AllocateTempMemory(info.channels * info.samples * sizeof(short) * 2);
-
 	sfx->lastTimeUsed = Com_Milliseconds() + 1;
 	// each of these compression schemes works just fine but the 16bit quality is much nicer and with a local install assured
 	// we can rely upon the sound memory manager to do the right thing for us and page sound in as needed

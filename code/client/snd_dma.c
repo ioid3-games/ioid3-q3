@@ -345,6 +345,7 @@ static sfx_t *S_FindName(const char *name) {
 	Com_Memset(sfx, 0, sizeof(*sfx));
 
 	strcpy(sfx->soundName, name);
+
 	sfx->next = sfxHash[hash];
 	sfxHash[hash] = sfx;
 
@@ -378,6 +379,7 @@ Disables sounds until the next S_BeginRegistration. This is called when the hunk
 void S_Base_DisableSounds(void) {
 
 	S_Base_StopAllSounds();
+
 	s_soundMuted = qtrue;
 }
 
@@ -1401,9 +1403,7 @@ void S_Update_(void) {
 	}
 
 	SNDDMA_BeginPainting();
-
 	S_PaintChannels(endtime);
-
 	SNDDMA_Submit();
 
 	lastTime = thisTime;
@@ -1482,7 +1482,6 @@ void S_Base_StartBackgroundTrack(const char *intro, const char *loop) {
 	}
 
 	Q_strncpyz(s_backgroundLoop, loop, sizeof(s_backgroundLoop));
-
 	S_OpenBackgroundStream(intro);
 }
 

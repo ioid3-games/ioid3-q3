@@ -265,7 +265,7 @@ static void SV_MapRestart_f(void) {
 	// toggle the server bit so clients can detect that a map_restart has happened
 	svs.snapFlagServerBit ^= SNAPFLAG_SERVERCOUNT;
 	// generate a new serverid
-	// TTimo - don't update restartedserverId there, otherwise we won't deal correctly with multiple map_restart
+	// don't update restartedserverId there, otherwise we won't deal correctly with multiple map_restart
 	sv.serverId = com_frameTime;
 
 	Cvar_Set("sv_serverid", va("%i", sv.serverId));
@@ -321,7 +321,7 @@ static void SV_MapRestart_f(void) {
 		if (client->state == CS_ACTIVE) {
 			SV_ClientEnterWorld(client, &client->lastUsercmd);
 		} else {
-			// If we don't reset client->lastUsercmd and are restarting during map load, the client will hang because we'll use the
+			// if we don't reset client->lastUsercmd and are restarting during map load, the client will hang because we'll use the
 			// last Usercmd from the previous map, which is wrong obviously.
 			SV_ClientEnterWorld(client, NULL);
 		}
@@ -633,7 +633,7 @@ static void SV_RehashBans_f(void) {
 
 	if ((filelen = FS_SV_FOpenFileRead(filepath, &readfrom)) >= 0) {
 		if (filelen < 2) {
-			// Don't bother if file is too short.
+			// don't bother if file is too short
 			FS_FCloseFile(readfrom);
 			return;
 		}
@@ -894,7 +894,6 @@ static void SV_AddBanToList(qboolean isexception) {
 	serverBansCount++;
 
 	SV_WriteBans();
-
 	Com_Printf("Added %s: %s/%d\n", isexception ? "ban exception" : "ban", NET_AdrToString(ip), mask);
 }
 
@@ -1021,7 +1020,6 @@ static void SV_FlushBans_f(void) {
 	serverBansCount = 0;
 	// empty the ban file.
 	SV_WriteBans();
-
 	Com_Printf("All bans and exceptions have been deleted.\n");
 }
 
@@ -1135,7 +1133,7 @@ static void SV_Status_f(void) {
 			Com_Printf(" ");
 			j++;
 		} while (j < l);
-		// TTimo adding a ^7 to reset the color
+		// adding a ^7 to reset the color
 		s = NET_AdrToString(cl->netchan.remoteAddress);
 
 		Com_Printf("^7%s", s);
@@ -1175,6 +1173,7 @@ static void SV_ConSay_f(void) {
 	}
 
 	strcpy(text, "console: ");
+
 	p = Cmd_Args();
 
 	if (*p == '"') {
@@ -1183,7 +1182,6 @@ static void SV_ConSay_f(void) {
 	}
 
 	strcat(text, p);
-
 	Com_Printf("%s\n", text);
 	SV_SendServerCommand(NULL, "chat \"%s\"", text);
 }
@@ -1216,6 +1214,7 @@ static void SV_ConTell_f(void) {
 	}
 
 	strcpy(text, "console_tell: ");
+
 	p = Cmd_ArgsFrom(2);
 
 	if (*p == '"') {
@@ -1224,7 +1223,6 @@ static void SV_ConTell_f(void) {
 	}
 
 	strcat(text, p);
-
 	Com_Printf("%s\n", text);
 	SV_SendServerCommand(cl, "chat \"%s\"", text);
 }
@@ -1281,6 +1279,7 @@ static void SV_ConSayto_f(void) {
 	}
 
 	strcpy(text, "console_sayto: ");
+
 	p = Cmd_ArgsFrom(2);
 
 	if (*p == '"') {
@@ -1289,7 +1288,6 @@ static void SV_ConSayto_f(void) {
 	}
 
 	strcat(text, p);
-
 	Com_Printf("%s\n", text);
 	SV_SendServerCommand(saytocl, "chat \"%s\"", text);
 }

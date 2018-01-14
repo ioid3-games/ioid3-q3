@@ -87,7 +87,9 @@ void Con_MessageMode_f(void) {
 
 	chat_playerNum = -1;
 	chat_team = qfalse;
+
 	Field_Clear(&chatField);
+
 	chatField.widthInChars = 30;
 
 	Key_SetCatcher(Key_GetCatcher() ^ KEYCATCH_MESSAGE);
@@ -102,8 +104,11 @@ void Con_MessageMode2_f(void) {
 
 	chat_playerNum = -1;
 	chat_team = qtrue;
+
 	Field_Clear(&chatField);
+
 	chatField.widthInChars = 25;
+
 	Key_SetCatcher(Key_GetCatcher() ^ KEYCATCH_MESSAGE);
 }
 
@@ -122,8 +127,11 @@ void Con_MessageMode3_f(void) {
 	}
 
 	chat_team = qfalse;
+
 	Field_Clear(&chatField);
+
 	chatField.widthInChars = 30;
+
 	Key_SetCatcher(Key_GetCatcher() ^ KEYCATCH_MESSAGE);
 }
 
@@ -142,8 +150,11 @@ void Con_MessageMode4_f(void) {
 	}
 
 	chat_team = qfalse;
+
 	Field_Clear(&chatField);
+
 	chatField.widthInChars = 30;
+
 	Key_SetCatcher(Key_GetCatcher() ^ KEYCATCH_MESSAGE);
 }
 
@@ -441,7 +452,9 @@ void CL_ConsolePrint(char *txt) {
 	if (!con.initialized) {
 		con.color[0] = con.color[1] = con.color[2] = con.color[3] = 1.0f;
 		con.linewidth = -1;
+
 		Con_CheckResize();
+
 		con.initialized = qtrue;
 	}
 
@@ -528,7 +541,6 @@ void Con_DrawInput(void) {
 	re.SetColor(con.color);
 
 	SCR_DrawSmallChar(con.xadjust + SMALLCHAR_WIDTH, y, ']');
-
 	Field_Draw(&g_consoleField, con.xadjust + 2 * SMALLCHAR_WIDTH, y, SCREEN_WIDTH - 3 * SMALLCHAR_WIDTH, qtrue, qtrue);
 }
 
@@ -638,6 +650,7 @@ void Con_DrawSolidConsole(float frac) {
 	}
 	// on wide screens, we will center the text
 	con.xadjust = 0;
+
 	SCR_AdjustFrom640(&con.xadjust, NULL, NULL, NULL);
 	// draw the background
 	y = frac * SCREEN_HEIGHT;
@@ -652,6 +665,7 @@ void Con_DrawSolidConsole(float frac) {
 	color[1] = 0;
 	color[2] = 0;
 	color[3] = 1;
+
 	SCR_FillRect(0, y, SCREEN_WIDTH, 2, color);
 	// draw the version number
 	re.SetColor(g_color_table[ColorIndex(COLOR_RED)]);
@@ -841,6 +855,7 @@ void Con_Close(void) {
 	Field_Clear(&g_consoleField);
 	Con_ClearNotify();
 	Key_SetCatcher(Key_GetCatcher() & ~KEYCATCH_CONSOLE);
+
 	con.finalFrac = 0; // none visible
 	con.displayFrac = 0;
 }

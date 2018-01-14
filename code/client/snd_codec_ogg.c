@@ -26,8 +26,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include <errno.h>
 #define OV_EXCLUDE_STATIC_CALLBACKS
 #include <vorbis/vorbisfile.h>
-// The OGG codec can return the samples in a number of different formats,
-// we use the standard signed short format.
+// the OGG codec can return the samples in a number of different formats, we use the standard signed short format.
 #define OGG_SAMPLEWIDTH 2
 // Q3 OGG codec
 snd_codec_t ogg_codec = {
@@ -212,17 +211,17 @@ S_OGG_CodecOpenStream
 */
 snd_stream_t *S_OGG_CodecOpenStream(const char *filename) {
 	snd_stream_t *stream;
-
 	// OGG codec control structure
 	OggVorbis_File *vf;
 	// some variables used to get informations about the OGG
 	vorbis_info *OGGInfo;
 	ogg_int64_t numSamples;
+
 	// check if input is valid
 	if (!filename) {
 		return NULL;
 	}
-	// Open the stream
+	// open the stream
 	stream = S_CodecUtilOpen(filename, &ogg_codec);
 
 	if (!stream) {
@@ -273,9 +272,9 @@ snd_stream_t *S_OGG_CodecOpenStream(const char *filename) {
 	stream->info.samples = numSamples;
 	stream->info.size = stream->info.samples * stream->info.channels * stream->info.width;
 	stream->info.dataofs = 0;
-	// We use stream->pos for the file pointer in the compressed ogg file
+	// we use stream->pos for the file pointer in the compressed ogg file
 	stream->pos = 0;
-	// We use the generic pointer in stream for the OGG codec control structure
+	// we use the generic pointer in stream for the OGG codec control structure
 	stream->ptr = vf;
 
 	return stream;
@@ -310,7 +309,7 @@ int S_OGG_CodecReadStream(snd_stream_t *stream, int bytes, void *buffer) {
 	int bytesRead, bytesLeft, c;
 	char *bufPtr;
 
-	// Bitstream for the decoder
+	// bitstream for the decoder
 	int BS = 0;
 	// big endian machines want their samples in big endian order
 	int IsBigEndian = 0;

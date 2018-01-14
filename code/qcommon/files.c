@@ -1372,7 +1372,6 @@ int FS_FindVM(void **startSearch, char *found, int foundlen, const char *name, i
 				if (FS_FileInPathExists(netpath)) {
 					Q_strncpyz(found, netpath, foundlen);
 					*startSearch = search;
-
 					return VMI_NATIVE;
 				}
 			}
@@ -1928,6 +1927,7 @@ static pack_t *FS_LoadZipFile(const char *zipfile, const char *basename) {
 	}
 
 	len = 0;
+
 	unzGoToFirstFile(uf);
 
 	for (i = 0; i < gi.number_entry; i++) {
@@ -1969,6 +1969,7 @@ static pack_t *FS_LoadZipFile(const char *zipfile, const char *basename) {
 
 	pack->handle = uf;
 	pack->numfiles = gi.number_entry;
+
 	unzGoToFirstFile(uf);
 
 	for (i = 0; i < gi.number_entry; i++) {
@@ -2043,6 +2044,7 @@ qboolean FS_CompareZipChecksum(const char *zipfile) {
 	}
 
 	checksum = thepak->checksum;
+
 	FS_FreePak(thepak);
 
 	for (index = 0; index < fs_numServerReferencedPaks; index++) {
@@ -2087,6 +2089,7 @@ static int FS_ReturnPath(const char *zname, char *zpath, int *depth) {
 	}
 
 	strcpy(zpath, zname);
+
 	zpath[len] = 0;
 	*depth = newdep;
 
@@ -2356,9 +2359,9 @@ static char **Sys_ConcatenateFileLists(char **list0, char **list1) {
 
 	totalLength += Sys_CountFileList(list0);
 	totalLength += Sys_CountFileList(list1);
-	// create new list.
+	// create new list
 	dst = cat = Z_Malloc((totalLength + 1) * sizeof(char *));
-	// copy over lists.
+	// copy over lists
 	if (list0) {
 		for (src = list0; *src; src++, dst++) {
 			*dst = *src;
@@ -2402,7 +2405,9 @@ void FS_GetModDescription(const char *modDir, char *description, int description
 
 	if (nDescLen > 0 && descHandle) {
 		file = FS_FileForHandle(descHandle);
+
 		Com_Memset(description, 0, descriptionLen);
+
 		nDescLen = fread(description, 1, descriptionLen, file);
 
 		if (nDescLen >= 0) {
@@ -2435,7 +2440,7 @@ int FS_GetModList(char *listbuf, int bufsize) {
 	qboolean bDrop = qfalse;
 
 	// paths to search for mods
-	const char * const paths[] = {fs_basepath->string, fs_homepath->string, fs_steampath->string, fs_gogpath->string};
+	const char *const paths[] = {fs_basepath->string, fs_homepath->string, fs_steampath->string, fs_gogpath->string};
 
 	*listbuf = 0;
 	nMods = nTotal = 0;
@@ -2496,6 +2501,7 @@ int FS_GetModList(char *listbuf, int bufsize) {
 			// nLen is the length of the mod path
 			// we need to see if there is a description available
 			FS_GetModDescription(name, description, sizeof(description));
+
 			nDescLen = strlen(description) + 1;
 
 			if (nTotal + nLen + 1 + nDescLen + 1 < bufsize) {
@@ -2881,12 +2887,10 @@ void FS_AddGameDirectory(const char *path, const char *dir) {
 			Q_strncpyz(pak->pakGamename, dir, sizeof(pak->pakGamename));
 
 			fs_packFiles += pak->numfiles;
-
 			search = Z_Malloc(sizeof(searchpath_t));
 			search->pack = pak;
 			search->next = fs_searchpaths;
 			fs_searchpaths = search;
-
 			pakfilesi++;
 		} else {
 			// the next .pk3dir is before the next .pk3 file
@@ -2910,7 +2914,6 @@ void FS_AddGameDirectory(const char *path, const char *dir) {
 
 			search->next = fs_searchpaths;
 			fs_searchpaths = search;
-
 			pakdirsi++;
 		}
 	}
@@ -3030,7 +3033,7 @@ qboolean FS_ComparePaks(char *neededpaks, int len, qboolean dlstring) {
 		if (!havepak && fs_serverReferencedPakNames[i] && *fs_serverReferencedPakNames[i]) {
 			// don't got it
 			if (dlstring) {
-				// We need this to make sure we won't hit the end of the buffer or the server could
+				// we need this to make sure we won't hit the end of the buffer or the server could
 				// overwrite non-pk3 files on clients by writing so much crap into neededpaks that
 				// Q_strcat cuts off the .pk3 extension.
 				origpos += strlen(origpos);
@@ -3121,7 +3124,6 @@ void FS_Shutdown(qboolean closemfp) {
 	}
 #endif
 }
-
 #ifndef STANDALONE
 void Com_AppendCDKey(const char *filename);
 void Com_ReadCDKey(const char *filename);
@@ -3582,6 +3584,7 @@ const char *FS_ReferencedPakPureChecksums(void) {
 	}
 	// last checksum is the encoded number of referenced pk3s
 	checksum ^= numPaks;
+
 	Q_strcat(info, sizeof(info), va("%i ", checksum));
 
 	return info;
@@ -3964,7 +3967,7 @@ void FS_Flush(fileHandle_t f) {
 FS_FilenameCompletion
 =======================================================================================================================================
 */
-void FS_FilenameCompletion(const char *dir, const char *ext, qboolean stripExt, void(*callback)(const char *s), qboolean allowNonPureFilesOnDisk) {
+void FS_FilenameCompletion(const char *dir, const char *ext, qboolean stripExt, void (*callback)(const char *s), qboolean allowNonPureFilesOnDisk) {
 	char **filenames;
 	int nfiles;
 	int i;

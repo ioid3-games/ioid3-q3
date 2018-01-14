@@ -1694,7 +1694,6 @@ void BotSetupForMovement(bot_state_t *bs) {
 	}
 
 	VectorCopy(bs->viewangles, initmove.viewangles);
-
 	trap_BotInitMoveState(bs->ms, &initmove);
 }
 

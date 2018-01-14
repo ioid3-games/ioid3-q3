@@ -1484,6 +1484,7 @@ script_t *LoadScriptMemory(char *ptr, int length, char *name) {
 	Com_Memset(script, 0, sizeof(script_t));
 
 	Q_strncpyz(script->filename, name, sizeof(script->filename));
+
 	script->buffer = (char *)buffer + sizeof(script_t);
 	script->buffer[length] = 0;
 	script->length = length;
