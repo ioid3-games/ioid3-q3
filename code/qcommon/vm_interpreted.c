@@ -16,6 +16,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 */
 
 #include "vm_local.h"
+
 //#define DEBUG_VM
 #ifdef DEBUG_VM
 static char *opnames[256] = {
@@ -98,7 +99,7 @@ static ID_INLINE unsigned int loadWord(void *addr) {
 #else
 /*
 =======================================================================================================================================
-lwbrx
+__lwbrx
 =======================================================================================================================================
 */
 static ID_INLINE unsigned int __lwbrx(register void *addr, register int offset) {
@@ -109,7 +110,6 @@ static ID_INLINE unsigned int __lwbrx(register void *addr, register int offset) 
 }
 #define loadWord(addr) __lwbrx(addr, 0)
 #endif
-
 #else
 /*
 =======================================================================================================================================
@@ -120,6 +120,7 @@ static ID_INLINE int loadWord(void *addr) {
 	int word;
 
 	memcpy(&word, addr, 4);
+
 	return LittleLong(word);
 }
 #endif
@@ -170,16 +171,17 @@ void VM_PrepareInterpreter(vm_t *vm, vmHeader_t *header) {
 
 	vm->codeBase = Hunk_Alloc(vm->codeLength * 4, h_high); // we're now int aligned
 
-	//	memcpy(vm->codeBase, (byte *)header + header->codeOffset, vm->codeLength);
+	//memcpy(vm->codeBase, (byte *)header + header->codeOffset, vm->codeLength);
 	// we don't need to translate the instructions, but we still need to find each instructions starting point for jumps
 	int_pc = byte_pc = 0;
 	instruction = 0;
 	code = (byte *)header + header->codeOffset;
 	codeBase = (int *)vm->codeBase;
-	// Copy and expand instructions to words while building instruction table
+	// copy and expand instructions to words while building instruction table
 	while (instruction < header->instructionCount) {
 		vm->instructionPointers[instruction] = int_pc;
 		instruction++;
+
 		op = (int)code[byte_pc];
 		codeBase[int_pc] = op;
 
@@ -228,7 +230,7 @@ void VM_PrepareInterpreter(vm_t *vm, vmHeader_t *header) {
 
 	int_pc = 0;
 	instruction = 0;
-	// Now that the code has been expanded to int-sized opcodes, we'll translate instruction index into an index into codeBase[],
+	// now that the code has been expanded to int-sized opcodes, we'll translate instruction index into an index into codeBase[],
 	// which contains opcodes and operands.
 	while (instruction < header->instructionCount) {
 		op = codeBase[int_pc];
@@ -236,7 +238,7 @@ void VM_PrepareInterpreter(vm_t *vm, vmHeader_t *header) {
 		int_pc++;
 
 		switch (op) {
-			// These ops need to translate addresses in jumps from instruction index to int index
+			// these ops need to translate addresses in jumps from instruction index to int index
 			case OP_EQ:
 			case OP_NE:
 			case OP_LTI:
@@ -260,7 +262,7 @@ void VM_PrepareInterpreter(vm_t *vm, vmHeader_t *header) {
 				codeBase[int_pc] = vm->instructionPointers[codeBase[int_pc]];
 				int_pc++;
 				break;
-			// These opcodes have an operand that isn't an instruction index
+			// these opcodes have an operand that isn't an instruction index
 			case OP_ENTER:
 			case OP_CONST:
 			case OP_LOCAL:
@@ -275,6 +277,7 @@ void VM_PrepareInterpreter(vm_t *vm, vmHeader_t *header) {
 	}
 }
 
+#define DEBUGSTR va("%s%i", VM_Indent(vm), opStackOfs)
 /*
 =======================================================================================================================================
 VM_Call
@@ -292,11 +295,9 @@ sp + 8	arg0
 sp + 4	return stack
 sp		return address
 
-An interpreted function will immediately execute an OP_ENTER instruction, which will subtract space for locals from sp
+An interpreted function will immediately execute an OP_ENTER instruction, which will subtract space for locals from sp.
 =======================================================================================================================================
 */
-#define DEBUGSTR va("%s%i", VM_Indent(vm), opStackOfs)
-
 int VM_CallInterpreted(vm_t *vm, int *args) {
 	byte stack[OPSTACK_SIZE + 15];
 	int *opStack;
@@ -340,15 +341,17 @@ int VM_CallInterpreted(vm_t *vm, int *args) {
 	opStack = PADP(stack, 16);
 	*opStack = 0xDEADBEEF;
 	opStackOfs = 0;
-	// vm_debugLevel = 2;
+	//vm_debugLevel = 2;
 	// main interpreter loop, will exit when a LEAVE instruction grabs the -1 program counter
 #define r2 codeImage[programCounter]
 	while (1) {
 		int opcode, r0, r1;
-//		unsigned int r2;
+		//unsigned int r2;
+
 nextInstruction:
 		r0 = opStack[opStackOfs];
 		r1 = opStack[(uint8_t)(opStackOfs - 1)];
+
 nextInstruction2:
 #ifdef DEBUG_VM
 		if ((unsigned)programCounter >= vm->codeLength) {
@@ -443,7 +446,7 @@ nextInstruction2:
 				if (programCounter < 0) {
 					// system call
 					int r;
-//					int temp;
+					//int temp;
 #ifdef DEBUG_VM
 					int stomped;
 
@@ -452,13 +455,14 @@ nextInstruction2:
 					}
 #endif
 					// save the stack to allow recursive VM entry
-//					temp = vm->callLevel;
+					//temp = vm->callLevel;
 					vm->programStack = programStack - 4;
 #ifdef DEBUG_VM
 					stomped = *(int *)&image[programStack + 4];
 #endif
 					*(int *)&image[programStack + 4] = -1 - programCounter;
-//VM_LogSyscalls((int *)&image[programStack + 4]);
+
+					//VM_LogSyscalls((int *)&image[programStack + 4]);
 					{
 						// the vm has ints on the stack, we expect pointers so we might have to convert it
 						if (sizeof(intptr_t) != sizeof(int)) {
@@ -484,7 +488,7 @@ nextInstruction2:
 					opStackOfs++;
 					opStack[opStackOfs] = r;
 					programCounter = *(int *)&image[programStack];
-//					vm->callLevel = temp;
+					//vm->callLevel = temp;
 #ifdef DEBUG_VM
 					if (vm_debugLevel) {
 						Com_Printf("%s<--- %s\n", DEBUGSTR, VM_ValueToSymbol(vm, programCounter));
@@ -523,11 +527,12 @@ nextInstruction2:
 					if (vm->breakFunction && programCounter - 5 == vm->breakFunction) {
 						// this is to allow setting breakpoints here in the debugger
 						vm->breakCount++;
-//						vm_debugLevel = 2;
-//						VM_StackTrace(vm, programCounter, programStack);
+						//vm_debugLevel = 2;
+
+						//VM_StackTrace(vm, programCounter, programStack);
 					}
 
-//					vm->callLevel++;
+					//vm->callLevel++;
 				}
 #endif
 				goto nextInstruction;
@@ -541,7 +546,7 @@ nextInstruction2:
 				profileSymbol = VM_ValueToFunctionSymbol(vm, programCounter);
 
 				if (vm_debugLevel) {
-//					vm->callLevel--;
+					//vm->callLevel--;
 					Com_Printf("%s<--- %s\n", DEBUGSTR, VM_ValueToSymbol(vm, programCounter));
 				}
 #endif
@@ -647,7 +652,7 @@ nextInstruction2:
 				} else {
 					programCounter += 1;
 					goto nextInstruction;
-			}
+				}
 			case OP_GTU:
 				opStackOfs -= 2;
 
