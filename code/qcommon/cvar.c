@@ -621,7 +621,7 @@ void Cvar_SetSafe(const char *var_name, const char *value) {
 		return;
 	}
 
-	Car_Set(var_name, value);
+	Cvar_Set(var_name, value);
 }
 
 /*
