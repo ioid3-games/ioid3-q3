@@ -2433,6 +2433,8 @@ void Com_GameRestart(int checksumFeed, qboolean disconnect) {
 
 			CL_Shutdown("Game directory changed", disconnect, qfalse);
 		}
+		// change com_basegame to latched value
+		com_basegame = Cvar_Get("com_basegame", BASEGAME, CVAR_LATCH|CVAR_NORESTART);
 
 		FS_Restart(checksumFeed);
 		// clean out any user and VM created cvars
@@ -2464,14 +2466,7 @@ Expose possibility to change current running mod to the user.
 */
 void Com_GameRestart_f(void) {
 
-	if (!FS_FilenameCompare(Cmd_Argv(1), com_basegame->string)) {
-		// this is the standard base game. Servers and clients should use "" and not the standard basegame name because this messes
-		// up pak file negotiation and lots of other stuff
-		Cvar_Set("fs_game", "");
-	} else {
-		Cvar_Set("fs_game", Cmd_Argv(1));
-	}
-
+	Cvar_Set("fs_game", Cmd_Argv(1));
 	Com_GameRestart(0, qtrue);
 }
 
@@ -2706,12 +2701,8 @@ void Com_Init(char *commandLine) {
 	CL_InitKeyCommands();
 
 	com_standalone = Cvar_Get("com_standalone", "0", CVAR_ROM);
-	com_basegame = Cvar_Get("com_basegame", BASEGAME, CVAR_INIT);
-	com_homepath = Cvar_Get("com_homepath", "", CVAR_INIT);
-
-	if (!com_basegame->string[0]) {
-		Cvar_ForceReset("com_basegame");
-	}
+	com_basegame = Cvar_Get("com_basegame", BASEGAME, CVAR_LATCH|CVAR_NORESTART);
+	com_homepath = Cvar_Get("com_homepath", "", CVAR_INIT|CVAR_PROTECTED);
 
 	FS_InitFilesystem();
 	Com_InitJournaling();
@@ -2915,9 +2906,7 @@ Writes key bindings and archived cvars to config file if modified.
 =======================================================================================================================================
 */
 void Com_WriteConfiguration(void) {
-#if !defined(DEDICATED) && !defined(STANDALONE)
-	cvar_t *fs;
-#endif
+
 	// if we are quitting without fully initializing, make sure we don't write out anything
 	if (!com_fullyInitialized) {
 		return;
@@ -2932,11 +2921,13 @@ void Com_WriteConfiguration(void) {
 	Com_WriteConfigToFile(Q3CONFIG_CFG);
 	// not needed for dedicated or standalone
 #if !defined(DEDICATED) && !defined(STANDALONE)
-	fs = Cvar_Get("fs_game", "", CVAR_INIT|CVAR_SYSTEMINFO);
-
 	if (!com_standalone->integer) {
-		if (UI_usesUniqueCDKey() && fs && fs->string[0] != 0) {
-			Com_WriteCDKey(fs->string, &cl_cdkey[16]);
+		const char *gamedir;
+
+		gamedir = Cvar_VariableString("fs_game");
+
+		if (UI_usesUniqueCDKey() && gamedir[0] != 0) {
+			Com_WriteCDKey(gamedir, &cl_cdkey[16]);
 		} else {
 			Com_WriteCDKey(BASEGAME, cl_cdkey);
 		}

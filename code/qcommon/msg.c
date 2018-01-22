@@ -33,7 +33,6 @@ int pcount[256];
 */
 
 int oldsize = 0;
-
 void MSG_initHuffman(void);
 
 /*

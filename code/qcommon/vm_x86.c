@@ -103,7 +103,7 @@ NextConstant4
 =======================================================================================================================================
 */
 static int NextConstant4(void) {
-	return (code[pc]|(code[pc + 1] << 8)|(code[pc + 2] << 16)|(code[pc + 3] << 24));
+	return ((unsigned int)code[pc]|((unsigned int)code[pc + 1] << 8)|((unsigned int)code[pc + 2] << 16)|((unsigned int)code[pc + 3] << 24));
 }
 
 /*
@@ -138,9 +138,9 @@ Emit1
 =======================================================================================================================================
 */
 static void Emit1(int v) {
+
 	buf[compiledOfs] = v;
 	compiledOfs++;
-
 	LastCommand = LAST_COMMAND_NONE;
 }
 
@@ -579,6 +579,7 @@ Emit the code that triggers execution of the jump violation handler.
 =======================================================================================================================================
 */
 static void EmitCallErrJump(vm_t *vm, int sysCallOfs) {
+
 	EmitString("B8"); // mov eax, 0x12345678
 	Emit4(VM_JMP_VIOLATION);
 	EmitCallRel(vm, sysCallOfs);

@@ -714,7 +714,7 @@ static float CG_DrawSnapshot(float y) {
 	s = va("time:%i snap:%i cmd:%i", cg.snap->serverTime, cg.latestSnapshotNum, cgs.serverCommandSequence);
 	w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
 
-	CG_DrawBigString(635 - w, y + 2, s, 1.0F);
+	CG_DrawBigString(635 - w, y + 2, s, 1.0f);
 
 	return y + BIGCHAR_HEIGHT + 4;
 }
@@ -758,7 +758,7 @@ static float CG_DrawFPS(float y) {
 		s = va("%ifps", fps);
 		w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
 
-		CG_DrawBigString(635 - w, y + 2, s, 1.0F);
+		CG_DrawBigString(635 - w, y + 2, s, 1.0f);
 	}
 
 	return y + BIGCHAR_HEIGHT + 4;
@@ -784,7 +784,7 @@ static float CG_DrawTimer(float y) {
 	s = va("%i:%i%i", mins, tens, seconds);
 	w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
 
-	CG_DrawBigString(635 - w, y + 2, s, 1.0F);
+	CG_DrawBigString(635 - w, y + 2, s, 1.0f);
 
 	return y + BIGCHAR_HEIGHT + 4;
 }
@@ -1036,7 +1036,7 @@ static float CG_DrawScores(float y) {
 			CG_DrawPic(x, y - 4, w, BIGCHAR_HEIGHT + 8, cgs.media.selectShader);
 		}
 
-		CG_DrawBigString(x + 4, y, s, 1.0F);
+		CG_DrawBigString(x + 4, y, s, 1.0f);
 
 		if (cgs.gametype == GT_CTF) {
 			// display flag status
@@ -1066,7 +1066,7 @@ static float CG_DrawScores(float y) {
 			CG_DrawPic(x, y - 4, w, BIGCHAR_HEIGHT + 8, cgs.media.selectShader);
 		}
 
-		CG_DrawBigString(x + 4, y, s, 1.0F);
+		CG_DrawBigString(x + 4, y, s, 1.0f);
 
 		if (cgs.gametype == GT_CTF) {
 			// Display flag status
@@ -1092,7 +1092,7 @@ static float CG_DrawScores(float y) {
 			w = CG_DrawStrlen(s) * BIGCHAR_WIDTH + 8;
 			x -= w;
 
-			CG_DrawBigString(x + 4, y, s, 1.0F);
+			CG_DrawBigString(x + 4, y, s, 1.0f);
 		}
 	} else {
 		qboolean spectator;
@@ -1127,7 +1127,7 @@ static float CG_DrawScores(float y) {
 				CG_FillRect(x, y - 4, w, BIGCHAR_HEIGHT + 8, color);
 			}
 
-			CG_DrawBigString(x + 4, y, s, 1.0F);
+			CG_DrawBigString(x + 4, y, s, 1.0f);
 		}
 		// first place
 		if (s1 != SCORE_NOT_PRESENT) {
@@ -1152,7 +1152,7 @@ static float CG_DrawScores(float y) {
 				CG_FillRect(x, y - 4, w, BIGCHAR_HEIGHT + 8, color);
 			}
 
-			CG_DrawBigString(x + 4, y, s, 1.0F);
+			CG_DrawBigString(x + 4, y, s, 1.0f);
 		}
 
 		if (cgs.fraglimit) {
@@ -1160,7 +1160,7 @@ static float CG_DrawScores(float y) {
 			w = CG_DrawStrlen(s) * BIGCHAR_WIDTH + 8;
 			x -= w;
 
-			CG_DrawBigString(x + 4, y, s, 1.0F);
+			CG_DrawBigString(x + 4, y, s, 1.0f);
 		}
 	}
 
@@ -1585,7 +1585,7 @@ static void CG_DrawDisconnect(void) {
 	s = "Connection Interrupted";
 	w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
 
-	CG_DrawBigString(320 - w / 2, 100, s, 1.0F);
+	CG_DrawBigString(320 - w / 2, 100, s, 1.0f);
 	// blink the icon
 	if ((cg.time >> 9) & 1) {
 		return;
@@ -2053,12 +2053,12 @@ CG_DrawSpectator
 */
 static void CG_DrawSpectator(void) {
 
-	CG_DrawBigString(320 - 9 * 8, 440, "SPECTATOR", 1.0F);
+	CG_DrawBigString(320 - 9 * 8, 440, "SPECTATOR", 1.0f);
 
 	if (cgs.gametype == GT_TOURNAMENT) {
-		CG_DrawBigString(320 - 15 * 8, 460, "waiting to play", 1.0F);
+		CG_DrawBigString(320 - 15 * 8, 460, "waiting to play", 1.0f);
 	} else if (cgs.gametype >= GT_TEAM) {
-		CG_DrawBigString(320 - 39 * 8, 460, "press ESC and use the JOIN menu to play", 1.0F);
+		CG_DrawBigString(320 - 39 * 8, 460, "press ESC and use the JOIN menu to play", 1.0f);
 	}
 }
 
@@ -2088,15 +2088,15 @@ static void CG_DrawVote(void) {
 #ifdef MISSIONPACK
 	s = va("VOTE(%i):%s yes:%i no:%i", sec, cgs.voteString, cgs.voteYes, cgs.voteNo);
 
-	CG_DrawSmallString(0, 58, s, 1.0F);
+	CG_DrawSmallString(0, 58, s, 1.0f);
 
 	s = "or press ESC then click Vote";
 
-	CG_DrawSmallString(0, 58 + SMALLCHAR_HEIGHT + 2, s, 1.0F);
+	CG_DrawSmallString(0, 58 + SMALLCHAR_HEIGHT + 2, s, 1.0f);
 #else
 	s = va("VOTE(%i):%s yes:%i no:%i", sec, cgs.voteString, cgs.voteYes, cgs.voteNo);
 
-	CG_DrawSmallString(0, 58, s, 1.0F);
+	CG_DrawSmallString(0, 58, s, 1.0f);
 #endif
 }
 
@@ -2134,7 +2134,7 @@ static void CG_DrawTeamVote(void) {
 
 	s = va("TEAMVOTE(%i):%s yes:%i no:%i", sec, cgs.teamVoteString[cs_offset], cgs.teamVoteYes[cs_offset], cgs.teamVoteNo[cs_offset]);
 
-	CG_DrawSmallString(0, 90, s, 1.0F);
+	CG_DrawSmallString(0, 90, s, 1.0f);
 }
 
 /*
@@ -2246,7 +2246,7 @@ static qboolean CG_DrawFollow(void) {
 	color[2] = 1;
 	color[3] = 1;
 
-	CG_DrawBigString(320 - 9 * 8, 24, "following", 1.0F);
+	CG_DrawBigString(320 - 9 * 8, 24, "following", 1.0f);
 
 	name = cgs.clientinfo[cg.snap->ps.clientNum].name;
 	x = 0.5 * (640 - GIANT_WIDTH * CG_DrawStrlen(name));
@@ -2280,7 +2280,7 @@ static void CG_DrawAmmoWarning(void) {
 
 	w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
 
-	CG_DrawBigString(320 - w / 2, 64, s, 1.0F);
+	CG_DrawBigString(320 - w / 2, 64, s, 1.0f);
 }
 #ifdef MISSIONPACK
 /*
@@ -2342,7 +2342,7 @@ static void CG_DrawWarmup(void) {
 	if (sec < 0) {
 		s = "Waiting for players";
 		w = CG_DrawStrlen(s) * BIGCHAR_WIDTH;
-		CG_DrawBigString(320 - w / 2, 24, s, 1.0F);
+		CG_DrawBigString(320 - w / 2, 24, s, 1.0f);
 		cg.warmupCount = 0;
 		return;
 	}

@@ -543,9 +543,7 @@ typedef struct sentity_s {
 } sentity_t;
 
 static sentity_t entityList[MAX_GENTITIES];
-
 #define S_AL_SanitiseVector(v) _S_AL_SanitiseVector(v, __LINE__)
-
 /*
 =======================================================================================================================================
 _S_AL_SanitiseVector
@@ -740,7 +738,9 @@ static void S_AL_SrcSetup(srcHandle_t src, sfxHandle_t sfx, alSrcPriority_t prio
 	}
 
 	qalSourcef(curSource->alSource, AL_PITCH, 1.0f);
+
 	S_AL_Gain(curSource->alSource, curSource->curGain);
+
 	qalSourcefv(curSource->alSource, AL_POSITION, vec3_origin);
 	qalSourcefv(curSource->alSource, AL_VELOCITY, vec3_origin);
 	qalSourcei(curSource->alSource, AL_LOOPING, AL_FALSE);
@@ -1202,7 +1202,6 @@ static void S_AL_SrcLoop(alSrcPriority_t priority, sfxHandle_t sfx, const vec3_t
 	sent->loopSfx = sfx;
 	// if this is not set then the looping sound is stopped.
 	sent->loopAddedThisFrame = qtrue;
-	// UGH
 	// these lines should be called via S_AL_SrcSetup, but we can't call that yet as it buffers sfxes that may change
 	// with subsequent calls to S_AL_SrcLoop
 	curSource->entity = entityNum;
@@ -1938,6 +1937,7 @@ static void S_AL_MusicUpdate(void) {
 	// set the gain property
 	S_AL_Gain(musicSource, s_alGain->value * s_musicVolume->value);
 }
+
 // local state variables
 static ALCdevice *alDevice;
 static ALCcontext *alContext;

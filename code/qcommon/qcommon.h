@@ -206,7 +206,6 @@ qboolean Netchan_Process(netchan_t *chan, msg_t *msg);
 // maintain a list of compatible protocols for demo playing
 // NOTE: that stuff only works with two digits protocols
 extern int demo_protocols[];
-
 #if !defined UPDATE_SERVER_NAME && !defined STANDALONE
 #define UPDATE_SERVER_NAME "update.quake3arena.com"
 #endif
@@ -219,13 +218,13 @@ extern int demo_protocols[];
 #define AUTHORIZE_SERVER_NAME "authorize.quake3arena.com"
 #endif
 #ifndef PORT_AUTHORIZE
-#define PORT_AUTHORIZE		27952
+#define PORT_AUTHORIZE 27952
 #endif
 #endif
-#define PORT_MASTER			27950
-#define PORT_UPDATE			27951
-#define PORT_SERVER			27960
-#define NUM_SERVER_PORTS	4 // broadcast scan this many ports after PORT_SERVER so a single machine can run multiple servers
+#define PORT_MASTER 27950
+#define PORT_UPDATE 27951
+#define PORT_SERVER 27960
+#define NUM_SERVER_PORTS 4 // broadcast scan this many ports after PORT_SERVER so a single machine can run multiple servers
 // the svc_strings[] array in cl_parse.c should mirror this
 // server to client
 enum svc_ops_e {
@@ -500,7 +499,7 @@ void FS_GetModDescription(const char *modDir, char *description, int description
 fileHandle_t FS_FOpenFileWrite(const char *qpath);
 fileHandle_t FS_FOpenFileAppend(const char *filename);
 fileHandle_t FS_FCreateOpenPipeFile(const char *filename);
-// will properly create any needed paths and deal with separater character issues
+// will properly create any needed paths and deal with separator character issues
 fileHandle_t FS_SV_FOpenFileWrite(const char *filename);
 long FS_SV_FOpenFileRead(const char *filename, fileHandle_t *fp);
 void FS_SV_Rename(const char *from, const char *to, qboolean safe);
@@ -559,6 +558,7 @@ void FS_PureServerSetLoadedPaks(const char *pakSums, const char *pakNames);
 // If the string is empty, all data sources will be allowed.
 // If not empty, only pk3 files that match one of the space separated checksums will be checked for files, with the sole exception of .cfg files.
 qboolean FS_CheckDirTraversal(const char *checkdir);
+qboolean FS_InvalidGameDir(const char *gamedir);
 qboolean FS_idPak(char *pak, char *base, int numPaks);
 qboolean FS_ComparePaks(char *neededpaks, int len, qboolean dlstring);
 void FS_Rename(const char *from, const char *to);
