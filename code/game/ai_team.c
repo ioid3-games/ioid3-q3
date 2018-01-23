@@ -32,9 +32,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include "ai_dmnet.h"
 #include "ai_team.h"
 #include "ai_vcmd.h"
-#include "match.h"
-// for the voice chats
-#include "../../ui/menudef.h"
+#include "match.h" // string matching types and vars
+#include "../../ui/menudef.h" // for the voice chats
 // ctf task preferences for a client
 typedef struct bot_ctftaskpreference_s {
 	char name[36];

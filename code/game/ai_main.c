@@ -32,9 +32,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include "ai_cmd.h"
 #include "ai_dmnet.h"
 #include "ai_vcmd.h"
-#include "chars.h"
-#include "inv.h"
-#include "syn.h"
+#include "chars.h" // characteristics
+#include "inv.h" // indexes into the inventory
+#include "syn.h" // synonyms
 // bot states
 bot_state_t *botstates[MAX_CLIENTS];
 // number of bots

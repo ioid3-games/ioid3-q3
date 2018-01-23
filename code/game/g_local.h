@@ -25,7 +25,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 // the "gameversion" client command will print this plus compile date
 #define GAMEVERSION BASEGAME
 #define BODY_QUEUE_SIZE 8
-#define INFINITE 1000000
 #define FRAMETIME 100 // msec
 #define CARNAGE_REWARD_TIME 3000
 #define REWARD_SPRITE_TIME 2000

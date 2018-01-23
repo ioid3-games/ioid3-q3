@@ -752,7 +752,7 @@ int Team_TouchOurFlag(gentity_t *ent, gentity_t *other, int team) {
 			AddScore(other, ent->r.currentOrigin, CTF_RECOVERY_BONUS);
 
 			other->client->pers.teamState.lastreturnedflag = level.time;
-			// ResetFlag will remove this entity! We must return zero
+			// 'ResetFlag' will remove this entity! We must return zero
 			Team_ReturnFlagSound(Team_ResetFlag(team), team);
 			return 0;
 		}
@@ -761,7 +761,7 @@ int Team_TouchOurFlag(gentity_t *ent, gentity_t *other, int team) {
 #endif
 	// the flag is at home base. if the player has the enemy flag, he's just won!
 	if (!cl->ps.powerups[enemy_flag]) {
-		return 0; // We don't have the flag
+		return 0; // we don't have the flag
 	}
 #ifdef MISSIONPACK
 	if (g_gametype.integer == GT_1FCTF) {
@@ -776,7 +776,7 @@ int Team_TouchOurFlag(gentity_t *ent, gentity_t *other, int team) {
 
 	teamgame.last_flag_capture = level.time;
 	teamgame.last_capture_team = team;
-	// Increase the team's score
+	// increase the team's score
 	AddTeamScore(ent->s.pos.trBase, other->client->sess.sessionTeam, 1);
 	Team_ForceGesture(other->client->sess.sessionTeam);
 	// add the sprite over the player's head
@@ -1151,7 +1151,7 @@ void TeamplayInfoMessage(gentity_t *ent) {
 				a = 0;
 			}
 
-			Com_sprintf(entry, sizeof(entry), " %i %i %i %i %i %i", i, player->client->pers.teamState.location, h, a, player->client->ps.weapon, player->s.powerups); // level.sortedClients[i], player->client->pers.teamState.location, h, a,
+			Com_sprintf(entry, sizeof(entry), " %i %i %i %i %i %i", i, player->client->pers.teamState.location, h, a, player->client->ps.weapon, player->s.powerups);
 
 			j = strlen(entry);
 

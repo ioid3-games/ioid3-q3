@@ -20,9 +20,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 **************************************************************************************************************************************/
 
 #include "cg_local.h"
-// for the voice chats
 #ifdef MISSIONPACK
-#include "../../ui/menudef.h"
+#include "../../ui/menudef.h" // for the voice chats
 #endif
 /*
 =======================================================================================================================================

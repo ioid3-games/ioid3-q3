@@ -35,8 +35,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include "inv.h" // indexes into the inventory
 #include "syn.h" // synonyms
 #include "match.h" // string matching types and vars
-// for the voice chats
-#include "../../ui/menudef.h"
+#include "../../ui/menudef.h" // for the voice chats
 
 int notleader[MAX_CLIENTS];
 #ifdef DEBUG

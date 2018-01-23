@@ -172,8 +172,6 @@ static const unsigned int missionpak_checksums[] = {
 // executable with the production windows pak before the mac/linux products
 // hit the shelves a little later
 // NOW defined in build files
-//#define PRE_RELEASE_TADEMO
-
 #define MAX_ZPATH 256
 #define MAX_SEARCH_PATHS 4096
 #define MAX_FILEHASH_SIZE 1024

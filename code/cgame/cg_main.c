@@ -209,7 +209,7 @@ static cvarTable_t cvarTable[] = {
 	{&cg_gibs, "cg_gibs", "1", CVAR_ARCHIVE},
 	{&cg_draw2D, "cg_draw2D", "1", CVAR_ARCHIVE},
 	{&cg_drawStatus, "cg_drawStatus", "1", CVAR_ARCHIVE},
-	{&cg_drawTimer, "cg_drawTimer", "0", CVAR_ARCHIVE},
+	{&cg_drawTimer, "cg_drawTimer", "1", CVAR_ARCHIVE},
 	{&cg_drawFPS, "cg_drawFPS", "0", CVAR_ARCHIVE},
 	{&cg_drawSnapshot, "cg_drawSnapshot", "0", CVAR_ARCHIVE},
 	{&cg_draw3dIcons, "cg_draw3dIcons", "1", CVAR_ARCHIVE},
@@ -217,16 +217,16 @@ static cvarTable_t cvarTable[] = {
 	{&cg_drawAmmoWarning, "cg_drawAmmoWarning", "1", CVAR_ARCHIVE},
 	{&cg_drawAttacker, "cg_drawAttacker", "1", CVAR_ARCHIVE},
 	{&cg_drawCrosshair, "cg_drawCrosshair", "4", CVAR_ARCHIVE},
-	{&cg_drawCrosshairNames, "cg_drawCrosshairNames", "1", CVAR_ARCHIVE},
+	{&cg_drawCrosshairNames, "cg_drawCrosshairNames", "0", CVAR_ARCHIVE},
 	{&cg_drawRewards, "cg_drawRewards", "1", CVAR_ARCHIVE},
 	{&cg_crosshairSize, "cg_crosshairSize", "24", CVAR_ARCHIVE},
-	{&cg_crosshairHealth, "cg_crosshairHealth", "1", CVAR_ARCHIVE},
+	{&cg_crosshairHealth, "cg_crosshairHealth", "0", CVAR_ARCHIVE},
 	{&cg_crosshairX, "cg_crosshairX", "0", CVAR_ARCHIVE},
 	{&cg_crosshairY, "cg_crosshairY", "0", CVAR_ARCHIVE},
 	{&cg_brassTime, "cg_brassTime", "2500", CVAR_ARCHIVE},
 	{&cg_simpleItems, "cg_simpleItems", "0", CVAR_ARCHIVE},
 	{&cg_addMarks, "cg_marks", "1", CVAR_ARCHIVE},
-	{&cg_lagometer, "cg_lagometer", "1", CVAR_ARCHIVE},
+	{&cg_lagometer, "cg_lagometer", "0", CVAR_ARCHIVE},
 	{&cg_railTrailTime, "cg_railTrailTime", "400", CVAR_ARCHIVE},
 	{&cg_gun_x, "cg_gunX", "0", CVAR_CHEAT},
 	{&cg_gun_y, "cg_gunY", "0", CVAR_CHEAT},
@@ -295,8 +295,8 @@ static cvarTable_t cvarTable[] = {
 	{&cg_timescaleFadeEnd, "cg_timescaleFadeEnd", "1", 0},
 	{&cg_timescaleFadeSpeed, "cg_timescaleFadeSpeed", "0", 0},
 	{&cg_timescale, "timescale", "1", 0},
-	{&cg_scorePlum, "cg_scorePlums", "1", CVAR_USERINFO|CVAR_ARCHIVE},
-	{&cg_smoothClients, "cg_smoothClients", "0", CVAR_USERINFO|CVAR_ARCHIVE},
+	{&cg_scorePlum, "cg_scorePlums", "0", CVAR_USERINFO|CVAR_ARCHIVE},
+	{&cg_smoothClients, "cg_smoothClients", "1", CVAR_USERINFO|CVAR_ARCHIVE},
 	{&cg_cameraMode, "com_cameraMode", "0", CVAR_CHEAT},
 	{&pmove_fixed, "pmove_fixed", "0", CVAR_SYSTEMINFO},
 	{&pmove_msec, "pmove_msec", "8", CVAR_SYSTEMINFO},
@@ -309,7 +309,7 @@ static cvarTable_t cvarTable[] = {
 	{&cg_oldRail, "cg_oldRail", "1", CVAR_ARCHIVE},
 	{&cg_oldRocket, "cg_oldRocket", "1", CVAR_ARCHIVE},
 	{&cg_oldPlasma, "cg_oldPlasma", "1", CVAR_ARCHIVE},
-	{&cg_trueLightning, "cg_trueLightning", "0.0", CVAR_ARCHIVE}
+	{&cg_trueLightning, "cg_trueLightning", "1.0", CVAR_ARCHIVE}
 //	{&cg_pmove_fixed, "cg_pmove_fixed", "0", CVAR_USERINFO|CVAR_ARCHIVE}
 };
 

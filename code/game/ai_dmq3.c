@@ -2866,7 +2866,7 @@ void BotRoamGoal(bot_state_t *bs, vec3_t goal) {
 			}
 		}
 		// add a random value to the z-coordinate (NOTE: 48 = maxjump?)
-		bestorg[2] += 2 * 48 * crandom();
+		bestorg[2] += 96 * crandom();
 		// trace a line from the origin to the roam target
 		BotAI_Trace(&trace, bs->origin, NULL, NULL, bestorg, bs->entitynum, MASK_SOLID);
 		// direction and length towards the roam target
@@ -5020,8 +5020,7 @@ void BotAIBlocked(bot_state_t *bs, bot_moveresult_t *moveresult, int activate) {
 	//if (moveresult->flags & MOVERESULT_ONTOPOFOBSTACLE) movetype = MOVE_JUMP;
 	//else
 	movetype = MOVE_WALK;
-	// if there's an obstacle at the bot's feet and head then
-	// the bot might be able to crouch through
+	// if there's an obstacle at the bot's feet and head then the bot might be able to crouch through
 	//VectorCopy(bs->origin, start);
 	//start[2] += 18;
 	//VectorMA(start, 5, hordir, end);
@@ -5032,7 +5031,7 @@ void BotAIBlocked(bot_state_t *bs, bot_moveresult_t *moveresult, int activate) {
 	//if (bsptrace.fraction >= 1) movetype = MOVE_CROUCH;
 	// get the sideward vector
 	CrossProduct(hordir, up, sideward);
-
+	// flip the direction
 	if (bs->flags & BFL_AVOIDRIGHT) {
 		VectorNegate(sideward, sideward);
 	}
@@ -5043,7 +5042,7 @@ void BotAIBlocked(bot_state_t *bs, bot_moveresult_t *moveresult, int activate) {
 			// flip the avoid direction flag
 			bs->flags ^= BFL_AVOIDRIGHT;
 			// flip the direction
-			// VectorNegate(sideward, sideward);
+			//VectorNegate(sideward, sideward);
 			VectorMA(sideward, -1, hordir, sideward);
 			// move in the other direction
 			trap_BotMoveInDirection(bs->ms, sideward, 400, movetype);

@@ -672,13 +672,12 @@ gentity_t *fire_grapple(gentity_t *self, vec3_t start, vec3_t dir) {
 	return hook;
 }
 #ifdef MISSIONPACK
+#define NAILGUN_SPREAD 500
 /*
 =======================================================================================================================================
 fire_nail
 =======================================================================================================================================
 */
-#define NAILGUN_SPREAD 500
-
 gentity_t *fire_nail(gentity_t *self, vec3_t start, vec3_t forward, vec3_t right, vec3_t up) {
 	gentity_t *bolt;
 	vec3_t dir;
