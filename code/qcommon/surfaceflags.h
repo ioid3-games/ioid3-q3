@@ -15,12 +15,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 =======================================================================================================================================
 */
 
-// This file must be identical in the quake and utils directories!
+/**************************************************************************************************************************************
+ This file must be identical in the Quake and utils directories!
+ Contents flags are separate bits. A given brush can contribute multiple content bits.
+**************************************************************************************************************************************/
 
-// Contents flags are separate bits.
-// A given brush can contribute multiple content bits.
-
-// These definitions also need to be in q_shared.h!
+/*
+=======================================================================================================================================
+	CONTENTS
+=======================================================================================================================================
+*/
 
 #define CONTENTS_SOLID			1 // an eye is never valid in a solid
 #define CONTENTS_LAVA			8
@@ -48,6 +52,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define CONTENTS_TRANSLUCENT	0x20000000 // don't consume surface fragments inside
 #define CONTENTS_TRIGGER		0x40000000
 #define CONTENTS_NODROP			0x80000000 // don't leave bodies or items (death fog, lava)
+
+/*
+=======================================================================================================================================
+	SURFACE
+=======================================================================================================================================
+*/
 
 #define SURF_NODAMAGE			0x1 // never give falling damage
 #define SURF_SLICK				0x2 // effects game physics
