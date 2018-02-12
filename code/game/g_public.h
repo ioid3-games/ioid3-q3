@@ -100,10 +100,9 @@ typedef enum {
 	G_FS_WRITE,					// (const void *buffer, int len, fileHandle_t f);
 	G_FS_FCLOSE_FILE,			// (fileHandle_t f);
 	G_SEND_CONSOLE_COMMAND,		// (const char *text);
-	// add commands to the console as if they were typed in for map changing, etc
+	// add commands to the console as if they were typed in for map changing, etc.
 
 	//=========== server specific functionality =============
-
 	G_LOCATE_GAME_DATA,			// (gentity_t *gEnts, int numGEntities, int sizeofGEntity_t, playerState_t *clients, int sizeofGameClient);
 	// the game needs to let the server system know where and how big the gentities are, so it can look at them directly without going through an interface
 	G_DROP_CLIENT,				// (int clientNum, const char *reason);
@@ -112,8 +111,8 @@ typedef enum {
 	// reliably sends a command string to be interpreted by the given client. If clientNum is -1, it will be sent to all clients
 	G_SET_CONFIGSTRING,			// (int num, const char *string);
 	// config strings hold all the index strings, and various other information that is reliably communicated to all clients
-	// All of the current configstrings are sent to clients when they connect, and changes are sent to all connected clients.
-	// All confgstrings are cleared at each level start.
+	// all of the current configstrings are sent to clients when they connect, and changes are sent to all connected clients.
+	// all confgstrings are cleared at each level start.
 	G_GET_CONFIGSTRING,			// (int num, char *buffer, int bufferSize);
 	G_GET_USERINFO,				// (int num, char *buffer, int bufferSize);
 	// userinfo strings are maintained by the server system, so they are persistant across level loads, while all other game visible data is completely reset
@@ -143,7 +142,7 @@ typedef enum {
 	G_BOT_FREE_CLIENT,			// (int clientNum);
 	G_GET_USERCMD,				// (int clientNum, usercmd_t *cmd)
 	G_GET_ENTITY_TOKEN,			// qboolean (char *buffer, int bufferSize)
-	// Retrieves the next string token from the entity spawn text, returning false when all tokens have been parsed. This should only be done at GAME_INIT time.
+	// retrieves the next string token from the entity spawn text, returning false when all tokens have been parsed. This should only be done at GAME_INIT time.
 	G_FS_GETFILELIST,
 	G_DEBUG_POLYGON_CREATE,
 	G_DEBUG_POLYGON_DELETE,
@@ -153,6 +152,7 @@ typedef enum {
 	G_ENTITY_CONTACTCAPSULE,	// (const vec3_t mins, const vec3_t maxs, const gentity_t *ent);
 	// 1.32
 	G_FS_SEEK,
+
 	BOTLIB_SETUP = 200,			// (void);
 	BOTLIB_SHUTDOWN,			// (void);
 	BOTLIB_LIBVAR_SET,
@@ -165,6 +165,7 @@ typedef enum {
 	BOTLIB_GET_SNAPSHOT_ENTITY,	// (int client, int ent);
 	BOTLIB_GET_CONSOLE_MESSAGE,	// (int client, char *message, int size);
 	BOTLIB_USER_COMMAND,		// (int client, usercmd_t *ucmd);
+
 	BOTLIB_AAS_ENABLE_ROUTING_AREA = 300,
 	BOTLIB_AAS_BBOX_AREAS,
 	BOTLIB_AAS_AREA_INFO,
@@ -184,6 +185,7 @@ typedef enum {
 	BOTLIB_AAS_AREA_TRAVEL_TIME_TO_GOAL_AREA,
 	BOTLIB_AAS_SWIMMING,
 	BOTLIB_AAS_PREDICT_CLIENT_MOVEMENT,
+
 	BOTLIB_EA_SAY = 400,
 	BOTLIB_EA_SAY_TEAM,
 	BOTLIB_EA_COMMAND,
@@ -208,6 +210,7 @@ typedef enum {
 	BOTLIB_EA_END_REGULAR,
 	BOTLIB_EA_GET_INPUT,
 	BOTLIB_EA_RESET_INPUT,
+
 	BOTLIB_AI_LOAD_CHARACTER = 500,
 	BOTLIB_AI_FREE_CHARACTER,
 	BOTLIB_AI_CHARACTERISTIC_FLOAT,
