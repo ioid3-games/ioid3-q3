@@ -953,6 +953,7 @@ int PS_ReadToken(script_t *script, token_t *token) {
 	// if a literal
 	} else if (*script->script_p == '\'') {
 		//if (!PS_ReadLiteral(script, token)) return 0;
+
 		if (!PS_ReadString(script, token, '\'')) {
 			return 0;
 		}
@@ -1440,6 +1441,7 @@ script_t *LoadScriptFile(const char *filename) {
 	Com_Memset(script, 0, sizeof(script_t));
 
 	Q_strncpyz(script->filename, filename, sizeof(script->filename));
+
 	script->buffer = (char *)buffer + sizeof(script_t);
 	script->buffer[length] = 0;
 	script->length = length;

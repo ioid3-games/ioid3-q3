@@ -27,6 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 input: origin, velocity, bounds, groundPlane, trace function
 output: origin, velocity, impacts, stairup boolean
 */
+#define MAX_CLIP_PLANES 5
 
 /*
 =======================================================================================================================================
@@ -35,7 +36,6 @@ PM_SlideMove
 Returns qtrue if the velocity was clipped in some way.
 =======================================================================================================================================
 */
-#define MAX_CLIP_PLANES 5
 qboolean PM_SlideMove(qboolean gravity) {
 	int bumpcount, numbumps;
 	vec3_t dir;

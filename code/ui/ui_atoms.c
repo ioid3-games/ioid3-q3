@@ -35,7 +35,6 @@ void QDECL Com_Error(int level, const char *error, ...) {
 	va_start(argptr, error);
 	Q_vsnprintf(text, sizeof(text), error, argptr);
 	va_end(argptr);
-
 	trap_Error(text);
 }
 
@@ -51,7 +50,6 @@ void QDECL Com_Printf(const char *msg, ...) {
 	va_start(argptr, msg);
 	Q_vsnprintf(text, sizeof(text), msg, argptr);
 	va_end(argptr);
-
 	trap_Print(text);
 }
 
@@ -204,7 +202,6 @@ void UI_LoadBestScores(const char *map, int game) {
 	UI_SetBestScores(&newInfo, qfalse);
 
 	uiInfo.demoAvailable = qfalse;
-
 	protocolLegacy = trap_Cvar_VariableValue("com_legacyprotocol");
 	protocol = trap_Cvar_VariableValue("com_protocol");
 
@@ -325,7 +322,6 @@ static void UI_CalcPostGameStats(void) {
 	newInfo.blueScore = atoi(UI_Argv(12));
 	time = atoi(UI_Argv(13));
 	newInfo.captures = atoi(UI_Argv(14));
-
 	newInfo.time = (time - trap_Cvar_VariableValue("ui_matchStartTime")) / 1000;
 	adjustedTime = uiInfo.mapList[ui_currentMap.integer].timeToBeat[game];
 
@@ -417,7 +413,6 @@ qboolean UI_ConsoleCommand(int realTime) {
 			Q_strncpyz(shader1, UI_Argv(1), sizeof(shader1));
 			Q_strncpyz(shader2, UI_Argv(2), sizeof(shader2));
 			Q_strncpyz(shader3, UI_Argv(3), sizeof(shader3));
-
 			trap_R_RemapShader(shader1, shader2, shader3);
 			return qtrue;
 		}

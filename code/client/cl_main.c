@@ -1360,8 +1360,10 @@ void CL_Disconnect(qboolean showMainMenu) {
 
 		cl_voipUseVAD->integer = 0; // disable this for a moment.
 		clc.voipOutgoingDataSize = 0; // dump any pending VoIP transmission.
+
 		Cvar_Set("cl_voipSend", "0");
 		CL_CaptureVoip(); // clean up any state...
+
 		cl_voipUseVAD->integer = tmp;
 	}
 
@@ -2239,7 +2241,7 @@ void CL_CheckForResend(void) {
 			}
 #endif
 			// the challenge request shall be followed by a client challenge so no malicious server can hijack this connection.
-			// add the gamename so the server knows we're running the correct game or can reject the client with a meaningful message.
+			// add the gamename so the server knows we're running the correct game or can reject the client with a meaningful message
 			Com_sprintf(data, sizeof(data), "getchallenge %d %s", clc.challenge, com_gamename->string);
 			NET_OutOfBandPrint(NS_CLIENT, clc.serverAddress, "%s", data);
 			break;
@@ -3223,6 +3225,7 @@ void CL_Sayto_f(void) {
 
 	for (i = 0; i < count; i++) {
 		info = cl.gameState.stringData + cl.gameState.stringOffsets[CS_PLAYERS + i];
+
 		Q_strncpyz(cleanName, Info_ValueForKey(info, "n"), sizeof(cleanName));
 		Q_CleanStr(cleanName);
 
@@ -3315,7 +3318,7 @@ void CL_Init(void) {
 	cl_inGameVideo = Cvar_Get("r_inGameVideo", "1", CVAR_ARCHIVE);
 #endif
 	cl_serverStatusResendTime = Cvar_Get("cl_serverStatusResendTime", "750", 0);
-	// init autoswitch so the ui will have it correctly even if the cgame hasn't been started
+	// init cg_autoswitch so the ui will have it correctly even if the cgame hasn't been started
 	Cvar_Get("cg_autoswitch", "1", CVAR_ARCHIVE);
 	m_pitch = Cvar_Get("m_pitch", "0.022", CVAR_ARCHIVE);
 	m_yaw = Cvar_Get("m_yaw", "0.022", CVAR_ARCHIVE);
@@ -3592,6 +3595,7 @@ void CL_ServerInfoPacket(netadr_t from, msg_t *msg) {
 		if (cl_pinglist[i].adr.port && !cl_pinglist[i].time && NET_CompareAdr(from, cl_pinglist[i].adr)) {
 			// calc ping time
 			cl_pinglist[i].time = Sys_Milliseconds() - cl_pinglist[i].start;
+
 			Com_DPrintf("ping time %dms from %s\n", cl_pinglist[i].time, NET_AdrToString(from));
 			// save of info
 			Q_strncpyz(cl_pinglist[i].info, infoString, sizeof(cl_pinglist[i].info));
@@ -3892,8 +3896,11 @@ void CL_LocalServers_f(void) {
 		for (j = 0; j < NUM_SERVER_PORTS; j++) {
 			to.port = BigShort((short)(PORT_SERVER + j));
 			to.type = NA_BROADCAST;
+
 			NET_SendPacket(NS_CLIENT, strlen(message), message, to);
+
 			to.type = NA_MULTICAST6;
+
 			NET_SendPacket(NS_CLIENT, strlen(message), message, to);
 		}
 	}
@@ -4258,6 +4265,7 @@ qboolean CL_UpdateVisiblePings_f(int source) {
 						cl_pinglist[j].time = 0;
 
 						NET_OutOfBandPrint(NS_CLIENT, cl_pinglist[j].adr, "getinfo xxx");
+
 						slots++;
 					}
 				// if the server has a ping higher than cl_maxPing or the ping packet got lost

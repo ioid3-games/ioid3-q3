@@ -79,9 +79,7 @@ typedef enum {
 #if defined(QUAKE) && !defined(BSPC)
 #include "l_utils.h"
 #endif // QUAKE
-
 //#define DEBUG_EVAL
-
 #define MAX_DEFINEPARMS 128
 #define DEFINEHASHING 1
 // directive name with parse function
@@ -1816,7 +1814,7 @@ int PC_EvaluateTokens(source_t *source, token_t *tokens, signed long int *intval
 				}
 
 				brace = qfalse;
-				// defined() creates a value
+				// defined () creates a value
 				lastwasvalue = 1;
 				break;
 			}
@@ -2231,12 +2229,14 @@ int PC_EvaluateTokens(source_t *source, token_t *tokens, signed long int *intval
 
 	for (o = firstoperator; o; o = lastoperator) {
 		lastoperator = o->next;
+
 		//FreeMemory(o);
 		FreeOperator(o);
 	}
 
 	for (v = firstvalue; v; v = lastvalue) {
 		lastvalue = v->next;
+
 		//FreeMemory(v);
 		FreeValue(v);
 	}

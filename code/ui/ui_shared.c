@@ -293,7 +293,6 @@ static __attribute__((format(printf, 2, 3))) void PC_SourceWarning(int handle, c
 	line = 0;
 
 	trap_PC_SourceFileAndLine(handle, filename, &line);
-
 	Com_Printf(S_COLOR_YELLOW "WARNING: %s, line %d: %s\n", filename, line, string);
 }
 #endif
@@ -316,7 +315,6 @@ static __attribute__((format(printf, 2, 3))) void PC_SourceError(int handle, cha
 	line = 0;
 
 	trap_PC_SourceFileAndLine(handle, filename, &line);
-
 	Com_Printf(S_COLOR_RED "ERROR: %s, line %d: %s\n", filename, line, string);
 }
 
@@ -5173,7 +5171,7 @@ void Menu_HandleMouseMove(menuDef_t *menu, float x, float y) {
 	for (pass = 0; pass < 2; pass++) {
 		for (i = 0; i < menu->itemCount; i++) {
 			// turn off focus each item
-			// menu->items[i].window.flags &= ~WINDOW_HASFOCUS;
+			//menu->items[i].window.flags &= ~WINDOW_HASFOCUS;
 
 			if (!(menu->items[i]->window.flags &(WINDOW_VISIBLE|WINDOW_FORCED))) {
 				continue;
@@ -5322,7 +5320,7 @@ int KeywordHash_Key(char *keyword) {
 		}
 	}
 
-	hash = (hash ^ (hash >> 10) ^ (hash >> 20)) &(KEYWORDHASH_SIZE - 1);
+	hash = (hash ^ (hash >> 10) ^ (hash >> 20)) & (KEYWORDHASH_SIZE - 1);
 	return hash;
 }
 

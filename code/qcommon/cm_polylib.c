@@ -79,6 +79,7 @@ void FreeWinding(winding_t *w) {
 	*(unsigned *)w = 0xdeaddead;
 
 	c_active_windings--;
+
 	Z_Free(w);
 }
 
@@ -133,6 +134,7 @@ void WindingPlane(winding_t *w, vec3_t normal, vec_t *dist) {
 	VectorSubtract(w->p[2], w->p[0], v2);
 	CrossProduct(v2, v1, normal);
 	VectorNormalize2(normal, normal);
+
 	*dist = DotProduct(w->p[0], normal);
 }
 
@@ -731,7 +733,9 @@ void AddWindingToConvexHull(winding_t *w, winding_t **hull, vec3_t normal) {
 			}
 
 			copy = hullPoints[(j + k + 1) % numHullPoints];
+
 			VectorCopy(copy, newHullPoints[numNew]);
+
 			numNew++;
 		}
 

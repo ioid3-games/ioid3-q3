@@ -66,6 +66,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define PRODUCT_DATE __DATE__
 #endif
 #define Q3_VERSION PRODUCT_NAME		" " PRODUCT_VERSION
+
 #define MAX_TEAMNAME 32
 #define MAX_MASTER_SERVERS 5	// number of supported master servers
 #define DEMOEXT "dm_"			// standard demo extension
@@ -113,6 +114,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #else
 #define Q_EXPORT
 #endif
+
 /**************************************************************************************************************************************
  VM Considerations
 
@@ -449,7 +451,7 @@ static ID_INLINE float Q_rsqrt(float number) {
 	float x = 0.5f * number;
 	float y;
 #ifdef __GNUC__
-	asm("frsqrte %0,%1" : "=f" (y) : "f" (number));
+	asm("frsqrte %0,%1" : "=f"(y) : "f"(number));
 #else
 	y = __frsqrte(number);
 #endif
@@ -464,7 +466,7 @@ Q_fabs
 static ID_INLINE float Q_fabs(float x) {
 	float abs_x;
 
-	asm("fabs %0,%1" : "=f" (abs_x) : "f" (x));
+	asm("fabs %0,%1" : "=f"(abs_x) : "f"(x));
 	return abs_x;
 }
 #else
@@ -879,6 +881,7 @@ typedef struct {
 
 =======================================================================================================================================
 */
+
 #include "surfaceflags.h" // shared with the q3map utility
 // plane types are used to speed some tests
 // 0-2 are axial planes
@@ -1086,8 +1089,8 @@ typedef struct {
 	vec3_t trDelta;		// velocity, etc.
 } trajectory_t;
 // entityState_t is the information conveyed from the server in an update message about entities that the client will need to render in some way
-// Different eTypes may use the information in different ways
-// The messages are delta compressed, so it doesn't really matter if the structure size is fairly large
+// different eTypes may use the information in different ways
+// the messages are delta compressed, so it doesn't really matter if the structure size is fairly large
 typedef struct entityState_s {
 	int number;			// entity index
 	int eType;			// entityType_t

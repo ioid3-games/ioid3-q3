@@ -78,7 +78,7 @@ sfxHandle_t CG_CustomSound(int clientNum, const char *soundName) {
 =======================================================================================================================================
 CG_ParseAnimationFile
 
-Read a configuration file containing animation counts and rates, models/players/visor/animation.cfg, etc.
+Read a configuration file containing animation counts and rates models/players/visor/animation.cfg, etc.
 =======================================================================================================================================
 */
 static qboolean CG_ParseAnimationFile(const char *filename, clientInfo_t *ci) {
@@ -107,7 +107,9 @@ static qboolean CG_ParseAnimationFile(const char *filename, clientInfo_t *ci) {
 	}
 
 	trap_FS_Read(text, len, f);
+
 	text[len] = 0;
+
 	trap_FS_FCloseFile(f);
 	// parse the text
 	text_p = text;
@@ -714,7 +716,7 @@ static void CG_LoadClientInfo(int clientNum, clientInfo_t *ci) {
 			}
 
 			if (!CG_RegisterClientModelname(ci, DEFAULT_TEAM_MODEL, ci->skinName, DEFAULT_TEAM_HEAD, ci->skinName, teamname)) {
-				CG_Error("DEFAULT_TEAM_MODEL / skin (%s/%s) failed to register", DEFAULT_TEAM_MODEL, ci->skinName);
+				CG_Error("DEFAULT_TEAM_MODEL/skin (%s/%s) failed to register", DEFAULT_TEAM_MODEL, ci->skinName);
 			}
 		} else {
 			if (!CG_RegisterClientModelname(ci, DEFAULT_MODEL, "default", DEFAULT_MODEL, "default", teamname)) {
@@ -1235,7 +1237,9 @@ CG_ClearLerpFrame
 static void CG_ClearLerpFrame(clientInfo_t *ci, lerpFrame_t *lf, int animationNumber) {
 
 	lf->frameTime = lf->oldFrameTime = cg.time;
+
 	CG_SetLerpFrameAnimation(ci, lf, animationNumber);
+
 	lf->oldFrame = lf->frame = lf->animation->firstFrame;
 }
 
@@ -1632,18 +1636,23 @@ static void CG_TrailItem(centity_t *cent, qhandle_t hModel) {
 	vec3_t axis[3];
 
 	VectorCopy(cent->lerpAngles, angles);
+
 	angles[PITCH] = 0;
 	angles[ROLL] = 0;
+
 	AnglesToAxis(angles, axis);
 
 	memset(&ent, 0, sizeof(ent));
 
 	VectorMA(cent->lerpOrigin, -16, axis[0], ent.origin);
+
 	ent.origin[2] += 16;
 	angles[YAW] += 90;
+
 	AnglesToAxis(angles, ent.axis);
 
 	ent.hModel = hModel;
+
 	trap_R_AddRefEntityToScene(&ent);
 }
 
@@ -1770,7 +1779,6 @@ static void CG_PlayerFlag(centity_t *cent, qhandle_t hSkin, refEntity_t *torso) 
 
 	AnglesToAxis(angles, flag.axis);
 	CG_PositionRotatedEntityOnTag(&flag, &pole, pole.hModel, "tag_flag");
-
 	trap_R_AddRefEntityToScene(&flag);
 }
 #ifdef MISSIONPACK
@@ -2009,6 +2017,7 @@ static void CG_PlayerSprites(centity_t *cent) {
 	}
 }
 
+#define SHADOW_DISTANCE 128
 /*
 =======================================================================================================================================
 CG_PlayerShadow
@@ -2016,7 +2025,6 @@ CG_PlayerShadow
 Returns the Z component of the surface being shadowed. Should it return a full plane instead of a Z?
 =======================================================================================================================================
 */
-#define SHADOW_DISTANCE 128
 static qboolean CG_PlayerShadow(centity_t *cent, float *shadowPlane) {
 	vec3_t end, mins = {-15, -15, 0}, maxs = {15, 15, 2};
 	trace_t trace;
@@ -2413,11 +2421,13 @@ void CG_Player(centity_t *cent) {
 			CrossProduct(skull.axis[1], skull.axis[2], skull.axis[0]);
 			*/
 			skull.hModel = cgs.media.kamikazeHeadModel;
+
 			trap_R_AddRefEntityToScene(&skull);
 			// flip the trail because this skull is spinning in the other direction
 			VectorInverse(skull.axis[1]);
 
 			skull.hModel = cgs.media.kamikazeHeadTrail;
+
 			trap_R_AddRefEntityToScene(&skull);
 
 			angle = ((cg.time / 4) & 255) * (M_PI * 2) / 255 + M_PI;
@@ -2429,6 +2439,7 @@ void CG_Player(centity_t *cent) {
 			dir[0] = sin(angle) * 20;
 			dir[1] = cos(angle) * 20;
 			dir[2] = cos(angle) * 20;
+
 			VectorAdd(torso.origin, dir, skull.origin);
 
 			angles[0] = cos(angle - 0.5 * M_PI) * 30;
@@ -2449,8 +2460,11 @@ void CG_Player(centity_t *cent) {
 			CrossProduct(skull.axis[1], skull.axis[2], skull.axis[0]);
 			*/
 			skull.hModel = cgs.media.kamikazeHeadModel;
+
 			trap_R_AddRefEntityToScene(&skull);
+
 			skull.hModel = cgs.media.kamikazeHeadTrail;
+
 			trap_R_AddRefEntityToScene(&skull);
 
 			angle = ((cg.time / 3) & 255) * (M_PI * 2) / 255 + 0.5 * M_PI;
@@ -2470,8 +2484,11 @@ void CG_Player(centity_t *cent) {
 			CrossProduct(skull.axis[1], skull.axis[2], skull.axis[0]);
 
 			skull.hModel = cgs.media.kamikazeHeadModel;
+
 			trap_R_AddRefEntityToScene(&skull);
+
 			skull.hModel = cgs.media.kamikazeHeadTrail;
+
 			trap_R_AddRefEntityToScene(&skull);
 		}
 	}
@@ -2640,6 +2657,6 @@ void CG_ResetPlayerEntity(centity_t *cent) {
 	cent->pe.torso.pitching = qfalse;
 
 	if (cg_debugPosition.integer) {
-		CG_Printf("%i ResetPlayerEntity yaw=%f\n", cent->currentState.number, cent->pe.torso.yawAngle);
+		CG_Printf("%i ResetPlayerEntity yaw = %f\n", cent->currentState.number, cent->pe.torso.yawAngle);
 	}
 }

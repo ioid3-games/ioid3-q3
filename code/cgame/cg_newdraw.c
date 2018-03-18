@@ -23,7 +23,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 
 extern displayContextDef_t cgDC;
 // set in CG_ParseTeamInfo
-
 //static int sortedTeamPlayers[TEAM_MAXOVERLAY];
 //static int numSortedTeamPlayers;
 
@@ -251,7 +250,9 @@ static void CG_DrawPlayerArmorValue(rectDef_t *rect, float scale, vec4_t color, 
 		trap_R_SetColor(NULL);
 	} else {
 		Com_sprintf(num, sizeof(num), "%i", value);
+
 		value = CG_Text_Width(num, scale, 0);
+
 		CG_Text_Paint(rect->x + (rect->w - value) / 2, rect->y + rect->h, scale, color, num, 0, 0, textStyle);
 	}
 }
@@ -279,10 +280,12 @@ static void CG_DrawPlayerAmmoIcon(rectDef_t *rect, qboolean draw2D) {
 	} else if (cg_draw3dIcons.integer) {
 		if (cent->currentState.weapon && cg_weapons[cent->currentState.weapon].ammoModel) {
 			VectorClear(angles);
+
 			origin[0] = 70;
 			origin[1] = 0;
 			origin[2] = 0;
 			angles[YAW] = 90 + 20 * sin(cg.time / 1000.0);
+
 			CG_Draw3DModel(rect->x, rect->y, rect->w, rect->h, cg_weapons[cent->currentState.weapon].ammoModel, 0, origin, angles);
 		}
 	}
@@ -387,7 +390,9 @@ static void CG_DrawSelectedPlayerHealth(rectDef_t *rect, float scale, vec4_t col
 			trap_R_SetColor(NULL);
 		} else {
 			Com_sprintf(num, sizeof(num), "%i", ci->health);
+
 			value = CG_Text_Width(num, scale, 0);
+
 			CG_Text_Paint(rect->x + (rect->w - value) / 2, rect->y + rect->h, scale, color, num, 0, 0, textStyle);
 		}
 	}
@@ -464,7 +469,6 @@ CG_DrawSelectedPlayerStatus
 =======================================================================================================================================
 */
 static void CG_DrawSelectedPlayerStatus(rectDef_t *rect) {
-
 	clientInfo_t *ci = cgs.clientinfo + sortedTeamPlayers[CG_GetSelectedPlayer()];
 
 	if (ci) {
@@ -491,7 +495,6 @@ CG_DrawPlayerStatus
 =======================================================================================================================================
 */
 static void CG_DrawPlayerStatus(rectDef_t *rect) {
-
 	clientInfo_t *ci = &cgs.clientinfo[cg.snap->ps.clientNum];
 
 	if (ci) {
@@ -543,7 +546,6 @@ CG_DrawPlayerLocation
 =======================================================================================================================================
 */
 static void CG_DrawPlayerLocation(rectDef_t *rect, float scale, vec4_t color, int textStyle) {
-
 	clientInfo_t *ci = &cgs.clientinfo[cg.snap->ps.clientNum];
 
 	if (ci) {
@@ -1269,7 +1271,7 @@ qboolean CG_YourTeamHasFlag(void) {
 =======================================================================================================================================
 CG_OwnerDrawVisible
 
-THINKABOUTME: should these be exclusive or inclusive..
+THINKABOUTME: should these be exclusive or inclusive?
 =======================================================================================================================================
 */
 qboolean CG_OwnerDrawVisible(int flags) {
@@ -1594,8 +1596,11 @@ static void CG_Text_Paint_Limit(float *maxX, float x, float y, float scale, vec4
 
 			if (Q_IsColorString(s)) {
 				memcpy(newColor, g_color_table[ColorIndex(*(s + 1))], sizeof(newColor));
+
 				newColor[3] = color[3];
+
 				trap_R_SetColor(newColor);
+
 				s += 2;
 				continue;
 			} else {
@@ -1690,7 +1695,6 @@ void CG_DrawNewTeamInfo(rectDef_t *rect, float text_x, float text_y, float scale
 			CG_GetColorForHealth(ci->health, ci->armor, hcolor);
 			trap_R_SetColor(hcolor);
 			CG_DrawPic(xx, y + 1, PIC_WIDTH - 2, PIC_WIDTH - 2, cgs.media.heartShader);
-
 			//Com_sprintf(st, sizeof(st), "%3i %3i", ci->health, ci->armor);
 			//CG_Text_Paint(xx, y + text_y, scale, hcolor, st, 0, 0);
 			// draw weapon icon
@@ -1721,7 +1725,6 @@ void CG_DrawNewTeamInfo(rectDef_t *rect, float text_x, float text_y, float scale
 			}
 
 			xx += PIC_WIDTH + 1;
-
 			leftOver = rect->w - xx;
 			maxx = xx + leftOver / 3;
 
@@ -2134,6 +2137,7 @@ CG_HideTeamMenu
 =======================================================================================================================================
 */
 void CG_HideTeamMenu(void) {
+
 	Menus_CloseByName("teamMenu");
 	Menus_CloseByName("getMenu");
 }
@@ -2188,8 +2192,8 @@ void CG_KeyEvent(int key, qboolean down) {
 
 	//if (key == trap_Key_GetKey("teamMenu") || !Display_CaptureItem(cgs.cursorX, cgs.cursorY)) {
 		// if we see this then we should always be visible
-		// CG_EventHandling(CGAME_EVENT_NONE);
-		// trap_Key_SetCatcher(0);
+		//CG_EventHandling(CGAME_EVENT_NONE);
+		//trap_Key_SetCatcher(0);
 	//}
 
 	Display_HandleKey(key, down, cgs.cursorX, cgs.cursorY);

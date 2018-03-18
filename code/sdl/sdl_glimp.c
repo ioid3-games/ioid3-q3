@@ -46,9 +46,11 @@ cvar_t *r_sdlDriver;
 int qglMajorVersion, qglMinorVersion;
 int qglesMajorVersion, qglesMinorVersion;
 
+// GL_ARB_multisample
 void (APIENTRYP qglActiveTextureARB)(GLenum texture);
 void (APIENTRYP qglClientActiveTextureARB)(GLenum texture);
 void (APIENTRYP qglMultiTexCoord2fARB)(GLenum target, GLfloat s, GLfloat t);
+// GL_EXT_compiled_vertex_array
 void (APIENTRYP qglLockArraysEXT)(GLint first, GLsizei count);
 void (APIENTRYP qglUnlockArraysEXT)(void);
 #define GLE(ret, name, ...) name##proc * qgl##name;
@@ -164,8 +166,8 @@ static void GLimp_DetectAvailableModes(void) {
 		if (windowMode.format != mode.format) {
 			continue;
 		}
-		// SDL can give the same resolution with different refresh rates.
-		// only list resolution once.
+		// SDL can give the same resolution with different refresh rates
+		// only list resolution once
 		for (j = 0; j < numModes; j++) {
 			if (mode.w == modes[j].w && mode.h == modes[j].h) {
 				break;
@@ -217,7 +219,7 @@ static qboolean GLimp_GetProcAddresses(void) {
 #ifdef __SDL_NOGETPROCADDR__
 #define GLE(ret, name, ...) qgl##name = gl#name;
 #else
-#define GLE(ret, name, ...) qgl##name = (name##proc *) SDL_GL_GetProcAddress("gl" #name); \
+#define GLE(ret, name, ...) qgl##name = (name##proc *)SDL_GL_GetProcAddress("gl" #name); \
 	if (qgl##name == NULL) { \
 		ri.Printf(PRINT_ALL, "ERROR: Missing OpenGL function %s\n", "gl" #name); \
 		success = qfalse; \
