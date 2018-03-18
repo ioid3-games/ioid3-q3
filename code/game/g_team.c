@@ -1219,12 +1219,14 @@ void CheckTeamStatus(void) {
 Only in CTF games. Red players spawn here at game start.
 */
 void SP_team_CTF_redplayer(gentity_t *ent) {
+
 }
 
 /*QUAKED team_CTF_blueplayer (0 0 1) (-16 -16 -16) (16 16 32)
 Only in CTF games. Blue players spawn here at game start.
 */
 void SP_team_CTF_blueplayer(gentity_t *ent) {
+
 }
 
 /*QUAKED team_CTF_redspawn (1 0 0) (-16 -16 -24) (16 16 32)
@@ -1232,6 +1234,7 @@ potential spawning position for red team in CTF games.
 Targets will be fired when someone spawns in on them.
 */
 void SP_team_CTF_redspawn(gentity_t *ent) {
+
 }
 
 /*QUAKED team_CTF_bluespawn (0 0 1) (-16 -16 -24) (16 16 32)
@@ -1239,6 +1242,7 @@ potential spawning position for blue team in CTF games.
 Targets will be fired when someone spawns in on them.
 */
 void SP_team_CTF_bluespawn(gentity_t *ent) {
+
 }
 #ifdef MISSIONPACK
 /*

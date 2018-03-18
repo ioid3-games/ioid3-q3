@@ -24,6 +24,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 
 #define MAXSIZE 8
 #define MINSIZE 4
+
 #define DEFAULT_CIN_WIDTH 512
 #define DEFAULT_CIN_HEIGHT 512
 

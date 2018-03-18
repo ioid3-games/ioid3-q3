@@ -577,7 +577,7 @@ void trap_BotUserCommand(int clientNum, usercmd_t *ucmd) {
 trap_AAS_EntityInfo
 =======================================================================================================================================
 */
-void trap_AAS_EntityInfo(int entnum, void /* struct aas_entityinfo_s */ *info) {
+void trap_AAS_EntityInfo(int entnum, void /*struct aas_entityinfo_s*/ *info) {
 	syscall(BOTLIB_AAS_ENTITY_INFO, entnum, info);
 }
 
