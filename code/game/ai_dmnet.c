@@ -2624,7 +2624,6 @@ int AINode_Battle_Retreat(bot_state_t *bs) {
 	}
 	// attack the enemy if possible
 	BotCheckAttack(bs);
-
 	return qtrue;
 }
 
