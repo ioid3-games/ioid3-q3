@@ -5305,7 +5305,7 @@ void Item_ValidateTypeData(itemDef_t *item) {
 
 typedef struct keywordHash_s {
 	char *keyword;
-	qboolean(*func)(itemDef_t *item, int handle);
+	qboolean (*func)(itemDef_t *item, int handle);
 	struct keywordHash_s *next;
 } keywordHash_t;
 
