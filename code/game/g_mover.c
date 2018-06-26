@@ -331,6 +331,7 @@ qboolean G_MoverPush(gentity_t *pusher, vec3_t move, vec3_t amove, gentity_t **o
 							G_FreeEntity(check->activator);
 							check->activator = NULL;
 						}
+
 						//G_Printf("prox mine explodes\n");
 					}
 				} else {
@@ -346,6 +347,7 @@ qboolean G_MoverPush(gentity_t *pusher, vec3_t move, vec3_t amove, gentity_t **o
 							G_FreeEntity(check->activator);
 							check->activator = NULL;
 						}
+
 						//G_Printf("prox mine explodes\n");
 					}
 				}
