@@ -224,6 +224,7 @@ static void InitOpenGL(void) {
 		Q_strlwr(renderer_buffer);
 		// OpenGL driver constants
 		qglGetIntegerv(GL_MAX_TEXTURE_SIZE, &temp);
+
 		glConfig.maxTextureSize = temp;
 		// stubbed or broken drivers may have reported 0...
 		if (glConfig.maxTextureSize <= 0) {
@@ -362,8 +363,8 @@ static void R_ModeList_f(void) {
 
 	NOTE TTimo some thoughts about the screenshots system:
 	screenshots get written in fs_homepath + fs_gamedir
-	vanilla q3 .. baseq3/screenshots/*.tga
-	team arena .. missionpack/screenshots/*.tga
+	vanilla q3 .. baseq3/screenshots/shot000*.tga
+	team arena .. missionpack/screenshots/shot000*.tga
 
 	two commands: "screenshot" and "screenshotJPEG"
 	we use statics to store a count and start writing the first screenshot/screenshot????.tga (.jpg) available (with FS_FileExists/
@@ -519,7 +520,6 @@ void R_TakeScreenshot(int x, int y, int width, int height, char *name, qboolean 
 	}
 
 	cmd->commandId = RC_SCREENSHOT;
-
 	cmd->x = x;
 	cmd->y = y;
 	cmd->width = width;
@@ -734,8 +734,7 @@ void R_ScreenShotJPEG_f(void) {
 	} else {
 		// scan for a free filename
 
-		// if we have saved a previous screenshot, don't scan again, because recording demo avis can involve
-		// thousands of shots
+		// if we have saved a previous screenshot, don't scan again, because recording demo avis can involve thousands of shots
 		if (lastNumber == -1) {
 			lastNumber = 0;
 		}
@@ -894,6 +893,7 @@ void GL_SetDefaultState(void) {
 
 	qglBindBuffer(GL_ARRAY_BUFFER, 0);
 	qglBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
 	glState.currentVao = NULL;
 	glState.vertexAttribsEnabled = 0;
 
@@ -1300,7 +1300,7 @@ void R_Init(void) {
 		ri.Error(ERR_FATAL, "Mod ABI incompatible: sizeof(glconfig_t) == %u != 11332", (unsigned int)sizeof(glconfig_t));
 	}
 
-//	Swap_Init();
+	//Swap_Init();
 
 	if ((intptr_t)tess.xyz & 15) {
 		ri.Printf(PRINT_WARNING, "tess.xyz not 16 byte aligned\n");
