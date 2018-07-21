@@ -20,7 +20,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 /*
 =======================================================================================================================================
 
-	Delta encode a client frame onto the network channel
+	Delta encode a client frame onto the network channel.
 
 	A normal server packet will look like:
 

@@ -1920,6 +1920,7 @@ CL_Snd_Shutdown
 void CL_Snd_Shutdown(void) {
 
 	S_Shutdown();
+
 	cls.soundStarted = qfalse;
 }
 
@@ -1943,7 +1944,7 @@ CL_OpenedPK3List_f
 =======================================================================================================================================
 */
 void CL_OpenedPK3List_f(void) {
-	Com_Printf("Opened PK3 Names: %s\n", FS_LoadedPakNames());
+	Com_Printf("Opened PK3 names: %s\n", FS_LoadedPakNames());
 }
 
 /*
@@ -1952,7 +1953,7 @@ CL_ReferencedPK3List_f
 =======================================================================================================================================
 */
 void CL_ReferencedPK3List_f(void) {
-	Com_Printf("Referenced PK3 Names: %s\n", FS_ReferencedPakNames());
+	Com_Printf("Referenced PK3 names: %s\n", FS_ReferencedPakNames());
 }
 
 /*
@@ -2414,8 +2415,8 @@ void CL_ServersResponsePacket(const netadr_t *from, msg_t *msg, qboolean extende
 	for (i = 0; i < numservers && count < MAX_GLOBAL_SERVERS; i++) {
 		// build net address
 		serverInfo_t *server = &cls.globalServers[count];
-		// it's possible to have sent many master server requests. Then we may receive many times the same addresses from the master server.
-		// we just avoid to add a server if it is still in the global servers list.
+		// it's possible to have sent many master server requests. Then we may receive many times the same addresses from the master server
+		// we just avoid to add a server if it is still in the global servers list
 		for (j = 0; j < count; j++) {
 			if (NET_CompareAdr(cls.globalServers[j].adr, addresses[i])) {
 				break;

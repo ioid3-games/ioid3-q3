@@ -577,7 +577,7 @@ void S_PaintChannels(int endtime) {
 				}
 			}
 		}
-		// paint in the channels.
+		// paint in the channels
 		ch = s_channels;
 
 		for (i = 0; i < MAX_CHANNELS; i++, ch++) {
@@ -611,7 +611,7 @@ void S_PaintChannels(int endtime) {
 				}
 			}
 		}
-		// paint in the looped channels.
+		// paint in the looped channels
 		ch = loop_channels;
 
 		for (i = 0; i < numLoopChannels; i++, ch++) {

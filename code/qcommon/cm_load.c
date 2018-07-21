@@ -590,7 +590,6 @@ void CM_LoadMap(const char *name, qboolean clientload, int *checksum) {
 		int *i;
 		void *v;
 	} buf;
-
 	int i;
 	dheader_t header;
 	int length;
@@ -797,7 +796,7 @@ void CM_InitBoxHull(void) {
 	box_brush->sides = cm.brushsides + cm.numBrushSides;
 	box_brush->contents = CONTENTS_BODY;
 	box_model.leaf.numLeafBrushes = 1;
-//	box_model.leaf.firstLeafBrush = cm.numBrushes;
+	//box_model.leaf.firstLeafBrush = cm.numBrushes;
 	box_model.leaf.firstLeafBrush = cm.numLeafBrushes;
 
 	cm.leafbrushes[cm.numLeafBrushes] = cm.numBrushes;

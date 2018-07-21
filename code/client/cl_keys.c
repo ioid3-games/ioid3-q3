@@ -18,7 +18,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include "client.h"
 
 // key up events are sent even if in console mode
+
 field_t historyEditLines[COMMAND_HISTORY];
+
 int nextHistoryLine; // the last line in the history buffer, not masked
 int historyLine; // the line being displayed from history buffer will be <= nextHistoryLine
 field_t g_consoleField;

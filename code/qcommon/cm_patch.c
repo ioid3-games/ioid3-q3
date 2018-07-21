@@ -979,7 +979,7 @@ void CM_AddFacetBevels(facet_t *facet) {
 
 					facet->numBorders++;
 					// already got a bevel
-//					break;
+					//break;
 				}
 			}
 		}
