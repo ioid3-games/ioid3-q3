@@ -1043,6 +1043,7 @@ qboolean R_GetPortalOrientations(drawSurf_t *drawSurf, int entityNum, orientatio
 	// unfortunately, with local movement prediction it is easily possible to see a surface before the server
 	// has communicated the matching portal surface entity, so we don't want to print anything here...
 	//ri.Printf(PRINT_ALL, "Portal surface without a portal entity\n");
+
 	return qfalse;
 }
 
@@ -1413,7 +1414,7 @@ void R_SortDrawSurfs(drawSurf_t *drawSurfs, int numDrawSurfs) {
 		}
 		// no shader should ever have this sort type
 		if (shader->sort == SS_BAD) {
-			ri.Error(ERR_DROP, "Shader '%s'with sort == SS_BAD", shader->name);
+			ri.Error(ERR_DROP, "Shader '%s' with sort == SS_BAD", shader->name);
 		}
 		// if the mirror was completely clipped away, we may need to check another surface
 		if (R_MirrorViewBySurface((drawSurfs + i), entityNum)) {
@@ -1689,19 +1690,19 @@ void R_RenderDlightCubemaps(const refdef_t *fd) {
 					VectorSet(shadowParms.or.axis[1], 0, 0, -1);
 					VectorSet(shadowParms.or.axis[2], 0, 1, 0);
 					break;
-				case 1: 
+				case 1:
 					// +X
 					VectorSet(shadowParms.or.axis[0], 1, 0, 0);
 					VectorSet(shadowParms.or.axis[1], 0, 0, 1);
 					VectorSet(shadowParms.or.axis[2], 0, 1, 0);
 					break;
-				case 2: 
+				case 2:
 					// -Y
 					VectorSet(shadowParms.or.axis[0], 0, -1, 0);
 					VectorSet(shadowParms.or.axis[1], 1, 0, 0);
 					VectorSet(shadowParms.or.axis[2], 0, 0, -1);
 					break;
-				case 3: 
+				case 3:
 					// +Y
 					VectorSet(shadowParms.or.axis[0], 0, 1, 0);
 					VectorSet(shadowParms.or.axis[1], 1, 0, 0);
@@ -2313,7 +2314,7 @@ void R_RenderSunShadowMaps(const refdef_t *fd, int level) {
 			VectorScale(lightviewBounds[1], worldUnitsPerTexel, lightviewBounds[1]);
 		}
 
-		//ri.Printf(PRINT_ALL, "level %d znear %f zfar %f\n", level, lightviewBounds[0][0], lightviewBounds[1][0]);		
+		//ri.Printf(PRINT_ALL, "level %d znear %f zfar %f\n", level, lightviewBounds[0][0], lightviewBounds[1][0]);
 		//ri.Printf(PRINT_ALL, "xmin %f xmax %f ymin %f ymax %f\n", lightviewBounds[0][1], lightviewBounds[1][1], -lightviewBounds[1][2], -lightviewBounds[0][2]);
 	}
 
@@ -2394,19 +2395,19 @@ void R_RenderCubemapSide(int cubemapIndex, int cubemapSide, qboolean subscene) {
 			VectorSet(refdef.viewaxis[1], 0, 0, -1);
 			VectorSet(refdef.viewaxis[2], 0, 1, 0);
 			break;
-		case 1: 
+		case 1:
 			// +X
 			VectorSet(refdef.viewaxis[0], 1, 0, 0);
 			VectorSet(refdef.viewaxis[1], 0, 0, 1);
 			VectorSet(refdef.viewaxis[2], 0, 1, 0);
 			break;
-		case 2: 
+		case 2:
 			// -Y
 			VectorSet(refdef.viewaxis[0], 0, -1, 0);
 			VectorSet(refdef.viewaxis[1], 1, 0, 0);
 			VectorSet(refdef.viewaxis[2], 0, 0, -1);
 			break;
-		case 3: 
+		case 3:
 			// +Y
 			VectorSet(refdef.viewaxis[0], 0, 1, 0);
 			VectorSet(refdef.viewaxis[1], 1, 0, 0);
