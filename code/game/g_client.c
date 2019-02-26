@@ -885,7 +885,7 @@ char *ClientConnect(int clientNum, qboolean firstTime, qboolean isBot) {
 	// they can connect
 	ent->client = level.clients + clientNum;
 	client = ent->client;
-//	areabits = client->areabits;
+	//areabits = client->areabits;
 
 	memset(client, 0, sizeof(*client));
 
@@ -925,11 +925,11 @@ char *ClientConnect(int clientNum, qboolean firstTime, qboolean isBot) {
 	// count current clients and rank for scoreboard
 	CalculateRanks();
 	// for statistics
-//	client->areabits = areabits;
+	//client->areabits = areabits;
 
-//	if (!client->areabits) {
-//		client->areabits = G_Alloc((trap_AAS_PointReachabilityAreaIndex(NULL) + 7) / 8);
-//	}
+	//if (!client->areabits) {
+	//	client->areabits = G_Alloc((trap_AAS_PointReachabilityAreaIndex(NULL) + 7) / 8);
+	//}
 
 	return NULL;
 }
@@ -1004,7 +1004,7 @@ void ClientSpawn(gentity_t *ent) {
 	gentity_t *tent;
 	int flags;
 	int savedPing;
-//	char *savedAreaBits;
+	//char *savedAreaBits;
 	int accuracy_hits, accuracy_shots;
 	int eventSequence;
 	char userinfo[MAX_INFO_STRING];
@@ -1041,7 +1041,7 @@ void ClientSpawn(gentity_t *ent) {
 	saved = client->pers;
 	savedSess = client->sess;
 	savedPing = client->ps.ping;
-//	savedAreaBits = client->areabits;
+	//savedAreaBits = client->areabits;
 	accuracy_hits = client->accuracy_hits;
 	accuracy_shots = client->accuracy_shots;
 
@@ -1056,7 +1056,7 @@ void ClientSpawn(gentity_t *ent) {
 	client->pers = saved;
 	client->sess = savedSess;
 	client->ps.ping = savedPing;
-//	client->areabits = savedAreaBits;
+	//client->areabits = savedAreaBits;
 	client->accuracy_hits = accuracy_hits;
 	client->accuracy_shots = accuracy_shots;
 	client->lastkilled_client = -1;

@@ -278,7 +278,6 @@ void Cmd_Exec_f(void) {
 	}
 
 	Cbuf_InsertText(f.c);
-
 	FS_FreeFile(f.v);
 }
 

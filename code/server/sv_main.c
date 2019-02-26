@@ -117,7 +117,7 @@ static int SV_ReplacePendingServerCommands(client_t *client, const char *cmd) {
 				Q_strncpyz(client->reliableCommands[index], cmd, sizeof(client->reliableCommands[index]));
 				/*
 				if (client->netchan.remoteAddress.type != NA_BOT) {
-					Com_Printf("WARNING: client %i removed double pending config string %i: %s\n", client-svs.clients, csnum1, cmd);
+					Com_Printf("WARNING: client %i removed double pending config string %i: %s\n", client - svs.clients, csnum1, cmd);
 				}
 				*/
 				return qtrue;
@@ -537,7 +537,7 @@ static void SVC_Status(netadr_t from) {
 		Com_DPrintf("SVC_Status: rate limit exceeded, dropping request\n");
 		return;
 	}
-	// a maximum challenge length of 128 should be more than plenty.
+	// a maximum challenge length of 128 should be more than plenty
 	if (strlen(Cmd_Argv(1)) > 128) {
 		return;
 	}
