@@ -685,22 +685,16 @@ static void CG_RegisterSounds(void) {
 	for (i = 0; i < 4; i++) {
 		Com_sprintf(name, sizeof(name), "sound/player/footsteps/step%i.wav", i + 1);
 		cgs.media.footsteps[FOOTSTEP_NORMAL][i] = trap_S_RegisterSound(name, qfalse);
-
 		Com_sprintf(name, sizeof(name), "sound/player/footsteps/boot%i.wav", i + 1);
 		cgs.media.footsteps[FOOTSTEP_BOOT][i] = trap_S_RegisterSound(name, qfalse);
-
 		Com_sprintf(name, sizeof(name), "sound/player/footsteps/flesh%i.wav", i + 1);
 		cgs.media.footsteps[FOOTSTEP_FLESH][i] = trap_S_RegisterSound(name, qfalse);
-
 		Com_sprintf(name, sizeof(name), "sound/player/footsteps/mech%i.wav", i + 1);
 		cgs.media.footsteps[FOOTSTEP_MECH][i] = trap_S_RegisterSound(name, qfalse);
-
 		Com_sprintf(name, sizeof(name), "sound/player/footsteps/energy%i.wav", i + 1);
 		cgs.media.footsteps[FOOTSTEP_ENERGY][i] = trap_S_RegisterSound(name, qfalse);
-
 		Com_sprintf(name, sizeof(name), "sound/player/footsteps/splash%i.wav", i + 1);
 		cgs.media.footsteps[FOOTSTEP_SPLASH][i] = trap_S_RegisterSound(name, qfalse);
-
 		Com_sprintf(name, sizeof(name), "sound/player/footsteps/clank%i.wav", i + 1);
 		cgs.media.footsteps[FOOTSTEP_METAL][i] = trap_S_RegisterSound(name, qfalse);
 	}
@@ -1983,7 +1977,7 @@ void CG_Init(int serverMessageNum, int serverCommandSequence, int clientNum) {
 	CG_InitConsoleCommands();
 
 	cg.weaponSelect = WP_MACHINEGUN;
-	cgs.redflag = cgs.blueflag = -1; // For compatibily, default to unset for
+	cgs.redflag = cgs.blueflag = -1; // for compatibily, default to unset for
 	cgs.flagStatus = -1;
 	// old servers
 	// get the rendering configuration from the client system

@@ -111,8 +111,8 @@ typedef enum {
 	// reliably sends a command string to be interpreted by the given client. If clientNum is -1, it will be sent to all clients
 	G_SET_CONFIGSTRING,			// (int num, const char *string);
 	// config strings hold all the index strings, and various other information that is reliably communicated to all clients
-	// all of the current configstrings are sent to clients when they connect, and changes are sent to all connected clients.
-	// all confgstrings are cleared at each level start.
+	// all of the current configstrings are sent to clients when they connect, and changes are sent to all connected clients
+	// all confgstrings are cleared at each level start
 	G_GET_CONFIGSTRING,			// (int num, char *buffer, int bufferSize);
 	G_GET_USERINFO,				// (int num, char *buffer, int bufferSize);
 	// userinfo strings are maintained by the server system, so they are persistant across level loads, while all other game visible data is completely reset
@@ -306,7 +306,7 @@ typedef enum {
 typedef enum {
 	GAME_INIT,						// (int levelTime, int randomSeed, int restart);
 	// init and shutdown will be called every single level
-	// the game should call G_GET_ENTITY_TOKEN to parse through all the entity configuration text and spawn gentities.
+	// the game should call G_GET_ENTITY_TOKEN to parse through all the entity configuration text and spawn gentities
 	GAME_SHUTDOWN,					// (void);
 	GAME_CLIENT_CONNECT,			// (int clientNum, qboolean firstTime, qboolean isBot);
 	// return NULL if the client is allowed to connect, otherwise return a text string with the reason for denial

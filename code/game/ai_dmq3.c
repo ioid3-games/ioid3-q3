@@ -3704,9 +3704,9 @@ void BotAimAtEnemy(bot_state_t *bs) {
 	}
 	// get the entity information
 	BotEntityInfo(bs->enemy, &entinfo);
-	// if this is not a player (should be an obelisk)
+	// if this is not a player (could be an obelisk)
 	if (bs->enemy >= MAX_CLIENTS) {
-		// if the obelisk is visible
+		// if the entity is visible
 		VectorCopy(entinfo.origin, target);
 #ifdef MISSIONPACK
 		// if attacking an obelisk
@@ -3714,7 +3714,7 @@ void BotAimAtEnemy(bot_state_t *bs) {
 			target[2] += 32;
 		}
 #endif
-		// aim at the obelisk
+		// aim at the entity
 		VectorSubtract(target, bs->eye, dir);
 		vectoangles(dir, bs->ideal_viewangles);
 		// set the aim target before trying to attack
@@ -3767,7 +3767,7 @@ void BotAimAtEnemy(bot_state_t *bs) {
 	if (aim_accuracy <= 0) {
 		aim_accuracy = 0.0001f;
 	}
-	// get the entity information
+	// get the enemy entity information
 	BotEntityInfo(bs->enemy, &entinfo);
 	// if the enemy is invisible then shoot crappy most of the time
 	if (EntityIsInvisible(&entinfo)) {
@@ -4693,7 +4693,6 @@ BotGetActivateGoal
 Returns the number of the bsp entity to activate. 'goal->entitynum' will be set to the game entity to activate.
 =======================================================================================================================================
 */
-//#define OBSTACLEDEBUG
 int BotGetActivateGoal(bot_state_t *bs, int entitynum, bot_activategoal_t *activategoal) {
 	int i, ent, cur_entities[10], spawnflags, modelindex, areas[MAX_ACTIVATEAREAS * 2], numareas, t;
 	char model[MAX_INFO_STRING], tmpmodel[128];

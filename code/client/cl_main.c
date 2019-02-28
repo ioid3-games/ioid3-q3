@@ -2242,7 +2242,7 @@ void CL_CheckForResend(void) {
 				CL_RequestAuthorization();
 			}
 #endif
-			// the challenge request shall be followed by a client challenge so no malicious server can hijack this connection.
+			// the challenge request shall be followed by a client challenge so no malicious server can hijack this connection
 			// add the gamename so the server knows we're running the correct game or can reject the client with a meaningful message
 			Com_sprintf(data, sizeof(data), "getchallenge %d %s", clc.challenge, com_gamename->string);
 			NET_OutOfBandPrint(NS_CLIENT, clc.serverAddress, "%s", data);
@@ -2265,7 +2265,6 @@ void CL_CheckForResend(void) {
 
 			Info_SetValueForKey(info, "qport", va("%i", port));
 			Info_SetValueForKey(info, "challenge", va("%i", clc.challenge));
-
 			Com_sprintf(data, sizeof(data), "connect \"%s\"", info);
 			NET_OutOfBandData(NS_CLIENT, clc.serverAddress, (byte *)data, strlen(data));
 			// the most current userinfo has been sent, so watch for any newer changes to userinfo variables

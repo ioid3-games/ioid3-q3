@@ -205,7 +205,7 @@ typedef struct {
 
 typedef struct searchpath_s {
 	struct searchpath_s *next;
-	pack_t *pack; // only one of pack / dir will be non NULL
+	pack_t *pack; // only one of pack/dir will be non NULL
 	directory_t *dir;
 } searchpath_t;
 
@@ -2492,7 +2492,7 @@ int FS_GetModList(char *listbuf, int bufsize) {
 				break;
 			}
 		}
-
+		// if there was a game pk3 or .pk3dir, add mod to list
 		if (nPaks > 0 || nPakDirs > 0) {
 			nLen = strlen(name) + 1;
 			// nLen is the length of the mod path

@@ -114,7 +114,7 @@ static void S_AL_ClearError(qboolean quiet) {
 typedef struct alSfx_s {
 	char filename[MAX_QPATH];
 	ALuint buffer;				// OpenAL buffer
-	snd_info_t info;			// information for this sound like rate, sample count..
+	snd_info_t info;			// information for this sound like rate, sample count, ...
 	qboolean isDefault;			// couldn't be loaded - use default FX
 	qboolean isDefaultChecked;	// sound has been check if it isDefault
 	qboolean inMemory;			// sound is stored in memory
@@ -514,8 +514,8 @@ typedef struct src_s {
 	qboolean isLooping;			// is this a looping effect (attached to an entity)
 	qboolean isTracking;		// is this object tracking its owner
 	qboolean isStream;			// is this source a stream
-	float curGain;				// gain employed if source is within maxdistance.
-	float scaleGain;			// last gain value for this source. 0 if muted.
+	float curGain;				// gain employed if source is within maxdistance
+	float scaleGain;			// last gain value for this source. 0 if muted
 	float lastTimePos;			// on stopped loops, the last position in the buffer
 	int lastSampleTime;			// time when this was stopped
 	vec3_t loopSpeakerPos;		// origin of the loop speaker
@@ -1354,11 +1354,11 @@ static void S_AL_SrcUpdate(void) {
 					qalSourcePlay(curSource->alSource);
 
 					if (curSource->priority == SRCPRI_AMBIENT) {
-						// if there are other ambient looping sources with the same sound, make sure the sound of these sources are in sync.
+						// if there are other ambient looping sources with the same sound, make sure the sound of these sources are in sync
 						if (curSfx->loopActiveCnt) {
 							int offset, error;
 
-							// we already have a master loop playing, get buffer position.
+							// we already have a master loop playing, get buffer position
 							S_AL_ClearError(qfalse);
 							qalGetSourcei(srcList[curSfx->masterLoopSrc].alSource, AL_SAMPLE_OFFSET, &offset);
 
@@ -1876,7 +1876,7 @@ static void S_AL_StartBackgroundTrack(const char *intro, const char *loop) {
 	Q_strncpyz(s_backgroundLoop, loop, sizeof(s_backgroundLoop));
 
 	if (!issame) { // open the intro and don't mind whether it succeeds
-		// the important part is the loop.
+		// the important part is the loop
 		intro_stream = S_CodecOpenStream(intro);
 	} else {
 		intro_stream = NULL;
