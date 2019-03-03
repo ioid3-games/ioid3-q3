@@ -263,8 +263,7 @@ void Weapon_BFG_Fire(gentity_t *ent) {
 =======================================================================================================================================
 */
 
-// DEFAULT_SHOTGUN_SPREAD and DEFAULT_SHOTGUN_COUNT are in bg_public.h, because
-// client predicts same spreads
+// DEFAULT_SHOTGUN_SPREAD and DEFAULT_SHOTGUN_COUNT are in bg_public.h, because client predicts same spreads
 #define DEFAULT_SHOTGUN_DAMAGE 10
 /*
 =======================================================================================================================================

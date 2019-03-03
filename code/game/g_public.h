@@ -130,7 +130,7 @@ typedef enum {
 	G_ADJUST_AREA_PORTAL_STATE,	// (gentity_t *ent, qboolean open);
 	G_AREAS_CONNECTED,			// (int area1, int area2);
 	G_LINKENTITY,				// (gentity_t *ent);
-	// an entity will never be sent to a client or used for collision if it is not passed to linkentity. If the size, position, or solidity changes, it must be relinked.
+	// an entity will never be sent to a client or used for collision if it is not passed to linkentity. If the size, position, or solidity changes, it must be relinked
 	G_UNLINKENTITY,				// (gentity_t *ent);
 	// call before removing an interactive entity
 	G_ENTITIES_IN_BOX,			// (const vec3_t mins, const vec3_t maxs, gentity_t **list, int maxcount);
@@ -144,8 +144,8 @@ typedef enum {
 	G_GET_ENTITY_TOKEN,			// qboolean (char *buffer, int bufferSize)
 	// retrieves the next string token from the entity spawn text, returning false when all tokens have been parsed. This should only be done at GAME_INIT time.
 	G_FS_GETFILELIST,
-	G_DEBUG_POLYGON_CREATE,
-	G_DEBUG_POLYGON_DELETE,
+	G_DEBUG_POLYGON_CREATE,		// (int color, int numPoints, vec3_t *points);
+	G_DEBUG_POLYGON_DELETE,		// (int id);
 	G_REAL_TIME,
 	G_SNAPVECTOR,
 	G_TRACECAPSULE,				// (trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentmask);

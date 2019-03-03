@@ -604,7 +604,7 @@ static void CG_RegisterSounds(void) {
 		}
 #ifdef MISSIONPACK
 		if (cgs.gametype == GT_1FCTF || cg_buildScript.integer) {
-			// FIXME: get a replacement for this sound ?
+			// FIXME: get a replacement for this sound?
 			cgs.media.neutralFlagReturnedSound = trap_S_RegisterSound("sound/teamplay/flagreturn_opponent.wav", qtrue);
 			cgs.media.yourTeamTookTheFlagSound = trap_S_RegisterSound("sound/teamplay/voc_team_1flag.wav", qtrue);
 			cgs.media.enemyTookTheFlagSound = trap_S_RegisterSound("sound/teamplay/voc_enemy_1flag.wav", qtrue);
@@ -952,6 +952,7 @@ static void CG_RegisterGraphics(void) {
 	cgs.media.teleportEffectShader = trap_R_RegisterShader("teleportEffect");
 #endif
 #ifdef MISSIONPACK
+	cgs.media.medkitUsageModel = trap_R_RegisterModel("models/powerups/regen.md3");
 	cgs.media.kamikazeEffectModel = trap_R_RegisterModel("models/weaphits/kamboom2.md3");
 	cgs.media.kamikazeShockWave = trap_R_RegisterModel("models/weaphits/kamwave.md3");
 	cgs.media.kamikazeHeadModel = trap_R_RegisterModel("models/powerups/kamikazi.md3");
@@ -962,16 +963,15 @@ static void CG_RegisterGraphics(void) {
 	cgs.media.ammoRegenPowerupModel = trap_R_RegisterModel("models/powerups/ammo_player.md3");
 	cgs.media.invulnerabilityImpactModel = trap_R_RegisterModel("models/powerups/shield/impact.md3");
 	cgs.media.invulnerabilityJuicedModel = trap_R_RegisterModel("models/powerups/shield/juicer.md3");
-	cgs.media.medkitUsageModel = trap_R_RegisterModel("models/powerups/regen.md3");
 	cgs.media.heartShader = trap_R_RegisterShaderNoMip("ui/assets/statusbar/selectedhealth.tga");
 	cgs.media.invulnerabilityPowerupModel = trap_R_RegisterModel("models/powerups/shield/shield.md3");
 #endif
-	cgs.media.medalImpressive = trap_R_RegisterShaderNoMip("medal_impressive");
 	cgs.media.medalExcellent = trap_R_RegisterShaderNoMip("medal_excellent");
+	cgs.media.medalImpressive = trap_R_RegisterShaderNoMip("medal_impressive");
 	cgs.media.medalGauntlet = trap_R_RegisterShaderNoMip("medal_gauntlet");
+	cgs.media.medalCapture = trap_R_RegisterShaderNoMip("medal_capture");
 	cgs.media.medalDefend = trap_R_RegisterShaderNoMip("medal_defend");
 	cgs.media.medalAssist = trap_R_RegisterShaderNoMip("medal_assist");
-	cgs.media.medalCapture = trap_R_RegisterShaderNoMip("medal_capture");
 
 	memset(cg_items, 0, sizeof(cg_items));
 	memset(cg_weapons, 0, sizeof(cg_weapons));

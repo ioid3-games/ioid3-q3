@@ -212,7 +212,6 @@ void CG_RailTrail(clientInfo_t *ci, vec3_t start, vec3_t end) {
 	vec3_t axis[36], move, move2, vec, temp;
 	float len;
 	int i, j, skip;
-
 	localEntity_t *le;
 	refEntity_t *re;
 #define RADIUS 4
@@ -1191,7 +1190,7 @@ void CG_AddPlayerWeapon(refEntity_t *parent, playerState_t *ps, centity_t *cent,
 	trap_R_LerpTag(&lerped, parent->hModel, parent->oldframe, parent->frame, 1.0 - parent->backlerp, "tag_weapon");
 	VectorCopy(parent->origin, gun.origin);
 	VectorMA(gun.origin, lerped.origin[0], parent->axis[0], gun.origin);
-	// Make weapon appear left-handed for 2 and centered for 3
+	// make weapon appear left-handed for 2 and centered for 3
 	if (ps && cg_drawGun.integer == 2) {
 		VectorMA(gun.origin, -lerped.origin[1], parent->axis[1], gun.origin);
 	} else if (!ps || cg_drawGun.integer != 3) {
@@ -1199,7 +1198,6 @@ void CG_AddPlayerWeapon(refEntity_t *parent, playerState_t *ps, centity_t *cent,
 	}
 
 	VectorMA(gun.origin, lerped.origin[2], parent->axis[2], gun.origin);
-
 	MatrixMultiply(lerped.axis, ((refEntity_t *)parent)->axis, gun.axis);
 
 	gun.backlerp = parent->backlerp;
@@ -1404,7 +1402,7 @@ void CG_DrawWeaponSelect(void) {
 	count = 0;
 
 	for (i = 1; i < MAX_WEAPONS; i++) {
-		if (bits & (1 << i)) {
+		if (bits &(1 << i)) {
 			count++;
 		}
 	}
@@ -1413,7 +1411,7 @@ void CG_DrawWeaponSelect(void) {
 	y = 380;
 
 	for (i = 1; i < MAX_WEAPONS; i++) {
-		if (!(bits & (1 << i))) {
+		if (!(bits &(1 << i))) {
 			continue;
 		}
 

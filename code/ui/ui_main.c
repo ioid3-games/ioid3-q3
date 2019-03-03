@@ -3950,7 +3950,7 @@ static void UI_RunMenuScript(char **args) {
 					if (ui_actualNetGameType.integer >= GT_TEAM) {
 						Com_sprintf(buff, sizeof(buff), "addbot %s %f %s\n", uiInfo.characterList[bot - 2].name, skill, "Blue");
 					} else {
-						Com_sprintf(buff, sizeof(buff), "addbot %s %f \n", UI_GetBotNameByNumber(bot - 2), skill);
+						Com_sprintf(buff, sizeof(buff), "addbot %s %f\n", UI_GetBotNameByNumber(bot - 2), skill);
 					}
 
 					trap_Cmd_ExecuteText(EXEC_APPEND, buff);
@@ -3962,7 +3962,7 @@ static void UI_RunMenuScript(char **args) {
 					if (ui_actualNetGameType.integer >= GT_TEAM) {
 						Com_sprintf(buff, sizeof(buff), "addbot %s %f %s\n", uiInfo.characterList[bot - 2].name, skill, "Red");
 					} else {
-						Com_sprintf(buff, sizeof(buff), "addbot %s %f \n", UI_GetBotNameByNumber(bot - 2), skill);
+						Com_sprintf(buff, sizeof(buff), "addbot %s %f\n", UI_GetBotNameByNumber(bot - 2), skill);
 					}
 
 					trap_Cmd_ExecuteText(EXEC_APPEND, buff);
