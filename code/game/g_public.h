@@ -137,12 +137,12 @@ typedef enum {
 	// EntitiesInBox will return brush models based on their bounding box, so exact determination must still be done with EntityContact
 	G_ENTITY_CONTACT,			// (const vec3_t mins, const vec3_t maxs, const gentity_t *ent);
 	// perform an exact check against inline brush models of non-square shape
-	// access for bots to get and free a server client (FIXME?)
 	G_BOT_ALLOCATE_CLIENT,		// (void);
 	G_BOT_FREE_CLIENT,			// (int clientNum);
+	// access for bots to get and free a server client (FIXME?)
 	G_GET_USERCMD,				// (int clientNum, usercmd_t *cmd)
 	G_GET_ENTITY_TOKEN,			// qboolean (char *buffer, int bufferSize)
-	// retrieves the next string token from the entity spawn text, returning false when all tokens have been parsed. This should only be done at GAME_INIT time.
+	// retrieves the next string token from the entity spawn text, returning false when all tokens have been parsed. This should only be done at GAME_INIT time
 	G_FS_GETFILELIST,
 	G_DEBUG_POLYGON_CREATE,		// (int color, int numPoints, vec3_t *points);
 	G_DEBUG_POLYGON_DELETE,		// (int id);
