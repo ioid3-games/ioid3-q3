@@ -1280,7 +1280,7 @@ static void PM_Footsteps(void) {
 
 	// calculate speed and cycle to be used for all cyclic walking effects
 	pm->xyspeed = sqrt(pm->ps->velocity[0] * pm->ps->velocity[0] + pm->ps->velocity[1] * pm->ps->velocity[1]);
-
+	// in the air
 	if (pm->ps->groundEntityNum == ENTITYNUM_NONE) {
 		if (pm->ps->powerups[PW_INVULNERABILITY]) {
 			PM_ContinueLegsAnim(LEGS_IDLECR);

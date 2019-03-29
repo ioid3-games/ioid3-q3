@@ -1201,7 +1201,7 @@ void Cvar_Restart(qboolean unsetVM) {
 		}
 
 		if (!(curvar->flags &(CVAR_ROM|CVAR_INIT|CVAR_NORESTART))) {
-			// just reset the rest to their default values.
+			// just reset the rest to their default values
 			Cvar_Set2(curvar->name, curvar->resetString, qfalse);
 		}
 
@@ -1313,13 +1313,13 @@ void Cvar_Register(vmCvar_t *vmCvar, const char *varName, const char *defaultVal
 	cvar_t *cv;
 
 	// there is code in Cvar_Get to prevent CVAR_ROM cvars being changed by the user. In other words CVAR_ARCHIVE and CVAR_ROM are
-	// mutually exclusive flags. Unfortunately some historical game code (including single player baseq3) sets both flags.
-	// we unset CVAR_ROM for such cvars.
+	// mutually exclusive flags. Unfortunately some historical game code (including single player baseq3) sets both flags
+	// we unset CVAR_ROM for such cvars
 	if ((flags &(CVAR_ARCHIVE|CVAR_ROM)) == (CVAR_ARCHIVE|CVAR_ROM)) {
 		Com_DPrintf(S_COLOR_YELLOW "WARNING: Unsetting CVAR_ROM from cvar '%s', since it is also CVAR_ARCHIVE\n", varName);
 		flags &= ~CVAR_ROM;
 	}
-	// don't allow VM to specific a different creator or other internal flags.
+	// don't allow VM to specific a different creator or other internal flags
 	if (flags & CVAR_USER_CREATED) {
 		Com_DPrintf(S_COLOR_YELLOW "WARNING: VM tried to set CVAR_USER_CREATED on cvar '%s'\n", varName);
 		flags &= ~CVAR_USER_CREATED;
@@ -1346,7 +1346,7 @@ void Cvar_Register(vmCvar_t *vmCvar, const char *varName, const char *defaultVal
 	}
 
 	cv = Cvar_FindVar(varName);
-	// don't modify cvar if it's protected.
+	// don't modify cvar if it's protected
 	if (cv && (cv->flags & CVAR_PROTECTED)) {
 		Com_DPrintf(S_COLOR_YELLOW "WARNING: VM tried to register protected cvar '%s' with value '%s'%s\n", varName, defaultValue, (flags & ~cv->flags) != 0 ? " and new flags" : "");
 	} else {

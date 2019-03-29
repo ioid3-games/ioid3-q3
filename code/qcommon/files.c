@@ -35,7 +35,7 @@ A "qpath" is a reference to game file data. MAX_ZPATH is 256 characters, which m
 explicitly illegal in qpaths to prevent any references outside the quake directory system.
 
 The "base path" is the path to the directory holding all the game directories and usually the executable. It defaults to ".", but can
-be overridden with a "+set fs_basepath c:\quake3" command line to allow code debugging in a different directory. Basepath cannot
+be overridden with a "+set fs_basepath C:\Quake3" command line to allow code debugging in a different directory. Basepath cannot
 be modified at all after startup. Any files that are created (demos, screenshots, etc.) will be created relative to the base path, so
 base path should usually be writable.
 
@@ -183,8 +183,8 @@ typedef struct fileInPack_s {
 } fileInPack_t;
 
 typedef struct {
-	char pakPathname[MAX_OSPATH];	// c:\quake3\baseq3
-	char pakFilename[MAX_OSPATH];	// c:\quake3\baseq3\pak0.pk3
+	char pakPathname[MAX_OSPATH];	// C:\Quake3\baseq3
+	char pakFilename[MAX_OSPATH];	// C:\Quake3\baseq3\pak0.pk3
 	char pakBasename[MAX_OSPATH];	// pak0
 	char pakGamename[MAX_OSPATH];	// baseq3
 	unzFile handle;					// handle to zip file
@@ -198,8 +198,8 @@ typedef struct {
 } pack_t;
 
 typedef struct {
-	char path[MAX_OSPATH];		// c:\quake3
-	char fullpath[MAX_OSPATH];	// c:\quake3\baseq3
+	char path[MAX_OSPATH];		// C:\Quake3
+	char fullpath[MAX_OSPATH];	// C:\Quake3\baseq3
 	char gamedir[MAX_OSPATH];	// baseq3
 } directory_t;
 
@@ -3144,8 +3144,8 @@ void Com_ReadCDKey(const char *filename);
 =======================================================================================================================================
 FS_ReorderPurePaks
 
-NOTE: the reordering that happens here is not reflected in the cvars (\cvarlist *pak*). This can lead to misleading situations,
-see https://zerowing.idsoftware.com/bugzilla/show_bug.cgi?id=540.
+NOTE: the reordering that happens here is not reflected in the cvars (\cvarlist *pak*).
+This can lead to misleading situations, see https://zerowing.idsoftware.com/bugzilla/show_bug.cgi?id=540.
 =======================================================================================================================================
 */
 static void FS_ReorderPurePaks(void) {

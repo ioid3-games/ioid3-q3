@@ -131,7 +131,7 @@ void Netchan_TransmitNextFragment(netchan_t *chan) {
 	chan->lastSentSize = send.cursize;
 
 	if (showpackets->integer) {
-		Com_Printf("%s send %4i : s=%i fragment=%i, %i\n", netsrcString[chan->sock], send.cursize, chan->outgoingSequence, chan->unsentFragmentStart, fragmentLength);
+		Com_Printf("%s send %4i : s = %i fragment = %i, %i\n", netsrcString[chan->sock], send.cursize, chan->outgoingSequence, chan->unsentFragmentStart, fragmentLength);
 	}
 
 	chan->unsentFragmentStart += fragmentLength;
@@ -191,7 +191,7 @@ void Netchan_Transmit(netchan_t *chan, int length, const byte *data) {
 	chan->lastSentSize = send.cursize;
 
 	if (showpackets->integer) {
-		Com_Printf("%s send %4i : s=%i ack=%i\n", netsrcString[chan->sock], send.cursize, chan->outgoingSequence - 1, chan->incomingSequence);
+		Com_Printf("%s send %4i : s = %i ack = %i\n", netsrcString[chan->sock], send.cursize, chan->outgoingSequence - 1, chan->incomingSequence);
 	}
 }
 
@@ -247,9 +247,9 @@ qboolean Netchan_Process(netchan_t *chan, msg_t *msg) {
 
 	if (showpackets->integer) {
 		if (fragmented) {
-			Com_Printf("%s recv %4i : s=%i fragment=%i, %i\n", netsrcString[chan->sock], msg->cursize, sequence, fragmentStart, fragmentLength);
+			Com_Printf("%s recv %4i : s = %i fragment = %i, %i\n", netsrcString[chan->sock], msg->cursize, sequence, fragmentStart, fragmentLength);
 		} else {
-			Com_Printf("%s recv %4i : s=%i\n", netsrcString[chan->sock], msg->cursize, sequence);
+			Com_Printf("%s recv %4i : s = %i\n", netsrcString[chan->sock], msg->cursize, sequence);
 		}
 	}
 	// discard out of order or duplicated packets

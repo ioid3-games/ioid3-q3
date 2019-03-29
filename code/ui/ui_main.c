@@ -1123,11 +1123,11 @@ void UI_Load(void) {
 	Menus_ActivateByName(lastName);
 }
 
-// Convert ui's net source to AS_* used by trap calls.
-
 /*
 =======================================================================================================================================
 UI_SourceForLAN
+
+Convert ui's net source to AS_* used by trap calls.
 =======================================================================================================================================
 */
 int UI_SourceForLAN(void) {
@@ -1221,11 +1221,11 @@ static void UI_SetCapFragLimits(qboolean uiVars) {
 	}
 }
 
-// ui_gameType assumes gametype 0 is -1 ALL and will not show
-
 /*
 =======================================================================================================================================
 UI_DrawGameType
+
+'ui_gameType' assumes gametype 0 is -1 ALL and will not show.
 =======================================================================================================================================
 */
 static void UI_DrawGameType(rectDef_t *rect, float scale, vec4_t color, int textStyle) {
@@ -1396,7 +1396,7 @@ UI_DrawTeamMember
 static void UI_DrawTeamMember(rectDef_t *rect, float scale, vec4_t color, qboolean blue, int num, int textStyle) {
 	// 0 - None
 	// 1 - Human
-	// 2..NumCharacters - Bot
+	// 2.. NumCharacters - Bot
 	int value = trap_Cvar_VariableValue(va(blue ? "ui_blueteam%i" : "ui_redteam%i", num));
 	const char *text;
 
@@ -3075,7 +3075,7 @@ static qboolean UI_TeamMember_HandleKey(int flags, float *special, int key, qboo
 	if (select != 0) {
 		// 0 - None
 		// 1 - Human
-		// 2..NumCharacters - Bot
+		// 2.. NumCharacters - Bot
 		char *cvar = va(blue ? "ui_blueteam%i" : "ui_redteam%i", num);
 		int value = trap_Cvar_VariableValue(cvar);
 
