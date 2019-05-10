@@ -2178,9 +2178,9 @@ void BotTeamAI(bot_state_t *bs) {
 
 	bs->askteamleader_time = 0;
 	bs->becometeamleader_time = 0;
-	// return if this bot is NOT the team leader
-	ClientName(bs->client, netname, sizeof(netname));
 
+	ClientName(bs->client, netname, sizeof(netname));
+	// return if this bot is NOT the team leader
 	if (Q_stricmp(netname, bs->teamleader) != 0) {
 		return;
 	}
@@ -2190,6 +2190,7 @@ void BotTeamAI(bot_state_t *bs) {
 	switch (gametype) {
 		case GT_TEAM:
 		{
+			// if someone wants to know what to do or if the number of teammates changed
 			if (bs->numteammates != numteammates || bs->forceorders) {
 				bs->teamgiveorders_time = FloatTime();
 				bs->numteammates = numteammates;
@@ -2213,7 +2214,7 @@ void BotTeamAI(bot_state_t *bs) {
 				bs->flagstatuschanged = qfalse;
 				bs->forceorders = qfalse;
 			}
-			// if there were no flag captures the last 3 minutes
+			// if there were no flag captures the last 4 minutes
 			if (bs->lastflagcapture_time < FloatTime() - 240) {
 				bs->lastflagcapture_time = FloatTime();
 				// randomly change the CTF strategy
@@ -2260,6 +2261,7 @@ void BotTeamAI(bot_state_t *bs) {
 		}
 		case GT_OBELISK:
 		{
+			// if someone wants to know what to do or if the number of teammates changed
 			if (bs->numteammates != numteammates || bs->forceorders) {
 				bs->teamgiveorders_time = FloatTime();
 				bs->numteammates = numteammates;
@@ -2276,6 +2278,7 @@ void BotTeamAI(bot_state_t *bs) {
 		}
 		case GT_HARVESTER:
 		{
+			// if someone wants to know what to do or if the number of teammates changed
 			if (bs->numteammates != numteammates || bs->forceorders) {
 				bs->teamgiveorders_time = FloatTime();
 				bs->numteammates = numteammates;

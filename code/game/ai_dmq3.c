@@ -1711,6 +1711,7 @@ void BotSetupForMovement(bot_state_t *bs) {
 	}
 
 	VectorCopy(bs->viewangles, initmove.viewangles);
+
 	trap_BotInitMoveState(bs->ms, &initmove);
 }
 
@@ -3858,7 +3859,7 @@ void BotAimAtEnemy(bot_state_t *bs) {
 				}
 			}
 		}
-		// if the projectile does radial damage
+		// if the projectile does large radial damage
 		if (aim_skill > 0.6 && wi.proj.damagetype & DAMAGETYPE_RADIAL) {
 			// if the enemy isn't standing significantly higher than the bot
 			if (entinfo.origin[2] < bs->origin[2] + 16) {

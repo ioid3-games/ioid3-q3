@@ -78,7 +78,7 @@ sfxHandle_t CG_CustomSound(int clientNum, const char *soundName) {
 =======================================================================================================================================
 CG_ParseAnimationFile
 
-Read a configuration file containing animation counts and rates models/players/visor/animation.cfg, etc.
+Read a configuration file containing animation counts and rates, models/players/visor/animation.cfg, etc.
 =======================================================================================================================================
 */
 static qboolean CG_ParseAnimationFile(const char *filename, clientInfo_t *ci) {
