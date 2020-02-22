@@ -31,7 +31,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define DEFAULT_SHOTGUN_COUNT 11
 #define ITEM_RADIUS 15 // item sizes are needed for client side pickup detection
 #define LIGHTNING_RANGE 768
-#define SCORE_NOT_PRESENT -9999	// for the CS_SCORES[12] when only one player is present
+#define SCORE_NOT_PRESENT -9999 // for the CS_SCORES[12] when only one player is present
 #define VOTE_TIME 30000 // 30 seconds before vote times out
 #define MINS_Z -24
 #define DEFAULT_VIEWHEIGHT 26
@@ -171,7 +171,7 @@ void Pmove(pmove_t *pmove);
 
 	player_state->stats[] indexes
 
-	NOTE: may not have more than 16.
+	NOTE: may not have more than MAX_STATS.
 
 **************************************************************************************************************************************/
 
@@ -193,7 +193,7 @@ typedef enum {
 	player_state->persistant[] indexes
 
 	These fields are the only part of player_state that isn't cleared on respawn.
-	NOTE: may not have more than 16.
+	NOTE: may not have more than MAX_PERSISTANT.
 
 **************************************************************************************************************************************/
 
@@ -239,7 +239,15 @@ typedef enum {
 #define EF_AWARD_ASSIST		0x00020000 // draw a assist sprite
 #define EF_AWARD_DENIED		0x00040000 // denied
 #define EF_TEAMVOTED		0x00080000 // already cast a team vote
-// NOTE: may not have more than 16
+
+/**************************************************************************************************************************************
+
+	player_state->powerup[] indexes
+
+	NOTE: may not have more than MAX_POWERUPS.
+
+**************************************************************************************************************************************/
+
 typedef enum {
 	PW_NONE,
 	PW_QUAD,
@@ -268,6 +276,14 @@ typedef enum {
 	HI_INVULNERABILITY,
 	HI_NUM_HOLDABLE
 } holdable_t;
+
+/**************************************************************************************************************************************
+
+	player_state->weapon[] indexes
+
+	NOTE: may not have more than MAX_WEAPONS.
+
+**************************************************************************************************************************************/
 
 typedef enum {
 	WP_NONE,
