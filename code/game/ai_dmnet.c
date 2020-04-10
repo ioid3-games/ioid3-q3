@@ -101,9 +101,8 @@ int BotGetAirGoal(bot_state_t *bs, bot_goal_t *goal) {
 	vec3_t end, mins = {-15, -15, -2}, maxs = {15, 15, 2};
 	int areanum;
 
-	// trace up until we hit solid
 	VectorCopy(bs->origin, end);
-
+	// trace up until we hit solid
 	end[2] += 1000;
 
 	BotAI_Trace(&bsptrace, bs->origin, mins, maxs, end, bs->entitynum, CONTENTS_SOLID|CONTENTS_PLAYERCLIP);
@@ -373,7 +372,7 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 			// last time the bot was NOT visible
 			bs->teammatevisible_time = FloatTime();
 		}
-		// if the entity information is valid (entity in PVS)
+		// if the entity information is valid
 		if (entinfo.valid) {
 			areanum = BotPointAreaNum(entinfo.origin);
 
@@ -493,7 +492,7 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 					//BotAI_Print(PRT_MESSAGE, "new nearby goal %s\n", buf);
 					// time the bot gets to pick up the nearby goal item
 					bs->nbg_time = FloatTime() + 8;
-					AIEnter_Seek_NBG(bs, "BotLongTermGoal: go for air");
+					AIEnter_Seek_NBG(bs, "BotGetLongTermGoal: go for air");
 					return qfalse;
 				}
 
@@ -501,7 +500,7 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 				return qfalse;
 			}
 		}
-		// if the entity information is valid (entity in PVS)
+		// if the entity information is valid
 		if (entinfo.valid) {
 			areanum = BotPointAreaNum(entinfo.origin);
 
@@ -1149,7 +1148,7 @@ int BotLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) {
 		}
 		// get the entity information
 		BotEntityInfo(bs->lead_teammate, &entinfo);
-
+		// if the entity information is valid
 		if (entinfo.valid) {
 			areanum = BotPointAreaNum(entinfo.origin);
 
@@ -1620,7 +1619,7 @@ int AINode_Seek_ActivateEntity(bot_state_t *bs) {
 		// if the entity the bot shoots at moved
 		if (!VectorCompare(bs->activatestack->origin, entinfo.origin)) {
 #ifdef DEBUG
-			BotAI_Print(PRT_MESSAGE, "hit shootable button or trigger\n");
+			BotAI_Print(PRT_MESSAGE, "AINode_Seek_ActivateEntity: hit shootable button or trigger\n");
 #endif // DEBUG
 			bs->activatestack->time = 0;
 		}
@@ -1647,7 +1646,7 @@ int AINode_Seek_ActivateEntity(bot_state_t *bs) {
 			// if the bot touches the current goal
 			if (trap_BotTouchingGoal(bs->origin, goal)) {
 #ifdef DEBUG
-				BotAI_Print(PRT_MESSAGE, "touched button or trigger\n");
+				BotAI_Print(PRT_MESSAGE, "AINode_Seek_ActivateEntity: touched button or trigger\n");
 #endif // DEBUG
 				bs->activatestack->time = 0;
 			}
@@ -1682,7 +1681,7 @@ int AINode_Seek_ActivateEntity(bot_state_t *bs) {
 		// check if the bot is blocked
 		BotAIBlocked(bs, &moveresult, qtrue);
 	}
-
+	// check if the bot has to deactivate obstacles
 	BotClearPath(bs, &moveresult);
 	// if the bot has to shoot to activate
 	if (bs->activatestack->shoot) {
@@ -1705,7 +1704,7 @@ int AINode_Seek_ActivateEntity(bot_state_t *bs) {
 			moveresult.weapon = bs->activatestack->weapon;
 		}
 	}
-	// if the viewangles are used for the movement
+	// if the view angles are used for the movement
 	if (moveresult.flags & (MOVERESULT_MOVEMENTVIEWSET|MOVERESULT_MOVEMENTVIEW|MOVERESULT_SWIMVIEW)) {
 		VectorCopy(moveresult.ideal_viewangles, bs->ideal_viewangles);
 	// if waiting for something
@@ -1823,7 +1822,7 @@ int AINode_Seek_NBG(bot_state_t *bs) {
 		// pop the current goal from the stack
 		trap_BotPopGoal(bs->gs);
 		// check for new nearby items right away
-		// NOTE: we canNOT reset the check_time to zero because it would create an endless loop of node switches
+		// NOTE: we can NOT reset the check_time to zero because it would create an endless loop of node switches
 		bs->check_time = FloatTime() + 0.05;
 		// go back to seek ltg
 		AIEnter_Seek_LTG(bs, "seek nbg: time out");
@@ -1846,8 +1845,9 @@ int AINode_Seek_NBG(bot_state_t *bs) {
 	}
 	// check if the bot is blocked
 	BotAIBlocked(bs, &moveresult, qtrue);
+	// check if the bot has to deactivate obstacles
 	BotClearPath(bs, &moveresult);
-	// if the viewangles are used for the movement
+	// if the view angles are used for the movement
 	if (moveresult.flags & (MOVERESULT_MOVEMENTVIEWSET|MOVERESULT_MOVEMENTVIEW|MOVERESULT_SWIMVIEW)) {
 		VectorCopy(moveresult.ideal_viewangles, bs->ideal_viewangles);
 	// if waiting for something
@@ -1985,7 +1985,7 @@ int AINode_Seek_LTG(bot_state_t *bs) {
 			return qfalse;
 		}
 	}
-
+	// get the team goals
 	BotTeamGoals(bs, qfalse);
 	// get the current long term goal
 	if (!BotLongTermGoal(bs, bs->tfl, qfalse, &goal)) {
@@ -2050,8 +2050,9 @@ int AINode_Seek_LTG(bot_state_t *bs) {
 	}
 	// check if the bot is blocked
 	BotAIBlocked(bs, &moveresult, qtrue);
+	// check if the bot has to deactivate obstacles
 	BotClearPath(bs, &moveresult);
-	// if the viewangles are used for the movement
+	// if the view angles are used for the movement
 	if (moveresult.flags & (MOVERESULT_MOVEMENTVIEWSET|MOVERESULT_MOVEMENTVIEW|MOVERESULT_SWIMVIEW)) {
 		VectorCopy(moveresult.ideal_viewangles, bs->ideal_viewangles);
 	// if waiting for something
@@ -2142,7 +2143,7 @@ int AINode_Battle_Fight(bot_state_t *bs) {
 	// if there is another better enemy
 	if (BotFindEnemy(bs, bs->enemy)) {
 #ifdef DEBUG
-		BotAI_Print(PRT_MESSAGE, "found new better enemy\n");
+		BotAI_Print(PRT_MESSAGE, "AINode_Battle_Fight: found new better enemy\n");
 #endif
 	}
 	// if no enemy
@@ -2397,7 +2398,7 @@ int AINode_Battle_Chase(bot_state_t *bs) {
 	}
 	// check if the bot is blocked
 	BotAIBlocked(bs, &moveresult, qfalse);
-	// if the viewangles are used for the movement
+	// if the view angles are used for the movement
 	if (moveresult.flags & (MOVERESULT_MOVEMENTVIEWSET|MOVERESULT_MOVEMENTVIEW|MOVERESULT_SWIMVIEW)) {
 		VectorCopy(moveresult.ideal_viewangles, bs->ideal_viewangles);
 	} else if (!(bs->flags & BFL_IDEALVIEWSET)) {
@@ -2484,7 +2485,7 @@ int AINode_Battle_Retreat(bot_state_t *bs) {
 	// if there is another better enemy
 	if (BotFindEnemy(bs, bs->enemy)) {
 #ifdef DEBUG
-		BotAI_Print(PRT_MESSAGE, "found new better enemy\n");
+		BotAI_Print(PRT_MESSAGE, "AINode_Battle_Retreat: found new better enemy\n");
 #endif
 	}
 
@@ -2512,6 +2513,7 @@ int AINode_Battle_Retreat(bot_state_t *bs) {
 	// update the last time the enemy was visible
 	if (BotEntityVisible(bs->entitynum, bs->eye, bs->viewangles, 360, bs->enemy)) {
 		bs->enemyvisible_time = FloatTime();
+
 		VectorCopy(entinfo.origin, target);
 		// if not a player enemy
 		if (bs->enemy >= MAX_CLIENTS) {
@@ -2542,7 +2544,7 @@ int AINode_Battle_Retreat(bot_state_t *bs) {
 			return qfalse;
 		}
 	}
-
+	// get the team goals
 	BotTeamGoals(bs, qtrue);
 	// use holdable items
 	BotBattleUseItems(bs);
@@ -2695,6 +2697,7 @@ int AINode_Battle_NBG(bot_state_t *bs) {
 	// update the last time the enemy was visible
 	if (BotEntityVisible(bs->entitynum, bs->eye, bs->viewangles, 360, bs->enemy)) {
 		bs->enemyvisible_time = FloatTime();
+
 		VectorCopy(entinfo.origin, target);
 		// if not a player enemy
 		if (bs->enemy >= MAX_CLIENTS) {

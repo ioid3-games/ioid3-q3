@@ -456,6 +456,7 @@ int PC_StringizeTokens(token_t *tokens, token_t *token) {
 	}
 
 	strncat(token->string, "\"", MAX_TOKEN - strlen(token->string) - 1);
+
 	return qtrue;
 }
 
