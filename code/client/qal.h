@@ -37,7 +37,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #include <AL/alc.h>
 #endif
 #endif
-// hack to enable compiling both on OpenAL SDK and OpenAL-soft.
+// hack to enable compiling both on OpenAL SDK and OpenAL-soft
 #ifndef ALC_ENUMERATE_ALL_EXT
 #define ALC_ENUMERATE_ALL_EXT 1
 #define ALC_DEFAULT_ALL_DEVICES_SPECIFIER	0x1012

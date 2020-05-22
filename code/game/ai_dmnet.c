@@ -243,7 +243,7 @@ int BotReachedGoal(bot_state_t *bs, bot_goal_t *goal) {
 			*/
 			return qtrue;
 		}
-		// if in the goal area and below or above the goal and not swimming
+		// if the bot is in the goal area and below or above the goal and not swimming
 		if (bs->areanum == goal->areanum) {
 			if (bs->origin[0] > goal->origin[0] + goal->mins[0] && bs->origin[0] < goal->origin[0] + goal->maxs[0]) {
 				if (bs->origin[1] > goal->origin[1] + goal->mins[1] && bs->origin[1] < goal->origin[1] + goal->maxs[1]) {
@@ -924,7 +924,7 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 			if (bs->teamgoal_time < FloatTime()) {
 				bs->ltgtype = 0;
 			}
-			// if touching the base flag the bot should loose the enemy flag
+			// if touching the base flag the bot should loose flag
 			if (trap_BotTouchingGoal(bs->origin, goal)) {
 				bs->ltgtype = 0;
 			}
@@ -957,7 +957,7 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 			if (bs->teamgoal_time < FloatTime()) {
 				bs->ltgtype = 0;
 			}
-			// if touching the base flag the bot should loose the enemy flag
+			// if touching the base flag the bot should loose the flag
 			if (trap_BotTouchingGoal(bs->origin, goal)) {
 				bs->attackaway_time = FloatTime() + 2 + 5 * random();
 			}
@@ -1049,7 +1049,7 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 				BotGoHarvest(bs);
 				return qfalse;
 			}
-			// if touching the base flag the bot should loose the enemy flag
+			// if touching the obelisk the bot should loose the skulls
 			if (trap_BotTouchingGoal(bs->origin, goal)) {
 				BotGoHarvest(bs);
 				return qfalse;
@@ -1083,7 +1083,7 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 			if (bs->teamgoal_time < FloatTime()) {
 				bs->ltgtype = 0;
 			}
-			// if touching the base flag the bot should loose the enemy flag
+			// if touching the goal
 			if (trap_BotTouchingGoal(bs->origin, goal)) {
 				bs->attackaway_time = FloatTime() + 2 + 5 * random();
 			}
@@ -1689,10 +1689,12 @@ int AINode_Seek_ActivateEntity(bot_state_t *bs) {
 		if (!(moveresult.flags & MOVERESULT_MOVEMENTVIEW)) {
 			VectorSubtract(bs->activatestack->target, bs->eye, dir);
 			vectoangles(dir, moveresult.ideal_viewangles);
+			// set the movement view flag
 			moveresult.flags |= MOVERESULT_MOVEMENTVIEW;
 		}
 		// if there's no weapon yet used for the movement
 		if (!(moveresult.flags & MOVERESULT_MOVEMENTWEAPON)) {
+			// set the movement view flag
 			moveresult.flags |= MOVERESULT_MOVEMENTWEAPON;
 			bs->activatestack->weapon = BotSelectActivateWeapon(bs);
 
@@ -2383,7 +2385,7 @@ int AINode_Battle_Chase(bot_state_t *bs) {
 			return qfalse;
 		}
 	}
-
+	// update the attack inventory values
 	BotUpdateBattleInventory(bs, bs->enemy);
 	// initialize the movement state
 	BotSetupForMovement(bs);

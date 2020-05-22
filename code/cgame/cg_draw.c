@@ -563,7 +563,6 @@ static void CG_DrawStatusBar(void) {
 	}
 
 	CG_DrawStatusBarHead(185 + CHAR_WIDTH * 3 + TEXT_ICON_SPACE);
-
 	// flags
 	if (cg.predictedPlayerState.powerups[PW_REDFLAG]) {
 		CG_DrawStatusBarFlag(185 + CHAR_WIDTH * 3 + TEXT_ICON_SPACE + ICON_SIZE, TEAM_RED);

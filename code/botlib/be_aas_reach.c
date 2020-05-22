@@ -653,8 +653,6 @@ float AAS_MaxJumpHeight(float phys_jumpvel) {
 /*
 =======================================================================================================================================
 AAS_MaxJumpDistance
-
-Returns true if a player can only crouch in the area.
 =======================================================================================================================================
 */
 float AAS_MaxJumpDistance(float phys_jumpvel) {
@@ -1286,7 +1284,7 @@ int AAS_Reachability_Step_Barrier_WaterJump_WalkOffLedge(int area1num, int area2
 					}
 					// if the two projected edge lines have no overlap
 					if (x2 <= x3 || x4 <= x1) {
-//						Log_Write("lines no overlap: from area %d to %d\r\n", area1num, area2num);
+						//Log_Write("lines no overlap: from area %d to %d\r\n", area1num, area2num);
 						continue;
 					}
 					// if the two lines fully overlap
@@ -3060,6 +3058,7 @@ void AAS_Reachability_Teleport(void) {
 			lreach->traveltype |= AAS_TravelFlagsForTeam(ent);
 			lreach->traveltime = aassettings.rs_teleport;
 			lreach->next = areareachability[area1num];
+
 			areareachability[area1num] = lreach;
 
 			reach_teleport++;
@@ -3704,12 +3703,11 @@ void AAS_Reachability_FuncBobbing(void) {
 					lreach->traveltype = TRAVEL_FUNCBOB;
 					lreach->traveltype |= AAS_TravelFlagsForTeam(ent);
 					lreach->traveltime = aassettings.rs_funcbob;
-
-					reach_funcbob++;
-
 					lreach->next = areareachability[startreach->areanum];
 
 					areareachability[startreach->areanum] = lreach;
+
+					reach_funcbob++;
 				}
 			}
 
@@ -3813,6 +3811,7 @@ void AAS_Reachability_JumpPad(void) {
 		}
 
 		areastart[2] += 0.125;
+
 		//AAS_DrawPermanentCross(origin, 4, 4);
 		// get the target entity
 		AAS_ValueForBSPEpairKey(ent, "target", target, MAX_EPAIRKEY);

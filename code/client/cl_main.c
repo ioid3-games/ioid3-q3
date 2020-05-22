@@ -463,7 +463,7 @@ static void CL_CaptureVoip(void) {
 
 		// enough data buffered in audio hardware to process yet?
 		if (samples >= packetSamples) {
-			// audio capture is always MONO16.
+			// audio capture is always MONO16
 			static int16_t sampbuffer[VOIP_MAX_PACKET_SAMPLES];
 			float voipPower = 0.0f;
 			int voipFrames;
@@ -561,7 +561,7 @@ void CL_AddReliableCommand(const char *cmd, qboolean isDisconnectCmd) {
 	int unacknowledged = clc.reliableSequence - clc.reliableAcknowledge;
 
 	// if we would be losing an old command that hasn't been acknowledged, we must drop the connection
-	// also leave one slot open for the disconnect command in this case.
+	// also leave one slot open for the disconnect command in this case
 	if ((isDisconnectCmd && unacknowledged > MAX_RELIABLE_COMMANDS) || (!isDisconnectCmd && unacknowledged >= MAX_RELIABLE_COMMANDS)) {
 		if (com_errorEntered) {
 			return;
@@ -1072,6 +1072,7 @@ void CL_PlayDemo_f(void) {
 			int len;
 
 			Com_Printf("Protocol %d not supported for demos\n", protocol);
+
 			len = ext_test - arg;
 
 			if (len >= ARRAY_LEN(retry)) {
@@ -1079,6 +1080,7 @@ void CL_PlayDemo_f(void) {
 			}
 
 			Q_strncpyz(retry, arg, len + 1);
+
 			retry[len] = '\0';
 			protocol = CL_WalkDemoExt(retry, name, &clc.demofile);
 		}
@@ -1092,7 +1094,6 @@ void CL_PlayDemo_f(void) {
 	}
 
 	Q_strncpyz(clc.demoName, arg, sizeof(clc.demoName));
-
 	Con_Close();
 
 	clc.state = CA_CONNECTED;
@@ -1415,7 +1416,7 @@ void CL_Disconnect(qboolean showMainMenu) {
 	// not connected to a pure server anymore
 	cl_connectedToPureServer = qfalse;
 #ifdef USE_VOIP
-	// not connected to voip server anymore.
+	// not connected to voip server anymore
 	clc.voipEnabled = qfalse;
 #endif
 	// stop recording any video
@@ -1546,6 +1547,7 @@ void CL_RequestAuthorization(void) {
 		}
 
 		cls.authorizeServer.port = BigShort(PORT_AUTHORIZE);
+
 		Com_Printf("%s resolved to %i.%i.%i.%i:%i\n", AUTHORIZE_SERVER_NAME, cls.authorizeServer.ip[0], cls.authorizeServer.ip[1], cls.authorizeServer.ip[2], cls.authorizeServer.ip[3], BigShort(cls.authorizeServer.port));
 	}
 
@@ -1568,7 +1570,6 @@ void CL_RequestAuthorization(void) {
 	}
 
 	nums[j] = 0;
-
 	fs = Cvar_Get("cl_anonymous", "0", CVAR_INIT|CVAR_SYSTEMINFO);
 
 	NET_OutOfBandPrint(NS_CLIENT, cls.authorizeServer, "getKeyAuthorize %i %s", fs->integer, nums);
@@ -2509,8 +2510,8 @@ void CL_ConnectionlessPacket(netadr_t from, msg_t *msg) {
 
 		if (clc.compat) {
 			if (!NET_CompareAdr(from, clc.serverAddress)) {
-				// This challenge response is not coming from the expected address.
-				// Check whether we have a matching client challenge to prevent connection hi-jacking.
+				// this challenge response is not coming from the expected address
+				// check whether we have a matching client challenge to prevent connection hi-jacking
 				if (!*c || challenge != clc.challenge) {
 					Com_DPrintf("Challenge response received from unexpected source. Ignored.\n");
 					return;

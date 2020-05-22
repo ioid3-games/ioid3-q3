@@ -1770,9 +1770,9 @@ void CM_DrawDebugSurface(void (*drawPoly)(int color, int numPoints, float *point
 					plane[3] = -plane[3];
 				}
 
-		//		if (!facet->borderNoAdjust[j]) {
+				//if (!facet->borderNoAdjust[j]) {
 				plane[3] -= cv->value;
-		//		}
+				//}
 
 				for (n = 0; n < 3; n++) {
 					if (plane[n] > 0) {

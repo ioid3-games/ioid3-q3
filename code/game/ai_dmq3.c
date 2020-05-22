@@ -2643,7 +2643,7 @@ int BotCanAndWantsToRocketJump(bot_state_t *bs) {
 	if (bs->inventory[INVENTORY_ROCKETS] < 3) {
 		return qfalse;
 	}
-	// never rocket jump with the Quad
+	// never rocket jump with the quad damage powerup
 	if (bs->inventory[INVENTORY_QUAD]) {
 		return qfalse;
 	}
@@ -2707,19 +2707,19 @@ int BotHasPersistantPowerupAndWeapon(bot_state_t *bs) {
 	if (bs->inventory[INVENTORY_ROCKETLAUNCHER] > 0 && bs->inventory[INVENTORY_ROCKETS] > 5) {
 		return qtrue;
 	}
-
+	// if the bot can use the nail gun
 	if (bs->inventory[INVENTORY_NAILGUN] > 0 && bs->inventory[INVENTORY_NAILS] > 5) {
 		return qtrue;
 	}
-
+	// if the bot can use the proxy launcher
 	if (bs->inventory[INVENTORY_PROXLAUNCHER] > 0 && bs->inventory[INVENTORY_MINES] > 5) {
 		return qtrue;
 	}
-
+	// if the bot can use the chain gun
 	if (bs->inventory[INVENTORY_CHAINGUN] > 0 && bs->inventory[INVENTORY_BELT] > 40) {
 		return qtrue;
 	}
-	// if the bot can use the plasmagun
+	// if the bot can use the plasma gun
 	if (bs->inventory[INVENTORY_PLASMAGUN] > 0 && bs->inventory[INVENTORY_CELLS] > 20) {
 		return qtrue;
 	}
@@ -3153,7 +3153,7 @@ float BotEntityVisible(int viewer, vec3_t eye, vec3_t viewangles, float fov, int
 
 	// get the entity information
 	BotEntityInfo(ent, &entinfo);
-	// if this player is active
+	// if the entity information is valid
 	if (!entinfo.valid) {
 		return 0;
 	}
