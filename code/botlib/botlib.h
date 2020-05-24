@@ -224,9 +224,8 @@ typedef struct aas_export_s {
 	int (*AAS_Swimming)(vec3_t origin);
 	int (*AAS_PredictClientMovement)(struct aas_clientmove_s *move, int entnum, vec3_t origin, int presencetype, int onground, vec3_t velocity, vec3_t cmdmove, int cmdframes, int maxframes, float frametime, int stopevent, int stopareanum, int visualize);
 } aas_export_t;
-
+// ClientCommand elementary actions
 typedef struct ea_export_s {
-	// ClientCommand elementary actions
 	void (*EA_Command)(int client, char *command);
 	void (*EA_Say)(int client, char *str);
 	void (*EA_SayTeam)(int client, char *str);

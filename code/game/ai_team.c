@@ -482,7 +482,9 @@ void BotCTFOrders_FlagNotAtBase(bot_state_t *bs) {
 	int teammates[MAX_CLIENTS];
 	char name[MAX_NETNAME];
 
+	// sort team mates by travel time to base
 	numteammates = BotSortTeamMatesByBaseTravelTime(bs, teammates, sizeof(teammates));
+	// sort team mates by CTF preference
 	BotSortTeamMatesByTaskPreference(bs, teammates, numteammates);
 	// passive strategy
 	if (!(bs->ctfstrategy & CTFS_AGRESSIVE)) {
@@ -638,7 +640,9 @@ void BotCTFOrders_EnemyFlagNotAtBase(bot_state_t *bs) {
 	int teammates[MAX_CLIENTS];
 	char name[MAX_NETNAME], carriername[MAX_NETNAME];
 
+	// sort team mates by travel time to base
 	numteammates = BotSortTeamMatesByBaseTravelTime(bs, teammates, sizeof(teammates));
+	// sort team mates by CTF preference
 	BotSortTeamMatesByTaskPreference(bs, teammates, numteammates);
 	// different orders based on the number of team mates
 	switch (numteammates) {

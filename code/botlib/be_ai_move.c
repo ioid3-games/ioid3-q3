@@ -1921,7 +1921,7 @@ bot_moveresult_t BotTravel_Jump(bot_movestate_t *ms, aas_reachability_t *reach) 
 	}
 	// elementary action
 	EA_Move(ms->client, hordir, speed);
-
+	// save the movement direction
 	VectorCopy(hordir, result.movedir);
 
 	return result;

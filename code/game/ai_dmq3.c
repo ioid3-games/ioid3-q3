@@ -2438,11 +2438,11 @@ float BotAggression(bot_state_t *bs) {
 	if (bs->inventory[INVENTORY_LIGHTNING] > 0 && bs->inventory[INVENTORY_LIGHTNINGAMMO] > 50) {
 		return 90;
 	}
-	// if the bot can use the rocketlauncher
+	// if the bot can use the rocket launcher
 	if (bs->inventory[INVENTORY_ROCKETLAUNCHER] > 0 && bs->inventory[INVENTORY_ROCKETS] > 5) {
 		return 90;
 	}
-	// if the bot can use the plasmagun
+	// if the bot can use the plasma gun
 	if (bs->inventory[INVENTORY_PLASMAGUN] > 0 && bs->inventory[INVENTORY_CELLS] > 40) {
 		return 85;
 	}
@@ -2450,7 +2450,7 @@ float BotAggression(bot_state_t *bs) {
 	if (bs->inventory[INVENTORY_GRENADELAUNCHER] > 0 && bs->inventory[INVENTORY_GRENADES] > 10) {
 		return 80;
 	}
-	// if the bot can use the shotgun
+	// if the bot can use the shot gun
 	if (bs->inventory[INVENTORY_SHOTGUN] > 0 && bs->inventory[INVENTORY_SHELLS] > 10) {
 		return 50;
 	}
@@ -2703,7 +2703,7 @@ int BotHasPersistantPowerupAndWeapon(bot_state_t *bs) {
 	if (bs->inventory[INVENTORY_LIGHTNING] > 0 && bs->inventory[INVENTORY_LIGHTNINGAMMO] > 50) {
 		return qtrue;
 	}
-	// if the bot can use the rocketlauncher
+	// if the bot can use the rocket launcher
 	if (bs->inventory[INVENTORY_ROCKETLAUNCHER] > 0 && bs->inventory[INVENTORY_ROCKETS] > 5) {
 		return qtrue;
 	}
