@@ -2721,6 +2721,7 @@ int AINode_Battle_NBG(bot_state_t *bs) {
 	// if the bot has no goal or touches the current goal
 	if (!trap_BotGetTopGoal(bs->gs, &goal)) {
 		bs->nbg_time = 0;
+	// if the bot touches the current goal
 	} else if (BotReachedGoal(bs, &goal)) {
 		bs->nbg_time = 0;
 	}
