@@ -57,7 +57,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define WINDOW_POPUP			0x00200000 // popup
 #define WINDOW_BACKCOLORSET		0x00400000 // backcolor was explicitly set
 #define WINDOW_TIMEDVISIBLE		0x00800000 // visibility timing (NOT implemented)
-
 // CGAME cursor type bits
 #define CURSOR_NONE		0x00000001
 #define CURSOR_ARROW	0x00000002
@@ -108,7 +107,7 @@ typedef struct {
 	float x; // horiz position
 	float y; // vert position
 	float w; // width
-	float h; // height;
+	float h; // height
 } rectDef_t;
 
 typedef rectDef_t Rectangle;

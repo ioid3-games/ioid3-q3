@@ -448,6 +448,7 @@ int PC_StringizeTokens(token_t *tokens, token_t *token) {
 	token->whitespace_p = NULL;
 	token->endwhitespace_p = NULL;
 	token->string[0] = '\0';
+
 	strcat(token->string, "\"");
 
 	for (t = tokens; t; t = t->next) {

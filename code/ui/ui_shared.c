@@ -1600,7 +1600,6 @@ commandDef_t commandList[] = {
 };
 
 int scriptCommandCount = ARRAY_LEN(commandList);
-
 /*
 =======================================================================================================================================
 Item_RunScript
@@ -2970,7 +2969,6 @@ void Item_StartCapture(itemDef_t *item, int key) {
 
 			break;
 		}
-
 		case ITEM_TYPE_SLIDER:
 		{
 			flags = Item_Slider_OverSlider(item, DC->cursorx, DC->cursory);

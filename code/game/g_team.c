@@ -365,7 +365,7 @@ void Team_FragBonuses(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker
 
 		return;
 	}
-	// did the attacker frag a head carrier? other->client->ps.generic1
+	// did the attacker frag a skull carrier?
 	if (tokens) {
 		attacker->client->pers.teamState.lastfraggedcarrier = level.time;
 

@@ -3035,6 +3035,7 @@ bot_moveresult_t BotTravel_RocketJump(bot_movestate_t *ms, aas_reachability_t *r
 	EA_SelectWeapon(ms->client, (int)weapindex_rocketlauncher->value);
 	// weapon is used for movement
 	result.weapon = (int)weapindex_rocketlauncher->value;
+	// set the movement view flag
 	result.flags |= MOVERESULT_MOVEMENTWEAPON;
 
 	VectorCopy(hordir, result.movedir);
@@ -3052,7 +3053,7 @@ bot_moveresult_t BotTravel_BFGJump(bot_movestate_t *ms, aas_reachability_t *reac
 	bot_moveresult_t_cleared(result);
 
 	//botimport.Print(PRT_MESSAGE, "BotTravel_BFGJump: bah\n");
-
+	// walk straight to the reachability start
 	hordir[0] = reach->start[0] - ms->origin[0];
 	hordir[1] = reach->start[1] - ms->origin[1];
 	hordir[2] = 0;
