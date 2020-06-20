@@ -54,10 +54,10 @@ extern botlib_import_t botimport;
 int reach_swim;			// swim
 int reach_equalfloor;	// walk on floors with equal height
 int reach_step;			// step up
-int reach_walk;			// walk of step
+int reach_walk;			// walk off step
 int reach_barrier;		// jump up to a barrier
 int reach_waterjump;	// jump out of water
-int reach_walkoffledge;	// walk of a ledge
+int reach_walkoffledge;	// walk off a ledge
 int reach_jump;			// jump
 int reach_ladder;		// climb or descent a ladder
 int reach_teleport;		// teleport
@@ -1542,7 +1542,7 @@ int AAS_Reachability_Step_Barrier_WaterJump_WalkOffLedge(int area1num, int area2
 					VectorMA(ground_bestend, INSIDEUNITS_WALKEND, ground_bestnormal, lreach->end);
 
 					lreach->traveltype = TRAVEL_BARRIERJUMP;
-					lreach->traveltime = aassettings.rs_barrierjump; //AAS_BarrierJumpTravelTime();
+					lreach->traveltime = aassettings.rs_barrierjump;
 					lreach->next = areareachability[area1num];
 
 					areareachability[area1num] = lreach;
@@ -2385,7 +2385,7 @@ int AAS_Reachability_Jump(int area1num, int area2num) {
 			if (move.frames >= 30) {
 				return qfalse;
 			}
-			// don't enter slime or lava and don't fall from too high
+			// don't enter slime or lava
 			if (move.stopevent & (SE_ENTERSLIME|SE_ENTERLAVA)) {
 				return qfalse;
 			}
@@ -4017,8 +4017,7 @@ void AAS_Reachability_JumpPad(void) {
 						VectorScale(dir, speed, cmdmove);
 						// movement prediction
 						AAS_PredictClientMovement(&move, -1, areastart, PRESENCE_NORMAL, qfalse, velocity, cmdmove, 30, 30, 0.1f, SE_ENTERWATER|SE_ENTERSLIME|SE_ENTERLAVA|SE_HITGROUNDDAMAGE|SE_TOUCHJUMPPAD|SE_TOUCHTELEPORTER|SE_HITGROUNDAREA, area2num, visualize);
-						// if prediction time wasn't enough to fully predict the movement
-						// don't enter slime or lava and don't fall from too high
+						// if prediction time wasn't enough to fully predict the movement, don't fall from too high and don't enter slime or lava
 						if (move.frames < 30 && !(move.stopevent & (SE_ENTERSLIME|SE_ENTERLAVA|SE_HITGROUNDDAMAGE)) && (move.stopevent & (SE_HITGROUNDAREA|SE_TOUCHJUMPPAD|SE_TOUCHTELEPORTER))) {
 							// never go back to the same jumppad
 							for (link = areas; link; link = link->next_area) {
@@ -4437,8 +4436,7 @@ int AAS_Reachability_WeaponJump(int area1num, int area2num) {
 					VectorSet(cmdmove, 0, 0, 0);
 					*/
 					AAS_PredictClientMovement(&move, -1, areastart, PRESENCE_NORMAL, qtrue, velocity, cmdmove, 30, 30, 0.1f, SE_ENTERWATER|SE_ENTERSLIME|SE_ENTERLAVA|SE_HITGROUNDDAMAGE|SE_TOUCHJUMPPAD|SE_HITGROUND|SE_HITGROUNDAREA, area2num, visualize);
-					// if prediction time wasn't enough to fully predict the movement
-					// don't enter slime or lava and don't fall from too high
+					// if prediction time wasn't enough to fully predict the movement, don't fall from too high and don't enter slime or lava
 					if (move.frames < 30 && !(move.stopevent & (SE_ENTERSLIME|SE_ENTERLAVA|SE_HITGROUNDDAMAGE)) && (move.stopevent & (SE_HITGROUNDAREA|SE_TOUCHJUMPPAD))) {
 						// create a rocket or bfg jump reachability from area1 to area2
 						lreach = AAS_AllocReachability();
