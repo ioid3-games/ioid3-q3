@@ -578,6 +578,7 @@ void ClientEvents(gentity_t *ent, int oldEventSequence) {
 				}
 
 				ent->pain_debounce_time = level.time + 200; // no normal pain sound
+
 				G_Damage(ent, NULL, NULL, NULL, NULL, damage, 0, MOD_FALLING);
 				break;
 			case EV_FIRE_WEAPON:

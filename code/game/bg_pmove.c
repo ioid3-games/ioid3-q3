@@ -647,7 +647,7 @@ static void PM_AirMove(void) {
 		PM_ClipVelocity(pm->ps->velocity, pml.groundTrace.plane.normal, pm->ps->velocity, OVERCLIP);
 	}
 #if 0
-	// If we are on the grapple, try stair-stepping
+	// if we are on the grapple, try stair-stepping
 	// this allows a player to use the grapple to pull himself over a ledge
 	if (pm->ps->pm_flags & PMF_GRAPPLE_PULL) {
 		PM_StepSlideMove(qtrue);

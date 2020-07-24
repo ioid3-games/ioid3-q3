@@ -121,6 +121,7 @@ void TossClientItems(gentity_t *self) {
 	}
 }
 #ifdef MISSIONPACK
+extern gentity_t *neutralObelisk;
 /*
 =======================================================================================================================================
 TossClientCubes
@@ -128,8 +129,6 @@ TossClientCubes
 Spawn cube at neutral obelisk.
 =======================================================================================================================================
 */
-extern gentity_t *neutralObelisk;
-
 void TossClientCubes(gentity_t *self) {
 	gitem_t *item;
 	gentity_t *drop;
