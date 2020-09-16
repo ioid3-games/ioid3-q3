@@ -470,17 +470,19 @@ int BotSetLastOrderedTask(bot_state_t *bs) {
 	}
 
 	if (bs->lastgoal_ltgtype) {
+		// the teammate who ordered
 		bs->decisionmaker = bs->lastgoal_decisionmaker;
 		bs->ordered = qtrue;
 		bs->ltgtype = bs->lastgoal_ltgtype;
 
 		memcpy(&bs->teamgoal, &bs->lastgoal_teamgoal, sizeof(bot_goal_t));
-
+		// the teammate
 		bs->teammate = bs->lastgoal_teammate;
+		// set the team goal time
 		bs->teamgoal_time = FloatTime() + 300;
-
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
-
+		// get an alternate route in ctf
 		if (gametype == GT_CTF) {
 			if (bs->ltgtype == LTG_GETFLAG) {
 				bot_goal_t *tb, *eb;
@@ -538,9 +540,13 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 		// if not already rushing to the base
 		if (bs->ltgtype != LTG_RUSHBASE) {
 			BotRefuseOrder(bs);
+			// set the ltg type
 			bs->ltgtype = LTG_RUSHBASE;
+			// set the team goal time
 			bs->teamgoal_time = FloatTime() + CTF_RUSHBASE_TIME;
+			// away from rushing to base
 			bs->rushbaseaway_time = 0;
+			// the bot made its own decision
 			bs->decisionmaker = bs->client;
 			bs->ordered = qfalse;
 
@@ -574,6 +580,7 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 			}
 			// if the flag is back
 			if (flagstatus == 0) {
+				// away from rushing to base
 				bs->rushbaseaway_time = 0;
 			}
 		}
@@ -584,7 +591,7 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 	if (bs->ltgtype == LTG_TEAMACCOMPANY && !bs->ordered) {
 		// get the entity information
 		BotEntityInfo(bs->teammate, &entinfo);
-		// if the team mate being accompanied no longer carries the flag
+		// if the teammate being accompanied no longer carries the flag
 		if (!EntityCarriesFlag(&entinfo)) {
 			bs->ltgtype = 0;
 		}
@@ -600,31 +607,33 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 		if (bs->owndecision_time < FloatTime()) {
 			// if not defending the base already
 			if (!(bs->ltgtype == LTG_DEFENDKEYAREA && (bs->teamgoal.number == ctf_redflag.number || bs->teamgoal.number == ctf_blueflag.number))) {
-				// if there is a visible team mate flag carrier
+				// if there is a visible teammate flag carrier
 				c = BotTeamFlagCarrierVisible(bs);
-				// if not already following the team mate flag carrier
+				// if not already following the teammate flag carrier
 				if (c >= 0 && (bs->ltgtype != LTG_TEAMACCOMPANY || bs->teammate != c)) {
 					BotRefuseOrder(bs);
-					// follow the flag carrier
+					// the bot made its own decision
 					bs->decisionmaker = bs->client;
 					bs->ordered = qfalse;
-					// the team mate
+					// the teammate
 					bs->teammate = c;
-					// last time the team mate was visible
+					// last time the teammate was visible
 					bs->teammatevisible_time = FloatTime();
 					// no message
 					bs->teammessage_time = 0;
 					// no arrive message
 					bs->arrive_time = 1;
-
+					// follow the flag carrier
 					BotVoiceChat(bs, bs->teammate, VOICECHAT_ONFOLLOW);
-					// get the team goal time
+					// set the team goal time
 					bs->teamgoal_time = FloatTime() + TEAM_ACCOMPANY_TIME;
+					// set the ltg type
 					bs->ltgtype = LTG_TEAMACCOMPANY;
+					// set the formation intervening space
 					bs->formation_dist = 3.5 * 32; // 3.5 meter
-
+					// set the team status (offense, defense etc.)
 					BotSetTeamStatus(bs);
-
+					// time the bot made its own decision
 					bs->owndecision_time = FloatTime() + 5;
 				}
 			}
@@ -643,10 +652,10 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 			// if not already doing something important
 			if (bs->ltgtype != LTG_GETFLAG && bs->ltgtype != LTG_RETURNFLAG && bs->ltgtype != LTG_TEAMHELP && bs->ltgtype != LTG_TEAMACCOMPANY && bs->ltgtype != LTG_CAMPORDER && bs->ltgtype != LTG_PATROL && bs->ltgtype != LTG_GETITEM) {
 				BotRefuseOrder(bs);
-
+				// the bot made its own decision
 				bs->decisionmaker = bs->client;
 				bs->ordered = qfalse;
-
+				// set the ltg type
 				if (random() < 0.5) {
 					// go for the enemy flag
 					bs->ltgtype = LTG_GETFLAG;
@@ -659,59 +668,63 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 				bs->teamgoal_time = FloatTime() + CTF_GETFLAG_TIME;
 				// get an alternative route goal towards the enemy base
 				BotGetAlternateRouteGoal(bs, BotOppositeTeam(bs));
+				// set the team status (offense, defense etc.)
 				BotSetTeamStatus(bs);
-
+				// time the bot made its own decision
 				bs->owndecision_time = FloatTime() + 5;
 			}
 		}
 
 		return;
-	// if both flags Not at their bases
+	// if both flags not at their bases
 	} else if (flagstatus == 3) {
 		if (bs->owndecision_time < FloatTime()) {
 			// if not trying to return the flag and not following the team flag carrier
 			if (bs->ltgtype != LTG_RETURNFLAG && bs->ltgtype != LTG_TEAMACCOMPANY) {
-				// if there is a visible team mate flag carrier
+				// if there is a visible teammate flag carrier
 				c = BotTeamFlagCarrierVisible(bs);
 
 				if (c >= 0) {
 					BotRefuseOrder(bs);
-					// follow the flag carrier
+					// the bot made its own decision
 					bs->decisionmaker = bs->client;
 					bs->ordered = qfalse;
-					// the team mate
+					// the teammate
 					bs->teammate = c;
-					// last time the team mate was visible
+					// last time the teammate was visible
 					bs->teammatevisible_time = FloatTime();
 					// no message
 					bs->teammessage_time = 0;
 					// no arrive message
 					bs->arrive_time = 1;
-
+					// follow the flag carrier
 					BotVoiceChat(bs, bs->teammate, VOICECHAT_ONFOLLOW);
-					// get the team goal time
+					// set the team goal time
 					bs->teamgoal_time = FloatTime() + TEAM_ACCOMPANY_TIME;
+					// set the ltg type
 					bs->ltgtype = LTG_TEAMACCOMPANY;
+					// set the formation intervening space
 					bs->formation_dist = 3.5 * 32; // 3.5 meter
-
+					// set the team status (offense, defense etc.)
 					BotSetTeamStatus(bs);
-
+					// time the bot made its own decision
 					bs->owndecision_time = FloatTime() + 5;
 				} else {
 					BotRefuseOrder(bs);
-
+					// the bot made its own decision
 					bs->decisionmaker = bs->client;
 					bs->ordered = qfalse;
-					// get the enemy flag
+					// set the time to send a message to the teammates
 					bs->teammessage_time = FloatTime() + 2 * random();
 					// get the flag
 					bs->ltgtype = LTG_RETURNFLAG;
-					// set the time the bot will stop getting the flag
+					// set the time the bot will stop returning the flag
 					bs->teamgoal_time = FloatTime() + CTF_RETURNFLAG_TIME;
 					// get an alternative route goal towards the enemy base
 					BotGetAlternateRouteGoal(bs, BotOppositeTeam(bs));
+					// set the team status (offense, defense etc.)
 					BotSetTeamStatus(bs);
-
+					// time the bot made its own decision
 					bs->owndecision_time = FloatTime() + 5;
 				}
 			}
@@ -731,11 +744,11 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 	if (!bs->ordered && bs->lastgoal_ltgtype) {
 		bs->ltgtype = 0;
 	}
-	// if already a CTF or team goal
+	// if the bot already has a CTF or team goal
 	if (bs->ltgtype == LTG_TEAMHELP || bs->ltgtype == LTG_TEAMACCOMPANY || bs->ltgtype == LTG_DEFENDKEYAREA || bs->ltgtype == LTG_GETFLAG || bs->ltgtype == LTG_RUSHBASE || bs->ltgtype == LTG_RETURNFLAG || bs->ltgtype == LTG_CAMPORDER || bs->ltgtype == LTG_PATROL || bs->ltgtype == LTG_GETITEM) {
 		return;
 	}
-
+	// if ordered to do something
 	if (BotSetLastOrderedTask(bs)) {
 		return;
 	}
@@ -751,7 +764,7 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 	if (BotAggression(bs) < 50) {
 		return;
 	}
-	// set the time to send a message to the team mates
+	// set the time to send a message to the teammates
 	bs->teammessage_time = FloatTime() + 2 * random();
 
 	if (bs->teamtaskpreference & (TEAMTP_ATTACKER|TEAMTP_DEFENDER)) {
@@ -770,15 +783,19 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 	rnd = random();
 
 	if (rnd < l1 && ctf_redflag.areanum && ctf_blueflag.areanum) {
+		// the bot made its own decision
 		bs->decisionmaker = bs->client;
 		bs->ordered = qfalse;
+		// set the ltg type
 		bs->ltgtype = LTG_GETFLAG;
 		// set the time the bot will stop getting the flag
 		bs->teamgoal_time = FloatTime() + CTF_GETFLAG_TIME;
 		// get an alternative route goal towards the enemy base
 		BotGetAlternateRouteGoal(bs, BotOppositeTeam(bs));
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	} else if (rnd < l2 && ctf_redflag.areanum && ctf_blueflag.areanum) {
+		// the bot made its own decision
 		bs->decisionmaker = bs->client;
 		bs->ordered = qfalse;
 
@@ -791,14 +808,15 @@ void BotCTFSeekGoals(bot_state_t *bs) {
 		bs->ltgtype = LTG_DEFENDKEYAREA;
 		// set the time the bot stops defending the base
 		bs->teamgoal_time = FloatTime() + TEAM_DEFENDKEYAREA_TIME;
+		// away from defending
 		bs->defendaway_time = 0;
-
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	} else {
 		bs->ltgtype = 0;
 		// set the time the bot will stop roaming
 		bs->ctfroam_time = FloatTime() + CTF_ROAM_TIME;
-
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	}
 
@@ -821,12 +839,15 @@ void BotCTFRetreatGoals(bot_state_t *bs) {
 		if (bs->ltgtype != LTG_RUSHBASE) {
 			BotRefuseOrder(bs);
 
+			// set the ltg type
 			bs->ltgtype = LTG_RUSHBASE;
+			// set the team goal time
 			bs->teamgoal_time = FloatTime() + CTF_RUSHBASE_TIME;
+			// away from rushing to base
 			bs->rushbaseaway_time = 0;
 			bs->decisionmaker = bs->client;
 			bs->ordered = qfalse;
-
+			// set the team status (offense, defense etc.)
 			BotSetTeamStatus(bs);
 		}
 	}
@@ -842,19 +863,22 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 	float rnd, l1, l2;
 	int c;
 
-	// when carrying a flag in ctf the bot should rush to the base
+	// when carrying the flag in 1ctf the bot should rush to the enemy base
 	if (Bot1FCTFCarryingFlag(bs)) {
 		// if not already rushing to the base
 		if (bs->ltgtype != LTG_RUSHBASE) {
 			BotRefuseOrder(bs);
-
+			// set the ltg type
 			bs->ltgtype = LTG_RUSHBASE;
+			// set the team goal time
 			bs->teamgoal_time = FloatTime() + CTF_RUSHBASE_TIME;
+			// away from rushing to base
 			bs->rushbaseaway_time = 0;
 			bs->decisionmaker = bs->client;
 			bs->ordered = qfalse;
 			// get an alternative route goal towards the enemy base
 			BotGetAlternateRouteGoal(bs, BotOppositeTeam(bs));
+			// set the team status (offense, defense etc.)
 			BotSetTeamStatus(bs);
 			BotVoiceChat(bs, -1, VOICECHAT_IHAVEFLAG);
 		}
@@ -865,7 +889,7 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 	if (bs->ltgtype == LTG_TEAMACCOMPANY && !bs->ordered) {
 		// get the entity information
 		BotEntityInfo(bs->teammate, &entinfo);
-		// if the team mate being accompanied no longer carries the flag
+		// if the teammate being accompanied no longer carries the flag
 		if (!EntityCarriesFlag(&entinfo)) {
 			bs->ltgtype = 0;
 		}
@@ -875,43 +899,45 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 		if (bs->owndecision_time < FloatTime()) {
 			// if not already following someone
 			if (bs->ltgtype != LTG_TEAMACCOMPANY) {
-				// if there is a visible team mate flag carrier
+				// if there is a visible teammate flag carrier
 				c = BotTeamFlagCarrierVisible(bs);
 
 				if (c >= 0) {
 					BotRefuseOrder(bs);
-					// follow the flag carrier
+					// the bot made its own decision
 					bs->decisionmaker = bs->client;
 					bs->ordered = qfalse;
-					// the team mate
+					// the teammate
 					bs->teammate = c;
-					// last time the team mate was visible
+					// last time the teammate was visible
 					bs->teammatevisible_time = FloatTime();
 					// no message
 					bs->teammessage_time = 0;
 					// no arrive message
 					bs->arrive_time = 1;
-
+					// follow the flag carrier
 					BotVoiceChat(bs, bs->teammate, VOICECHAT_ONFOLLOW);
-					// get the team goal time
+					// set the team goal time
 					bs->teamgoal_time = FloatTime() + TEAM_ACCOMPANY_TIME;
+					// set the ltg type
 					bs->ltgtype = LTG_TEAMACCOMPANY;
+					// set the formation intervening space
 					bs->formation_dist = 3.5 * 32; // 3.5 meter
-
+					// set the team status (offense, defense etc.)
 					BotSetTeamStatus(bs);
-
+					// time the bot made its own decision
 					bs->owndecision_time = FloatTime() + 5;
 					return;
 				}
 			}
-			// if already a CTF or team goal
+			// if the bot already has a CTF or team goal
 			if (bs->ltgtype == LTG_TEAMHELP || bs->ltgtype == LTG_TEAMACCOMPANY || bs->ltgtype == LTG_DEFENDKEYAREA || bs->ltgtype == LTG_GETFLAG || bs->ltgtype == LTG_RUSHBASE || bs->ltgtype == LTG_CAMPORDER || bs->ltgtype == LTG_PATROL || bs->ltgtype == LTG_ATTACKENEMYBASE || bs->ltgtype == LTG_GETITEM) {
 				return;
 			}
 			// if not already attacking the enemy base
 			if (bs->ltgtype != LTG_ATTACKENEMYBASE) {
 				BotRefuseOrder(bs);
-
+				// the bot made its own decision
 				bs->decisionmaker = bs->client;
 				bs->ordered = qfalse;
 
@@ -924,9 +950,9 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 				bs->ltgtype = LTG_ATTACKENEMYBASE;
 				// set the time the bot will stop getting the flag
 				bs->teamgoal_time = FloatTime() + TEAM_ATTACKENEMYBASE_TIME;
-
+				// set the team status (offense, defense etc.)
 				BotSetTeamStatus(bs);
-
+				// time the bot made its own decision
 				bs->owndecision_time = FloatTime() + 5;
 			}
 		}
@@ -940,14 +966,14 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 			if (c >= 0) {
 				// FIXME: attack enemy flag carrier
 			}
-			// if already a CTF or team goal
+			// if the bot already has a CTF or team goal
 			if (bs->ltgtype == LTG_TEAMHELP || bs->ltgtype == LTG_TEAMACCOMPANY || bs->ltgtype == LTG_CAMPORDER || bs->ltgtype == LTG_PATROL || bs->ltgtype == LTG_GETITEM) {
 				return;
 			}
 			// if not already defending the base
 			if (bs->ltgtype != LTG_DEFENDKEYAREA) {
 				BotRefuseOrder(bs);
-
+				// the bot made its own decision
 				bs->decisionmaker = bs->client;
 				bs->ordered = qfalse;
 
@@ -960,10 +986,11 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 				bs->ltgtype = LTG_DEFENDKEYAREA;
 				// set the time the bot stops defending the base
 				bs->teamgoal_time = FloatTime() + TEAM_DEFENDKEYAREA_TIME;
+				// away from defending
 				bs->defendaway_time = 0;
-
+				// set the team status (offense, defense etc.)
 				BotSetTeamStatus(bs);
-
+				// time the bot made its own decision
 				bs->owndecision_time = FloatTime() + 5;
 			}
 		}
@@ -982,11 +1009,11 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 	if (!bs->ordered && bs->lastgoal_ltgtype) {
 		bs->ltgtype = 0;
 	}
-	// if already a CTF or team goal
+	// if the bot already has a CTF or team goal
 	if (bs->ltgtype == LTG_TEAMHELP || bs->ltgtype == LTG_TEAMACCOMPANY || bs->ltgtype == LTG_DEFENDKEYAREA || bs->ltgtype == LTG_GETFLAG || bs->ltgtype == LTG_RUSHBASE || bs->ltgtype == LTG_RETURNFLAG || bs->ltgtype == LTG_CAMPORDER || bs->ltgtype == LTG_PATROL || bs->ltgtype == LTG_ATTACKENEMYBASE || bs->ltgtype == LTG_GETITEM) {
 		return;
 	}
-
+	// if ordered to do something
 	if (BotSetLastOrderedTask(bs)) {
 		return;
 	}
@@ -1002,7 +1029,7 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 	if (BotAggression(bs) < 50) {
 		return;
 	}
-	// set the time to send a message to the team mates
+	// set the time to send a message to the teammates
 	bs->teammessage_time = FloatTime() + 2 * random();
 
 	if (bs->teamtaskpreference & (TEAMTP_ATTACKER|TEAMTP_DEFENDER)) {
@@ -1021,14 +1048,17 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 	rnd = random();
 
 	if (rnd < l1 && ctf_neutralflag.areanum) {
+		// the bot made its own decision
 		bs->decisionmaker = bs->client;
 		bs->ordered = qfalse;
+		// set the ltg type
 		bs->ltgtype = LTG_GETFLAG;
 		// set the time the bot will stop getting the flag
 		bs->teamgoal_time = FloatTime() + CTF_GETFLAG_TIME;
-
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	} else if (rnd < l2 && ctf_redflag.areanum && ctf_blueflag.areanum) {
+		// the bot made its own decision
 		bs->decisionmaker = bs->client;
 		bs->ordered = qfalse;
 
@@ -1041,14 +1071,15 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 		bs->ltgtype = LTG_DEFENDKEYAREA;
 		// set the time the bot stops defending the base
 		bs->teamgoal_time = FloatTime() + TEAM_DEFENDKEYAREA_TIME;
+		// away from defending
 		bs->defendaway_time = 0;
-
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	} else {
 		bs->ltgtype = 0;
 		// set the time the bot will stop roaming
 		bs->ctfroam_time = FloatTime() + CTF_ROAM_TIME;
-
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	}
 
@@ -1065,19 +1096,23 @@ Bot1FCTFRetreatGoals
 */
 void Bot1FCTFRetreatGoals(bot_state_t *bs) {
 
-	// when carrying a flag in ctf the bot should rush to the enemy base
+	// when carrying the flag in 1ctf the bot should rush to the enemy base
 	if (Bot1FCTFCarryingFlag(bs)) {
 		// if not already rushing to the base
 		if (bs->ltgtype != LTG_RUSHBASE) {
 			BotRefuseOrder(bs);
-
+			// set the ltg type
 			bs->ltgtype = LTG_RUSHBASE;
+			// set the team goal time
 			bs->teamgoal_time = FloatTime() + CTF_RUSHBASE_TIME;
+			// away from rushing to base
 			bs->rushbaseaway_time = 0;
+			// the bot made its own decision
 			bs->decisionmaker = bs->client;
 			bs->ordered = qfalse;
 			// get an alternative route goal towards the enemy base
 			BotGetAlternateRouteGoal(bs, BotOppositeTeam(bs));
+			// set the team status (offense, defense etc.)
 			BotSetTeamStatus(bs);
 		}
 	}
@@ -1099,11 +1134,11 @@ void BotObeliskSeekGoals(bot_state_t *bs) {
 	if (bs->lastgoal_ltgtype) {
 		bs->teamgoal_time += 60;
 	}
-	// if already a team goal
+	// if the bot already has a CTF or team goal
 	if (bs->ltgtype == LTG_TEAMHELP || bs->ltgtype == LTG_TEAMACCOMPANY || bs->ltgtype == LTG_DEFENDKEYAREA || bs->ltgtype == LTG_GETFLAG || bs->ltgtype == LTG_RUSHBASE || bs->ltgtype == LTG_RETURNFLAG || bs->ltgtype == LTG_CAMPORDER || bs->ltgtype == LTG_PATROL || bs->ltgtype == LTG_ATTACKENEMYBASE || bs->ltgtype == LTG_GETITEM) {
 		return;
 	}
-
+	// if ordered to do something
 	if (BotSetLastOrderedTask(bs)) {
 		return;
 	}
@@ -1115,7 +1150,7 @@ void BotObeliskSeekGoals(bot_state_t *bs) {
 	if (BotAggression(bs) < 50) {
 		return;
 	}
-	// set the time to send a message to the team mates
+	// set the time to send a message to the teammates
 	bs->teammessage_time = FloatTime() + 2 * random();
 
 	if (bs->teamtaskpreference & (TEAMTP_ATTACKER|TEAMTP_DEFENDER)) {
@@ -1130,10 +1165,11 @@ void BotObeliskSeekGoals(bot_state_t *bs) {
 		l1 = 0.4f;
 		l2 = 0.7f;
 	}
-	// get the flag or defend the base
+	// attack the enemy base or defend the base
 	rnd = random();
 
 	if (rnd < l1 && redobelisk.areanum && blueobelisk.areanum) {
+		// the bot made its own decision
 		bs->decisionmaker = bs->client;
 		bs->ordered = qfalse;
 
@@ -1148,8 +1184,10 @@ void BotObeliskSeekGoals(bot_state_t *bs) {
 		bs->teamgoal_time = FloatTime() + TEAM_ATTACKENEMYBASE_TIME;
 		// get an alternate route goal towards the enemy base
 		BotGetAlternateRouteGoal(bs, BotOppositeTeam(bs));
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	} else if (rnd < l2 && redobelisk.areanum && blueobelisk.areanum) {
+		// the bot made its own decision
 		bs->decisionmaker = bs->client;
 		bs->ordered = qfalse;
 
@@ -1162,14 +1200,15 @@ void BotObeliskSeekGoals(bot_state_t *bs) {
 		bs->ltgtype = LTG_DEFENDKEYAREA;
 		// set the time the bot stops defending the base
 		bs->teamgoal_time = FloatTime() + TEAM_DEFENDKEYAREA_TIME;
+		// away from defending
 		bs->defendaway_time = 0;
-
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	} else {
 		bs->ltgtype = 0;
 		// set the time the bot will stop roaming
 		bs->ctfroam_time = FloatTime() + CTF_ROAM_TIME;
-
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	}
 }
@@ -1190,8 +1229,9 @@ void BotGoHarvest(bot_state_t *bs) {
 	bs->ltgtype = LTG_HARVEST;
 	// set the time the bot will stop harvesting
 	bs->teamgoal_time = FloatTime() + TEAM_HARVEST_TIME;
+	// away from harvesting
 	bs->harvestaway_time = 0;
-
+	// set the team status (offense, defense etc.)
 	BotSetTeamStatus(bs);
 }
 
@@ -1214,19 +1254,23 @@ void BotHarvesterSeekGoals(bot_state_t *bs) {
 	float rnd, l1, l2;
 	int c;
 
-	// when carrying cubes in harvester the bot should rush to the base
+	// when carrying cubes in harvester the bot should rush to the enemy base
 	if (BotHarvesterCarryingCubes(bs)) {
 		// if not already rushing to the base
 		if (bs->ltgtype != LTG_RUSHBASE) {
 			BotRefuseOrder(bs);
-
+			// set the ltg type
 			bs->ltgtype = LTG_RUSHBASE;
+			// set the team goal time
 			bs->teamgoal_time = FloatTime() + CTF_RUSHBASE_TIME;
+			// away from rushing to base
 			bs->rushbaseaway_time = 0;
+			// the bot made its own decision
 			bs->decisionmaker = bs->client;
 			bs->ordered = qfalse;
 			// get an alternative route goal towards the enemy base
 			BotGetAlternateRouteGoal(bs, BotOppositeTeam(bs));
+			// set the team status (offense, defense etc.)
 			BotSetTeamStatus(bs);
 		}
 
@@ -1240,7 +1284,7 @@ void BotHarvesterSeekGoals(bot_state_t *bs) {
 	if (bs->ltgtype == LTG_TEAMACCOMPANY && !bs->ordered) {
 		// get the entity information
 		BotEntityInfo(bs->teammate, &entinfo);
-		// if the team mate being accompanied no longer carries the flag
+		// if the teammate being accompanied no longer carries cubes
 		if (!EntityCarriesCubes(&entinfo)) {
 			bs->ltgtype = 0;
 		}
@@ -1249,11 +1293,11 @@ void BotHarvesterSeekGoals(bot_state_t *bs) {
 	if (bs->lastgoal_ltgtype) {
 		bs->teamgoal_time += 60;
 	}
-	// if not yet doing something
+	// if the bot already has a CTF or team goal
 	if (bs->ltgtype == LTG_TEAMHELP || bs->ltgtype == LTG_TEAMACCOMPANY || bs->ltgtype == LTG_DEFENDKEYAREA || bs->ltgtype == LTG_GETFLAG || bs->ltgtype == LTG_CAMPORDER || bs->ltgtype == LTG_PATROL || bs->ltgtype == LTG_ATTACKENEMYBASE || bs->ltgtype == LTG_HARVEST || bs->ltgtype == LTG_GETITEM) {
 		return;
 	}
-
+	// if ordered to do something
 	if (BotSetLastOrderedTask(bs)) {
 		return;
 	}
@@ -1265,7 +1309,7 @@ void BotHarvesterSeekGoals(bot_state_t *bs) {
 	if (BotAggression(bs) < 50) {
 		return;
 	}
-	// set the time to send a message to the team mates
+	// set the time to send a message to the teammates
 	bs->teammessage_time = FloatTime() + 2 * random();
 	c = BotEnemyCubeCarrierVisible(bs);
 
@@ -1274,28 +1318,30 @@ void BotHarvesterSeekGoals(bot_state_t *bs) {
 	}
 
 	if (bs->ltgtype != LTG_TEAMACCOMPANY) {
-		// if there is a visible team mate carrying cubes
+		// if there is a visible teammate carrying cubes
 		c = BotTeamCubeCarrierVisible(bs);
 
 		if (c >= 0) {
-			// follow the team mate carrying cubes
+			// the bot made its own decision
 			bs->decisionmaker = bs->client;
 			bs->ordered = qfalse;
-			// the team mate
+			// the teammate
 			bs->teammate = c;
-			// last time the team mate was visible
+			// last time the teammate was visible
 			bs->teammatevisible_time = FloatTime();
 			// no message
 			bs->teammessage_time = 0;
 			// no arrive message
 			bs->arrive_time = 1;
-
+			// follow the teammate carrying cubes
 			BotVoiceChat(bs, bs->teammate, VOICECHAT_ONFOLLOW);
 			// get the team goal time
 			bs->teamgoal_time = FloatTime() + TEAM_ACCOMPANY_TIME;
+			// set the ltg type
 			bs->ltgtype = LTG_TEAMACCOMPANY;
+			// set the formation intervening space
 			bs->formation_dist = 3.5 * 32; // 3.5 meter
-
+			// set the team status (offense, defense etc.)
 			BotSetTeamStatus(bs);
 			return;
 		}
@@ -1317,11 +1363,13 @@ void BotHarvesterSeekGoals(bot_state_t *bs) {
 	rnd = random();
 
 	if (rnd < l1 && redobelisk.areanum && blueobelisk.areanum) {
+		// the bot made its own decision
 		bs->decisionmaker = bs->client;
 		bs->ordered = qfalse;
 
 		BotGoHarvest(bs);
 	} else if (rnd < l2 && redobelisk.areanum && blueobelisk.areanum) {
+		// the bot made its own decision
 		bs->decisionmaker = bs->client;
 		bs->ordered = qfalse;
 
@@ -1334,14 +1382,15 @@ void BotHarvesterSeekGoals(bot_state_t *bs) {
 		bs->ltgtype = LTG_DEFENDKEYAREA;
 		// set the time the bot stops defending the base
 		bs->teamgoal_time = FloatTime() + TEAM_DEFENDKEYAREA_TIME;
+		// away from defending
 		bs->defendaway_time = 0;
-
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	} else {
 		bs->ltgtype = 0;
 		// set the time the bot will stop roaming
 		bs->ctfroam_time = FloatTime() + CTF_ROAM_TIME;
-
+		// set the team status (offense, defense etc.)
 		BotSetTeamStatus(bs);
 	}
 }
@@ -1353,18 +1402,21 @@ BotHarvesterRetreatGoals
 */
 void BotHarvesterRetreatGoals(bot_state_t *bs) {
 
-	// when carrying cubes in harvester the bot should rush to the base
+	// when carrying cubes in harvester the bot should rush to the enemy base
 	if (BotHarvesterCarryingCubes(bs)) {
 		// if not already rushing to the base
 		if (bs->ltgtype != LTG_RUSHBASE) {
 			BotRefuseOrder(bs);
-
+			// set the ltg type
 			bs->ltgtype = LTG_RUSHBASE;
+			// set the team goal time
 			bs->teamgoal_time = FloatTime() + CTF_RUSHBASE_TIME;
+			// away from rushing to base
 			bs->rushbaseaway_time = 0;
+			// the bot made its own decision
 			bs->decisionmaker = bs->client;
 			bs->ordered = qfalse;
-
+			// set the team status (offense, defense etc.)
 			BotSetTeamStatus(bs);
 		}
 
@@ -1664,7 +1716,7 @@ void BotChooseWeapon(bot_state_t *bs) {
 		}
 
 		bs->weaponnum = newweaponnum;
-		//BotAI_Print(PRT_MESSAGE, "bs->weaponnum = %d\n", bs->weaponnum);
+
 		trap_EA_SelectWeapon(bs->client, bs->weaponnum);
 	}
 }
@@ -1765,15 +1817,11 @@ void BotCheckItemPickup(bot_state_t *bs, int *oldinventory) {
 				if (BotTeamLeader(bs)) {
 					// tell the leader we want to be on offence
 					BotVoiceChat(bs, leader, VOICECHAT_WANTONOFFENSE);
-					//BotAI_BotInitialChat(bs, "wantoffence", NULL);
-					//trap_BotEnterChat(bs->cs, leader, CHAT_TELL);
 				} else if (g_spSkill.integer <= 3) {
 					if (bs->ltgtype != LTG_GETFLAG && bs->ltgtype != LTG_ATTACKENEMYBASE && bs->ltgtype != LTG_HARVEST) {
 						if ((gametype != GT_CTF || (bs->redflagstatus == 0 && bs->blueflagstatus == 0)) && (gametype != GT_1FCTF || bs->neutralflagstatus == 0)) {
 							// tell the leader we want to be on offence
 							BotVoiceChat(bs, leader, VOICECHAT_WANTONOFFENSE);
-							//BotAI_BotInitialChat(bs, "wantoffence", NULL);
-							//trap_BotEnterChat(bs->cs, leader, CHAT_TELL);
 						}
 					}
 				}
@@ -1788,15 +1836,11 @@ void BotCheckItemPickup(bot_state_t *bs, int *oldinventory) {
 				if (BotTeamLeader(bs)) {
 					// tell the leader we want to be on defense
 					BotVoiceChat(bs, -1, VOICECHAT_WANTONDEFENSE);
-					//BotAI_BotInitialChat(bs, "wantdefence", NULL);
-					//trap_BotEnterChat(bs->cs, leader, CHAT_TELL);
 				} else if (g_spSkill.integer <= 3) {
 					if (bs->ltgtype != LTG_DEFENDKEYAREA) {
 						if ((gametype != GT_CTF || (bs->redflagstatus == 0 && bs->blueflagstatus == 0)) && (gametype != GT_1FCTF || bs->neutralflagstatus == 0)) {
 							// tell the leader we want to be on defense
 							BotVoiceChat(bs, -1, VOICECHAT_WANTONDEFENSE);
-							//BotAI_BotInitialChat(bs, "wantdefence", NULL);
-							//trap_BotEnterChat(bs->cs, leader, CHAT_TELL);
 						}
 					}
 				}
@@ -1904,7 +1948,7 @@ void BotUpdateBattleInventory(bot_state_t *bs, int enemy) {
 	bs->inventory[ENEMY_HEIGHT] = (int)dir[2];
 	dir[2] = 0;
 	bs->inventory[ENEMY_HORIZONTAL_DIST] = (int)VectorLength(dir);
-	// FIXME: add num visible enemies and num visible team mates to the inventory
+	// FIXME: add num visible enemies and num visible teammates to the inventory
 }
 #ifdef MISSIONPACK
 #define KAMIKAZE_DIST 1024
@@ -2019,7 +2063,7 @@ void BotUseKamikaze(bot_state_t *bs) {
 		if (BotHarvesterCarryingCubes(bs)) {
 			return;
 		}
-		// never use kamikaze if a team mate carrying cubes is visible
+		// never use kamikaze if a teammate carrying cubes is visible
 		c = BotTeamCubeCarrierVisible(bs);
 
 		if (c >= 0) {
@@ -2322,7 +2366,6 @@ bot_waypoint_t *BotCreateWayPoint(char *name, vec3_t origin, int areanum) {
 	wp = botai_freewaypoints;
 
 	if (!wp) {
-		BotAI_Print(PRT_WARNING, "BotCreateWayPoint: Out of waypoints\n");
 		return NULL;
 	}
 
@@ -2735,6 +2778,7 @@ BotGoCamp
 void BotGoCamp(bot_state_t *bs, bot_goal_t *goal) {
 	float camper;
 
+	// the bot made its own decision
 	bs->decisionmaker = bs->client;
 	// set message time to zero so bot will NOT show any message
 	bs->teammessage_time = 0;
@@ -2742,9 +2786,9 @@ void BotGoCamp(bot_state_t *bs, bot_goal_t *goal) {
 	bs->ltgtype = LTG_CAMP;
 	// set the team goal
 	memcpy(&bs->teamgoal, goal, sizeof(bot_goal_t));
-	// get the team goal time
-	camper = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_CAMPER, 0, 1);
 
+	camper = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_CAMPER, 0, 1);
+	// set the team goal time
 	if (camper > 0.99) {
 		bs->teamgoal_time = FloatTime() + 99999;
 	} else {
@@ -2773,7 +2817,7 @@ int BotWantsToCamp(bot_state_t *bs) {
 	if (camper < 0.1) {
 		return qfalse;
 	}
-	// if the bot has a team goal
+	// if the bot already has a CTF or team goal
 	if (bs->ltgtype == LTG_TEAMHELP || bs->ltgtype == LTG_TEAMACCOMPANY || bs->ltgtype == LTG_DEFENDKEYAREA || bs->ltgtype == LTG_GETFLAG || bs->ltgtype == LTG_RUSHBASE || bs->ltgtype == LTG_CAMP || bs->ltgtype == LTG_CAMPORDER || bs->ltgtype == LTG_PATROL) {
 		return qfalse;
 	}
@@ -3071,7 +3115,6 @@ bot_moveresult_t BotAttackMove(bot_state_t *bs, int tfl) {
 		bs->attackstrafe_time = 0;
 	}
 	// bot couldn't do any useful movement
-	//bs->attackchase_time = AAS_Time() + 6;
 	return moveresult;
 }
 
@@ -3723,8 +3766,6 @@ void BotAimAtEnemy(bot_state_t *bs) {
 		return;
 	}
 
-	//BotAI_Print(PRT_MESSAGE, "client %d: aiming at client %d\n", bs->entitynum, bs->enemy);
-
 	aim_skill = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_AIM_SKILL, 0, 1);
 	aim_accuracy = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_AIM_ACCURACY, 0, 1);
 
@@ -3842,11 +3883,9 @@ void BotAimAtEnemy(bot_state_t *bs) {
 					origin[2] += 1;
 
 					VectorClear(cmdmove);
-					//AAS_ClearShownDebugLines();
 					// movement prediction
 					trap_AAS_PredictClientMovement(&move, bs->enemy, origin, PRESENCE_CROUCH, qfalse, dir, cmdmove, 0, dist * 10 / wi.speed, 0.1f, 0, 0, qfalse);
 					VectorCopy(move.endpos, bestorigin);
-					//BotAI_Print(PRT_MESSAGE, "%1.1f predicted speed = %f, frames = %f\n", FloatTime(), VectorLength(dir), dist * 10 / wi.speed);
 				// if not that skilled do linear prediction
 				} else if (aim_skill > 0.4) {
 					// direction towards the enemy
@@ -3858,7 +3897,6 @@ void BotAimAtEnemy(bot_state_t *bs) {
 
 					dir[2] = 0;
 					speed = VectorNormalize(dir) / entinfo.update_time;
-					//botimport.Print(PRT_MESSAGE, "speed = %f, wi->speed = %f\n", speed, wi->speed);
 					// best spot to aim at
 					VectorMA(entinfo.origin, (dist / wi.speed) * speed, dir, bestorigin);
 				}
@@ -3897,7 +3935,6 @@ void BotAimAtEnemy(bot_state_t *bs) {
 							BotAI_Trace(&trace, trace.endpos, NULL, NULL, entinfo.origin, entinfo.number, MASK_SHOT);
 
 							if (trace.fraction >= 1) {
-								//botimport.Print(PRT_MESSAGE, "%1.1f aiming at ground\n", AAS_Time());
 								VectorCopy(groundtarget, bestorigin);
 							}
 						}
@@ -4185,7 +4222,7 @@ void BotMapScripts(bot_state_t *bs) {
 			if (entinfo.origin[0] > mins[0] && entinfo.origin[0] < maxs[0]) {
 				if (entinfo.origin[1] > mins[1] && entinfo.origin[1] < maxs[1]) {
 					if (entinfo.origin[2] > mins[2] && entinfo.origin[2] < maxs[2]) {
-						// if there's a team mate below the crusher
+						// if there's a teammate below the crusher
 						if (BotSameTeam(bs, i)) {
 							shootbutton = qfalse;
 							break;
@@ -4994,12 +5031,8 @@ Before the bot ends in this part of the AI it should predict which doors to open
 =======================================================================================================================================
 */
 void BotAIBlocked(bot_state_t *bs, bot_moveresult_t *moveresult, int activate) {
-#ifdef OBSTACLEDEBUG
-	char netname[MAX_NETNAME];
-#endif
 	int movetype, bspent;
 	vec3_t hordir, sideward, angles, up = {0, 0, 1};
-	//vec3_t start, end, mins, maxs;
 	aas_entityinfo_t entinfo;
 	bot_activategoal_t activategoal;
 
@@ -5016,10 +5049,6 @@ void BotAIBlocked(bot_state_t *bs, bot_moveresult_t *moveresult, int activate) {
 	}
 	// get info for the entity that is blocking the bot
 	BotEntityInfo(moveresult->blockentity, &entinfo);
-#ifdef OBSTACLEDEBUG
-	ClientName(bs->client, netname, sizeof(netname));
-	BotAI_Print(PRT_MESSAGE, "%s: I'm blocked by model %d\n", netname, entinfo.modelindex);
-#endif // OBSTACLEDEBUG
 	// if blocked by a bsp model and the bot wants to activate it
 	if (activate && entinfo.modelindex > 0 && entinfo.modelindex <= max_bspmodelindex) {
 		// find the bsp entity which should be activated in order to get the blocking entity out of the way
@@ -5052,18 +5081,7 @@ void BotAIBlocked(bot_state_t *bs, bot_moveresult_t *moveresult, int activate) {
 		AngleVectors(angles, hordir, NULL, NULL);
 	}
 
-	//if (moveresult->flags & MOVERESULT_ONTOPOFOBSTACLE) movetype = MOVE_JUMP;
-	//else
 	movetype = MOVE_WALK;
-	// if there's an obstacle at the bot's feet and head then the bot might be able to crouch through
-	//VectorCopy(bs->origin, start);
-	//start[2] += 18;
-	//VectorMA(start, 5, hordir, end);
-	//VectorSet(mins, -16, -16, -24);
-	//VectorSet(maxs, 16, 16, 4);
-
-	//bsptrace = AAS_Trace(start, mins, maxs, end, bs->entitynum, MASK_PLAYERSOLID);
-	//if (bsptrace.fraction >= 1) movetype = MOVE_CROUCH;
 	// get the sideward vector
 	CrossProduct(hordir, up, sideward);
 	// flip the direction
@@ -5077,7 +5095,6 @@ void BotAIBlocked(bot_state_t *bs, bot_moveresult_t *moveresult, int activate) {
 			// flip the avoid direction flag
 			bs->flags ^= BFL_AVOIDRIGHT;
 			// flip the direction
-			//VectorNegate(sideward, sideward);
 			VectorMA(sideward, -1, hordir, sideward);
 			// move in the other direction
 			trap_BotMoveInDirection(bs->ms, sideward, 400, movetype);
@@ -5140,7 +5157,6 @@ int BotAIPredictObstacles(bot_state_t *bs, bot_goal_t *goal) {
 						}
 						// if not already trying to activate this entity
 						if (!BotIsGoingToActivateEntity(bs, activategoal.goal.entitynum)) {
-							//BotAI_Print(PRT_MESSAGE, "blocked by mover model %d, entity %d ?\n", modelnum, entitynum);
 							BotGoForActivateGoal(bs, &activategoal);
 							return qtrue;
 						} else {
@@ -5241,7 +5257,6 @@ void BotCheckConsoleMessages(bot_state_t *bs) {
 							trap_BotRemoveConsoleMessage(bs->cs, handle);
 							bs->stand_time = FloatTime() + BotChatTime(bs);
 							AIEnter_Stand(bs, "BotCheckConsoleMessages: reply chat");
-							//EA_Say(bs->client, bs->cs.chatmessage);
 							break;
 						}
 					}
@@ -5633,7 +5648,6 @@ bot_goal_t *BotAlternateRoute(bot_state_t *bs, bot_goal_t *goal) {
 		t = trap_AAS_AreaTravelTimeToGoalArea(bs->areanum, bs->origin, bs->altroutegoal.areanum, bs->tfl);
 
 		if (t && t < 20) {
-			//BotAI_Print(PRT_MESSAGE, "reached alternate route goal\n");
 			bs->reachedaltroutegoal_time = FloatTime();
 		}
 

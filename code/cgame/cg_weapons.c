@@ -1628,7 +1628,7 @@ void CG_FireWeapon(centity_t *cent) {
 	weap = &cg_weapons[ent->weapon];
 	// mark the entity as muzzle flashing, so when it is added it will append the flash to the weapon model
 	cent->muzzleFlashTime = cg.time;
-	// lightning gun only does this this on initial press
+	// lightning gun only does this on initial press
 	if (ent->weapon == WP_LIGHTNING) {
 		if (cent->pe.lightningFiring) {
 			return;
