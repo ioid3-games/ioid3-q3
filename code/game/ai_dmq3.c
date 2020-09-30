@@ -838,13 +838,13 @@ void BotCTFRetreatGoals(bot_state_t *bs) {
 		// if not already rushing to the base
 		if (bs->ltgtype != LTG_RUSHBASE) {
 			BotRefuseOrder(bs);
-
 			// set the ltg type
 			bs->ltgtype = LTG_RUSHBASE;
 			// set the team goal time
 			bs->teamgoal_time = FloatTime() + CTF_RUSHBASE_TIME;
 			// away from rushing to base
 			bs->rushbaseaway_time = 0;
+			// the bot made its own decision
 			bs->decisionmaker = bs->client;
 			bs->ordered = qfalse;
 			// set the team status (offense, defense etc.)
@@ -874,6 +874,7 @@ void Bot1FCTFSeekGoals(bot_state_t *bs) {
 			bs->teamgoal_time = FloatTime() + CTF_RUSHBASE_TIME;
 			// away from rushing to base
 			bs->rushbaseaway_time = 0;
+			// the bot made its own decision
 			bs->decisionmaker = bs->client;
 			bs->ordered = qfalse;
 			// get an alternative route goal towards the enemy base
@@ -1757,7 +1758,7 @@ void BotSetupForMovement(bot_state_t *bs) {
 	} else {
 		initmove.presencetype = PRESENCE_NORMAL;
 	}
-
+	// set the walk flag
 	if (bs->walker > 0.5) {
 		initmove.or_moveflags |= MFL_WALK;
 	}
@@ -3247,7 +3248,7 @@ float BotEntityVisible(int viewer, vec3_t eye, vec3_t viewangles, float fov, int
 		BotAI_Trace(&trace, start, NULL, NULL, end, passent, contents_mask);
 		// if water was hit
 		waterfactor = 1.0;
-		// note: trace.contents is always 0, see BotAI_Trace
+		// NOTE: trace.contents is always 0, see BotAI_Trace
 		if (trace.contents & (CONTENTS_LAVA|CONTENTS_SLIME|CONTENTS_WATER)) {
 			// if the water surface is translucent
 			if (1) {
@@ -4938,7 +4939,6 @@ int BotGetActivateGoal(bot_state_t *bs, int entitynum, bot_activategoal_t *activ
 		} else if (!strcmp(classname, "target_relay") || !strcmp(classname, "target_delay")) {
 			if (trap_AAS_ValueForBSPEpairKey(ent, "targetname", targetname[i + 1], sizeof(targetname[0]))) {
 				i++;
-
 				cur_entities[i] = trap_AAS_NextBSPEntity(0);
 			}
 		}
@@ -4970,7 +4970,7 @@ int BotGoForActivateGoal(bot_state_t *bs, bot_activategoal_t *activategoal) {
 
 	if (BotPushOntoActivateGoalStack(bs, activategoal)) {
 		// enter the activate entity AI node
-		AIEnter_Seek_ActivateEntity(bs, "BotGoForActivateGoal: entering activate ent");
+		AIEnter_Seek_ActivateEntity(bs, "BotGoForActivateGoal: entering activate ent.");
 		return qtrue;
 	} else {
 		// enable any routing areas that were disabled
