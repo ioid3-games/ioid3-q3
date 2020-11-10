@@ -61,7 +61,6 @@ typedef struct ipFilter_s {
 
 static ipFilter_t ipFilters[MAX_IPFILTERS];
 static int numIPFilters;
-
 /*
 =======================================================================================================================================
 StringToFilter
@@ -456,7 +455,6 @@ void Svcmd_ForceTeam_f(void) {
 }
 
 char *ConcatArgs(int start);
-
 /*
 =======================================================================================================================================
 ConsoleCommand

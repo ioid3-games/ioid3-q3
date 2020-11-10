@@ -41,6 +41,7 @@ static void CG_DrawLoadingIcons(void) {
 	for (n = 0; n < loadingPlayerIconCount; n++) {
 		x = 16 + n * 78;
 		y = 324 - 40;
+
 		CG_DrawPic(x, y, 64, 64, loadingPlayerIcons[n]);
 	}
 
@@ -52,6 +53,7 @@ static void CG_DrawLoadingIcons(void) {
 		}
 
 		x = 16 + n % 13 * 48;
+
 		CG_DrawPic(x, y, 32, 32, loadingItemIcons[n]);
 	}
 }

@@ -2556,6 +2556,7 @@ void CG_Player(centity_t *cent) {
 		powerup.customSkin = 0;
 		// always draw
 		powerup.renderfx &= ~RF_THIRD_PERSON;
+
 		VectorCopy(cent->lerpOrigin, powerup.origin);
 
 		if (cg.time - ci->invulnerabilityStartTime < 250) {
@@ -2583,9 +2584,11 @@ void CG_Player(centity_t *cent) {
 		powerup.customSkin = 0;
 		// always draw
 		powerup.renderfx &= ~RF_THIRD_PERSON;
+
 		VectorClear(angles);
 		AnglesToAxis(angles, powerup.axis);
 		VectorCopy(cent->lerpOrigin, powerup.origin);
+
 		powerup.origin[2] += -24 + (float)t * 80 / 500;
 
 		if (t > 400) {

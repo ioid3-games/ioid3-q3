@@ -48,7 +48,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 US
 #define CTF_GRAPPLE_SPEED 750 // speed of grapple in flight
 #define CTF_GRAPPLE_PULL_SPEED 750 // speed player is pulled at
 #define OVERLOAD_ATTACK_BASE_SOUND_TIME 20000
-// Prototypes
+// prototypes
 int OtherTeam(int team);
 const char *TeamName(int team);
 const char *TeamColorString(int team);
