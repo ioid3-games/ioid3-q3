@@ -1237,7 +1237,7 @@ static void NET_AddLocalAddress(char *ifname, struct sockaddr *addr, struct sock
 	int addrlen;
 	sa_family_t family;
 
-	// only add addresses that have all required info.
+	// only add addresses that have all required info
 	if (!addr || !netmask || !ifname) {
 		return;
 	}

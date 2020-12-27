@@ -39,6 +39,7 @@ static void CG_MachineGunEjectBrass(centity_t *cent) {
 	}
 
 	le = CG_AllocLocalEntity();
+
 	re = &le->refEntity;
 
 	velocity[0] = 0;
